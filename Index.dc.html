@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #ffffff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: inherit; }
+  @media (max-width: 900px) { .hdr-right { display: none !important; } }
+  .irow:hover, .irow:hover span { text-decoration: underline; text-underline-offset: 3px; }
+  .filt:hover, .filt:hover span { text-decoration: underline; text-underline-offset: 4px; }
+</style>
+</helmet>
+<div style="{{ rootStyle }}">
+  <div style="width: 100%; max-width: 1880px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
+
+    <header style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: nowrap;">
+      <div style="display: flex; flex-direction: row; align-items: center; gap: 40px; flex-wrap: nowrap; min-width: 0; flex: 1;">
+        <a href="Home.dc.html" style="font-size: clamp(13px, 1.25vw, 24px); font-weight: 400; line-height: 1.4; white-space: nowrap; color: var(--ink, #000);">Guillaume Helleu</a>
+        <nav style="display: flex; flex-direction: row; align-items: center; gap: 28px; flex-wrap: nowrap; min-width: 0;">
+          <sc-for list="{{ navItems }}" as="nav" hint-placeholder-count="5">
+            <a href="{{ nav.href }}" style="{{ nav.style }}" style-hover="{{ inkHover }}">{{ nav.label }}</a>
+          </sc-for>
+        </nav>
+      </div>
+      <div class="hdr-right" style="display: flex; flex-direction: row; align-items: center; gap: 28px; flex-wrap: nowrap;">
+        <button onClick="{{ toggleLang }}" style="{{ ctrlStyle }}" style-hover="{{ inkHover }}">{{ langLabel }}</button>
+        <button onClick="{{ toggleTheme }}" style="{{ ctrlStyle }}" style-hover="{{ inkHover }}">{{ themeLabel }}</button>
+        <span style="font-size: clamp(13px, 1.25vw, 24px); font-weight: 400; line-height: 1.4; white-space: nowrap; color: var(--muted, #787878);">CC0 2016 — 2026</span>
+      </div>
+    </header>
+
+    <h1 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: clamp(64px, 9.375vw, 180px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink, #000);">{{ pageTitle }}</h1>
+
+    <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+      <div style="flex: 1419; min-width: 320px; display: flex; flex-direction: column; gap: 20px;">
+
+        <div style="display: flex; flex-direction: column; gap: 12px; padding-bottom: 20px;">
+          <div style="display: flex; flex-direction: row; align-items: baseline; gap: 40px; flex-wrap: wrap;">
+            <sc-for list="{{ champChips }}" as="c" hint-placeholder-count="4">
+              <span class="filt" onClick="{{ c.onClick }}" style="{{ c.style }}" style-hover="{{ inkHover }}">{{ c.label }} <span style="color: var(--muted, #787878);">{{ c.count }}</span></span>
+            </sc-for>
+          </div>
+          <sc-if value="{{ hasTypeRow }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: row; align-items: baseline; gap: 32px; flex-wrap: wrap;">
+              <sc-for list="{{ typeChips }}" as="t" hint-placeholder-count="3">
+                <span class="filt" onClick="{{ t.onClick }}" style="{{ t.style }}" style-hover="{{ inkHover }}">{{ t.label }} <span style="color: var(--muted, #787878);">{{ t.count }}</span></span>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="display: flex; flex-direction: row; align-items: flex-start; gap: 40px; font-size: 24px; color: var(--muted, #787878);">
+          <span style="flex: 0 0 180px;">{{ colType }}</span>
+          <span style="flex: 1; min-width: 0;">{{ colTitle }}</span>
+          <span style="flex: 0 0 120px;">{{ colDate }}</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <sc-for list="{{ rows }}" as="r" hint-placeholder-count="16">
+            <div>
+              <div class="{{ r.rowClass }}" onClick="{{ r.onClick }}" onMouseEnter="{{ r.onHover }}" onMouseLeave="{{ r.onUnhover }}" style="display: flex; flex-direction: row; align-items: flex-start; gap: 40px; font-size: 24px; line-height: 1.4; color: {{ r.color }}; cursor: {{ r.cursor }};">
+                <span style="flex: 0 0 180px; max-width: 150px">{{ r.type }}</span>
+                <span style="flex: 1; min-width: 0; overflow-wrap: break-word;">{{ r.title }}</span>
+                <span style="flex: 0 0 120px; white-space: nowrap; min-width: 140px">{{ r.date }}</span>
+              </div>
+              <sc-if value="{{ r.open }}" hint-placeholder-val="{{ false }}">
+                <div style="padding: 12px 0 24px 0; max-width: 1100px; display: flex; flex-direction: column; gap: 12px;">
+                  <sc-if value="{{ r.metaLine }}" hint-placeholder-val="">
+                    <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878);">{{ r.metaLine }}</div>
+                  </sc-if>
+                  <sc-if value="{{ r.desc }}" hint-placeholder-val="">
+                    <div style="font-size: 18px; line-height: 1.5; color: var(--ink, #000); white-space: pre-line;">{{ r.desc }}</div>
+                  </sc-if>
+                  <sc-if value="{{ r.hasLinks }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin-top: 4px;">
+                      <sc-if value="{{ r.link1url }}" hint-placeholder-val="">
+                        <a href="{{ r.link1url }}" target="_blank" style="font-size: 16px; color: var(--ink, #000); text-decoration: underline; text-underline-offset: 3px;" style-hover="{{ inkHover }}">{{ r.link1 }} →</a>
+                      </sc-if>
+                      <sc-if value="{{ r.link2url }}" hint-placeholder-val="">
+                        <a href="{{ r.link2url }}" target="_blank" style="font-size: 16px; color: var(--ink, #000); text-decoration: underline; text-underline-offset: 3px;" style-hover="{{ inkHover }}">{{ r.link2 }} →</a>
+                      </sc-if>
+                      <sc-if value="{{ r.link3url }}" hint-placeholder-val="">
+                        <a href="{{ r.link3url }}" target="_blank" style="font-size: 16px; color: var(--ink, #000); text-decoration: underline; text-underline-offset: 3px;" style-hover="{{ inkHover }}">{{ r.link3 }} →</a>
+                      </sc-if>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+
+      </div>
+      <div style="flex: 441; min-width: 220px; position: sticky; top: 20px; align-self: flex-start; aspect-ratio: 441 / 497; overflow: hidden; background: var(--preview, #e6e5e2);">
+        <image-slot id="index-image-1" shape="rect" placeholder=" " src="{{ heroImg }}"></image-slot>
+      </div>
+    </div>
+
+    <footer style="padding: 40px 0 0; display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap;">
+      <div style="display: flex; flex-direction: column; align-items: flex-start;">
+        <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #000);">Guillaume Helleu</span>
+        <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #000); opacity: 0.5;">{{ tagline }}</span>
+      </div>
+      <div style="width: 323px; max-width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
+        <a href="mailto:guillaumehelleu.pro@gmail.com" style="width: 100%; font-size: 16px; line-height: 1.4; text-align: right; color: var(--ink, #000); text-decoration: underline;">guillaumehelleu.pro@gmail.com</a>
+        <span style="width: 100%; font-size: 16px; line-height: 1.4; text-align: right; color: var(--ink, #000);">+41 78 308 59 56</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { lang: 'fr', theme: 'light', champ: 'all', type: '', rows: [], open: null, hoverImg: '' };
+
+  componentDidMount() {
+    try {
+      const lang = localStorage.getItem('gh-lang');
+      const theme = localStorage.getItem('gh-theme');
+      const patch = {};
+      if (lang === 'fr' || lang === 'en') patch.lang = lang;
+      if (theme === 'light' || theme === 'dark') patch.theme = theme;
+      if (Object.keys(patch).length) this.setState(patch);
+    } catch (e) {}
+    import('./image-slot.js').catch(() => {});
+    fetch('data/activities.json').then(r => r.json()).then(rows => this.setState({ rows })).catch(() => {});
+  }
+
+  setLang(v) { try { localStorage.setItem('gh-lang', v); } catch (e) {} this.setState({ lang: v }); }
+  setTheme(v) { try { localStorage.setItem('gh-theme', v); } catch (e) {} this.setState({ theme: v }); }
+  get isFr() { return this.state.lang !== 'en'; }
+
+  get pal() {
+    return this.state.theme === 'dark'
+      ? { bg: '#0e0e10', ink: '#f2f0ea', muted: '#7d7b75', preview: '#1c1c1f' }
+      : { bg: '#ffffff', ink: '#000000', muted: '#787878', preview: '#e6e5e2' };
+  }
+
+  get champDefs() {
+    return [
+      { key: 'all', fr: 'Tout', en: 'All' },
+      { key: 'recherche', fr: 'Recherche', en: 'Research' },
+      { key: 'pedagogie', fr: 'Pédagogie', en: 'Pedagogy' },
+      { key: 'pratique', fr: 'Pratique', en: 'Practice' }
+    ];
+  }
+  get typeDefs() {
+    return {
+      recherche: [
+        { key: 'press', fr: 'Presse', en: 'Press' },
+        { key: 'publication', fr: 'Publication', en: 'Publication' },
+        { key: 'project', fr: 'Projet', en: 'Project' }
+      ],
+      pedagogie: [
+        { key: 'talk', fr: 'Conférence', en: 'Talk' },
+        { key: 'workshop', fr: 'Workshop', en: 'Workshop' },
+        { key: 'teaching', fr: 'Cours', en: 'Teaching' }
+      ],
+      pratique: [
+        { key: 'event', fr: 'Événementiel', en: 'Events' },
+        { key: 'interior', fr: 'Intérieur', en: 'Interior' },
+        { key: 'experiential', fr: 'Expérientiel', en: 'Experiential' },
+        { key: 'digital', fr: 'Digital', en: 'Digital' },
+        { key: 'architecture', fr: 'Architecture', en: 'Architecture' },
+        { key: 'urbanism', fr: 'Urbanisme', en: 'Urbanism' },
+        { key: 'landscape', fr: 'Paysage', en: 'Landscape' }
+      ]
+    };
+  }
+  lbl(o) { return this.isFr ? o.fr : o.en; }
+
+  selectChamp(key) {
+    this.setState({ champ: key, type: '', open: null });
+  }
+  selectType(key) {
+    this.setState(s => ({ type: s.type === key ? '' : key, open: null }));
+  }
+
+  filteredRows() {
+    const { champ, type } = this.state;
+    return this.state.rows.filter(r => {
+      if (champ !== 'all' && r.champ !== champ) return false;
+      if (type && r.key !== type) return false;
+      return true;
+    });
+  }
+
+  buildNav() {
+    const p = this.pal, active = 0;
+    const items = this.isFr
+      ? [['Index', 'Index.dc.html'], ['Recherche', 'Recherche.dc.html'], ['Pédagogie', 'Pedagogie.dc.html'], ['Pratique', 'Pratique.dc.html'], ['À propos', 'About.dc.html']]
+      : [['Index', 'Index.dc.html'], ['Research', 'Recherche.dc.html'], ['Pedagogy', 'Pedagogie.dc.html'], ['Practice', 'Pratique.dc.html'], ['About', 'About.dc.html']];
+    return items.map(([label, href], i) => ({
+      label, href,
+      style: { fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, whiteSpace: 'nowrap', color: p.ink, textDecoration: i === active ? 'underline' : 'none', textUnderlineOffset: '4px' }
+    }));
+  }
+
+  buildChampChips() {
+    const p = this.pal, rows = this.state.rows, cur = this.state.champ;
+    return this.champDefs.map(c => ({
+      label: this.lbl(c),
+      count: String(c.key === 'all' ? rows.length : rows.filter(r => r.champ === c.key).length),
+      onClick: () => this.selectChamp(c.key),
+      style: {
+        fontSize: '20px', textTransform: 'uppercase', fontWeight: 400, letterSpacing: '0.01em',
+        color: p.ink, whiteSpace: 'nowrap', cursor: 'pointer',
+        textDecoration: cur === c.key ? 'underline' : 'none', textUnderlineOffset: '4px'
+      }
+    }));
+  }
+
+  buildTypeChips() {
+    const p = this.pal, champ = this.state.champ, cur = this.state.type;
+    if (champ === 'all') return [];
+    const defs = this.typeDefs[champ] || [];
+    const inChamp = this.state.rows.filter(r => r.champ === champ);
+    return defs.map(t => ({
+      label: this.lbl(t),
+      count: String(inChamp.filter(r => r.key === t.key).length),
+      onClick: () => this.selectType(t.key),
+      style: {
+        fontSize: '16px', textTransform: 'uppercase', fontWeight: 400, letterSpacing: '0.02em',
+        color: cur === t.key ? p.ink : p.muted, whiteSpace: 'nowrap', cursor: 'pointer',
+        textDecoration: cur === t.key ? 'underline' : 'none', textUnderlineOffset: '4px'
+      }
+    }));
+  }
+
+  linkUrlAt(r, i) { return (r.links && r.links[i]) ? r.links[i].url : ''; }
+  linkLabelAt(r, i) {
+    if (!(r.links && r.links[i])) return '';
+    const lk = r.links[i];
+    let base = this.isFr ? lk.fr : lk.en;
+    const same = r.links.filter(x => x.fr === lk.fr).length;
+    if (same > 1) {
+      let n = 0;
+      for (let j = 0; j <= i; j++) if (r.links[j].fr === lk.fr) n++;
+      base += ' ' + n;
+    }
+    return base;
+  }
+  metaLine(r) {
+    const parts = [];
+    if (r.structure) parts.push(r.structure);
+    if (r.lieu) parts.push(r.lieu);
+    if (r.format) parts.push(r.format);
+    return parts.join(' · ');
+  }
+
+  buildRows() {
+    const p = this.pal;
+    const list = this.filteredRows();
+    return list.map((r, i) => {
+      const canExpand = r.detail && !(r.subpage && r.href);
+      const canLink = r.subpage && r.href;
+      const clickable = canExpand || canLink;
+      return {
+        type: this.isFr ? r.typeFr : r.typeEn,
+        title: r.title,
+        date: r.date,
+        color: clickable ? p.ink : p.muted,
+        cursor: clickable ? 'pointer' : 'default',
+        rowClass: clickable ? 'irow' : '',
+        open: canExpand && this.state.open === i,
+        metaLine: this.metaLine(r),
+        desc: r.desc || '',
+        hasLinks: !!(r.links && r.links.length),
+        link1: this.linkLabelAt(r, 0), link1url: this.linkUrlAt(r, 0),
+        link2: this.linkLabelAt(r, 1), link2url: this.linkUrlAt(r, 1),
+        link3: this.linkLabelAt(r, 2), link3url: this.linkUrlAt(r, 2),
+        onClick: canLink ? () => { window.location.href = r.href; }
+               : canExpand ? () => this.setState(s => ({ open: s.open === i ? null : i }))
+               : undefined,
+        onHover: r.image ? () => this.setState({ hoverImg: r.image }) : undefined,
+        onUnhover: r.image ? () => this.setState({ hoverImg: '' }) : undefined
+      };
+    });
+  }
+
+  renderVals() {
+    const p = this.pal;
+    return {
+      rootStyle: {
+        minHeight: '100vh', background: p.bg, color: p.ink, fontFamily: "'Inter', sans-serif",
+        padding: '20px', transition: 'background 0.35s ease, color 0.35s ease',
+        '--ink': p.ink, '--muted': p.muted, '--preview': p.preview
+      },
+      pageTitle: 'Index',
+      tagline: 'Digital Research, Technological Pedagogy and Creative Practice.',
+      navItems: this.buildNav(),
+      champChips: this.buildChampChips(),
+      typeChips: this.buildTypeChips(),
+      hasTypeRow: this.state.champ !== 'all',
+      rows: this.buildRows(),
+      heroImg: this.state.hoverImg || 'assets/ph-10.jpg',
+      colType: 'TYPE',
+      colTitle: this.isFr ? 'TITRE' : 'TITLE',
+      colDate: 'DATE',
+      inkHover: { color: p.muted },
+      ctrlStyle: { fontFamily: "'Inter', sans-serif", fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', color: p.ink, whiteSpace: 'nowrap' },
+      toggleLang: () => this.setLang(this.isFr ? 'en' : 'fr'),
+      toggleTheme: () => this.setTheme(this.state.theme === 'light' ? 'dark' : 'light'),
+      langLabel: this.isFr ? 'English' : 'Français',
+      themeLabel: this.state.theme === 'light' ? 'Dark' : 'Light'
+    };
+  }
+}
+</script>
+</body>
+</html>

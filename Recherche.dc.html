@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #ffffff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: inherit; }
+  @media (max-width: 900px) { .hdr-right { display: none !important; } }
+</style>
+</helmet>
+<div style="{{ rootStyle }}">
+  <div style="width: 100%; max-width: 1880px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
+
+    <header style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: nowrap;">
+      <div style="display: flex; flex-direction: row; align-items: center; gap: 40px; flex-wrap: nowrap; min-width: 0; flex: 1;">
+        <a href="Home.dc.html" style="font-size: clamp(13px, 1.25vw, 24px); font-weight: 400; line-height: 1.4; white-space: nowrap; color: var(--ink, #000);">Guillaume Helleu</a>
+        <nav style="display: flex; flex-direction: row; align-items: center; gap: 28px; flex-wrap: nowrap; min-width: 0;">
+          <sc-for list="{{ navItems }}" as="nav" hint-placeholder-count="6">
+            <a href="{{ nav.href }}" style="{{ nav.style }}" style-hover="{{ inkHover }}">{{ nav.label }}</a>
+          </sc-for>
+        </nav>
+      </div>
+      <div class="hdr-right" style="display: flex; flex-direction: row; align-items: center; gap: 28px; flex-wrap: nowrap;">
+        <button onClick="{{ toggleLang }}" style="{{ ctrlStyle }}" style-hover="{{ inkHover }}">{{ langLabel }}</button>
+        <button onClick="{{ toggleTheme }}" style="{{ ctrlStyle }}" style-hover="{{ inkHover }}">{{ themeLabel }}</button>
+        <span style="font-size: clamp(13px, 1.25vw, 24px); font-weight: 400; line-height: 1.4; white-space: nowrap; color: var(--muted, #787878);">CC0 2016 — 2026</span>
+      </div>
+    </header>
+
+    <div style="display: flex; flex-direction: column; padding-bottom: 40px; max-width: 1379px;">
+      <h1 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: clamp(64px, 9.375vw, 180px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink, #000);">{{ heading }}</h1>
+      <p style="margin: 4px 0 0; max-width: none; width: 100%; font-family: 'Source Serif 4', Georgia, serif; font-weight: 400; font-size: clamp(28px, 3.125vw, 60px); line-height: 1.2; color: var(--ink, #000);">{{ lede }}</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 40px;">
+      <sc-for list="{{ items }}" as="it" hint-placeholder-count="3">
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; align-items: stretch;">
+          <div style="grid-column: 1 / span 2; min-width: 0; display: flex; flex-direction: column;">
+            <sc-if value="{{ it.metaTop }}" hint-placeholder-val="{{ true }}">
+              <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878); margin: 0 0 10px;">{{ it.metaTop }}</div>
+            </sc-if>
+            <a href="{{ it.href }}" style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: clamp(34px, 3.125vw, 60px); line-height: 1.1; color: var(--ink, #000);" style-hover="{{ inkHover }}">{{ it.title }}</a>
+            <p style="margin: 20px 0 0; font-size: clamp(18px, 1.25vw, 24px); line-height: 1.4; color: var(--ink, #000);">{{ it.body }}</p>
+            <a href="{{ it.href }}" style="align-self: flex-end; margin-top: 24px; font-size: 14px; line-height: 1.4; color: var(--ink, #000); text-decoration: underline; text-underline-offset: 3px;" style-hover="{{ inkHover }}">{{ it.link }}</a>
+          </div>
+          <div style="grid-column: 4; align-self: stretch; min-height: 260px; overflow: hidden; background: var(--preview, #e6e5e2);">
+            <image-slot id="{{ it.id }}" shape="rect" placeholder=" " src="{{ it.img }}"></image-slot>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <footer style="padding: 40px 0 0; display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap;">
+      <div style="display: flex; flex-direction: column; align-items: flex-start;">
+        <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #000);">Guillaume Helleu</span>
+        <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #000); opacity: 0.5;">Digital Research, Technological Pedagogy and Creative Practice.</span>
+      </div>
+      <div style="width: 323px; max-width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
+        <a href="mailto:guillaumehelleu.pro@gmail.com" style="width: 100%; font-size: 16px; line-height: 1.4; text-align: right; color: var(--ink, #000); text-decoration: underline;">guillaumehelleu.pro@gmail.com</a>
+        <span style="width: 100%; font-size: 16px; line-height: 1.4; text-align: right; color: var(--ink, #000);">+41 78 308 59 56</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { lang: 'fr', theme: 'light' };
+  componentDidMount() {
+    try {
+      const lang = localStorage.getItem('gh-lang');
+      const theme = localStorage.getItem('gh-theme');
+      const patch = {};
+      if (lang === 'fr' || lang === 'en') patch.lang = lang;
+      if (theme === 'light' || theme === 'dark') patch.theme = theme;
+      if (Object.keys(patch).length) this.setState(patch);
+    } catch (e) {}
+    import('./image-slot.js').catch(() => {});
+  }
+  setLang(v) { try { localStorage.setItem('gh-lang', v); } catch (e) {} this.setState({ lang: v }); }
+  setTheme(v) { try { localStorage.setItem('gh-theme', v); } catch (e) {} this.setState({ theme: v }); }
+  get isFr() { return this.state.lang !== 'en'; }
+  get pal() {
+    return this.state.theme === 'dark'
+      ? { bg: '#0e0e10', ink: '#f2f0ea', muted: '#7d7b75', preview: '#1c1c1f' }
+      : { bg: '#ffffff', ink: '#000000', muted: '#787878', preview: '#e6e5e2' };
+  }
+  buildNav() {
+    const p = this.pal, active = 1;
+    const items = this.isFr
+      ? [['Index', 'Index.dc.html'], ['Recherche', 'Recherche.dc.html'], ['Pedagogie', 'Pedagogie.dc.html'], ['Pratique', 'Pratique.dc.html'], ['À propos', 'About.dc.html']]
+      : [['Index', 'Index.dc.html'], ['Research', 'Recherche.dc.html'], ['Pedagogy', 'Pedagogie.dc.html'], ['Practice', 'Pratique.dc.html'], ['About', 'About.dc.html']];
+    return items.map(([label, href], i) => ({
+      label, href,
+      style: { fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, whiteSpace: 'nowrap', color: p.ink, textDecoration: i === active ? 'underline' : 'none', textUnderlineOffset: '4px' }
+    }));
+  }
+  buildItems() {
+    if (this.isFr) return [
+      { id: 'rech-icono', img: 'assets/foodporn-thumb.png', metaTop: 'Numéro #08 · 2026', title: 'From Foodporn to Iconophagy', href: 'Recherche-Iconophagy.dc.html', link: 'Lire l\u2019article →', body: 'In a dark room, Francis Dolarhyde stands before a table lit by a subdued glow. Upon it rests the framed watercolor of William Blake\u2019s Great Red Dragon, its wings spread in terrible majesty. With an almost ceremonious slowness, he detaches the fragile paper from its frame, brings it to his lips, and with calculated deliberation, tears a corner away with his teeth. The boundary between subject and object collapses entirely.' },
+      { id: 'rech-als', img: 'assets/ph-07.jpg', metaTop: 'Numéro #01 · Juin 2025', title: 'Architectural Latent Style', href: 'Recherche-ALS.dc.html', link: 'Lire l\u2019article →', body: 'Ce texte explore les transformations du concept de style architectural à l\u2019ère des intelligences artificielles génératives. En mobilisant la notion d\u2019espace latent, il montre que les styles ne se présentent plus comme des entités historiques fixes ou des catégories homogènes, mais comme des régions dynamiques au sein d\u2019un champ relationnel.' },
+      { id: 'rech-sing', metaTop: 'Article · Novembre 2021', title: 'Singulariser le multiple', href: 'Recherche-Singulariser.dc.html', link: 'Lire l\u2019article →', body: 'Cet article explore les enjeux des technologies blockchain dans le champ de la création — art, design, jeu vidéo — à travers le développement, depuis 2015, des « Non Fungible Tokens » (NFT) : la production d\u2019un certificat numérique infalsifiable et décentralisé attaché à une entité numérique ou tangible.' },
+      { id: 'rech-tr', metaTop: 'Article · Multitudes n°71 · Mai 2018', title: 'Total Record', href: 'Recherche-TotalRecord.dc.html', link: 'Lire l\u2019article →', body: 'Le protocole Bitcoin (2009) s\u2019inscrit dans le prolongement des utopies crypto-anarchistes visant une monnaie numérique sécurisée et distribuée pour échapper à la centralisation du pouvoir par les banques et les gouvernements. Récupérées par la finance spéculative, ces technologies dépassent désormais le champ monétaire : les protocoles blockchain pourraient-ils prendre de vitesse la logique destructrice du capitalisme financier ?' }
+    ];
+    return [
+      { id: 'rech-icono', img: 'assets/foodporn-thumb.png', metaTop: 'Issue #08 · 2026', title: 'From Foodporn to Iconophagy', href: 'Recherche-Iconophagy.dc.html', link: 'Read the article →', body: 'In a dark room, Francis Dolarhyde stands before a table lit by a subdued glow. Upon it rests the framed watercolor of William Blake\u2019s Great Red Dragon, its wings spread in terrible majesty. With an almost ceremonious slowness, he detaches the fragile paper from its frame, brings it to his lips, and with calculated deliberation, tears a corner away with his teeth. The boundary between subject and object collapses entirely.' },
+      { id: 'rech-als', img: 'assets/ph-07.jpg', metaTop: 'Issue #01 · June 2025', title: 'Architectural Latent Style', href: 'Recherche-ALS.dc.html', link: 'Read the article →', body: 'This text explores how the concept of architectural style is transformed in the age of generative AI. Drawing on the notion of latent space, it shows that styles no longer appear as fixed historical entities or homogeneous categories, but as dynamic regions within a relational field.' },
+      { id: 'rech-sing', img: 'assets/ph-06.jpg', metaTop: 'Article · November 2021', title: 'Singulariser le multiple', href: 'Recherche-Singulariser.dc.html', link: 'Read the article →', body: 'This article examines the stakes of blockchain technologies in the field of creation — art, design, video games — through the development, since 2015, of “Non-Fungible Tokens” (NFTs): the production of a tamper-proof, decentralized digital certificate attached to a digital or tangible entity.' },
+      { id: 'rech-tr', img: 'assets/ph-05.png', metaTop: 'Article · Multitudes no. 71 · May 2018', title: 'Total Record', href: 'Recherche-TotalRecord.dc.html', link: 'Read the article →', body: 'The Bitcoin protocol (2009) extends the crypto-anarchist utopias aiming for a secure, distributed digital currency to escape the centralization of power by banks and governments. Co-opted by speculative finance, these technologies now reach beyond the monetary field: could blockchain protocols outpace the destructive logic of financial capitalism?' }
+    ];
+  }
+  renderVals() {
+    const p = this.pal;
+    return {
+      rootStyle: {
+        minHeight: '100vh', background: p.bg, color: p.ink, fontFamily: "'Inter', sans-serif",
+        padding: '20px', transition: 'background 0.35s ease, color 0.35s ease',
+        '--ink': p.ink, '--muted': p.muted, '--preview': p.preview
+      },
+      navItems: this.buildNav(),
+      heading: this.isFr ? 'Recherche' : 'Research',
+      lede: this.isFr
+        ? 'Des écrits à la croisée de l\u2019expérimentation visuelle, de l\u2019analyse critique et de la production éditoriale — sur l\u2019IA générative, la blockchain et les mutations de la pratique créative.'
+        : 'Writings at the crossroads of visual experimentation, critical analysis and editorial production — on generative AI, blockchain and the mutations of creative practice.',
+      items: this.buildItems(),
+      inkHover: { color: p.muted },
+      ctrlStyle: { fontFamily: "'Inter', sans-serif", fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', color: p.ink, whiteSpace: 'nowrap' },
+      toggleLang: () => this.setLang(this.isFr ? 'en' : 'fr'),
+      toggleTheme: () => this.setTheme(this.state.theme === 'light' ? 'dark' : 'light'),
+      langLabel: this.isFr ? 'English' : 'Français',
+      themeLabel: this.state.theme === 'light' ? 'Dark' : 'Light'
+    };
+  }
+}
+</script>
+</body>
+</html>

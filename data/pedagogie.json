@@ -1,0 +1,743 @@
+[
+ {
+  "id": "proof-of-punk",
+  "type": "Cours HEAD",
+  "date": "Printemps 2023 · Automne 2023 · Automne 2024 · Automne 2025",
+  "title": "Proof-of-Punk",
+  "subtitle": "Cours transversal théorique de Bachelor — HEAD – Genève",
+  "credit": "",
+  "abstract": "Ces dernières années furent marquées par l’émergence de trois paradigmes technologiques : l’immersion, le Web3 et l’intelligence artificielle. Renforcée par la popularité des jeux vidéo et des médias sociaux, leur rencontre ouvre la voie vers une hybridation entre monde physique et virtuel, où artistes et designers doivent désormais composer avec l’artificiel.",
+  "blocks": [
+   {
+    "kind": "h",
+    "html": "Descriptif et objectifs"
+   },
+   {
+    "kind": "p",
+    "html": "Ces dernières années furent marquées par l’émergence de trois paradigmes technologiques : l’immersion, le Web3 et l’intelligence artificielle. Renforcée par la popularité des jeux vidéo et des média sociaux, leur rencontre ouvre la voie vers une hybridation entre monde physique et virtuel où artistes et designers doivent désormais composer avec l’artificiel."
+   },
+   {
+    "kind": "p",
+    "html": "Ce cours explore cette dynamique, en mettant l’accent sur les problématiques suivantes :"
+   },
+   {
+    "kind": "q",
+    "html": "Quelles pratiques exclusivement numériques de la création deviennent possibles ? Comment agir face aux IA ? Quels nouveaux modèles économiques et chaînes de valeurs adviendront ?"
+   },
+   {
+    "kind": "p",
+    "html": "<b>Objectifs :</b>"
+   },
+   {
+    "kind": "ul",
+    "items": [
+     "Offrir une meilleure compréhension de ces technologies",
+     "Permettre aux étudiants de naviguer et anticiper les tendances technologiques futures",
+     "Anticiper les changements profonds impactant leurs futures professions",
+     "Découvrir les nouvelles opportunités dans les domaines de l’art et du design"
+    ]
+   },
+   {
+    "kind": "h",
+    "html": "Contenu et formes d’enseignement"
+   },
+   {
+    "kind": "p",
+    "html": "Ce cours couvre un large éventail de sujets émergents tels que l’histoire des IA, le métavers, la contre-culture hippie, le crypto-gaming, etc., à travers quatre grands chapitres thématiques :"
+   },
+   {
+    "kind": "ol",
+    "items": [
+     "Intelligences artificielles",
+     "Cyberespace &amp; Web3",
+     "Gaming &amp; Métavers",
+     "Dystopie &amp; Réseaux sociaux"
+    ]
+   },
+   {
+    "kind": "p",
+    "html": "L’usage de ChatGPT est fortement encouragé — l’évaluation ayant été pensée en cohérence."
+   },
+   {
+    "kind": "h",
+    "html": "Modalités d’évaluation"
+   },
+   {
+    "kind": "p",
+    "html": "Le rendu se compose :"
+   },
+   {
+    "kind": "ul",
+    "items": [
+     "d’un court texte (une page A4) autour des défis posés par l’émergence des nouvelles technologies abordées au cours du semestre, dont la forme est totalement libre (essai, article, thread, nouvelle, manifeste, etc.). Le texte doit être parfaitement rédigé.",
+     "d’une présentation orale du travail des étudiants lors de la dernière séance."
+    ]
+   },
+   {
+    "kind": "h",
+    "html": "Exigences de participation"
+   },
+   {
+    "kind": "p",
+    "html": "Présence sur site requise. L’assiduité et la participation aux enseignements font partie des éléments évalués. Une absence à au moins 10% du cours (1 session) entraîne un travail supplémentaire. Une absence à au moins 30% du cours (3 sessions) entraîne un échec et une note de 1/6."
+   },
+   {
+    "kind": "h",
+    "html": "Supports de cours"
+   },
+   {
+    "kind": "links",
+    "items": [
+     "Séance inaugurale · 1.1 Présentation du syllabus — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=9272%3A558&amp;node-id=9272-724&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Séance inaugurale · 1.2 Vers un monde hybridé — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A2103&amp;node-id=3610-36283&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "HAL 9000 · 2.1 Histoire des IA — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A2104&amp;node-id=3606-30931&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "HAL 9000 · 2.2 Fonctionnement du Deep Learning — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A181354&amp;node-id=6240-8360&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Dark Futur · 3.1 Challenges sociétaux des IA — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A181353&amp;node-id=3668-4116&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Dark Futur · 3.2 L’ère de la Post-vérité — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=6240%3A3763&amp;node-id=6561-10562&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Dark Futur · 3.3 AI everywhere — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A2105&amp;node-id=6356-18378&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "No Prompt · 4.1 Creative AI — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=6240%3A2970&amp;node-id=6356-18358&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "No Prompt · 4.2 AI Pedagogy — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=6614%3A2092&amp;node-id=9443-10646&amp;scaling=min-zoom&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Cyberspace · 5.1 Histoire du Web — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A181355&amp;node-id=3904-22622&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Cyberspace · 5.2 Censure et culture libre — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A14821&amp;node-id=3949-13914&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Cyberpunk · 6.1 L’avènement des Cypherpunk — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A181356&amp;node-id=6658-2980&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Cyberpunk · 6.2 Origine de la blockchain — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A14822&amp;node-id=6681-2651&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Cyberpunk · 6.3 Cryptokit — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=6718%3A3284&amp;node-id=6718-6903&amp;scaling=min-zoom&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Cryptoart · 7.1 Du cryptoart aux NFT — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=6696%3A4151&amp;node-id=6777-11015&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Cryptoart · 7.2 Regard croisé sur le multiple — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=6790%3A27197&amp;node-id=9556-17483&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Game Over · 8.1 Histoire des jeux vidéo — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A14825&amp;node-id=9601-14257&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Game Over · 8.2 Économie des jeux vidéo — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A181359&amp;node-id=4306-32215&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Game Over · 8.3 Play-to-Earn — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=4417%3A17856&amp;node-id=4417-18024&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Beyond Reality · 9.1 Métavers : nouveaux terrains de jeu — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A14826&amp;node-id=4379-6227&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Beyond Reality · 9.2 Vers une réalité étendue — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A181360&amp;node-id=4379-6342&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Dystopia · 10.1 A Brave New World — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A14827&amp;node-id=4424-826&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Dystopia · 10.2 Black Mirror IRL — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A181361&amp;node-id=4467-2447&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>",
+     "Selfie Story · 11.1 L’ère des médias sociaux — <a href=\"https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A14828&amp;node-id=6958-3751&amp;scaling=min-zoom&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>"
+    ]
+   },
+   {
+    "kind": "h",
+    "html": "Rendus étudiants"
+   },
+   {
+    "kind": "links",
+    "items": [
+     "2022/23 — S2 · 16 étudiants — <a href=\"https://drive.google.com/drive/folders/1sTcS58EcotzdJ8ZeU-L5tGFGphLdLe--?usp=sharing\" target=\"_blank\" rel=\"noopener\">dossier de rendu</a>",
+     "2023/24 — S1 · 20 étudiants — <a href=\"https://drive.google.com/drive/folders/1RpzjTKnxD8ngsQiSZUOyujEQCY2r3p3Z?usp=sharing\" target=\"_blank\" rel=\"noopener\">dossier de rendu</a>",
+     "2024/25 — S2 · 26 étudiants — <a href=\"https://drive.google.com/drive/folders/1txamwtrul_mettQXVBH0W-KhQDAnpiUj?usp=sharing\" target=\"_blank\" rel=\"noopener\">dossier de rendu</a>",
+     "2025/26 — S1 — <a href=\"https://drive.google.com/drive/folders/1Z8x9gzeNoV6h7GH00KvUcN6eHFBwvUPB?usp=sharing\" target=\"_blank\" rel=\"noopener\">dossier de rendu</a>",
+     "Feedback — <a href=\"https://docs.google.com/forms/d/e/1FAIpQLSd2wdats8-RCItJ64Sw-QmldYRi4p3LFeRIasSwGWpUdfRQRA/viewform?usp=sharing\" target=\"_blank\" rel=\"noopener\">formulaire</a>"
+    ]
+   }
+  ],
+  "refsTitle": "",
+  "refs": []
+ },
+ {
+  "id": "learning-from-synthetics",
+  "type": "Cours HEAD",
+  "date": "Automne 2025",
+  "title": "Learning From Synthetics",
+  "subtitle": "Artificial intelligence training for the faculty teachers of the interior architecture programme — HEAD – Genève",
+  "credit": "",
+  "abstract": "Une formation à l’intelligence artificielle destinée au corps enseignant du programme d’architecture d’intérieur de la HEAD – Genève. Six séances, de la théorie fondamentale au protocole appliqué.",
+  "blocks": [
+   {
+    "kind": "h",
+    "html": "Session report"
+   },
+   {
+    "kind": "p",
+    "html": "Formation à l’intelligence artificielle destinée au corps enseignant du programme d’architecture d’intérieur de la HEAD – Genève. Six séances, de la théorie fondamentale au protocole appliqué."
+   },
+   {
+    "kind": "sh",
+    "html": "S1 — AI Fundamentals"
+   },
+   {
+    "kind": "p",
+    "html": "Presentation of the foundations of artificial intelligence, from its historical origins to its contemporary generative forms. The session introduces the operating logics, systemic biases, and critical issues associated with these technologies."
+   },
+   {
+    "kind": "links",
+    "items": [
+     "Support — <a href=\"https://www.figma.com/proto/8CT2x1Lfe8lJujihDaZ8Wv/LFS---Learning-From-Synthetics?page-id=13848%3A8392&amp;node-id=13885-2580&amp;viewport=287%2C211%2C0.02&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>"
+    ]
+   },
+   {
+    "kind": "sh",
+    "html": "S2 — (text) to image"
+   },
+   {
+    "kind": "p",
+    "html": "Getting started with MidJourney to explore the basics of image generation: prompt structure, iteration logic, variations, and visual hybridization. A hands-on session featuring demonstrations and guided exercises."
+   },
+   {
+    "kind": "links",
+    "items": [
+     "Support — <a href=\"https://www.figma.com/proto/8CT2x1Lfe8lJujihDaZ8Wv/LFS---Learning-From-Synthetics?page-id=13873%3A2570&amp;node-id=13873-2571&amp;viewport=25%2C347%2C0.05&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a> · <a href=\"https://drive.google.com/file/d/1_UfCjy8V5FY_kXzLUSWmXpcoB3RjQJ4g/view?usp=sharing\" target=\"_blank\" rel=\"noopener\">visioconférence</a>"
+    ]
+   },
+   {
+    "kind": "sh",
+    "html": "S3 — Panorama of services"
+   },
+   {
+    "kind": "p",
+    "html": "Mapping of AI tools available to architects: image, plan, and rendering generation, automated design platforms, etc. The focus is on uses and potential, without aiming for technical mastery."
+   },
+   {
+    "kind": "links",
+    "items": [
+     "Support — <a href=\"https://www.figma.com/proto/8CT2x1Lfe8lJujihDaZ8Wv/LFS---Learning-From-Synthetics?page-id=13961%3A2530&amp;node-id=13961-2531&amp;viewport=372%2C-19%2C0.02&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a> · <a href=\"https://drive.google.com/file/d/1ZYIc-P26LzrGzRko4lrJXD-PEQQgidiX/view?usp=sharing\" target=\"_blank\" rel=\"noopener\">visioconférence</a>"
+    ]
+   },
+   {
+    "kind": "sh",
+    "html": "S4 — Supervised generation"
+   },
+   {
+    "kind": "p",
+    "html": "Exploration of tools enabling enhanced control over generative outputs. Hands-on work with ControlNet, Krea, or ComfyUI, in connection with other formats (plans, 3D, video, data analysis)."
+   },
+   {
+    "kind": "links",
+    "items": [
+     "Support — <a href=\"https://www.figma.com/proto/8CT2x1Lfe8lJujihDaZ8Wv/LFS---Learning-From-Synthetics?page-id=14025%3A4443&amp;node-id=14025-4444&amp;viewport=131%2C386%2C0.03&amp;scaling=contain&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a> · <a href=\"https://drive.google.com/file/d/1qjwhG5RBLONKyAL1EQTl3qnArSTMdpPV/view?usp=sharing\" target=\"_blank\" rel=\"noopener\">visioconférence</a>"
+    ]
+   },
+   {
+    "kind": "sh",
+    "html": "S5 — Teaching and practice"
+   },
+   {
+    "kind": "p",
+    "html": "Reflection on the role of AI in architectural education: transformation of pedagogical approaches, evolution of legitimization criteria, and presentation of current practices by artists or designers integrating AI."
+   },
+   {
+    "kind": "links",
+    "items": [
+     "Support — <a href=\"https://www.figma.com/proto/8CT2x1Lfe8lJujihDaZ8Wv/LFS---Learning-From-Synthetics?page-id=14226%3A2292&amp;node-id=14226-2869&amp;viewport=245%2C848%2C0.02&amp;scaling=min-zoom&amp;content-scaling=fixed\" target=\"_blank\" rel=\"noopener\">slide</a>"
+    ]
+   },
+   {
+    "kind": "sh",
+    "html": "S6 — Applied Protocol"
+   },
+   {
+    "kind": "p",
+    "html": "Synthesis workshop aimed at formulating a protocol for AI use tailored to one’s own practice. Each participant develops an application scenario (course, project, workflow), followed by a collective sharing session."
+   }
+  ],
+  "refsTitle": "",
+  "refs": []
+ },
+ {
+  "id": "creativites-artificielles",
+  "type": "Cours HEAD",
+  "date": "Automne 2023 · Printemps 2024 · Printemps 2025",
+  "title": "Créativités artificielles",
+  "subtitle": "Cours transversal pratique de Bachelor — HEAD – Genève",
+  "credit": "",
+  "abstract": "L’essor des technologies d’intelligence artificielle générative transforme en profondeur les processus de création artistique et de conception en design. Depuis DALL·E, Midjourney ou ChatGPT, la possibilité de générer du contenu de haute qualité en quelques secondes soulève autant d’enthousiasme que de préoccupations.",
+  "blocks": [
+   {
+    "kind": "h",
+    "html": "Descriptif et objectifs"
+   },
+   {
+    "kind": "p",
+    "html": "L’essor des technologies d’intelligence artificielle générative transforme en profondeur les processus de création artistique et de conception en design. Depuis l’émergence de services comme DALL·E, Midjourney ou ChatGPT, la possibilité de générer du contenu numérique de haute qualité en quelques secondes soulève autant d’enthousiasme que de préoccupations."
+   },
+   {
+    "kind": "p",
+    "html": "Ce cours propose une approche équilibrée combinant contextualisation théorique et exercices pratiques, permettant aux étudiants de confronter leurs connaissances à une réalité expérimentale. Chaque enseignement théorique met en lumière un aspect technique ou sociologique spécifique de l’IA – de l’histoire du deep learning aux enjeux de censure et de droit d’auteur – tandis que des exercices viennent immédiatement tester et appliquer ces notions."
+   },
+   {
+    "kind": "p",
+    "html": "L’objectif est de donner aux étudiants les outils pour comprendre ces technologies au-delà des mythes et clichés habituels, et les intégrer de manière critique et créative dans leur pratique."
+   },
+   {
+    "kind": "h",
+    "html": "Objectifs pédagogiques"
+   },
+   {
+    "kind": "ul",
+    "items": [
+     "Comprendre les principes fondamentaux du machine learning et de l’IA générative.",
+     "Expérimenter la production de contenus visuels et textuels via des outils d’IA.",
+     "Analyser les transformations des pratiques artistiques et créatives face à ces nouvelles technologies.",
+     "Développer une approche critique en explorant les enjeux éthiques, sociologiques et légaux associés à l’IA.",
+     "Explorer la notion de protocole créatif et sa mise en œuvre dans des projets expérimentaux."
+    ]
+   },
+   {
+    "kind": "h",
+    "html": "Méthodes et outils"
+   },
+   {
+    "kind": "p",
+    "html": "Les étudiants travailleront avec une combinaison d’outils d’intelligence artificielle très divers : MidJourney, Krea, Deep Seek, Firefly, Grok, Stable Diffusion, etc."
+   },
+   {
+    "kind": "h",
+    "html": "Évaluation et critères de validation"
+   },
+   {
+    "kind": "p",
+    "html": "L’évaluation finale repose sur trois critères :"
+   },
+   {
+    "kind": "ul",
+    "items": [
+     "Exercices en cours de semestre (réalisés individuellement ou en groupe) – fait / non fait.",
+     "Présence et participation active au cours.",
+     "Rendu final individuel : développement et présentation d’un protocole créatif, valorisant autant la conception que la communication des idées."
+    ]
+   },
+   {
+    "kind": "h",
+    "html": "Exigences de participation"
+   },
+   {
+    "kind": "p",
+    "html": "Présence sur site requise. L’assiduité et la participation aux enseignements font partie des éléments évalués. Une absence à au moins 10% du cours (1 session) entraîne un travail supplémentaire. Une absence à au moins 30% du cours (3 sessions) entraîne un échec et une note de 1/6."
+   },
+   {
+    "kind": "h",
+    "html": "Contenu et formes d’enseignement"
+   },
+   {
+    "kind": "p",
+    "html": "Le cours s’organise en trois grands axes d’exploration."
+   },
+   {
+    "kind": "sh",
+    "html": "Contexte et théorie"
+   },
+   {
+    "kind": "ul",
+    "items": [
+     "Histoire des IA et évolution du deep learning.",
+     "Rôle des datasets et biais algorithmiques.",
+     "Enjeux de censure et régulation des IA.",
+     "Droit d’auteur et nouvelles formes de propriété intellectuelle.",
+     "Impacts sociaux et économiques des IA génératives."
+    ]
+   },
+   {
+    "kind": "sh",
+    "html": "Expérimentations pratiques"
+   },
+   {
+    "kind": "p",
+    "html": "Chaque enseignement théorique est suivi d’un exercice appliqué, visant à confronter les étudiant·e·x·s aux réalités techniques et esthétiques des IA génératives. Parmi ces exercices :"
+   },
+   {
+    "kind": "ul",
+    "items": [
+     "<b>Distinction</b> : identifier les différences entre une image réelle et une image générée par IA.",
+     "<b>Prompting</b> : déconstruire la structure des prompts et explorer leur syntaxe pour comprendre les dynamiques du machine learning.",
+     "<b>Hybridation</b> : expérimenter la dissolution de l’opposition entre original et copie à travers la fusion d’images et la notion de remix.",
+     "<b>Traduction</b> : utiliser des modèles text-to-image pour convertir des concepts abstraits en images, en intégrant une approche itérative.",
+     "<b>Restitution</b> : tester la capacité à collecter et restituer des informations complexes, en intégrant une méthodologie de vérification documentaire."
+    ]
+   },
+   {
+    "kind": "sh",
+    "html": "Projets et applications"
+   },
+   {
+    "kind": "ul",
+    "items": [
+     "Développement d’un protocole créatif intégrant l’IA, à présenter en fin de semestre.",
+     "Analyse et documentation des processus explorés.",
+     "Questionnement sur l’intégration des IA dans les méthodologies de création contemporaine."
+    ]
+   }
+  ],
+  "refsTitle": "",
+  "refs": []
+ },
+ {
+  "id": "architectural-latent-space",
+  "type": "Cours HEAD",
+  "date": "Printemps 2025",
+  "title": "Architectural Latent Space",
+  "subtitle": "Cours de Master d’architecture d’intérieur (MAIA) — HEAD – Genève",
+  "credit": "",
+  "abstract": "L’essor de l’intelligence artificielle générative transforme en profondeur les modes de représentation et de conception architecturale. Loin d’être un simple outil, ces technologies modifient la relation entre l’image et l’architecture, ouvrant la voie à de nouvelles pratiques où le projet se construit autant par sa visualisation que par son éventuelle matérialisation.",
+  "blocks": [
+   {
+    "kind": "h",
+    "html": "Descriptif et objectifs"
+   },
+   {
+    "kind": "p",
+    "html": "L’essor de l’intelligence artificielle générative transforme en profondeur les modes de représentation et de conception architecturale. Loin d’être un simple outil, ces technologies modifient la relation entre l’image et l’architecture, ouvrant la voie à de nouvelles pratiques où le projet se construit autant par sa visualisation que par son éventuelle matérialisation."
+   },
+   {
+    "kind": "p",
+    "html": "Ce cours explore la manière dont l’image peut devenir un espace de recherche et de spéculation architecturale. Plutôt que d’opposer réalité et simulation, il interroge la nature même des images produites : leur statut, leur valeur architecturale et les imaginaires qu’elles convoquent. Comment ces représentations influencent-elles notre compréhension de l’espace ? Quelle part de vérité et de fiction véhiculent-elles ? Quels nouveaux paradigmes esthétiques et conceptuels émergent à travers elles ?"
+   },
+   {
+    "kind": "p",
+    "html": "Dans ce cadre, les étudiants seront amenés à concevoir une agence virtuelle sur Instagram, ancrée dans une posture architecturale singulière. Chaque agence développera un positionnement spécifique vis-à-vis de l’image architecturale synthétique, interrogeant à la fois son degré de réalisme, son potentiel constructif et sa fonction narrative."
+   },
+   {
+    "kind": "p",
+    "html": "Ce travail se déroulera en plusieurs étapes : analyse des productions existantes, expérimentation et hybridation d’images via des outils génératifs, structuration d’une identité conceptuelle et mise en place d’une stratégie de diffusion. L’objectif final est de produire un corpus d’images architecturales cohérent et argumenté, capable de questionner les nouveaux territoires de l’architecture à l’ère des images générées."
+   },
+   {
+    "kind": "h",
+    "html": "Objectifs pédagogiques"
+   },
+   {
+    "kind": "ul",
+    "items": [
+     "Comprendre et analyser les tendances actuelles de l’imagerie architecturale synthétique.",
+     "Explorer l’impact des IA sur la conception et la perception des images d’architecture.",
+     "Produire un corpus d’images architecturales hybrides, basé sur des hybridations stylistiques et conceptuelles.",
+     "Définir une posture théorique et conceptuelle autour de l’architecture spéculative.",
+     "Développer une stratégie de communication adaptée à la diffusion des images architecturales sur les réseaux sociaux."
+    ]
+   },
+   {
+    "kind": "h",
+    "html": "Évaluation et critères de validation"
+   },
+   {
+    "kind": "p",
+    "html": "L’évaluation repose sur trois éléments :"
+   },
+   {
+    "kind": "ul",
+    "items": [
+     "Participation et soumission des exercices d’introduction (analyse des comptes Instagram, génération d’images de styles, cartographie des références).",
+     "Qualité générale du projet développé (cohérence conceptuelle, pertinence esthétique, structuration du corpus d’images).",
+     "Qualité de la présentation finale (clarté du discours, structuration du support, capacité à défendre la démarche)."
+    ]
+   },
+   {
+    "kind": "h",
+    "html": "Exigences de participation"
+   },
+   {
+    "kind": "p",
+    "html": "Présence sur site requise. L’assiduité et la participation aux enseignements font partie des éléments évalués. Une absence à au moins 10% du cours (1 session) entraîne un travail supplémentaire. Une absence à au moins 30% du cours (3 sessions) entraîne un échec et une note de 1/6."
+   },
+   {
+    "kind": "h",
+    "html": "Rapport pédagogique"
+   },
+   {
+    "kind": "p",
+    "html": "Le cours Architectural Latent Space explore les mutations contemporaines de l’image architecturale à l’ère des intelligences artificielles génératives. Il part du constat que, dans un contexte où les représentations numériques acquièrent une autonomie croissante, l’architecture ne se donne plus seulement à construire, mais à percevoir, à raconter, à spéculer. Ce n’est plus seulement la forme bâtie qui fait projet, mais l’image elle-même, dans sa capacité à produire du sens, de la narration, de la tension."
+   },
+   {
+    "kind": "p",
+    "html": "Plutôt que de se focaliser sur les prouesses techniques des IA, ce module propose une lecture critique des images synthétiques d’architecture. Il interroge leurs codes, leurs usages, leurs récits implicites, tout en expérimentant les possibilités offertes par ces outils dans une logique de positionnement conceptuel, esthétique et narratif."
+   },
+   {
+    "kind": "p",
+    "html": "Le semestre s’est déroulé sur six séances intensives, suivant des phases d’analyse, de cartographie, de production et de diffusion. À travers différents exercices successifs, les étudiants ont été amenés à construire une identité virtuelle singulière (sous la forme d’un compte ou d’un studio fictif), en capacité d’adopter une posture claire vis-à-vis de l’imaginaire synthétique architectural. Cette identité devait s’incarner dans un corpus d’images, une ligne éditoriale, un ancrage critique et une stratégie de communication."
+   },
+   {
+    "kind": "p",
+    "html": "L’ensemble des productions réalisées durant le cours (grilles d’analyse, séries d’images, textes critiques, présentations, comptes Instagram) est archivé dans <a href=\"https://drive.google.com/drive/folders/1deI7tg4Xlm11aFZsh7HgBMwN4-I0WzxK?usp=sharing\" target=\"_blank\" rel=\"noopener\">ce dossier Drive</a>."
+   },
+   {
+    "kind": "sh",
+    "html": "Les exercices"
+   },
+   {
+    "kind": "p",
+    "html": "Les deux premières séances ont été consacrées à trois exercices préparatoires, pensés comme un préambule méthodologique posant les bases critiques, techniques et conceptuelles des projets individuels."
+   },
+   {
+    "kind": "p",
+    "html": "<b>Exercice 1 — Analyse critique de comptes Instagram d’architecture synthétique.</b> Chaque étudiant a analysé un compte dédié aux images synthétiques d’architecture à l’aide d’une grille de plus de 100 critères quantifiables (réalisme, récit, cadrage, matérialité, signes d’artificialité, stratégie éditoriale). Résultat : un ensemble de diagnostics critiques servant de base à la cartographie ultérieure."
+   },
+   {
+    "kind": "links",
+    "items": [
+     "Résultats — <a href=\"https://docs.google.com/spreadsheets/d/1IjBtkyK711tp8N8r6e9tp5Jr9M262ZtOBm6hrjjONGk/edit?usp=sharing\" target=\"_blank\" rel=\"noopener\">Google Sheet</a>",
+     "Images collectées — <a href=\"https://drive.google.com/drive/folders/11NjIbA9h7_pgzdGEPUeaMZO0wOQoY182?usp=sharing\" target=\"_blank\" rel=\"noopener\">Drive</a>"
+    ]
+   },
+   {
+    "kind": "p",
+    "html": "<b>Exercice 2 — Hybridation stylistique et exploration de l’espace latent.</b> Chaque étudiant a choisi un style d’intérieur fortement caractérisé (baroque, brutaliste, scandinave, memphis, etc.), généré une série représentative, puis produit des hybridations entre styles pour visualiser la continuité stylistique dans l’espace latent. Ce travail fait l’objet d’une publication indépendante (en cours)."
+   },
+   {
+    "kind": "links",
+    "items": [
+     "Images produites — <a href=\"https://drive.google.com/drive/folders/128E0hHhvpuQmWXHZcIXlgYpOSkAjEbaq?usp=sharing\" target=\"_blank\" rel=\"noopener\">Drive</a>",
+     "Matrice d’hybridation — <a href=\"https://drive.google.com/file/d/1Bwu_GDrds8Ej2EaR03ggG2lOopLlki8-/view?usp=sharing\" target=\"_blank\" rel=\"noopener\">Drive</a>",
+     "Publication (texte de recherche) — <a href=\"https://docs.google.com/document/d/1eFxNM3wauxGju8NZrHrYdOSql140i6oSMwjtTjEE83Q/edit?usp=sharing\" target=\"_blank\" rel=\"noopener\">Google Doc</a>",
+     "Publication (visuels) — <a href=\"https://drive.google.com/file/d/1BmwLA23Dm3D9SnUZ2aDmf8PVftrWJll3/view?usp=sharing\" target=\"_blank\" rel=\"noopener\">PDF</a>",
+     "Compte Instagram dédié — <a href=\"https://www.instagram.com/architectural.latent.style/\" target=\"_blank\" rel=\"noopener\">@architectural.latent.style</a>"
+    ]
+   },
+   {
+    "kind": "p",
+    "html": "<b>Exercice 3 — Cartographie des imaginaires architecturaux.</b> À partir d’un corpus d’architectes de l’architecture de papier (Piranesi, Archigram, Boullée, Superstudio, etc.), les étudiants ont positionné une centaine d’images dans une matrice à trois axes : Mimétique ↔ Altéré ; Réalisable ↔ Exploratoire ; Documentaire ↔ Narratif."
+   },
+   {
+    "kind": "links",
+    "items": [
+     "Iconographies — <a href=\"https://drive.google.com/drive/folders/1C-t0oepXJ9lcfjn4hVCeA4VF_xAPaOy3?usp=sharing\" target=\"_blank\" rel=\"noopener\">Drive</a>",
+     "Matrice historique — <a href=\"https://drive.google.com/file/d/1C15VXjkr7jcd-Y3osQVUBcZqfJPbz_2X/view?usp=sharing\" target=\"_blank\" rel=\"noopener\">Drive</a>",
+     "Matrice synthétique — <a href=\"https://drive.google.com/file/d/1C-tBgTFSrZ0Nkm9imx-lg0acG16q_m_P/view?usp=sharing\" target=\"_blank\" rel=\"noopener\">Drive</a>"
+    ]
+   },
+   {
+    "kind": "sh",
+    "html": "Les projets"
+   },
+   {
+    "kind": "p",
+    "html": "La seconde moitié du semestre a été consacrée au développement d’un projet personnel : construire une position critique face à l’image synthétique d’architecture, sous la forme d’un compte fictif ou d’une entité virtuelle incarnant une posture esthétique, politique ou spéculative. À l’issue du semestre, j’ai repris l’ensemble des projets pour en proposer une réécriture complète sous forme de textes de recherche-création, conçus comme des micro-essais, en cours de publication."
+   },
+   {
+    "kind": "links",
+    "items": [
+     "Compilation des textes de publication — <a href=\"https://drive.google.com/file/d/1CWW1OTTWo-Qe-kqDnaQLHfK2AQGo85H7/view?usp=sharing\" target=\"_blank\" rel=\"noopener\">PDF</a>"
+    ]
+   },
+   {
+    "kind": "sh",
+    "html": "Rendus étudiants"
+   },
+   {
+    "kind": "p",
+    "html": "L’ensemble des projets a donné lieu à un corpus visuel massif : plus de 26 000 images générées. Ci-dessous, le résumé de chaque projet et un lien vers son rendu original."
+   },
+   {
+    "kind": "proj",
+    "name": "Célestine Potin — Récits fantômes",
+    "html": "Activer l’esthétique de l’urbex par le mystère narratif. Ce projet invente la ruine d’un lieu qui n’a jamais existé, en détournant les codes de l’Urbex et de l’archive : chaque image documente une mémoire fabriquée, où la ruine devient un support narratif autonome.",
+    "links": "<a href=\"https://drive.google.com/open?id=19Zzu6Tt7eNACvi32F3rPdJ0OdADr4BS-&amp;usp=drive_fs\" target=\"_blank\" rel=\"noopener\">Présentation de jury (PDF)</a> · <a href=\"https://www.instagram.com/onceuponurbex/\" target=\"_blank\" rel=\"noopener\">@onceuponurbex</a>"
+   },
+   {
+    "kind": "proj",
+    "name": "Lisa Schober — Changer de focale",
+    "html": "Repenser le point de vue en architecture générative. Des intérieurs vus depuis des perspectives déformées ou intrusives, qui interrogent la manière dont le regard (humain ou algorithmique) structure notre rapport à l’espace.",
+    "links": "<a href=\"https://drive.google.com/open?id=18p3msmIaeDdnlbImaRxfAWKoDRWKIpzq&amp;usp=drive_fs\" target=\"_blank\" rel=\"noopener\">Présentation de jury (PDF)</a> · <a href=\"https://www.instagram.com/altpov.d/\" target=\"_blank\" rel=\"noopener\">@altpov.d</a>"
+   },
+   {
+    "kind": "proj",
+    "name": "Mariia Fomina — Confort en tension",
+    "html": "Penser l’architecture à la jonction des opposés. Des intérieurs luxueux confrontés à des environnements urbains hostiles, révélant l’absurdité d’un confort détaché de son contexte.",
+    "links": "<a href=\"https://drive.google.com/open?id=18e9cF4nZlw-hYYkyt9-jqDoeZUs6jq_z&amp;usp=drive_fs\" target=\"_blank\" rel=\"noopener\">Présentation de jury (PDF)</a> · <a href=\"https://www.instagram.com/opulent_decay/\" target=\"_blank\" rel=\"noopener\">@opulent_decay</a>"
+   },
+   {
+    "kind": "proj",
+    "name": "Matilde Arletti — Post-Anthropocentric Lab",
+    "html": "Imaginer l’habitat depuis une intelligence animale : une architecture conçue non plus pour les animaux mais par les animaux, aux logiques constructives issues du vivant.",
+    "links": "<a href=\"https://drive.google.com/open?id=1BeGiYxRUX_o5hSPlWgpw1q7M5SYlOE_i&amp;usp=drive_fs\" target=\"_blank\" rel=\"noopener\">Présentation de jury (PDF)</a> · <a href=\"https://www.instagram.com/paa__lab/\" target=\"_blank\" rel=\"noopener\">@paa__lab</a>"
+   },
+   {
+    "kind": "proj",
+    "name": "Ailyn Pieyre — Formes fossiles",
+    "html": "Chercher des signes d’architecture dans la nature post-humaine. Des formes ambiguës, entre ruine, artefact et formation naturelle, qui résistent à toute interprétation.",
+    "links": "<a href=\"https://drive.google.com/open?id=19aVQHkgLllxtyg8E_qDczMh5usWOulnu&amp;usp=drive_fs\" target=\"_blank\" rel=\"noopener\">Présentation de jury (PDF)</a> · <a href=\"https://www.instagram.com/remains_of_other_worlds/\" target=\"_blank\" rel=\"noopener\">@remains_of_other_worlds</a>"
+   },
+   {
+    "kind": "proj",
+    "name": "Maxime Joost — MindSpaces",
+    "html": "Traduire une subjectivité en langage spatial : l’espace comme langage capable d’exprimer une personnalité au même titre que la musique ou la peinture.",
+    "links": "<a href=\"https://drive.google.com/open?id=19cqibEJ2oqDJtZjgViid4UiwnNH7wq_I&amp;usp=drive_fs\" target=\"_blank\" rel=\"noopener\">Présentation de jury (PDF)</a> · <a href=\"https://www.instagram.com/mind_spaces_/\" target=\"_blank\" rel=\"noopener\">@mind_spaces_</a>"
+   },
+   {
+    "kind": "proj",
+    "name": "Abena Otupiri — Frankenstructure",
+    "html": "Penser le vivant dans une architecture dotée de droits : une architecture vivante et consciente, projetant un basculement post-humain où les bâtiments négocient leur propre existence.",
+    "links": "<a href=\"https://drive.google.com/open?id=18TkLDumUCUjguh_YjD7QKIvfj0DEL-6c&amp;usp=drive_fs\" target=\"_blank\" rel=\"noopener\">Présentation de jury (PDF)</a> · <a href=\"https://www.instagram.com/frankenstructure_studio/\" target=\"_blank\" rel=\"noopener\">@frankenstructure_studio</a>"
+   },
+   {
+    "kind": "proj",
+    "name": "Karol Szmigielski — Expanded Truths",
+    "html": "Reconfigurer le réel par le cadrage spatial : comment l’extension d’une image existante en modifie la lecture, révélant la puissance du cadrage comme outil narratif et politique.",
+    "links": "<a href=\"https://drive.google.com/open?id=19UvTksHeNHwBdx8XtmB2jZttb4a7wt-G&amp;usp=drive_fs\" target=\"_blank\" rel=\"noopener\">Présentation de jury (PDF)</a> · <a href=\"https://www.instagram.com/expandedtruths/\" target=\"_blank\" rel=\"noopener\">@expandedtruths</a>"
+   },
+   {
+    "kind": "proj",
+    "name": "Kim Schönauer — Lisières perceptives",
+    "html": "Explorer les seuils d’existence de l’espace : une architecture sans masse ni volume, fondée sur la lumière, la couleur et l’immersion, où l’image devient l’expérience du lieu.",
+    "links": "<a href=\"https://drive.google.com/open?id=19_PVJAcv8HeXjxuQq4Yn7b3xc56FgMAj&amp;usp=drive_fs\" target=\"_blank\" rel=\"noopener\">Présentation de jury (PDF)</a> · <a href=\"https://www.instagram.com/vyra.studio/\" target=\"_blank\" rel=\"noopener\">@vyra.studio</a>"
+   },
+   {
+    "kind": "proj",
+    "name": "Luisa Lukas — Programmatic Crash",
+    "html": "Confronter des typologies incompatibles dans l’espace latent, révélant les failles perceptives des modèles génératifs et une crise de la représentation.",
+    "links": "<a href=\"https://drive.google.com/open?id=19F9uHv_Tc15BsXeuFW1OtEYnIlJ6b8TK&amp;usp=drive_fs\" target=\"_blank\" rel=\"noopener\">Présentation de jury (PDF)</a> · <a href=\"https://www.instagram.com/infraweld_laboratory/\" target=\"_blank\" rel=\"noopener\">@infraweld_laboratory</a>"
+   },
+   {
+    "kind": "proj",
+    "name": "Paul Rigal — Habiter le vide",
+    "html": "Combler les interstices par une logique d’excavation : le vide comme matériau architectural, une esthétique de l’inframince et une politique du creux.",
+    "links": "<a href=\"https://drive.google.com/open?id=18Vr3mZQZtBxOp_NGFD2XY07-3gcad-BO&amp;usp=drive_fs\" target=\"_blank\" rel=\"noopener\">Présentation de jury (PDF)</a> · <a href=\"https://www.instagram.com/underthevoid.studio/\" target=\"_blank\" rel=\"noopener\">@underthevoid.studio</a>"
+   },
+   {
+    "kind": "proj",
+    "name": "Letizia Milone — Dérives du réel",
+    "html": "Vers une grammaire onirique de l’espace généré : l’effondrement progressif du réel architectural, simulant non un monde rêvé mais le processus même du rêve.",
+    "links": "<a href=\"https://drive.google.com/open?id=19QieF2OB4HGRmJEVNB5MG1Rx9uLSqj7W&amp;usp=drive_fs\" target=\"_blank\" rel=\"noopener\">Présentation de jury (PDF)</a> · <a href=\"https://www.instagram.com/dream.collapse.studio/\" target=\"_blank\" rel=\"noopener\">@dream.collapse.studio</a>"
+   },
+   {
+    "kind": "proj",
+    "name": "Hugo Maia Schmitt — Inflatable Hack",
+    "html": "Interventions critiques dans l’espace public : réactiver la tradition des architectures gonflables comme forme douce de contestation, entre désobéissance poétique et récit militant.",
+    "links": "<a href=\"https://drive.google.com/open?id=18vDxVyqfopBMuguupH42jdIu73WcJP2q&amp;usp=drive_fs\" target=\"_blank\" rel=\"noopener\">Présentation de jury (PDF)</a> · <a href=\"https://www.instagram.com/inflacollective\" target=\"_blank\" rel=\"noopener\">@inflacollective</a>"
+   },
+   {
+    "kind": "proj",
+    "name": "Lina Laube — Structures insurgées",
+    "html": "Imaginer les restes d’une lutte à venir : une archéologie spéculative de l’architecture de protestation, entre mémoire anticipée et stratégie formelle.",
+    "links": "<a href=\"https://drive.google.com/open?id=1BaooEPNMM_SzYrHZs5vA8_u4MnJbIyW1&amp;usp=drive_fs\" target=\"_blank\" rel=\"noopener\">Présentation de jury (PDF)</a> · <a href=\"https://www.instagram.com/riot.ruins/\" target=\"_blank\" rel=\"noopener\">@riot.ruins</a>"
+   }
+  ],
+  "refsTitle": "",
+  "refs": []
+ },
+ {
+  "id": "the-great-hack",
+  "type": "Cours HEAD",
+  "date": "Printemps 2024",
+  "title": "The Great Hack",
+  "subtitle": "Cours de Master d’architecture d’intérieur (MAIA) — HEAD – Genève",
+  "credit": "",
+  "abstract": "Avec le développement des technologies numériques, le métier d’architecte a évolué, nécessitant une maîtrise pluridisciplinaire des systèmes et une capacité à travailler en équipe sur des projets d’envergure — jusqu’à créer une agence d’architecture fictive mais crédible, reconnue à l’échelle internationale.",
+  "blocks": [
+   {
+    "kind": "h",
+    "html": "Contenu du cours"
+   },
+   {
+    "kind": "p",
+    "html": "Avec le développement des technologies numériques, au-delà des logiciels de conception 3D, le métier d’architecte a évolué, nécessitant une maîtrise pluridisciplinaire des systèmes et une capacité à travailler en équipe sur des projets d’envergure. La multiplication des écoles, la pression temporelle et financière, l’explosion des normes, de même que le poids des médias sociaux, rendent la pratique de l’architecture toujours plus complexe et compétitive (avec le paradigme des concours) et nécessite de chercher de nouvelles approches – parfois radicales – pour conjuguer productivité et inventivité : faire autant peser l’effort sur la méthode de travail que sur les qualités techniques et esthétiques."
+   },
+   {
+    "kind": "p",
+    "html": "Ce cours vise ainsi à développer des compétences transversales afin de comprendre les mécanismes de légitimation et de valorisation dans le domaine de l’architecture. Le défi : créer une agence d’architecture fictive mais crédible, reconnue à l’échelle internationale."
+   },
+   {
+    "kind": "p",
+    "html": "Pour ce faire, les étudiants devront :"
+   },
+   {
+    "kind": "ul",
+    "items": [
+     "Imaginer un nom et un storytelling d’agence.",
+     "Concevoir un site web présentant l’agence et ses projets.",
+     "Créer des profils d’architectes fictifs avec des CV et parcours professionnels.",
+     "Développer leur présence sur les réseaux sociaux (Instagram, Twitter, etc.).",
+     "Imaginer des projets architecturaux fictifs pour enrichir le portfolio de l’agence.",
+     "Rédiger de faux articles de presse parlant de l’agence, augmentant ainsi sa visibilité et sa crédibilité."
+    ]
+   },
+   {
+    "kind": "p",
+    "html": "Au-delà de l’acquisition de compétences en design, en communication et en marketing, ce cours met l’accent sur le travail en équipe. Les étudiants sont organisés en sous-groupes, chaque groupe se voyant attribuer des tâches spécifiques. Ils doivent mettre en place des protocoles de travail efficaces, apprendre à coordonner leurs efforts, à gérer leur temps et à collaborer de manière productive."
+   },
+   {
+    "kind": "h",
+    "html": "Objectifs"
+   },
+   {
+    "kind": "p",
+    "html": "Ce cours est axé sur la professionnalisation et vise à améliorer l’efficacité et l’efficience de l’étudiant dans la réalisation de projets. Il se concentre sur le développement des compétences suivantes :"
+   },
+   {
+    "kind": "ul",
+    "items": [
+     "De façon générale : identifier des raccourcis et mettre en place des méthodes de travail radicales pour obtenir un avantage concurrentiel sur un marché de plus en plus compétitif.",
+     "Comprendre les codes et l’histoire de l’architecture pour mieux les déplacer et les subvertir.",
+     "Trouver des solutions techniques en autonomie.",
+     "Identifier les tâches pouvant être accélérées ou automatisées (par ex. par l’IA).",
+     "Utiliser une variété d’outils et de logiciels pour augmenter la productivité.",
+     "Optimiser le travail d’équipe en organisant les fichiers source.",
+     "Établir des objectifs de travail à travers diverses méthodes : diagrammes de Gantt, rétroplanning, non-redondance des tâches.",
+     "Découvrir de nouveaux outils de conception architecturale et détourner des outils extérieurs à leur domaine d’usage habituel (simulateurs de jeux, logiciels spécifiques, plugins)."
+    ]
+   },
+   {
+    "kind": "h",
+    "html": "Formes d’enseignement"
+   },
+   {
+    "kind": "p",
+    "html": "Le cours est tourné autant que faire se peut sur la technique et l’apprentissage concret, le tout de façon ludique : démonstrations techniques, tutoriels, débats, défis, etc."
+   },
+   {
+    "kind": "h",
+    "html": "Modalités d’évaluation et validation"
+   },
+   {
+    "kind": "p",
+    "html": "Ce cours étant conçu comme une série de séances intensives, la participation pro-active des étudiants est centrale à la réussite du module. Chaque séance comporte des objectifs de production clairs et circonscrits, à atteindre en fin de séance à travers des exercices pratiques."
+   }
+  ],
+  "refsTitle": "",
+  "refs": []
+ },
+ {
+  "id": "interior-decentralization",
+  "type": "Cours HEAD",
+  "date": "Printemps 2023",
+  "title": "Interior Decentralization",
+  "subtitle": "Cours de Joint Master Architecture (JMA) — HEAD – Genève",
+  "credit": "",
+  "abstract": "Depuis la rencontre entre les technologies immersives (réalités mixtes) et le Web3 (initié par la blockchain Ethereum en 2015), la frontière entre monde physique et monde virtuel n’a jamais été aussi fine — avec des implications majeures pour le design d’intérieur, désormais étendu aux jeux vidéo et aux espaces impossibles.",
+  "blocks": [
+   {
+    "kind": "h",
+    "html": "Thématique"
+   },
+   {
+    "kind": "p",
+    "html": "Depuis la rencontre entre les technologies immersives (réalités mixtes) et le Web3 (initié par la blockchain Ethereum en 2015), la frontière entre monde physique et monde virtuel n’a jamais été aussi fine. Le lien entre ces deux secteurs a des implications majeures pour le design d’intérieur, désormais étendu aux jeux vidéo et aux espaces impossibles (4D, perspectives non-euclidiennes, etc.)."
+   },
+   {
+    "kind": "p",
+    "html": "Ce cours explore les pratiques architecturales de demain. Quels nouveaux modèles économiques et chaînes de valeur émergent de ces technologies ? À quoi pourrait ressembler une architecture numérique « authentique » ? Quelles sont les conséquences de ces mutations sur les processus de création ?"
+   },
+   {
+    "kind": "h",
+    "html": "Objectifs"
+   },
+   {
+    "kind": "p",
+    "html": "L’objectif principal du module est de démystifier les technologies de la blockchain et des réalités mixtes. Les thématiques abordées vont des idéologies cypherpunk aux enjeux de la crise financière ; du fonctionnement technique des blockchains aux défis sociétaux du Web3 ; en passant par les applications de la tokenomique, des NFT et de la gouvernance décentralisée à l’architecture."
+   },
+   {
+    "kind": "p",
+    "html": "Le cours propose une approche accessible de ces sujets à travers une série de conférences suivies de petits ateliers pratiques. Les étudiants pourront ainsi anticiper les transformations majeures du design d’intérieur liées aux technologies numériques. Le module s’inscrit dans une perspective prospective et professionnalisante, centrée sur les nouveaux modèles économiques."
+   },
+   {
+    "kind": "h",
+    "html": "Formes d’enseignement"
+   },
+   {
+    "kind": "p",
+    "html": "Le module se compose de cinq séances de 3h30, comprenant une conférence de 1h, une discussion de 15 minutes, et un atelier collaboratif de 2h (travail en petits groupes). Les séances abordent les thématiques suivantes :"
+   },
+   {
+    "kind": "ul",
+    "items": [
+     "Technologies blockchain",
+     "De l’Ethereum au Web3",
+     "NFT et nouveaux modèles économiques de la création",
+     "DAO : repenser la gouvernance",
+     "Métavers et réalités mixtes"
+    ]
+   },
+   {
+    "kind": "p",
+    "html": "Chaque cours donne lieu à un mini-rapport, destiné à être intégré au rapport final du semestre, présenté lors de la sixième (et dernière) séance."
+   }
+  ],
+  "refsTitle": "",
+  "refs": []
+ }
+]

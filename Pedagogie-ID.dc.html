@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,400&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #ffffff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: inherit; }
+  @media (max-width: 900px) { .hdr-right { display: none !important; } }
+</style>
+</helmet>
+<div style="{{ rootStyle }}">
+  <div style="width: 100%; max-width: 1880px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
+
+    <header style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: nowrap;">
+      <div style="display: flex; flex-direction: row; align-items: center; gap: 40px; flex-wrap: nowrap; min-width: 0; flex: 1;">
+        <a href="Home.dc.html" style="font-size: clamp(13px, 1.25vw, 24px); font-weight: 400; line-height: 1.4; white-space: nowrap; color: var(--ink, #000);">Guillaume Helleu</a>
+        <nav style="display: flex; flex-direction: row; align-items: center; gap: 28px; flex-wrap: nowrap; min-width: 0;">
+          <sc-for list="{{ navItems }}" as="nav" hint-placeholder-count="6">
+            <a href="{{ nav.href }}" style="{{ nav.style }}" style-hover="{{ inkHover }}">{{ nav.label }}</a>
+          </sc-for>
+        </nav>
+      </div>
+      <div class="hdr-right" style="display: flex; flex-direction: row; align-items: center; gap: 28px; flex-wrap: nowrap;">
+        <button onClick="{{ toggleLang }}" style="{{ ctrlStyle }}" style-hover="{{ inkHover }}">{{ langLabel }}</button>
+        <button onClick="{{ toggleTheme }}" style="{{ ctrlStyle }}" style-hover="{{ inkHover }}">{{ themeLabel }}</button>
+        <span style="font-size: clamp(13px, 1.25vw, 24px); font-weight: 400; line-height: 1.4; white-space: nowrap; color: var(--muted, #787878);">CC0 2016 — 2026</span>
+      </div>
+    </header>
+
+    <div style="display: flex; flex-direction: column; padding-bottom: 40px;">
+      <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878); margin: 0 0 8px;">Cours de Joint Master Architecture (JMA) à la HEAD – Genève · Printemps 2023</div>
+      <h1 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: clamp(44px, 6.25vw, 120px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink, #000);">Interior Decentralization</h1>
+      <p style="margin: 8px 0 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 400; font-size: clamp(26px, 3.125vw, 60px); line-height: 1.2; color: var(--ink, #000); width: 100%">Depuis la rencontre entre les technologies immersives (réalités mixtes) et le Web3 (initié par la blockchain Ethereum en 2015), la frontière entre monde physique et monde virtuel n’a jamais été aussi fine. Le lien entre ces deux secteurs a des implications majeures pour le design d’intérieur, désormais étendu aux jeux vidéo et aux espaces impossibles (4D, perspectives non-euclidiennes, etc.).</p>
+    </div>
+
+    <div style="width: 100%; display: flex; flex-direction: column; gap: 20px;">
+      <sc-for list="{{ sections }}" as="s" hint-placeholder-count="4">
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="font-size: 16px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink, #000);">{{ s.label }}</div>
+          <div style="display: flex; flex-direction: column;">
+            <sc-for list="{{ s.lines }}" as="ln" hint-placeholder-count="3">
+              <div style="font-size: 16px; line-height: 1.5; color: var(--ink, #000);">{{ ln.text }}</div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <footer style="padding: 40px 0 0; display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap;">
+      <div style="display: flex; flex-direction: column; align-items: flex-start;">
+        <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #000);">Guillaume Helleu</span>
+        <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #000); opacity: 0.5;">Digital Research, Technological Pedagogy and Creative Practice.</span>
+      </div>
+      <div style="width: 323px; max-width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
+        <a href="mailto:guillaumehelleu.pro@gmail.com" style="width: 100%; font-size: 16px; line-height: 1.4; text-align: right; color: var(--ink, #000); text-decoration: underline;">guillaumehelleu.pro@gmail.com</a>
+        <span style="width: 100%; font-size: 16px; line-height: 1.4; text-align: right; color: var(--ink, #000);">+41 78 308 59 56</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { lang: 'fr', theme: 'light' };
+  componentDidMount() {
+    try {
+      const lang = localStorage.getItem('gh-lang');
+      const theme = localStorage.getItem('gh-theme');
+      const patch = {};
+      if (lang === 'fr' || lang === 'en') patch.lang = lang;
+      if (theme === 'light' || theme === 'dark') patch.theme = theme;
+      if (Object.keys(patch).length) this.setState(patch);
+    } catch (e) {}
+  }
+  setLang(v) { try { localStorage.setItem('gh-lang', v); } catch (e) {} this.setState({ lang: v }); }
+  setTheme(v) { try { localStorage.setItem('gh-theme', v); } catch (e) {} this.setState({ theme: v }); }
+  get pal() {
+    return this.state.theme === 'dark'
+      ? { bg: '#0e0e10', ink: '#f2f0ea', muted: '#7d7b75', preview: '#1c1c1f' }
+      : { bg: '#ffffff', ink: '#000000', muted: '#787878', preview: '#e6e5e2' };
+  }
+  buildNav() {
+    const p = this.pal, active = 2;
+    const items = this.state.lang === 'fr'
+      ? [['Index', 'Index.dc.html'], ['Recherche', 'Recherche.dc.html'], ['Pedagogie', 'Pedagogie.dc.html'], ['Pratique', 'Pratique.dc.html'], ['À propos', 'About.dc.html']]
+      : [['Index', 'Index.dc.html'], ['Research', 'Recherche.dc.html'], ['Pedagogy', 'Pedagogie.dc.html'], ['Practice', 'Pratique.dc.html'], ['About', 'About.dc.html']];
+    return items.map(([label, href], i) => ({
+      label, href,
+      style: { fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, whiteSpace: 'nowrap', color: p.ink, textDecoration: i === active ? 'underline' : 'none', textUnderlineOffset: '4px' }
+    }));
+  }
+  buildSections() {
+    const data = [
+      ['Thématique', 'Depuis la rencontre entre les technologies immersives (réalités mixtes) et le Web3 (initié par la blockchain Ethereum en 2015), la frontière entre monde physique et monde virtuel n’a jamais été aussi fine. Le lien entre ces deux secteurs a des implications majeures pour le design d’intérieur, désormais étendu aux jeux vidéo et aux espaces impossibles (4D, perspectives non-euclidiennes, etc.).\nCe cours explore les pratiques architecturales de demain. Quels nouveaux modèles économiques et chaînes de valeur émergent de ces technologies ? À quoi pourrait ressembler une architecture numérique « authentique » ? Quelles sont les conséquences de ces mutations sur les processus de création ?'],
+      ['Objectifs', 'L’objectif principal du module est de démystifier les technologies de la blockchain et des réalités mixtes. Les thématiques abordées vont des idéologies cypherpunk aux enjeux de la crise financière ; du fonctionnement technique des blockchains aux défis sociétaux du Web3 ; en passant par les applications de la tokenomique, des NFT et de la gouvernance décentralisée à l’architecture.\nLe cours propose une approche accessible de ces sujets à travers une série de conférences suivies de petits ateliers pratiques. Les étudiants pourront ainsi anticiper les transformations majeures du design d’intérieur liées aux technologies numériques. Le module s’inscrit dans une perspective prospective et professionnalisante, centrée sur les nouveaux modèles économiques.'],
+      ['Formes d’enseignement', 'Le module se compose de cinq séances de 3h30, comprenant une conférence de 1h, une discussion de 15 minutes, et un atelier collaboratif de 2h (travail en petits groupes). Les séances abordent les thématiques suivantes :\nTechnologies blockchain\nDe l’Ethereum au Web3\nNFT et nouveaux modèles économiques de la création\nDAO : repenser la gouvernance\nMétavers et réalités mixtes\nChaque cours donne lieu à un mini-rapport, destiné à être intégré au rapport final du semestre, présenté lors de la sixième (et dernière) séance.']
+    ];
+    return data.map(([label, body]) => ({ label, lines: body.split('\n').map(text => ({ text })) }));
+  }
+  renderVals() {
+    const p = this.pal;
+    return {
+      rootStyle: {
+        minHeight: '100vh', background: p.bg, color: p.ink, fontFamily: "'Inter', sans-serif",
+        padding: '20px', transition: 'background 0.35s ease, color 0.35s ease',
+        '--ink': p.ink, '--muted': p.muted, '--preview': p.preview
+      },
+      navItems: this.buildNav(),
+      sections: this.buildSections(),
+      inkHover: { color: p.muted },
+      ctrlStyle: { fontFamily: "'Inter', sans-serif", fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', color: p.ink, whiteSpace: 'nowrap' },
+      toggleLang: () => this.setLang(this.state.lang === 'fr' ? 'en' : 'fr'),
+      toggleTheme: () => this.setTheme(this.state.theme === 'light' ? 'dark' : 'light'),
+      langLabel: this.state.lang === 'fr' ? 'English' : 'Français',
+      themeLabel: this.state.theme === 'light' ? 'Dark' : 'Light'
+    };
+  }
+}
+</script>
+</body>
+</html>

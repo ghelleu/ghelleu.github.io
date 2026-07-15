@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #ffffff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: inherit; }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  .tile { position: relative; display: block; overflow: hidden; }
+  .tile-ov { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.22s ease; pointer-events: none; }
+  .tile:hover .tile-ov { opacity: 1; }
+  @media (max-width: 900px) { .hdr-right { display: none !important; } }
+</style>
+</helmet>
+<div style="{{ rootStyle }}">
+  <div style="width: 100%; max-width: 1880px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
+
+    <!-- header (Frame 2709) -->
+    <header style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: nowrap;">
+      <div style="display: flex; flex-direction: row; align-items: center; gap: 40px; flex-wrap: nowrap; min-width: 0; flex: 1;">
+        <a href="Home.dc.html" style="font-size: clamp(13px, 1.25vw, 24px); font-weight: 400; line-height: 1.4; white-space: nowrap; color: var(--ink, #000);">Guillaume Helleu</a>
+        <nav style="display: flex; flex-direction: row; align-items: center; gap: 28px; flex-wrap: nowrap; min-width: 0;">
+          <sc-for list="{{ navItems }}" as="nav" hint-placeholder-count="6">
+            <a href="{{ nav.href }}" style="{{ nav.style }}" style-hover="{{ inkHover }}">{{ nav.label }}</a>
+          </sc-for>
+        </nav>
+      </div>
+      <div class="hdr-right" style="display: flex; flex-direction: row; align-items: center; gap: 28px; flex-wrap: nowrap;">
+        <button onClick="{{ toggleLang }}" style="{{ ctrlStyle }}" style-hover="{{ inkHover }}">{{ langLabel }}</button>
+        <button onClick="{{ toggleTheme }}" style="{{ ctrlStyle }}" style-hover="{{ inkHover }}">{{ themeLabel }}</button>
+        <span style="font-size: clamp(13px, 1.25vw, 24px); font-weight: 400; line-height: 1.4; white-space: nowrap; color: var(--muted, #787878);">CC0 2016 — 2026</span>
+      </div>
+    </header>
+
+    <!-- headline -->
+    <section style="padding: 20px 0; display: flex; align-items: center; animation: riseIn 0.7s cubic-bezier(0.2,0.7,0.2,1) both;">
+      <h1 style="margin: 0; flex: 1; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 500; font-size: clamp(44px, 6.25vw, 120px); line-height: 1.05; letter-spacing: -0.01em; color: var(--ink, #000); text-wrap: nowrap;">Digital&nbsp;Research,<br>Technological&nbsp;Pedagogy,<br>Creative&nbsp;Practice.</h1>
+    </section>
+
+    <!-- project mosaic -->
+    <section style="display: flex; flex-direction: column; gap: 20px;">
+      <!-- row 1 -->
+      <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start;">
+        <a class="tile" href="Recherche-Iconophagy.dc.html" style="flex: 1247; min-width: 0; aspect-ratio: 1247 / 796; background: var(--preview, #e6e5e2);">
+          <image-slot id="home-mosaic-1" shape="rect" placeholder=" " src="assets/foodporn-thumb.png"></image-slot>
+          <div class="tile-ov" style="background: var(--chip, rgba(255,255,255,0.82));"><span style="font-size: clamp(16px, 1.6vw, 28px); color: var(--ink, #000); text-align: center; padding: 0 24px;">From Foodporn to Iconophagy →</span></div>
+        </a>
+        <a class="tile" href="Recherche-TotalRecord.dc.html" style="flex: 613; min-width: 0; aspect-ratio: 613 / 497; background: var(--preview, #e6e5e2);">
+          <image-slot id="home-mosaic-2" shape="rect" placeholder=" " src="assets/ph-03.jpg"></image-slot>
+          <div class="tile-ov" style="background: var(--chip, rgba(255,255,255,0.82));"><span style="font-size: clamp(16px, 1.6vw, 28px); color: var(--ink, #000); text-align: center; padding: 0 24px;">Total Record →</span></div>
+        </a>
+      </div>
+      <!-- row 2 -->
+      <a class="tile" href="Recherche-ALS.dc.html" style="width: 100%; aspect-ratio: 1880 / 921; background: var(--preview, #e6e5e2);">
+        <image-slot id="home-mosaic-3" shape="rect" placeholder=" " src="assets/ph-07.jpg"></image-slot>
+        <div class="tile-ov" style="background: var(--chip, rgba(255,255,255,0.82));"><span style="font-size: clamp(16px, 1.6vw, 28px); color: var(--ink, #000); text-align: center; padding: 0 24px;">Architectural Latent Style →</span></div>
+      </a>
+      <!-- row 3 -->
+      <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start;">
+        <a class="tile" href="Pedagogie-PoP.dc.html" style="flex: 613; min-width: 0; aspect-ratio: 613 / 1171; background: var(--preview, #e6e5e2);">
+          <image-slot id="home-mosaic-4" shape="rect" placeholder=" " src="assets/ph-01.gif"></image-slot>
+          <div class="tile-ov" style="background: var(--chip, rgba(255,255,255,0.82));"><span style="font-size: clamp(16px, 1.6vw, 28px); color: var(--ink, #000); text-align: center; padding: 0 24px;">Proof-of-Punk →</span></div>
+        </a>
+        <a class="tile" href="Pedagogie-Creativites.dc.html" style="flex: 1247; min-width: 0; aspect-ratio: 1247 / 775; background: var(--preview, #e6e5e2);">
+          <image-slot id="home-mosaic-5" shape="rect" placeholder=" " src="assets/ph-09.png"></image-slot>
+          <div class="tile-ov" style="background: var(--chip, rgba(255,255,255,0.82));"><span style="font-size: clamp(16px, 1.6vw, 28px); color: var(--ink, #000); text-align: center; padding: 0 24px;">Créativités artificielles →</span></div>
+        </a>
+      </div>
+      <!-- row 4 -->
+      <a class="tile" href="Index.dc.html" style="width: 100%; aspect-ratio: 1880 / 921; background: var(--preview, #e6e5e2);">
+        <image-slot id="home-mosaic-6" shape="rect" placeholder=" " src="assets/ph-04.png"></image-slot>
+        <div class="tile-ov" style="background: var(--chip, rgba(255,255,255,0.82));"><span style="font-size: clamp(16px, 1.6vw, 28px); color: var(--ink, #000); text-align: center; padding: 0 24px;">Play-to-Learn →</span></div>
+      </a>
+    </section>
+
+    <!-- footer -->
+    <footer style="padding: 40px 0 0; display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap;">
+      <div style="display: flex; flex-direction: column; align-items: flex-start;">
+        <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #000);">Guillaume Helleu</span>
+        <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #000); opacity: 0.5;">Digital Research, Technological Pedagogy and Creative Practice.</span>
+      </div>
+      <div style="width: 323px; max-width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
+        <a href="mailto:guillaumehelleu.pro@gmail.com" style="width: 100%; font-size: 16px; font-weight: 400; line-height: 1.4; text-align: right; color: var(--ink, #000); text-decoration: underline;">guillaumehelleu.pro@gmail.com</a>
+        <span style="width: 100%; font-size: 16px; font-weight: 400; line-height: 1.4; text-align: right; color: var(--ink, #000);">+41 78 308 59 56</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { lang: 'fr', theme: 'light' };
+
+  componentDidMount() {
+    try {
+      const lang = localStorage.getItem('gh-lang');
+      const theme = localStorage.getItem('gh-theme');
+      const patch = {};
+      if (lang === 'fr' || lang === 'en') patch.lang = lang;
+      if (theme === 'light' || theme === 'dark') patch.theme = theme;
+      if (Object.keys(patch).length) this.setState(patch);
+    } catch (e) {}
+    import('./image-slot.js').catch(() => {});
+  }
+  setLang(v) { try { localStorage.setItem('gh-lang', v); } catch (e) {} this.setState({ lang: v }); }
+  setTheme(v) { try { localStorage.setItem('gh-theme', v); } catch (e) {} this.setState({ theme: v }); }
+
+  get pal() {
+    return this.state.theme === 'dark'
+      ? { bg: '#0e0e10', ink: '#f2f0ea', muted: '#7d7b75', preview: '#1c1c1f', chip: 'rgba(14,14,16,0.82)' }
+      : { bg: '#ffffff', ink: '#000000', muted: '#787878', preview: '#e6e5e2', chip: 'rgba(255,255,255,0.82)' };
+  }
+
+  buildNav() {
+    const p = this.pal;
+    const items = this.state.lang === 'fr'
+      ? [['Index', 'Index.dc.html'], ['Recherche', 'Recherche.dc.html'], ['Pedagogie', 'Pedagogie.dc.html'], ['Pratique', 'Pratique.dc.html'], ['À propos', 'About.dc.html']]
+      : [['Index', 'Index.dc.html'], ['Research', 'Recherche.dc.html'], ['Pedagogy', 'Pedagogie.dc.html'], ['Practice', 'Pratique.dc.html'], ['About', 'About.dc.html']];
+    return items.map(([label, href]) => ({
+      label, href,
+      style: { fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, whiteSpace: 'nowrap', color: p.ink }
+    }));
+  }
+
+  renderVals() {
+    const p = this.pal;
+    return {
+      rootStyle: {
+        minHeight: '100vh', background: p.bg, color: p.ink, fontFamily: "'Inter', sans-serif",
+        padding: '20px', transition: 'background 0.35s ease, color 0.35s ease',
+        '--ink': p.ink, '--muted': p.muted, '--bg': p.bg, '--preview': p.preview, '--chip': p.chip
+      },
+      navItems: this.buildNav(),
+      inkHover: { color: p.muted },
+      ctrlStyle: { fontFamily: "'Inter', sans-serif", fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', color: p.ink, whiteSpace: 'nowrap' },
+      toggleLang: () => this.setLang(this.state.lang === 'fr' ? 'en' : 'fr'),
+      toggleTheme: () => this.setTheme(this.state.theme === 'light' ? 'dark' : 'light'),
+      langLabel: this.state.lang === 'fr' ? 'English' : 'Français',
+      themeLabel: this.state.theme === 'light' ? 'Dark' : 'Light'
+    };
+  }
+}
+</script>
+</body>
+</html>

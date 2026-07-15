@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,300;8..60,400&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #ffffff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: inherit; }
+  @media (max-width: 900px) { .hdr-right { display: none !important; } }
+</style>
+</helmet>
+<div style="{{ rootStyle }}">
+  <div style="width: 100%; max-width: 1880px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
+
+    <header style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: nowrap;">
+      <div style="display: flex; flex-direction: row; align-items: center; gap: 40px; flex-wrap: nowrap; min-width: 0; flex: 1;">
+        <a href="Home.dc.html" style="font-size: clamp(13px, 1.25vw, 24px); font-weight: 400; line-height: 1.4; white-space: nowrap; color: var(--ink, #000);">Guillaume Helleu</a>
+        <nav style="display: flex; flex-direction: row; align-items: center; gap: 28px; flex-wrap: nowrap; min-width: 0;">
+          <sc-for list="{{ navItems }}" as="nav" hint-placeholder-count="6">
+            <a href="{{ nav.href }}" style="{{ nav.style }}" style-hover="{{ inkHover }}">{{ nav.label }}</a>
+          </sc-for>
+        </nav>
+      </div>
+      <div class="hdr-right" style="display: flex; flex-direction: row; align-items: center; gap: 28px; flex-wrap: nowrap;">
+        <button onClick="{{ toggleLang }}" style="{{ ctrlStyle }}" style-hover="{{ inkHover }}">{{ langLabel }}</button>
+        <button onClick="{{ toggleTheme }}" style="{{ ctrlStyle }}" style-hover="{{ inkHover }}">{{ themeLabel }}</button>
+        <span style="font-size: clamp(13px, 1.25vw, 24px); font-weight: 400; line-height: 1.4; white-space: nowrap; color: var(--muted, #787878);">CC0 2016 — 2026</span>
+      </div>
+    </header>
+
+    <!-- title block -->
+    <div style="display: flex; flex-direction: column; padding-bottom: 40px;">
+      <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878); margin: 0 0 8px;">Issue #08 · 2026</div>
+      <h1 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: clamp(48px, 7.29vw, 140px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink, #000);">From Foodporn<br>to&nbsp;Iconophagy</h1>
+      <p style="margin: 12px 0 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 300; font-size: clamp(24px, 3.125vw, 60px); line-height: 1.1; color: var(--ink, #000)">In a dark room, Francis Dolarhyde stands before a table lit by a subdued glow. Upon it rests the framed watercolor of William Blake's <em>Great Red Dragon</em>, its wings spread in terrible majesty. With an almost ceremonious slowness, he detaches the fragile paper from its frame, brings it to his lips, and with calculated deliberation, tears a corner away with his teeth. The boundary between subject and object collapses entirely.</p>
+    </div>
+
+    <!-- hero placeholder -->
+    <div style="width: 100%; aspect-ratio: 1880 / 800; overflow: hidden; background: var(--preview, #e6e5e2);">
+      <image-slot id="icono-hero" shape="rect" placeholder="Hero image"></image-slot>
+    </div>
+
+    <!-- body 1 -->
+    <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+      <p style="flex: 1 1 0; min-width: 280px; margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">This scene from <em>Red Dragon</em> (2002) encapsulates a concept that has animated contemporary visual culture for over a decade: iconophagy—the consumption of images as a form of cultural sustenance, a way of incorporating meaning directly into the body through the mechanics of looking, sharing, and ultimately owning. Where once the image existed at a remove from us, mediated by the gallery wall or the magazine page, today images are consumed with the same urgency and intimacy as food itself. We devour them daily, in quantities that would have seemed unimaginable a generation ago, and we expect them to nourish us in ways that extend far beyond the visual.</p>
+      <div style="flex: 1 1 0; min-width: 280px;"></div>
+    </div>
+
+    <!-- 3 photos -->
+    <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+      <div style="width: 66.666%; min-width: 240px; aspect-ratio: 1247 / 800; background: var(--preview, #e6e5e2);"><image-slot id="icono-img3" shape="rect" placeholder=" "></image-slot></div>
+    </div>
+
+    <!-- body 2 -->
+    <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+      <div style="flex: 1 1 0; min-width: 280px; display: flex; flex-direction: column; gap: 20px;">
+        <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878);">The Language of Desire</div>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">The phrase "foodporn" emerged in the 1980s, coined by feminist writer Rosalind Coward to describe the way glossy food photography in magazines induced a kind of visual craving divorced from actual sustenance. By the 2010s, the term had migrated to social media, where it described a specific aesthetic: high contrast, shallow depth of field, natural light streaming through café windows. Food became a performance of taste, literally and metaphorically. The act of photographing your meal signaled not just what you ate, but who you were.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">This transformation wasn't accidental. It followed a century-long trajectory of technological mediation reshaping how we experience food. In 1888, George Eastman's Kodak camera democratized photography with the slogan "You press the button, we do the rest." By the 1950s, color photography in cookbooks and magazines turned food into spectacle. Julia Child's <em>Mastering the Art of French Cooking</em> (1961) featured recipes as aspirational narratives, where the visual presentation mattered as much as the taste. Fast forward to 2010: Instagram launched, and suddenly everyone with a smartphone became a food photographer. The barrier to entry collapsed entirely.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">What changed wasn't just access to cameras, but the economic and social infrastructure surrounding food images. Before social media, food photography served a clear purpose: to sell cookbooks, advertise restaurants, or illustrate recipes. Now, the image serves multiple functions simultaneously. It's a form of social currency (likes and comments), a declaration of cultural capital (I ate at this trendy spot), a memory marker (I was here with these people), and increasingly, a financial asset. The macaron photograph can be printed on merchandise, licensed to brands, or—most radically—tokenized as a digital collectible.</p>
+      </div>
+      <div style="flex: 1 1 0; min-width: 280px; display: flex; flex-direction: column; gap: 20px;">
+        <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878);">The Temporal Rupture</div>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">"When we photograph food before eating it, we're essentially creating a temporal delay between visual consumption and physical consumption," food anthropologist Merry White told <em>The Atlantic</em>. "That delay changes the experience. The food becomes an object to be contemplated, not just consumed." Some researchers argue this enhances enjoyment—forcing us to slow down and appreciate aesthetics. Others point to the opposite effect: the compulsion to document can override presence, turning meals into performances rather than experiences of nourishment.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">Neuroscience offers some insight into why this paradox resonates so deeply. According to taste researcher Gordon Spence, approximately 70 percent of what we perceive as taste is actually visual. When we see an image of food, our glands begin secreting saliva and our body begins preparing for consumption—a cascade that begins entirely in the visual field. But here's the catch: the photograph, unlike the physical food, cannot truly satisfy this hunger. It triggers the desire without offering satisfaction, creating a documented pattern where repeated exposure to food imagery amplifies stress responses and suppresses the signals that normally indicate satiety. The image promises nourishment while delivering anxiety. We are, quite literally, starving ourselves on images.</p>
+      </div>
+    </div>
+
+    <!-- placeholder band -->
+    <div style="width: 100%; aspect-ratio: 1880 / 800; overflow: hidden; background: var(--preview, #e6e5e2);">
+      <image-slot id="icono-img4" shape="rect" placeholder="Image"></image-slot>
+    </div>
+
+    <!-- body 3 -->
+    <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+      <div style="flex: 1 1 0; min-width: 280px; display: flex; flex-direction: column; gap: 20px;">
+        <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878);">From Ephemeral to Eternal</div>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">Food has always been ephemeral. Meals decay, flavors fade, and the act of eating is fundamentally destructive. This ephemerality gives food much of its cultural meaning—the Japanese concept of <em>mono no aware</em> (the pathos of things) finds expression in the fleeting beauty of kaiseki cuisine, where each dish is designed to be appreciated for a brief moment before it disappears. In Western culinary traditions, the farm-to-table movement emphasizes seasonality and locality precisely because these qualities tie food to specific moments in time and space.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">Digital photography promised to preserve these moments, but what it actually did was transform them. The photograph freezes the macaron at peak aesthetic perfection—before the ganache melts, before the shell cracks, before consumption destroys its form. In philosopher Vilém Flusser's terms, the photograph doesn't represent the macaron so much as it replaces it. The image becomes the "real" object, while the physical pastry becomes secondary, almost disposable.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">Yet we have entered a new phase in this evolution. Rather than simply preserving the ephemeral through photography, contemporary culture has begun to convert the ephemeral into the eternal through digital ownership and circulation. This might sound like technological overkill for a cookie, but the underlying logic is already familiar. Limited-edition sneakers come with NFC chips that verify authenticity and track ownership. Luxury handbags carry RFID tags linked to digital certificates. Wine bottles feature blockchain-verified provenance to prevent counterfeiting. The macaron is simply the next frontier in a broader trend: everyday objects becoming nodes in vast data networks, their value increasingly tied not to their material properties but to their position within systems of scarcity and verification.</p>
+      </div>
+      <div style="flex: 1 1 0; min-width: 280px; display: flex; flex-direction: column; gap: 20px;">
+        <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878);">The Problem of Luxury and Ephemerality</div>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">Here we arrive at the central paradox that animates contemporary food culture: luxury, as an economic category, depends on durability and permanence. A Hermès handbag retains value because it endures, because it can be possessed, and because that possession can be verified and recorded. Luxury is, fundamentally, a matter of permanence. Gastronomy, by contrast, is irreducibly ephemeral. A meal vanishes the moment it is consumed. A macaron dissolves on the tongue. No matter how exquisite, no matter how elevated the collaboration between chef and artist, the physical object cannot achieve the permanence that luxury demands.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">This is the problem that contemporary pastry chefs have attempted to solve through artistic collaboration. When a renowned artist illustrates a macaron—when designer collabs produce oversized, elaborately decorated shells—the pastry aspires to transcend its ephemeral nature through association with the durability of the art object. Yet the attempt inevitably fails. The meringue surface deforms any illustration drawn upon it; the delicate pastry cannot support the visual detail that would elevate it to artistic status. The graphic dissolves into the sugar substrate, rendered illegible by the very medium it was meant to embellish.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">The solution that has emerged is elegant in its simplicity: the artwork exists in two forms simultaneously. First, there is the physical illustration on the macaron itself—compromised by the constraints of its substrate, imperfect, slightly deformed by the meringue's organic surface. Second, there is an augmented digital version, discovered by scanning the physical pastry with a smartphone. This augmented artwork exists in the perfect rendering that the physical macaron cannot achieve—animated, detailed, fully legible, free from the constraints of edible geometry. When the consumer purchases a macaron, they are not simply buying a pastry; they are purchasing access to a dual-form artwork, a collaboration between physical ephemerality and digital permanence.</p>
+      </div>
+    </div>
+
+    <!-- 2 photos -->
+    <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+      <div style="flex: 1 1 0; min-width: 280px; aspect-ratio: 920 / 700; position: relative; overflow: hidden; background: var(--preview, #e6e5e2);" onMouseEnter="{{ ribHover }}" onMouseLeave="{{ ribUnhover }}">
+        <img src="assets/rib-bw.png" style="{{ ribBwStyle }}">
+        <img src="assets/rib-color.jpg" style="{{ ribColorStyle }}">
+      </div>
+      <div style="flex: 1 1 0; min-width: 280px; aspect-ratio: 920 / 700; background: var(--preview, #e6e5e2);"><image-slot id="icono-img6" shape="rect" placeholder=" "></image-slot></div>
+    </div>
+
+    <!-- body 4 -->
+    <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+      <div style="flex: 1 1 0; min-width: 280px; display: flex; flex-direction: column; gap: 20px;">
+        <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878);">The Mechanics of Collection</div>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">The structure surrounding these macarons operates according to a logic that, while utilizing blockchain and NFT terminology, remains fundamentally simple and recognizable. Yet this logic marks a threshold: what had previously been confined to traditional collectibles—trading cards, action figures, stamp albums—now extends to the realm of food itself, transforming the ephemeral pastry into a durable object of exchange.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">Each box contains six macarons, distributed among nine total artists. The distribution is random—you cannot control which artist you receive when you purchase a box. The game, if we can call it that, is to complete the full series of one artist: to possess all six macarons bearing that artist's name and imagery. The goal transforms the individual pastry from a consumable into a collectible; it introduces scarcity, strategy, and the pleasure of completion.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">To achieve this goal, a consumer has two pathways available. The first is the obvious one: purchase multiple boxes, accepting the randomness of distribution, and gradually accumulate the complete set. The second is digital: participate in an online marketplace where collectors can exchange their NFTs—trading a macaron from one artist for one they lack, pooling resources with other collectors toward mutual completion. The act of consumption becomes optional, deferred, or entirely avoided. You might scan the augmented artwork, engage with it digitally, and never taste the pastry itself. When you finally complete the series—when you possess all six macarons from your chosen artist—you return to the physical boutique and receive a reward: an experience, a voucher, recognition within a community of collectors.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">What makes this system remarkable is precisely its ordinariness. The logic is basic, familiar, common. It operates according to principles that anyone accustomed to collectible card games, limited-edition toys, or digital reward systems would immediately recognize. Yet by applying this logic to food—by insisting that the ephemeral can be converted into a collectible without losing its status as food—the system reveals something fundamental about contemporary culture. We are no longer satisfied with the distinction between consumption and collection, between use and ownership. The macaron becomes simultaneously edible and durable, temporary and permanent, nourishment and financial asset.</p>
+      </div>
+      <div style="flex: 1 1 0; min-width: 280px; display: flex; flex-direction: column; gap: 20px;">
+        <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878);">The Circulation of Images</div>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">Hito Steyerl, the German-Austrian filmmaker and theorist, has described contemporary visual culture as fundamentally "circulationist"—defined less by the production of images than by their endless circulation through networks. In this framework, the value of an image derives not from its aesthetic properties or even its material substrate, but from how frequently it moves, how widely it circulates, how many times it can be copied, shared, and distributed. A photograph of a Kusama-inspired macaron—a pastry elaborately adorned with her signature polka-dot infinity aesthetic—becomes valuable not because the physical object is valuable, but because the image of that object can be infinitely reproduced and circulated.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">We have seen this logic at work in the aestheticization of luxury goods. When footballer Franck Ribéry posted a photograph of a steakhouse meal topped with gold leaf to his social media accounts, the image circulated globally, shared and reshared by thousands, debated in newspapers and academic journals. The meal itself—consumed, digested, eliminated—has long since ceased to exist. Only the image endures, acquiring cultural significance precisely through its circulation. Similarly, Yves Klein's "Immaterial Artwork," which consisted of an unseen, unreceived certificate of ownership for a non-existent object, became endlessly valuable through its conceptual provenance and critical circulation. A Supreme Oreo, produced as a collaboration between the streetwear brand and the cookie manufacturer, sold for $92,000 not because anyone consumed it or even saw it in person, but because the idea of it—the image of it, the concept of it—achieved sufficient circulation and cultural weight.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">The Archive Brooklyn 50/50 model, a platform that tokenized ownership stakes in artworks held in secure vaults while the underlying objects remained untouched, represents perhaps the clearest articulation of this logic: the object itself is preserved untouched, while its image and ownership stakes circulate infinitely. Value accrues to what can be endlessly reproduced and shared, not to the material thing itself. The macaron, consumed and destroyed, becomes paradoxically more valuable as an image—a photograph, a digital avatar, an augmented artwork—than as a physical pastry.</p>
+      </div>
+    </div>
+
+    <!-- placeholder band -->
+    <div style="width: 100%; aspect-ratio: 1880 / 800; overflow: hidden; background: var(--preview, #e6e5e2);">
+      <image-slot id="icono-img7" shape="rect" placeholder="Image"></image-slot>
+    </div>
+
+    <!-- body 5 -->
+    <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+      <div style="flex: 1 1 0; min-width: 280px; display: flex; flex-direction: column; gap: 20px;">
+        <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878);">The Museum of Presence</div>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">Yet there remains a persistent friction within this system, a resistance that the logic of circulation and collection cannot entirely overcome. In 2010, the chef Grant Achatz announced that Alinea, his Chicago restaurant, would implement a strict no-photography policy. The decision was radical within the context of contemporary food culture. Photography had become so normalized, so expected, that to forbid it felt almost hostile to the diner. Achatz's stated reason was architectural: he wanted to preserve the integrity of the aesthetic experience, to prevent the camera from mediating between the diner and the dish. He wanted presence, not documentation.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">The policy lasted less than a year. Diners rebelled. Achatz, recognizing that his role as a chef—before anything else, above all else, a creator of experience and pleasure—required acknowledging the contemporary reality of food as image, reversed course. The no-photography ban was lifted, and Alinea returned to the contemporary norm: dishes designed for their photographic potential, timing orchestrated around documentation, the meal itself becoming secondary to its image. Achatz's capitulation reveals the depth of cultural shift that has occurred. Even the chef cannot resist the gravity of the image. Photography is no longer a choice or a supplement to the experience of eating; it has become constitutive of eating itself.</p>
+      </div>
+      <div style="flex: 1 1 0; min-width: 280px; display: flex; flex-direction: column; gap: 20px;">
+        <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878);">The Physiology of Desire</div>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">We might ask: what is lost in this transformation? What happens to the body—the tasting body, the hungry body, the body that seeks nourishment—when food becomes primarily an object of vision?</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">The answer is more complicated than simple loss. According to Spence's research into multisensory perception, the visual component of taste is not supplementary but foundational. We taste with our eyes first, our mouth second. The color of a macaron—the pale pink of rose, the soft green of pistachio, the amber of caramel—activates taste perception before any physical contact occurs. The image, in other words, is not false; it is an authentic component of eating. When we photograph our food, we are not replacing the authentic experience with a false one; we are extending and duplicating that experience across multiple temporal moments and sensory channels.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">Yet the pathology identified by Keel's research remains. The image can trigger desire without providing satisfaction, can activate the hunger response without offering nourishment. We scroll through endless photographs of food, our bodies responding with readiness, our mouths watering, and then we move on to the next image, the next desire, the next hunger. The system is designed to perpetuate incompleteness, to make satisfaction impossible. This is not incidental to the economics of social media; it is foundational. Engagement is measured in time spent, in repeated return, in the desire to see more. A satisfied user is a user who has left the platform.</p>
+      </div>
+    </div>
+
+    <!-- body 6 -->
+    <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+      <div style="flex: 1 1 0; min-width: 280px; display: flex; flex-direction: column; gap: 20px;">
+        <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878);">The Aesthetics of Completion</div>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">The macaron collection system offers something that the infinite scroll of social media cannot: completion. By creating artificial scarcity—by limiting the artists to nine, the macarons per series to six, the distribution to random—the system introduces the possibility of finitude. You can complete the set. You can achieve closure. This closure, even though it is temporary (new artists, new series, new scarcity), offers a psychological reward that the endless feed cannot match.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">This might be why the gamification structure proves so compelling. It does not promise to satisfy the hunger that food images produce; rather, it transforms that hunger into something manageable, something that can be addressed through strategy and persistence. Instead of scrolling endlessly, you are pursuing a specific goal. Instead of a compulsion, you have a hobby. Instead of an addiction to images, you have a game with rules, endpoints, and rewards.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">Yet this transformation raises a different question: what is the nature of the reward? What do we actually want when we collect? Is it the pastry itself—the taste, the consumption, the nourishment? Clearly not, at least not primarily. Many collectors will never consume their completed sets; the pastries will sit in climate-controlled storage, preserved for their value as collectibles rather than as food. What we want is the sense of possession, the recognition of completion, the position within a system of scarcity and verification. We want, in short, what the digital ownership structure promises: proof that we have achieved something, that we have traversed a system according to its logic, that our position within a network is secure and recognizable.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">This is where the macaron finally achieves luxury status. Not through material durability, not through the permanence of the pastry itself, but through the permanence of the record. The NFT, the marketplace transaction, the digital certificate of collection—these are what endure. The pastry is merely the occasion for these more durable forms of ownership.</p>
+      </div>
+      <div style="flex: 1 1 0; min-width: 280px; display: flex; flex-direction: column; gap: 20px;">
+        <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878);">Conclusion: The Icon in the Mouth</div>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">We began with Francis Dolarhyde consuming the Dragon Rouge, transforming the image through the most intimate act of incorporation possible. What we have traced through the macaron and the contemporary visual economy is a different kind of incorporation—one that operates through networks and databases rather than through saliva and digestion, through records and verification rather than through the simple fact of consumption. Yet the fundamental act remains the same: we wish to make the icon part of ourselves, to absorb its meaning, to transform the external image into internal identity.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">The macaron, in its humble way, offers a kind of resolution to the problem it poses. By existing simultaneously as object and image, as ephemeral pastry and durable digital asset, as food and collectible, it acknowledges the irreducible complexity of contemporary visual consumption. We do not wish to abandon the body, the mouth, the actual taste of sugar and almond and ganache. But neither do we wish to confine ourselves to the momentary satisfaction of eating. We want both: the image and the object, the momentary and the permanent, the consumed and the possessed.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">This is the logic that now governs our relationship not just with food, but with culture itself. We are all collectors now, all engaged in the endless work of completing sets, accumulating and trading, photographing and sharing. We have learned, from the macaron and from a century of technological mediation, that the boundary between food and image, between consumption and collection, between the ephemeral and the eternal, is far more permeable than we once believed. And we have organized our entire visual economy—our platforms, our markets, our rewards—around this permeable boundary, creating systems that promise us both the nourishment of the moment and the permanence of the archive. Whether those systems can actually deliver on that promise remains the open question.</p>
+      </div>
+    </div>
+
+    <!-- placeholder left -->
+    <div style="width: 1247px; max-width: 100%; align-self: flex-start; aspect-ratio: 1247 / 800; overflow: hidden; background: var(--preview, #e6e5e2);">
+      <image-slot id="icono-img8" shape="rect" placeholder="Image"></image-slot>
+    </div>
+
+    <footer style="padding: 40px 0 0; display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap;">
+      <div style="display: flex; flex-direction: column; align-items: flex-start;">
+        <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #000);">Guillaume Helleu</span>
+        <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #000); opacity: 0.5;">Digital Research, Technological Pedagogy and Creative Practice.</span>
+      </div>
+      <div style="width: 323px; max-width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
+        <a href="mailto:guillaumehelleu.pro@gmail.com" style="width: 100%; font-size: 16px; line-height: 1.4; text-align: right; color: var(--ink, #000); text-decoration: underline;">guillaumehelleu.pro@gmail.com</a>
+        <span style="width: 100%; font-size: 16px; line-height: 1.4; text-align: right; color: var(--ink, #000);">+41 78 308 59 56</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { lang: 'fr', theme: 'light', ribHover: false };
+  componentDidMount() {
+    try {
+      const lang = localStorage.getItem('gh-lang');
+      const theme = localStorage.getItem('gh-theme');
+      const patch = {};
+      if (lang === 'fr' || lang === 'en') patch.lang = lang;
+      if (theme === 'light' || theme === 'dark') patch.theme = theme;
+      if (Object.keys(patch).length) this.setState(patch);
+    } catch (e) {}
+    import('./image-slot.js').catch(() => {});
+  }
+  setLang(v) { try { localStorage.setItem('gh-lang', v); } catch (e) {} this.setState({ lang: v }); }
+  setTheme(v) { try { localStorage.setItem('gh-theme', v); } catch (e) {} this.setState({ theme: v }); }
+  get isFr() { return this.state.lang !== 'en'; }
+  get pal() {
+    return this.state.theme === 'dark'
+      ? { bg: '#0e0e10', ink: '#f2f0ea', muted: '#7d7b75', preview: '#1c1c1f' }
+      : { bg: '#ffffff', ink: '#000000', muted: '#787878', preview: '#e6e5e2' };
+  }
+  buildNav() {
+    const p = this.pal, active = 1;
+    const items = this.isFr
+      ? [['Index', 'Index.dc.html'], ['Recherche', 'Recherche.dc.html'], ['Pedagogie', 'Pedagogie.dc.html'], ['Pratique', 'Pratique.dc.html'], ['À propos', 'About.dc.html']]
+      : [['Index', 'Index.dc.html'], ['Research', 'Recherche.dc.html'], ['Pedagogy', 'Pedagogie.dc.html'], ['Practice', 'Pratique.dc.html'], ['About', 'About.dc.html']];
+    return items.map(([label, href], i) => ({
+      label, href,
+      style: { fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, whiteSpace: 'nowrap', color: p.ink, textDecoration: i === active ? 'underline' : 'none', textUnderlineOffset: '4px' }
+    }));
+  }
+  renderVals() {
+    const p = this.pal;
+    return {
+      rootStyle: {
+        minHeight: '100vh', background: p.bg, color: p.ink, fontFamily: "'Inter', sans-serif",
+        padding: '20px', transition: 'background 0.35s ease, color 0.35s ease',
+        '--ink': p.ink, '--muted': p.muted, '--preview': p.preview
+      },
+      navItems: this.buildNav(),
+      inkHover: { color: p.muted },
+      ribHover: () => this.setState({ ribHover: true }),
+      ribUnhover: () => this.setState({ ribHover: false }),
+      ribBwStyle: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: this.state.ribHover ? 0 : 1, transition: 'opacity 0.3s ease' },
+      ribColorStyle: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: this.state.ribHover ? 1 : 0, transition: 'opacity 0.3s ease' },
+      ctrlStyle: { fontFamily: "'Inter', sans-serif", fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', color: p.ink, whiteSpace: 'nowrap' },
+      toggleLang: () => this.setLang(this.isFr ? 'en' : 'fr'),
+      toggleTheme: () => this.setTheme(this.state.theme === 'light' ? 'dark' : 'light'),
+      langLabel: this.isFr ? 'English' : 'Français',
+      themeLabel: this.state.theme === 'light' ? 'Dark' : 'Light'
+    };
+  }
+}
+</script>
+</body>
+</html>

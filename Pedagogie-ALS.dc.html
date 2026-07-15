@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,400&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #ffffff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: inherit; }
+  @media (max-width: 900px) { .hdr-right { display: none !important; } }
+</style>
+</helmet>
+<div style="{{ rootStyle }}">
+  <div style="width: 100%; max-width: 1880px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
+
+    <header style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: nowrap;">
+      <div style="display: flex; flex-direction: row; align-items: center; gap: 40px; flex-wrap: nowrap; min-width: 0; flex: 1;">
+        <a href="Home.dc.html" style="font-size: clamp(13px, 1.25vw, 24px); font-weight: 400; line-height: 1.4; white-space: nowrap; color: var(--ink, #000);">Guillaume Helleu</a>
+        <nav style="display: flex; flex-direction: row; align-items: center; gap: 28px; flex-wrap: nowrap; min-width: 0;">
+          <sc-for list="{{ navItems }}" as="nav" hint-placeholder-count="6">
+            <a href="{{ nav.href }}" style="{{ nav.style }}" style-hover="{{ inkHover }}">{{ nav.label }}</a>
+          </sc-for>
+        </nav>
+      </div>
+      <div class="hdr-right" style="display: flex; flex-direction: row; align-items: center; gap: 28px; flex-wrap: nowrap;">
+        <button onClick="{{ toggleLang }}" style="{{ ctrlStyle }}" style-hover="{{ inkHover }}">{{ langLabel }}</button>
+        <button onClick="{{ toggleTheme }}" style="{{ ctrlStyle }}" style-hover="{{ inkHover }}">{{ themeLabel }}</button>
+        <span style="font-size: clamp(13px, 1.25vw, 24px); font-weight: 400; line-height: 1.4; white-space: nowrap; color: var(--muted, #787878);">CC0 2016 — 2026</span>
+      </div>
+    </header>
+
+    <div style="display: flex; flex-direction: column; padding-bottom: 40px;">
+      <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878); margin: 0 0 8px;">Cours de Master d’architecture d’intérieur (MAIA) à la HEAD – Genève · Printemps 2025</div>
+      <h1 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: clamp(44px, 6.25vw, 120px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink, #000);">Architectural Latent Space</h1>
+      <p style="margin: 8px 0 0; max-width: none; font-family: 'Source Serif 4', Georgia, serif; font-weight: 400; font-size: clamp(26px, 3.125vw, 60px); line-height: 1.2; color: var(--ink, #000); width: 100%">L’essor de l’intelligence artificielle générative transforme en profondeur les modes de représentation et de conception architecturale. Loin d’être un simple outil, ces technologies modifient la relation entre l’image et l’architecture, ouvrant la voie à de nouvelles pratiques où le projet se construit autant par sa visualisation que par son éventuelle matérialisation.</p>
+    </div>
+
+    <div style="width: 100%; display: flex; flex-direction: column; gap: 20px;">
+      <sc-for list="{{ sections }}" as="s" hint-placeholder-count="4">
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="font-size: 16px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink, #000);">{{ s.label }}</div>
+          <div style="display: flex; flex-direction: column;">
+            <sc-for list="{{ s.lines }}" as="ln" hint-placeholder-count="3">
+              <div style="font-size: 16px; line-height: 1.5; color: var(--ink, #000); margin-bottom: 4px;">
+                {{ ln.text }}
+                <sc-for list="{{ ln.links }}" as="lk" hint-placeholder-count="0">
+                  <a href="{{ lk.url }}" target="_blank" style="text-decoration: underline; text-underline-offset: 3px; color: var(--ink, #000);" style-hover="{{ inkHover }}">{{ lk.label }}</a><span> </span>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <footer style="padding: 40px 0 0; display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap;">
+      <div style="display: flex; flex-direction: column; align-items: flex-start;">
+        <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #000);">Guillaume Helleu</span>
+        <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #000); opacity: 0.5;">Digital Research, Technological Pedagogy and Creative Practice.</span>
+      </div>
+      <div style="width: 323px; max-width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
+        <a href="mailto:guillaumehelleu.pro@gmail.com" style="width: 100%; font-size: 16px; line-height: 1.4; text-align: right; color: var(--ink, #000); text-decoration: underline;">guillaumehelleu.pro@gmail.com</a>
+        <span style="width: 100%; font-size: 16px; line-height: 1.4; text-align: right; color: var(--ink, #000);">+41 78 308 59 56</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { lang: 'fr', theme: 'light' };
+  componentDidMount() {
+    try {
+      const lang = localStorage.getItem('gh-lang');
+      const theme = localStorage.getItem('gh-theme');
+      const patch = {};
+      if (lang === 'fr' || lang === 'en') patch.lang = lang;
+      if (theme === 'light' || theme === 'dark') patch.theme = theme;
+      if (Object.keys(patch).length) this.setState(patch);
+    } catch (e) {}
+  }
+  setLang(v) { try { localStorage.setItem('gh-lang', v); } catch (e) {} this.setState({ lang: v }); }
+  setTheme(v) { try { localStorage.setItem('gh-theme', v); } catch (e) {} this.setState({ theme: v }); }
+  get pal() {
+    return this.state.theme === 'dark'
+      ? { bg: '#0e0e10', ink: '#f2f0ea', muted: '#7d7b75', preview: '#1c1c1f' }
+      : { bg: '#ffffff', ink: '#000000', muted: '#787878', preview: '#e6e5e2' };
+  }
+  buildNav() {
+    const p = this.pal, active = 2;
+    const items = this.state.lang === 'fr'
+      ? [['Index', 'Index.dc.html'], ['Recherche', 'Recherche.dc.html'], ['Pedagogie', 'Pedagogie.dc.html'], ['Pratique', 'Pratique.dc.html'], ['À propos', 'About.dc.html']]
+      : [['Index', 'Index.dc.html'], ['Research', 'Recherche.dc.html'], ['Pedagogy', 'Pedagogie.dc.html'], ['Practice', 'Pratique.dc.html'], ['About', 'About.dc.html']];
+    return items.map(([label, href], i) => ({
+      label, href,
+      style: { fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, whiteSpace: 'nowrap', color: p.ink, textDecoration: i === active ? 'underline' : 'none', textUnderlineOffset: '4px' }
+    }));
+  }
+  buildSections() {
+    const L = (text, links) => ({ text, links: links || [] });
+    const sections = [];
+
+    sections.push({ label: 'Descriptif et objectifs', lines: [
+      L('L\u2019essor de l\u2019intelligence artificielle générative transforme en profondeur les modes de représentation et de conception architecturale. Loin d\u2019être un simple outil, ces technologies modifient la relation entre l\u2019image et l\u2019architecture, ouvrant la voie à de nouvelles pratiques où le projet se construit autant par sa visualisation que par son éventuelle matérialisation.'),
+      L('Ce cours explore la manière dont l\u2019image peut devenir un espace de recherche et de spéculation architecturale. Plutôt que d\u2019opposer réalité et simulation, il interroge la nature même des images produites : leur statut, leur valeur architecturale et les imaginaires qu\u2019elles convoquent. Comment ces représentations influencent-elles notre compréhension de l\u2019espace ? Quelle part de vérité et de fiction véhiculent-elles ? Quels nouveaux paradigmes esthétiques et conceptuels émergent à travers elles ?'),
+      L('Dans ce cadre, les étudiants seront amenés à concevoir une agence virtuelle sur Instagram, ancrée dans une posture architecturale singulière. Chaque agence développera un positionnement spécifique vis-à-vis de l\u2019image architecturale synthétique, interrogeant à la fois son degré de réalisme, son potentiel constructif et sa fonction narrative.'),
+      L('Ce travail se déroulera en plusieurs étapes : analyse des productions existantes, expérimentation et hybridation d\u2019images via des outils génératifs, structuration d\u2019une identité conceptuelle et mise en place d\u2019une stratégie de diffusion. L\u2019objectif final est de produire un corpus d\u2019images architecturales cohérent et argumenté, capable de questionner les nouveaux territoires de l\u2019architecture à l\u2019ère des images générées.')
+    ]});
+
+    sections.push({ label: 'Objectifs pédagogiques', lines: [
+      L('Comprendre et analyser les tendances actuelles de l\u2019imagerie architecturale synthétique.'),
+      L('Explorer l\u2019impact des IA sur la conception et la perception des images d\u2019architecture.'),
+      L('Produire un corpus d\u2019images architecturales hybrides, basé sur des hybridations stylistiques et conceptuelles.'),
+      L('Définir une posture théorique et conceptuelle autour de l\u2019architecture spéculative.'),
+      L('Développer une stratégie de communication adaptée à la diffusion des images architecturales sur les réseaux sociaux.')
+    ]});
+
+    sections.push({ label: 'Évaluation et critères de validation', lines: [
+      L('L\u2019évaluation repose sur trois éléments :'),
+      L('Participation et soumission des exercices d\u2019introduction (analyse des comptes Instagram, génération d\u2019images de styles, cartographie des références).'),
+      L('Qualité générale du projet développé (cohérence conceptuelle, pertinence esthétique, structuration du corpus d\u2019images).'),
+      L('Qualité de la présentation finale (clarté du discours, structuration du support, capacité à défendre la démarche).')
+    ]});
+
+    sections.push({ label: 'Exigences de participation', lines: [
+      L('Présence sur site requise. L\u2019assiduité et la participation aux enseignements font partie des éléments évalués. Une absence à au moins 10% du cours (1 session) entraîne un travail supplémentaire. Une absence à au moins 30% du cours (3 sessions) entraîne un échec et une note de 1/6.')
+    ]});
+
+    sections.push({ label: 'Rapport pédagogique', lines: [
+      L('Le cours Architectural Latent Space explore les mutations contemporaines de l\u2019image architecturale à l\u2019ère des intelligences artificielles génératives. Il part du constat que, dans un contexte où les représentations numériques acquièrent une autonomie croissante, l\u2019architecture ne se donne plus seulement à construire, mais à percevoir, à raconter, à spéculer. Ce n\u2019est plus seulement la forme bâtie qui fait projet, mais l\u2019image elle-même, dans sa capacité à produire du sens, de la narration, de la tension.'),
+      L('Plutôt que de se focaliser sur les prouesses techniques des IA, ce module propose une lecture critique des images synthétiques d\u2019architecture. Il interroge leurs codes, leurs usages, leurs récits implicites, tout en expérimentant les possibilités offertes par ces outils dans une logique de positionnement conceptuel, esthétique et narratif.'),
+      L('Le semestre s\u2019est déroulé sur six séances intensives, suivant des phases d\u2019analyse, de cartographie, de production et de diffusion. À travers différents exercices successifs, les étudiants ont été amenés à construire une identité virtuelle singulière (sous la forme d\u2019un compte ou d\u2019un studio fictif), en capacité d\u2019adopter une posture claire vis-à-vis de l\u2019imaginaire synthétique architectural. Cette identité devait s\u2019incarner dans un corpus d\u2019images, une ligne éditoriale, un ancrage critique et une stratégie de communication.'),
+      L('L\u2019ensemble des productions réalisées durant le cours (grilles d\u2019analyse, séries d\u2019images, textes critiques, présentations, comptes Instagram) est archivé dans ', [{ label: 'ce dossier Drive', url: 'https://drive.google.com/drive/folders/1deI7tg4Xlm11aFZsh7HgBMwN4-I0WzxK?usp=sharing' }])
+    ]});
+
+    sections.push({ label: 'Les exercices', lines: [
+      L('Les deux premières séances ont été consacrées à trois exercices préparatoires, pensés comme un préambule méthodologique posant les bases critiques, techniques et conceptuelles des projets individuels.')
+    ]});
+
+    sections.push({ label: 'Exercice 1 — Analyse critique de comptes Instagram', lines: [
+      L('Chaque étudiant a analysé un compte dédié aux images synthétiques d\u2019architecture à l\u2019aide d\u2019une grille de plus de 100 critères quantifiables (réalisme, récit, cadrage, matérialité, signes d\u2019artificialité, stratégie éditoriale). Résultat : un ensemble de diagnostics critiques servant de base à la cartographie ultérieure.'),
+      L('Résultats — ', [{ label: 'Google Sheet', url: 'https://docs.google.com/spreadsheets/d/1IjBtkyK711tp8N8r6e9tp5Jr9M262ZtOBm6hrjjONGk/edit?usp=sharing' }]),
+      L('Images collectées — ', [{ label: 'Drive', url: 'https://drive.google.com/drive/folders/11NjIbA9h7_pgzdGEPUeaMZO0wOQoY182?usp=sharing' }])
+    ]});
+
+    sections.push({ label: 'Exercice 2 — Hybridation stylistique et espace latent', lines: [
+      L('Chaque étudiant a choisi un style d\u2019intérieur fortement caractérisé (baroque, brutaliste, scandinave, memphis, etc.), généré une série représentative, puis produit des hybridations entre styles pour visualiser la continuité stylistique dans l\u2019espace latent. Ce travail fait l\u2019objet d\u2019une publication indépendante (en cours).'),
+      L('Images produites — ', [{ label: 'Drive', url: 'https://drive.google.com/drive/folders/128E0hHhvpuQmWXHZcIXlgYpOSkAjEbaq?usp=sharing' }]),
+      L('Matrice d\u2019hybridation — ', [{ label: 'Drive', url: 'https://drive.google.com/file/d/1Bwu_GDrds8Ej2EaR03ggG2lOopLlki8-/view?usp=sharing' }]),
+      L('Publication (texte de recherche) — ', [{ label: 'Google Doc', url: 'https://docs.google.com/document/d/1eFxNM3wauxGju8NZrHrYdOSql140i6oSMwjtTjEE83Q/edit?usp=sharing' }]),
+      L('Publication (visuels) — ', [{ label: 'PDF', url: 'https://drive.google.com/file/d/1BmwLA23Dm3D9SnUZ2aDmf8PVftrWJll3/view?usp=sharing' }]),
+      L('Compte Instagram dédié — ', [{ label: '@architectural.latent.style', url: 'https://www.instagram.com/architectural.latent.style/' }])
+    ]});
+
+    sections.push({ label: 'Exercice 3 — Cartographie des imaginaires architecturaux', lines: [
+      L('À partir d\u2019un corpus d\u2019architectes de l\u2019architecture de papier (Piranesi, Archigram, Boullée, Superstudio, etc.), les étudiants ont positionné une centaine d\u2019images dans une matrice à trois axes : Mimétique ↔ Altéré ; Réalisable ↔ Exploratoire ; Documentaire ↔ Narratif.'),
+      L('Iconographies — ', [{ label: 'Drive', url: 'https://drive.google.com/drive/folders/1C-t0oepXJ9lcfjn4hVCeA4VF_xAPaOy3?usp=sharing' }]),
+      L('Matrice historique — ', [{ label: 'Drive', url: 'https://drive.google.com/file/d/1C15VXjkr7jcd-Y3osQVUBcZqfJPbz_2X/view?usp=sharing' }]),
+      L('Matrice synthétique — ', [{ label: 'Drive', url: 'https://drive.google.com/file/d/1C-tBgTFSrZ0Nkm9imx-lg0acG16q_m_P/view?usp=sharing' }])
+    ]});
+
+    sections.push({ label: 'Les projets', lines: [
+      L('La seconde moitié du semestre a été consacrée au développement d\u2019un projet personnel : construire une position critique face à l\u2019image synthétique d\u2019architecture, sous la forme d\u2019un compte fictif ou d\u2019une entité virtuelle incarnant une posture esthétique, politique ou spéculative. À l\u2019issue du semestre, j\u2019ai repris l\u2019ensemble des projets pour en proposer une réécriture complète sous forme de textes de recherche-création, conçus comme des micro-essais, en cours de publication.'),
+      L('Compilation des textes de publication — ', [{ label: 'PDF', url: 'https://drive.google.com/file/d/1CWW1OTTWo-Qe-kqDnaQLHfK2AQGo85H7/view?usp=sharing' }])
+    ]});
+
+    sections.push({ label: 'Rendus étudiants', lines: [
+      L('L\u2019ensemble des projets a donné lieu à un corpus visuel massif : plus de 26 000 images générées. Ci-dessous, le résumé de chaque projet et un lien vers son rendu original.')
+    ]});
+
+    const projects = [
+      ['Célestine Potin — Récits fantômes', 'Activer l\u2019esthétique de l\u2019urbex par le mystère narratif. Ce projet invente la ruine d\u2019un lieu qui n\u2019a jamais existé, en détournant les codes de l\u2019Urbex et de l\u2019archive : chaque image documente une mémoire fabriquée, où la ruine devient un support narratif autonome.', 'https://drive.google.com/open?id=19Zzu6Tt7eNACvi32F3rPdJ0OdADr4BS-&usp=drive_fs', '@onceuponurbex', 'https://www.instagram.com/onceuponurbex/'],
+      ['Lisa Schober — Changer de focale', 'Repenser le point de vue en architecture générative. Des intérieurs vus depuis des perspectives déformées ou intrusives, qui interrogent la manière dont le regard (humain ou algorithmique) structure notre rapport à l\u2019espace.', 'https://drive.google.com/open?id=18p3msmIaeDdnlbImaRxfAWKoDRWKIpzq&usp=drive_fs', '@altpov.d', 'https://www.instagram.com/altpov.d/'],
+      ['Mariia Fomina — Confort en tension', 'Penser l\u2019architecture à la jonction des opposés. Des intérieurs luxueux confrontés à des environnements urbains hostiles, révélant l\u2019absurdité d\u2019un confort détaché de son contexte.', 'https://drive.google.com/open?id=18e9cF4nZlw-hYYkyt9-jqDoeZUs6jq_z&usp=drive_fs', '@opulent_decay', 'https://www.instagram.com/opulent_decay/'],
+      ['Matilde Arletti — Post-Anthropocentric Lab', 'Imaginer l\u2019habitat depuis une intelligence animale : une architecture conçue non plus pour les animaux mais par les animaux, aux logiques constructives issues du vivant.', 'https://drive.google.com/open?id=1BeGiYxRUX_o5hSPlWgpw1q7M5SYlOE_i&usp=drive_fs', '@paa__lab', 'https://www.instagram.com/paa__lab/'],
+      ['Ailyn Pieyre — Formes fossiles', 'Chercher des signes d\u2019architecture dans la nature post-humaine. Des formes ambiguës, entre ruine, artefact et formation naturelle, qui résistent à toute interprétation.', 'https://drive.google.com/open?id=19aVQHkgLllxtyg8E_qDczMh5usWOulnu&usp=drive_fs', '@remains_of_other_worlds', 'https://www.instagram.com/remains_of_other_worlds/'],
+      ['Maxime Joost — MindSpaces', 'Traduire une subjectivité en langage spatial : l\u2019espace comme langage capable d\u2019exprimer une personnalité au même titre que la musique ou la peinture.', 'https://drive.google.com/open?id=19cqibEJ2oqDJtZjgViid4UiwnNH7wq_I&usp=drive_fs', '@mind_spaces_', 'https://www.instagram.com/mind_spaces_/'],
+      ['Abena Otupiri — Frankenstructure', 'Penser le vivant dans une architecture dotée de droits : une architecture vivante et consciente, projetant un basculement post-humain où les bâtiments négocient leur propre existence.', 'https://drive.google.com/open?id=18TkLDumUCUjguh_YjD7QKIvfj0DEL-6c&usp=drive_fs', '@frankenstructure_studio', 'https://www.instagram.com/frankenstructure_studio/'],
+      ['Karol Szmigielski — Expanded Truths', 'Reconfigurer le réel par le cadrage spatial : comment l\u2019extension d\u2019une image existante en modifie la lecture, révélant la puissance du cadrage comme outil narratif et politique.', 'https://drive.google.com/open?id=19UvTksHeNHwBdx8XtmB2jZttb4a7wt-G&usp=drive_fs', '@expandedtruths', 'https://www.instagram.com/expandedtruths/'],
+      ['Kim Schönauer — Lisières perceptives', 'Explorer les seuils d\u2019existence de l\u2019espace : une architecture sans masse ni volume, fondée sur la lumière, la couleur et l\u2019immersion, où l\u2019image devient l\u2019expérience du lieu.', 'https://drive.google.com/open?id=19_PVJAcv8HeXjxuQq4Yn7b3xc56FgMAj&usp=drive_fs', '@vyra.studio', 'https://www.instagram.com/vyra.studio/'],
+      ['Luisa Lukas — Programmatic Crash', 'Confronter des typologies incompatibles dans l\u2019espace latent, révélant les failles perceptives des modèles génératifs et une crise de la représentation.', 'https://drive.google.com/open?id=19F9uHv_Tc15BsXeuFW1OtEYnIlJ6b8TK&usp=drive_fs', '@infraweld_laboratory', 'https://www.instagram.com/infraweld_laboratory/'],
+      ['Paul Rigal — Habiter le vide', 'Combler les interstices par une logique d\u2019excavation : le vide comme matériau architectural, une esthétique de l\u2019inframince et une politique du creux.', 'https://drive.google.com/open?id=18Vr3mZQZtBxOp_NGFD2XY07-3gcad-BO&usp=drive_fs', '@underthevoid.studio', 'https://www.instagram.com/underthevoid.studio/'],
+      ['Letizia Milone — Dérives du réel', 'Vers une grammaire onirique de l\u2019espace généré : l\u2019effondrement progressif du réel architectural, simulant non un monde rêvé mais le processus même du rêve.', 'https://drive.google.com/open?id=19QieF2OB4HGRmJEVNB5MG1Rx9uLSqj7W&usp=drive_fs', '@dream.collapse.studio', 'https://www.instagram.com/dream.collapse.studio/'],
+      ['Hugo Maia Schmitt — Inflatable Hack', 'Interventions critiques dans l\u2019espace public : réactiver la tradition des architectures gonflables comme forme douce de contestation, entre désobéissance poétique et récit militant.', 'https://drive.google.com/open?id=18vDxVyqfopBMuguupH42jdIu73WcJP2q&usp=drive_fs', '@inflacollective', 'https://www.instagram.com/inflacollective'],
+      ['Lina Laube — Structures insurgées', 'Imaginer les restes d\u2019une lutte à venir : une archéologie spéculative de l\u2019architecture de protestation, entre mémoire anticipée et stratégie formelle.', 'https://drive.google.com/open?id=1BaooEPNMM_SzYrHZs5vA8_u4MnJbIyW1&usp=drive_fs', '@riot.ruins', 'https://www.instagram.com/riot.ruins/']
+    ];
+
+    for (const [name, desc, pdfUrl, igLabel, igUrl] of projects) {
+      sections.push({ label: name, lines: [
+        L(desc),
+        L('', [{ label: 'Présentation de jury (PDF)', url: pdfUrl }, { label: igLabel, url: igUrl }])
+      ]});
+    }
+
+    return sections;
+  }
+  renderVals() {
+    const p = this.pal;
+    return {
+      rootStyle: {
+        minHeight: '100vh', background: p.bg, color: p.ink, fontFamily: "'Inter', sans-serif",
+        padding: '20px', transition: 'background 0.35s ease, color 0.35s ease',
+        '--ink': p.ink, '--muted': p.muted, '--preview': p.preview
+      },
+      navItems: this.buildNav(),
+      sections: this.buildSections(),
+      inkHover: { color: p.muted },
+      ctrlStyle: { fontFamily: "'Inter', sans-serif", fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', color: p.ink, whiteSpace: 'nowrap' },
+      toggleLang: () => this.setLang(this.state.lang === 'fr' ? 'en' : 'fr'),
+      toggleTheme: () => this.setTheme(this.state.theme === 'light' ? 'dark' : 'light'),
+      langLabel: this.state.lang === 'fr' ? 'English' : 'Français',
+      themeLabel: this.state.theme === 'light' ? 'Dark' : 'Light'
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #ffffff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: inherit; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+</style>
+</helmet>
+<div style="{{ rootStyle }}">
+
+  <header style="display: flex; justify-content: space-between; align-items: baseline; padding: 28px 20px 0; flex-wrap: wrap; gap: 16px 40px;">
+    <div style="display: flex; align-items: baseline; gap: 40px; flex-wrap: wrap;">
+      <a href="Home.dc.html" style="font-size: 18px; font-weight: 400; letter-spacing: -0.015em">Guillaume Helleu</a>
+      <nav style="display: flex; gap: 26px; font-size: 18px; letter-spacing: -0.01em; flex-wrap: wrap;">
+        <sc-for list="{{ navItems }}" as="nav" hint-placeholder-count="6">
+          <a href="{{ nav.href }}" style="font-weight: 400" style-hover="{{ inkHover }}">{{ nav.label }}</a>
+        </sc-for>
+      </nav>
+    </div>
+    <div style="display: flex; align-items: baseline; gap: 22px; font-size: 16px;">
+      <button onClick="{{ toggleLang }}" style="{{ ctrlStyle }}">{{ langLabel }}</button>
+      <button onClick="{{ toggleTheme }}" style="{{ ctrlStyle }}">{{ themeLabel }}</button>
+      <span style="color: var(--muted, #8f8d86); font-weight: 400">CC0 2016 — 2026</span>
+    </div>
+  </header>
+
+  <section style="padding: 52px 20px 40px;">
+    
+
+    <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
+      <div style="padding: 30px 0; font-size: 15px; color: var(--muted, #8f8d86);">{{ loadingLabel }}</div>
+    </sc-if>
+
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; align-items: start;">
+      
+    <div style="grid-column: span 4; width: 100%; height: auto;">
+        <h1 style="margin: 0 0 22px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: clamp(64px, 9.375vw, 180px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink, #141310)">{{ heading }}</h1>
+        <p style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 400; font-size: clamp(28px, 3.125vw, 60px); line-height: 1.2; color: var(--ink, #141310); text-wrap: pretty; width: 100%">{{ lede }}</p>
+      </div></div><div style="margin-top: 40px;">
+      <sc-for list="{{ groups }}" as="grp" hint-placeholder-count="6">
+        <div style="margin-bottom: 46px;">
+          <div style="display: flex; align-items: baseline; gap: 10px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink, #141310); font-weight: 400; margin-bottom: 6px">{{ grp.domain }} <span style="color: var(--muted, #8f8d86); font-weight: 400; letter-spacing: 0;">{{ grp.count }}</span></div>
+          <sc-for list="{{ grp.rows }}" as="row" hint-placeholder-count="4">
+            <div>
+              <div onClick="{{ row.onToggle }}" style="{{ row.style }}" style-hover="{{ row.hoverStyle }}">
+                <span style="font-weight: 400">{{ row.title }}</span>
+                <span style="color: var(--muted, #8f8d86); white-space: nowrap; font-weight: 400">{{ row.place }}</span>
+                <span style="color: var(--muted, #8f8d86); white-space: nowrap; text-align: right; font-weight: 400">{{ row.date }}</span>
+              </div>
+              <sc-if value="{{ row.open }}" hint-placeholder-val="{{ false }}">
+                <div style="padding: 8px 0 32px 40px; animation: fadeIn 0.35s ease both;">
+                  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+                    <div style="grid-column: span 3;">
+                      <sc-if value="{{ row.hasDesc }}" hint-placeholder-val="{{ false }}">
+                        <p style="margin: 0 0 18px; font-size: 24px; font-weight: 400; line-height: 1.5; color: var(--ink, #141310); text-wrap: pretty;">{{ row.desc }}</p>
+                      </sc-if>
+                      <div style="display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 14px; margin-bottom: 22px;">
+                        <sc-for list="{{ row.meta }}" as="mm" hint-placeholder-count="2">
+                          <span style="display: inline-flex; gap: 8px;"><span style="text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted, #8f8d86);">{{ mm.k }}</span><span style="color: var(--ink, #141310);">{{ mm.v }}</span></span>
+                        </sc-for>
+                      </div>
+                      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+                        <sc-for list="{{ row.gallery }}" as="g" hint-placeholder-count="3">
+                          <div style="width: 100%; aspect-ratio: 4 / 3; background: var(--preview, #f0efec); overflow: hidden;">
+                            <image-slot id="{{ g.id }}" shape="rect" placeholder=" "></image-slot>
+                          </div>
+                        </sc-for>
+                      </div>
+                      <sc-if value="{{ row.link }}" hint-placeholder-val="{{ false }}">
+                        <div style="margin-top: 16px; font-size: 15px;"><a href="{{ row.link }}" target="_blank" style="border-bottom: 1px solid var(--ink, #141310);">{{ readMore }}</a></div>
+                      </sc-if>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <footer style="padding: 60px 20px 56px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px;">
+    <div style="font-size: 20px; font-weight: 400; letter-spacing: -0.015em; color: var(--ink, #141310); line-height: 1.25;">Guillaume Helleu<br><span style="font-weight: 400; color: var(--muted, #8f8d86);">Digital Research, Technological Pedagogy and Creative Practice.</span></div>
+    <div style="font-size: 16px; color: var(--ink, #141310); text-align: right; line-height: 1.7;">
+      <a href="mailto:guillaumehelleu.pro@gmail.com" style="border-bottom: 1px solid var(--muted, #8f8d86);">guillaumehelleu.pro@gmail.com</a><br>
+      <span>+41 78 308 59 56</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { items: null, loading: true, lang: 'fr', theme: 'light', open: null, hover: null };
+
+  componentDidMount() {
+    try {
+      const lang = localStorage.getItem('gh-lang');
+      const theme = localStorage.getItem('gh-theme');
+      const patch = {};
+      if (lang === 'fr' || lang === 'en') patch.lang = lang;
+      if (theme === 'light' || theme === 'dark') patch.theme = theme;
+      if (Object.keys(patch).length) this.setState(patch);
+    } catch (e) {}
+    import('./sheet.js')
+      .then(m => m.loadActivities())
+      .then(items => this.setState({ items, loading: false }))
+      .catch(() => {
+        fetch('./data/activities.json')
+          .then(r => r.json())
+          .then(items => this.setState({ items, loading: false }))
+          .catch(() => this.setState({ items: [], loading: false }));
+      });
+  }
+  setLang(v) { try { localStorage.setItem('gh-lang', v); } catch (e) {} this.setState({ lang: v }); }
+  setTheme(v) { try { localStorage.setItem('gh-theme', v); } catch (e) {} this.setState({ theme: v }); }
+
+  get isFr() { return this.state.lang === 'fr'; }
+
+  get pal() {
+    return this.state.theme === 'dark'
+      ? { bg: '#131210', ink: '#f0ede4', muted: '#84827a', preview: '#22211b', stripe: 'rgba(255,255,255,0.05)' }
+      : { bg: '#ffffff', ink: '#141310', muted: '#8f8d86', preview: '#f0efec', stripe: 'rgba(0,0,0,0.03)' };
+  }
+
+  buildNav() {
+    const p = this.pal;
+    const items = this.isFr
+      ? [['Index', 'Index.dc.html'], ['Recherche', 'Recherche.dc.html'], ['Pédagogie', 'Pedagogie.dc.html'], ['Pratique', 'Pratique.dc.html'], ['À propos', 'About.dc.html']]
+      : [['Index', 'Index.dc.html'], ['Research', 'Recherche.dc.html'], ['Pedagogy', 'Pedagogie.dc.html'], ['Practice', 'Pratique.dc.html'], ['About', 'About.dc.html']];
+    return items.map(([label, href], i) => ({
+      label, href,
+      style: { color: p.ink, textDecoration: i === 3 ? 'underline' : 'none', textUnderlineOffset: '4px' }
+    }));
+  }
+
+  renderVals() {
+    const p = this.pal;
+    const items = (this.state.items || []).filter(it => it.type === 'Pratique');
+    const rowBase = { display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 150px 90px', gap: '28px', alignItems: 'baseline', padding: '7px 0', fontSize: '24px', lineHeight: '1.3', color: p.ink, cursor: 'pointer' };
+    const L = { studio: this.isFr ? 'Studio' : 'Studio', place: this.isFr ? 'Lieu' : 'Location' };
+
+    const rows = items.map((it, i) => {
+      const open = this.state.open === i;
+      const desc = it.desc || it.resume || '';
+      const meta = [];
+      if (it.org) meta.push({ k: L.studio, v: it.org });
+      if (it.place) meta.push({ k: L.place, v: it.place });
+      return {
+        i, domain: it.domain || (this.isFr ? 'Autres' : 'Other'),
+        title: it.title, place: it.place || '—', date: it.dateNorm || it.date || '',
+        desc, hasDesc: !!desc, link: it.link,
+        meta,
+        gallery: [1, 2, 3].map(n => ({ id: 'prat-' + i + '-' + n })),
+        open,
+        mark: open ? '–' : '+',
+        markStyle: { color: 'var(--muted, #8f8d86)', fontWeight: 400, transition: 'color 0.15s' },
+        style: { ...rowBase },
+        hoverStyle: { textDecoration: 'underline', textUnderlineOffset: '3px' },
+        onToggle: () => this.setState(s => ({ open: s.open === i ? null : i }))
+      };
+    });
+
+    const order = [];
+    const map = {};
+    rows.forEach(r => { if (!map[r.domain]) { map[r.domain] = { domain: r.domain, count: 0, rows: [] }; order.push(map[r.domain]); } map[r.domain].rows.push(r); map[r.domain].count++; });
+
+    return {
+      rootStyle: {
+        minHeight: '100vh', background: p.bg, color: p.ink, fontFamily: "'Inter', sans-serif",
+        transition: 'background 0.35s ease, color 0.35s ease',
+        '--ink': p.ink, '--muted': p.muted, '--bg': p.bg, '--preview': p.preview, '--stripe': p.stripe
+      },
+      navItems: this.buildNav(),
+      inkHover: { color: p.muted },
+      ctrlStyle: { fontFamily: "'Inter', sans-serif", fontSize: '16px', background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', color: p.ink, letterSpacing: '-0.005em' },
+      toggleLang: () => this.setLang(this.isFr ? 'en' : 'fr'),
+      toggleTheme: () => this.setTheme(this.state.theme === 'light' ? 'dark' : 'light'),
+      langLabel: this.isFr ? 'English' : 'Français',
+      themeLabel: this.state.theme === 'light' ? 'Dark' : 'Light',
+      heading: this.isFr ? 'Pratique' : 'Practice',
+      lede: this.isFr
+        ? 'Une pratique appliquée à la croisée du design narratif, de l’architecture, de l’événementiel et des technologies interactives — événementiel, intérieur, architecture, urbanisme, paysage, digital.'
+        : 'An applied practice at the crossroads of narrative design, architecture, events and interactive technologies — events, interiors, architecture, urbanism, landscape, digital.',
+      readMore: this.isFr ? 'En savoir plus →' : 'Learn more →',
+      loadingLabel: this.isFr ? 'Chargement des projets…' : 'Loading projects…',
+      loading: this.state.loading,
+      groups: order
+    };
+  }
+}
+</script>
+</body>
+</html>

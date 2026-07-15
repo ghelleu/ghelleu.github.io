@@ -1,0 +1,391 @@
+[
+ {
+  "id": "architectural-latent-style",
+  "type": "Issue #01",
+  "date": "June 2025",
+  "title": "Architectural Latent Style",
+  "subtitle": "Vers une cartographie des taxonomies stylistiques à l’ère des IA génératives",
+  "credit": "",
+  "abstract": "Ce texte explore les transformations du concept de style architectural à l’ère des intelligences artificielles génératives. En mobilisant la notion d’espace latent, il montre que les styles ne se présentent plus comme des entités historiques fixes ou des catégories homogènes, mais comme des régions dynamiques au sein d’un champ relationnel.",
+  "blocks": [
+   {
+    "kind": "lead",
+    "html": "L’histoire de l’architecture a souvent été racontée à travers celle de ses styles. Du gothique au modernisme, du brutalisme au high-tech, ces catégories permettent de structurer un récit, de situer les formes dans le temps, de relier la construction à des intentions culturelles. Pourtant, dans un présent saturé d’images, d’influences croisées et de références globalisées, ces classifications semblent de moins en moins capables de rendre compte de la complexité esthétique contemporaine. Avec l’émergence des outils d’intelligence artificielle générative, le style cesse d’être un ensemble de règles fixes ou une époque identifiable : il devient un champ de variation continue, un territoire dynamique où les formes circulent, se contaminent, se ramifient."
+   },
+   {
+    "kind": "figrow",
+    "figs": [
+     {
+      "src": "https://helleuguillaume.com/_assets/v11/23a2e176ff28a0357ead7c7a64a96b5e65fe2ef6.png",
+      "caption": "Brutalist Caravan — A harmony of heavy mass and handcrafted imperfection."
+     },
+     {
+      "src": "https://helleuguillaume.com/_assets/v11/b21b295e45e8bd9b83c51c8aeac734808c357706.png",
+      "caption": "Vagabond Gothic — A world where candlelight flickers on forgotten tapestries."
+     },
+     {
+      "src": "https://helleuguillaume.com/_assets/v11/f5b983a6f34d4c40c66ae6d332285f98b0de94ec.png",
+      "caption": "Opulent Boheme — Where free-spirited chaos meets curated extravagance."
+     }
+    ]
+   },
+   {
+    "kind": "p",
+    "html": "Ce basculement est rendu possible par la structure même des intelligences artificielles génératives. Formées à partir de millions d’images, elles ne reproduisent pas littéralement un style : elles génèrent des images à partir de relations statistiques apprises dans ce que l’on appelle un espace latent, une représentation mathématique compressée de l’ensemble des images rencontrées durant l’entraînement. Chaque image y est traduite sous forme de vecteurs abstraits — des suites de nombres encodant des caractéristiques visuelles (formes, textures, couleurs, compositions). Dans ce champ numérique, deux images visuellement similaires seront représentées par des points rapprochés : c’est cette topologie qui permet d’explorer des proximités esthétiques, même implicites. Dans cet espace, chaque style correspond à une région de forte densité : un regroupement empirique d’exemples visuels ayant des traits en commun. Mais c’est surtout dans les trajectoires entre ces régions que s’ouvrent de nouveaux territoires stylistiques : des configurations intermédiaires qui n’ont pas d’équivalent historique, mais qui restent statistiquement cohérentes. Une image générée peut ainsi n’appartenir à aucun style défini, mais émerger d’un point situé entre plusieurs zones stylistiques du latent space. Elle devient alors une interpolation visuelle : un croisement fluide entre des influences multiples, sans hiérarchie ni frontière nette. Ce glissement engage une relecture des fondements de l’analyse architecturale. Plutôt que de penser les styles comme des typologies fixes ou des périodes closes, il faut les envisager comme des régions cartographiques, traversées par des tensions formelles. Un projet généré entre « brutalisme » et « baroque » ne correspond à aucun canon connu, mais peut néanmoins être perçu comme plausible. Ce que l’IA rend visible, ce ne sont pas des inventions radicales, mais des agencements latents — restés inexplorés dans le développement historique, mais que la combinatoire algorithmique révèle avec une clarté nouvelle. Ce que l’on découvre ici n’est pas une nouvelle chronologie, mais une cartographie parallèle — où les styles se connectent en constellations plutôt que de se succéder."
+   },
+   {
+    "kind": "fig",
+    "src": "https://helleuguillaume.com/_assets/v11/f120d0494ffee3f0deef0b0d763c86b1f96c2778.png",
+    "caption": "Ce schéma illustre le principe d’un espace latent dans un modèle génératif. À gauche, les objets sont projetés dans un espace vectoriel réduit, où chaque point encode une combinaison de traits visuels appris. Les proximités spatiales reflètent des similarités statistiques entre les formes. En interpolant entre plusieurs exemples (lignes pointillées), le modèle génère de nouvelles instances intermédiaires, ici visualisées au centre sous forme de grille morphologique continue. À droite, un objet synthétique issu de cette interpolation incarne une configuration absente du jeu de données initial, mais rendue plausible par la structure du modèle. L’espace latent devient ainsi un territoire navigable de styles non actualisés, où l’image générée n’est plus une reproduction, mais une actualisation probabiliste d’un continuum formel.<br><span class=\"src\">Source : Cabezon Pedroso, T., &amp; Byrne, D. (2023). <a href=\"https://doi.org/10.1145/3591196.3596815\" target=\"_blank\" rel=\"noopener\">Browsing the Latent Space: A New Approach to Interactive Design Exploration for Volumetric Generative Systems</a>. Proceedings of the 15th Conference on Creativity and Cognition (C&amp;C ’23), pp. 330–333.</span>"
+   },
+   {
+    "kind": "p",
+    "html": "L’un des apports majeurs de ces modèles n’est donc pas tant de créer que de révéler. Ils fonctionnent comme des instruments d’archéologie inversée : non pas pour exhumer des formes anciennes, mais pour faire émerger des combinaisons esthétiques que l’histoire de l’architecture n’a jamais actualisées. Ce que les intelligences artificielles apprennent, ce ne sont pas des doctrines, mais des régularités visuelles. Elles n’intègrent ni le programme politique du brutalisme, ni la rhétorique théologique du baroque ; elles extraient, comparent, recombinent. Des textures, des volumes, des motifs — béton brut, coupoles dorées, colonnes torsadées — deviennent des fragments décontextualisés, disponibles pour de nouvelles fusions. À partir de cette matière visuelle, les IA ne reproduisent pas une architecture, mais ce que le style a laissé dans les images : ses traces, ses récurrences, ses excès. Ce qu’elles rendent visible, ce n’est donc pas un style au sens canonique, mais une mémoire statistique du style — une histoire latente faite de patterns formels, détachés de leurs discours d’origine."
+   },
+   {
+    "kind": "p",
+    "html": "Dans cette logique, l’oubli devient une ressource stylistique. Là où la critique architecturale a souvent disqualifié le kitsch, le décoratif ou l’inachevé, les IA génératives peuvent les réintégrer, sans filtre idéologique. Contrairement à l’histoire de l’architecture, qui hiérarchise, sélectionne, canonise, les IA ne valorisent aucune image au détriment d’une autre : elles analysent des similarités, sans jugement. Cela dit, la composition des datasets introduit malgré tout des biais, en surreprésentant certains styles ou en invisibilisant d’autres — une hiérarchie implicite qu’il faut garder à l’esprit. Dans ce cadre, il devient possible de générer « un baroque brutaliste » ou « un gothique postmoderne » non pas comme une provocation, mais comme une forme d’hybridation naturelle. L’IA ne copie pas des modèles : elle extrait des régularités visuelles et les recombine. Ce qu’elle met en jeu, c’est une continuité latente entre les formes — une manière de composer, sans système de valeurs, ce que l’histoire avait appris à dissocier."
+   },
+   {
+    "kind": "p",
+    "html": "Cela suppose un déplacement profond de notre manière de penser les styles. Ce ne sont plus des entités discrètes, mais des syntaxes ouvertes. Comme en linguistique, où une langue repose moins sur son vocabulaire que sur sa grammaire, un style architectural peut être compris comme un ensemble de règles transformationnelles. L’IA ne produit pas une image de style, mais une image stylisée — conforme à une série de contraintes internes apprises, et recombinables. On peut y voir une forme de traduction stylistique : passer d’un idiome baroque à un idiome brutaliste, non pas par superposition des formes, mais par croisement des structures. L’architecture devient alors un langage, et l’espace latent, son dictionnaire multidimensionnel."
+   },
+   {
+    "kind": "p",
+    "html": "Dans l’espace latent, l’hybridation stylistique ne consiste pas à juxtaposer des éléments esthétiques. Elle ne se réduit pas à ajouter un décor baroque sur une structure brutaliste, ni à fusionner deux univers visuels pour créer un style « fusion ». Elle engage un processus plus profond : celui de la confrontation entre deux manières de concevoir l’architecture. Chaque style repose sur une syntaxe, une logique interne. Le brutalisme, par exemple, valorise la frontalité, l’exposition de la matière, la lisibilité structurelle. Le baroque, à l’inverse, privilégie la courbe, le mouvement, la mise en scène. Lorsque ces deux styles sont croisés par une IA générative, ce ne sont pas seulement leurs formes qui se rencontrent, mais leurs régularités — leurs habitudes de composition, leurs manières d’articuler l’espace. Une hybridation intéressante ne cherche pas à masquer ces différences. Elle ne vise pas la synthèse harmonieuse, mais accepte les frictions. C’est précisément dans la tension entre deux systèmes incompatibles que surgit un potentiel critique. L’image générée devient un lieu de dissonance : un intérieur en béton brut traversé par des voûtes dorées, une monumentalité froide adoucie par des excès ornementaux. Ce désaccord formel ne doit pas être perçu comme un défaut, mais comme un révélateur. Il expose ce que chaque style évite de montrer : le baroque mis à nu dans son absence de structure, le brutalisme confronté à son rejet de l’émotion. L’IA permet alors de produire non pas une architecture de compromis, mais une architecture de l’écart — un espace d’expérimentation où les logiques formelles s’entrechoquent pour mieux révéler leurs limites et leurs possibles."
+   },
+   {
+    "kind": "p",
+    "html": "Dans ce contexte, concevoir ne revient plus à inventer une forme ex nihilo, mais à explorer un espace déjà peuplé de possibilités latentes. Les IA génératives transforment l’acte de création en une opération de navigation : au lieu de dessiner, on sélectionne ; au lieu de composer, on trace une trajectoire dans un champ invisible mais structuré. Ce champ — l’espace latent — ne contient pas des projets, mais des proximités esthétiques, des configurations stylistiques en attente. L’architecte devient alors un arpenteur de ce terrain probabiliste : il découvre des formes que le système rend possibles, mais que l’histoire n’a pas encore activées. Il ne s’agit plus d’imaginer ce qui pourrait exister, mais de détecter ce qui est déjà plausible dans la combinatoire du modèle. Concevoir revient alors à cartographier un territoire de formes en suspens — non pas produire du nouveau, mais rendre visible du non advenu."
+   },
+   {
+    "kind": "p",
+    "html": "Penser l’architecture à travers l’espace latent, ce n’est pas seulement explorer de nouvelles esthétiques. C’est adopter une vision du monde où les formes ne sont plus des blocs figés, mais des champs de possibilités, des intensités traversables, des régimes de ressemblance. Une culture générative ne se contente pas de produire : elle réorganise notre manière de voir, de nommer, de comparer. Demain, il ne s’agira peut-être plus de choisir entre baroque et brutalisme — mais de situer, dans l’espace latent, le point exact où l’un commence à ressembler à l’autre. Là, précisément, où naît le style."
+   }
+  ],
+  "refsTitle": "",
+  "refs": []
+ },
+ {
+  "id": "singulariser-le-multiple",
+  "type": "Article",
+  "date": "Novembre 2021",
+  "title": "Singulariser le multiple",
+  "subtitle": "Les NFT artistiques entre spéculation et redistribution",
+  "credit": "Article coécrit avec <a href=\"https://www.anthonymasure.com/\" target=\"_blank\" rel=\"noopener\">Anthony Masure</a> pour la revue de recherche Multitudes.",
+  "abstract": "Cet article explore les enjeux des technologies blockchain dans le champ de la création — art, design, jeu vidéo — à travers le développement, depuis 2015, des « Non Fungible Tokens » (NFT) : la production d’un certificat numérique infalsifiable et décentralisé attaché à une entité numérique ou tangible.",
+  "blocks": [
+   {
+    "kind": "lead",
+    "html": "Parmi les technologies majeures qui se sont succédé depuis la fin de la Seconde Guerre mondiale, la blockchain (2009), dont Bitcoin reste l’exemple le plus emblématique, est encore mal comprise en dehors de ses applications monétaires. Elle a pourtant déjà des conséquences importantes dans le champ de la création (art, design, jeu vidéo, etc.) à travers le développement, depuis 2015, des « Non Fungible Tokens » (NFT) – à savoir la production d’un certificat numérique infalsifiable et décentralisé attaché à une entité numérique ou tangible. Contrairement à la pensée des « communs » et à la culture du libre, les NFT promettent de créer de la « rareté numérique » : sans eux, une fois mis en ligne sur le Web, une image, une vidéo, un film ou une musique peuvent être dupliqués et circuler sans aucune possibilité de contrôle. Mis en lumière depuis le début de l’année 2021 par une multitude de ventes aux sommes record (69 millions de dollars pour un NFT de l’artiste Beeple) et par le développement de places de marché spécifiques, les NFT soulèvent des enjeux relatifs à la valeur, à la circulation et à l’exposition des productions artistiques et culturelles."
+   },
+   {
+    "kind": "h",
+    "html": "De Bitcoin à Ethereum : programmer la confiance"
+   },
+   {
+    "kind": "p",
+    "html": "Rendu public en 2009, Bitcoin fait suite à un mouvement politique contestataire visant à prouver que le système bancaire, sujet à de multiples crises, peut être remplacé par un protocole informatique : sans tiers de confiance . Bitcoin fonctionne grâce à un registre public de données – la blockchain (chaîne de blocs) – distribué sur le réseau et contenant l’historique des transactions effectuées. La puissance de calcul des machines permettant de vérifier les transactions donne à la blockchain un caractère irréversible et infalsifiable. Pour la première fois, la blockchain rend possible la production d’artefacts numériques « uniques », s’opposant ainsi au brouillage entre copie et original propre à la computation : cet édifice privateur ouvre la voie à une valeur économique habituellement impropre aux fichiers numériques."
+   },
+   {
+    "kind": "p",
+    "html": "Si Bitcoin a longtemps concentré l’attention médiatique – la plupart du temps sous l’angle de son utilisation à des fins frauduleuses (ransomwares, trafics illicites, etc.), de la spéculation financière ou de la consommation énergétique –, ce dernier n’est pourtant que l’un des milliers « crypto-actifs » qui se sont développés par la suite, et dont certains se distinguent particulièrement sur le plan technique. Contrairement à Bitcoin qui ne se limite qu’à l’aspect monétaire, Ethereum (2015) permet aussi de programmer toute valeur numérique pouvant s’échanger en ligne. Cette plateforme propose de nouveaux protocoles comme les smart contracts (déclenchement automatique de scripts), les dApp (« applications décentralisées »), les ICO (levées de fond participatives) et les tokens (entités numériques infalsifiables). Les blockchains créées depuis Ethereum ne s’inscrivent plus, dès lors, dans l’idée de développer une énième monnaie, mais proposent de nouvelles fonctionnalités liées par exemple à la gouvernance (NEO, 2017) ou à la traçabilité (Chainlink, 2017)."
+   },
+   {
+    "kind": "h",
+    "html": "Tokens fongibles et non fongibles (NFT)"
+   },
+   {
+    "kind": "p",
+    "html": "Les tokens d’une blockchain ont comme point commun de ne pas pouvoir être dupliqués et contrefaits. Comme les bitcoins ou les ethers, les tokens peuvent être échangés sur le réseau sans l’intervention d’un tiers de confiance traditionnel (banque, notaire, etc.). On peut délimiter plusieurs utilisations des tokens , qui peuvent selon les cas s’additionner :"
+   },
+   {
+    "kind": "ul",
+    "items": [
+     "Rémunérer des biens ou services traditionnels (transactional tokens) à la façon des monnaies émises par les États ou des monnaies locales. Ces tokens peuvent être conçus pour ne fonctionner que dans un contexte donné – plateforme de vente en ligne, plage temporelle (ex. : concert), et/ou territoire géographique (comme pourrait l’être le yuan numérique).",
+     "Rémunérer l’usage de crypto-plateformes et de services associés (utility tokens), comme le déclenchement d’un smart contract Ethereum. Ces tokens servent avant tout à rémunérer les mineurs de la blockchain sur laquelle le service est implémenté.",
+     "Administrer et gérer des organisations (governance tokens) : le token matérialise un droit de vote, ou du moins un pouvoir de décision.",
+     "Authentifier un bien tangible ou numérique (security tokens). Certains sont interchangeables (« fongibles ») pour représenter une place de concert, des actifs financiers, etc. ; d’autres sont uniques (« non fongibles » : NFT) pour authentifier des biens rares par l’émission de certificats d’authenticité. Les tokens fongibles s’échangent sur une plateforme de trading (ex. : Binance) ; les NFT se retrouvent sur des places de marché de biens (ex. : OpenSea)."
+    ]
+   },
+   {
+    "kind": "p",
+    "html": "Sur le plan technique, les NFT prennent la forme de blocs d’informations comprenant des métadonnées (auteur, signature, date, type, etc.) attachées à un bien tangible ou numérique. Le domaine juridique et financier a été le premier concerné, puisqu’il est possible de « tokeniser » des actifs financiers traditionnels (actions, dettes, investissements) dans une blockchain. Les tokens d’actifs permettent une gestion « pair-à-pair » et apportent plusieurs avantages : ouverture géographique et temporelle, transparence (registre public), efficience (ex. : versement automatisé de dividendes via un smart contract)."
+   },
+   {
+    "kind": "h",
+    "html": "L’économie de l’art et la culture face à la reproductibilité numérique"
+   },
+   {
+    "kind": "p",
+    "html": "Les environnements numériques, tout particulièrement depuis le développement du Web à partir de 1993, ont mis à mal la notion de valeur traditionnellement attachée aux biens tangibles rares ou uniques. La question se pose alors, d’un point de vue économique et symbolique, de savoir s’il faut ou non maintenir ce paradigme de la rareté dans les environnements numériques connectés, qui amplifient les enjeux de la « reproduction technique » des œuvres d’art induite par les appareils d’enregistrement . Il est dans la nature des médias numériques non seulement de simuler et de remixer n’importe quel média , mais aussi de pouvoir dupliquer des données."
+   },
+   {
+    "kind": "p",
+    "html": "Les partisans d’une libre circulation des contenus numériques soutiennent qu’il est politiquement et/ou techniquement inutile de s’opposer à leur duplication. Plusieurs propositions ont été avancées : licences « libres » pour des usages granulaires (Creative Commons est cofondée en 2001 par le juriste Lawrence Lessig), ancrage de la valeur des items numériques dans des biens tangibles ou évènements (impressions, disques, concerts, expositions), « licence globale » (2001) fonctionnant sur le principe d’une taxe redistribuée aux artistes, ou appel aux dons et contributions de communautés (crowdfunding, 2006)."
+   },
+   {
+    "kind": "p",
+    "html": "De leur côté, les tenants d’une « monétisation » des œuvres et contenus culturels numériques ont inventé de nombreuses stratégies de contrôle et de diffusion. Une première piste consiste à « délimiter » (singulariser) les fichiers numériques pour chercher à établir une distinction entre une copie et un original. Les premières formes de signature numérique apparaissent dans les années 1980, mais ont pour défaut d’être dépendantes de systèmes propriétaires. Face au succès de plateformes comme Napster (1999), The Pirate Bay (2003) ou YouTube (2005), les gouvernements et entreprises ont mis en place de multiples systèmes de surveillance et de sanction (Digital Millennium Copyright Act, 1998 ; DADVSI, 2006 ; Google Content ID, 2007 ; HADOPI, 2009). Une autre solution est le développement de plateformes commerciales permettant d’acquérir facilement des licences de consultation, à la demande ou par abonnement (Pandora, 2000 ; iTunes, 2001 ; Spotify, 2006 ; Netflix, 2007 ; App Store et Google Play, 2008 ; Kindle Unlimited, 2014 ; Xbox Game Pass, 2017). Dans cet écosystème, le droit d’utilisation est nominatif, incessible et limité dans le temps : il s’arrête à la fin de l’abonnement ou au plus tard à la mort de son détenteur . Les NFT peuvent remédier à cette limite en garantissant un droit d’accès transmissible (par héritage, revente, etc.)."
+   },
+   {
+    "kind": "p",
+    "html": "Ces éléments de cadrage historique montrent que le concept d’original n’est pas antérieur à celui de copie, mais n’apparaît vraiment que lorsque des techniques rendent possible la reproduction mécanisée. Sur le plan juridique, la notion d’« œuvre originale », apparue il y a plus de 100 ans avec l’instauration du « droit de suite » dans la loi française , reste instable voire obsolète au vu de la multiplicité des formes d’art et de techniques. De nombreuses formes d’art ont d’ailleurs contesté les notions d’original et de copie : Art Minimal (1965), Art Conceptuel (1965), Land Art (1968), Net Art (1995)."
+   },
+   {
+    "kind": "h",
+    "html": "L’art à l’ère de la pop culture Web"
+   },
+   {
+    "kind": "p",
+    "html": "Aujourd’hui, le marché de l’art reste marqué par la domination des foires et des galeries, comme ArtPrice (1997) ou les maisons Christie’s et Sotheby’s. Parallèlement, le développement des médias sociaux (Facebook, 2004 ; Twitter, 2006 ; Instagram, 2010 ; TikTok, 2016) offre aux artistes la possibilité de créer un lien direct avec leur public. Plus fondamentalement, la valeur économique d’une œuvre ne repose plus seulement sur les espaces de légitimation traditionnels (galeries, musées, centres d’art), mais aussi sur la mesure de sa circulation en ligne (likes, retweets). Le like est inventé par Facebook en 2009 comme une alternative à l’hyperlien (URL) au profit d’une quantification de l’attention et des émotions : se joue ici une tension entre la « valuation artistique » (définie par Yves Citton et Anne Querrien comme un « travail d’attention constitutif d’un processus de valorisation active d’un certain domaine perceptif ») et la « valorisation marchande » (amplifiée par des dynamiques virales). N’importe quel item numérique « populaire » peut devenir une œuvre – qu’on pense à l’émergence de la culture « meme » à la fin des années 1990."
+   },
+   {
+    "kind": "p",
+    "html": "Dans ce contexte, les NFT vont faciliter la vente d’œuvres d’art « traditionnelles », mais vont aussi – et surtout – conférer une valeur marchande à une multitude d’artefacts numériques. Avant l’apparition des NFT à partir de 2015, la légitimité symbolique des items de la culture Web (memes, tweets, posts Instagram, assets de jeux vidéo, morceaux de musique, code source) ne pouvait pas trouver de pendant financier spécifique. Les NFT comblent ce manque en permettant d’identifier (et donc de rétribuer) l’auteur d’un artefact numérique via un certificat de propriété distribué sur le réseau. De plus, ils facilitent l’achat car ces artefacts peuvent être acquis en cryptomonnaies, qui fonctionnent nativement sur le Web et résistent à la censure et à l’inflation ."
+   },
+   {
+    "kind": "p",
+    "html": "Deux initiatives pionnières, CryptoPunks et CryptoKitties, ont exploité la capacité de la blockchain à rendre « uniques » des images numériques. CryptoPunks (Larva Labs, 2017) est un set de 10 000 images de 24 × 24 pixels faisant écho à l’esthétique 8-bits du retrogaming ; distribués gratuitement sur Ethereum, ils ont inspiré le standard « ERC-721 » (2017) dédié aux NFT . CryptoKitties (Axiom Zen, 2017) est une collection de « chatons numériques » uniques pouvant se reproduire. Ces productions ont atteint des sommes record : en juin 2021, le CryptoPunk « Alien » a été cédé par Sotheby’s pour 11,8 M$ ; VISA a acquis le CryptoPunk « #7610 » pour 150 000$ en août 2021 ; en septembre 2018 le CryptoKitty « Dragon » a été vendu 600 ETH (170 000$)."
+   },
+   {
+    "kind": "p",
+    "html": "Selon Bryce Bladon, cofondateur d’Axiom Zen, « il peut sembler idiot de voir quelqu’un dépenser des milliers de dollars pour un chat numérique, mais cela n’est pas si différent de quelqu’un qui dépense des milliers de dollars pour une toile tachée de peinture à l’huile ». Collectionner un NFT pour en faire un avatar devient un puissant marqueur social . Fonctionnant sur le principe des logins sociaux mais de façon décentralisée, le portefeuille Metamask (2016), associé à Collab.land (2020), permet de certifier la propriété d’un NFT : « Login with Metamask » pourrait devenir un nouveau standard de connexion sur le Web."
+   },
+   {
+    "kind": "p",
+    "html": "L’année 2021, en raison de la crise du Covid qui a accéléré les échanges en ligne, a vu de nombreux NFT faire la une : un morceau de circuit de F1® Delta Time vendu 223 000€ en décembre 2020 ; un clip vidéo de LeBron James vendu 100 000$ en janvier 2021 ; le meme Nyan Cat commercialisé par Chris Torres pour 300 000$ (février 2021) ; le premier tweet cédé par Jack Dorsey pour 2,9 M$ (mars 2021) ; et en juin 2021 le code source du Web mis aux enchères par Sotheby’s à l’initiative de Tim Berners-Lee pour 5,4 M$."
+   },
+   {
+    "kind": "h",
+    "html": "Les plateformes du CryptoArt"
+   },
+   {
+    "kind": "p",
+    "html": "Des maisons de vente aux enchères (Sotheby’s, Christie’s) se sont appuyées sur l’engouement pour les NFT. L’exemple le plus connu est la vente par Christie’s, en mars 2021, de l’œuvre <em>Everydays</em> de Beeple pour 69 M$ (ce qui le place dans le top 3 des artistes vivants les plus cotés). Ce collage numérique comprend 5000 images postées sur Instagram par l’artiste depuis 14 ans."
+   },
+   {
+    "kind": "p",
+    "html": "Si la plupart des ventes de NFT artistiques concernent des artistes peu connus en dehors des médias sociaux, on assiste à la multiplication d’initiatives venant d’acteurs déjà légitimés . Damien Hirst a lancé en juillet 2021 <em>The Currency Project</em>, 10 000 pièces dont les acheteurs devront choisir de conserver l’acquisition sous forme tangible ou en NFT. Le pionnier de l’art numérique Fred Forest a mis aux enchères en juin 2021 <em>Archeology</em>, dont la mise à prix est ajustée en temps réel."
+   },
+   {
+    "kind": "p",
+    "html": "Regroupés sous l’appellation de CryptoArt, des artistes positionnent explicitement leur activité via la vente de NFT. La plupart sont des artistes « émergents » (Kathryn, Swan, FEWoCIOUS, Hackatao) dont les productions s’échangent sur des plateformes spécifiques, pour la plupart basées sur Ethereum (SuperRare, 2018 ; Nifty Gateway, 2018 ; OpenSea, 2019 ; Palm, 2021 ; Binance, 2021 ; Shopify, 2021). D’autres, plus « installés » (Memo Akten, Joanie Lemercier, Golan Levin), se sont regroupés pour créer leurs propres espaces de vente tels que la plateforme open source Hic and Nunc (2021), qui repose sur la blockchain Tezos, bien moins énergivore qu’Ethereum. Les plateformes NFT sans curation mettent en valeur des artistes habituellement écartés du monde de l’art en raison de leur provenance géographique (Amérique du Sud , Asie, etc.)."
+   },
+   {
+    "kind": "h",
+    "html": "Synthèse des enjeux des NFT"
+   },
+   {
+    "kind": "p",
+    "html": "L’engouement financier envers les NFT a entraîné une médiatisation intense ainsi qu’une polarisation du monde de l’art . Nos premiers constats sont les suivants :"
+   },
+   {
+    "kind": "ul",
+    "items": [
+     "<b>Authentification.</b> La blockchain permet de créer une « signature numérique » infalsifiable. Le certificat d’authenticité reste toutefois lié à la plateforme sur laquelle il est acquis, ce qui pose des problèmes de confiance et de pérennité (les URL renvoyant aux œuvres étant mouvantes , contrairement aux rares NFT « on chain »).",
+     "<b>Désintermédiation.</b> La décentralisation permet à des artistes de construire leurs propres plateformes et de s’émanciper du monde de l’art traditionnel. Les plateformes en ligne représentent cependant une autre forme d’intermédiaire voire de centralisation.",
+     "<b>Redistribution.</b> La plupart des plateformes rémunèrent les artistes en cas de reventes via des smart contracts (SuperRare prélève 15% ; rétro-commission de 10% sur le marché secondaire). eBay a ouvert en mai 2021 une section dédiée.",
+     "<b>Pollution.</b> Certains artistes (Memo Akten, Joanie Lemercier, Jacqueline « Jisu » Choe) pointent le coût énergétique de l’encodage dans Ethereum , nuançable dans le cas de blockchains moins énergivores comme Tezos (Proof-of-Stake). Hic and Nunc met en avant le « #CleanNFT ».",
+     "<b>Programmation.</b> La blockchain permet de programmer de la monnaie, des actions, etc., et donc de nouveaux modèles économiques . Plusieurs artistes en ont exposé les paradoxes : Plantoid (Primavera De Filippi, 2016), Terra0 (Kolling, Seidler, Hampshire, 2016)."
+    ]
+   },
+   {
+    "kind": "h",
+    "html": "Du CryptoArt au CryptoGaming : vers le « play-to-earn »"
+   },
+   {
+    "kind": "p",
+    "html": "Les NFT artistiques sont un révélateur des ambiguïtés des technologies blockchain : leur caractère spéculatif rend leurs implémentations souvent fortement capitalistes, mais leurs caractéristiques d’ouverture et de décentralisation promettent beaucoup en termes d’équité. Le champ des possibles est considérable , encore trop peu exploité ."
+   },
+   {
+    "kind": "p",
+    "html": "Les vrais potentiels économiques des NFT pourraient émerger non pas du champ de l’art mais de celui du jeu vidéo, premier secteur culturel en termes économiques (300 milliards de dollars en 2021 pour 2,7 milliards de joueurs) et observatoire de mutations plus larges : abonnement, streaming, micro-transactions (DLC et loot boxes), e-sport."
+   },
+   {
+    "kind": "p",
+    "html": "Lancé en 2018 par des adeptes de CryptoKitties basés au Vietnam et aux Philippines, Axie Infinity (studio Sky Mavis) propose d’acheter et de collectionner des NFT d’animaux numériques (Axies) qui s’affrontent au tour par tour. Le joueur doit acquérir au minimum trois Axies sur une place de marché dédiée, où les prix ne sont définis que par l’offre et la demande . Au premier semestre 2021, Axie Infinity est devenue la principale plateforme d’échange de NFT, avec plus d’un million de joueurs."
+   },
+   {
+    "kind": "p",
+    "html": "En jouant, les utilisateurs « minent » des tokens propres au jeu, les SLP (Smooth Love Potions). Cette activité (« play-to-earn ») pouvait représenter, en août 2021, près de 25$ par jour, soit plus de trois fois le salaire médian philippin. Les SLP peuvent servir dans le jeu (breeding des Axies) mais aussi être envoyés en dehors sur des plateformes de trading. À l’été 2021, aux Philippines, on dénombrait davantage de comptes en SLP que de comptes bancaires – les SLP pouvant servir à payer un loyer ou des biens tangibles . Le paradigme a donné naissance à des « guildes » comme Yield Guild Games , intermédiaires entre « managers » (possesseurs de NFT) et joueurs, qui « louent » les Axies (scholarship)."
+   },
+   {
+    "kind": "h",
+    "html": "Les DAO : vers de nouveaux modèles de gouvernance ?"
+   },
+   {
+    "kind": "p",
+    "html": "La gouvernance du jeu Axie, pour le moment hiérarchique, devrait à terme fonctionner sous la forme d’une DAO (organisation décentralisée) : une commission de 4,25% sur les transactions alimente une trésorerie gérée par les « stakers » . La plupart des joueurs ne possèdent toutefois pas leur « outil de travail », et le modèle économique global reste très instable."
+   },
+   {
+    "kind": "p",
+    "html": "D’autres exemples pourraient préfigurer de nouveaux modes d’organisation. Des consultants en CryptoGaming proposent leurs services sous la forme d’un jeton NFT à prix fixe donnant droit à une séance de conseil par semaine . La série animée <em>Stoner Cats</em> (doublée notamment par Vitalik Buterin) a été financée en juillet 2021 sous forme de 10 000 NFT. Alors qu’on observe un regain d’intérêt pour les structures moins capitalistes et hiérarchiques, les DAO pourraient autoriser davantage de souplesse. Reste à savoir si le capitalisme « décentralisé » est moins vorace que son actuel pendant bancaire, et si le communisme est encodable dans le libéralisme."
+   }
+  ],
+  "refsTitle": "",
+  "refs": []
+ },
+ {
+  "id": "total-record",
+  "type": "Article · Multitudes n°71",
+  "date": "Mai 2018",
+  "title": "Total Record",
+  "subtitle": "Les protocoles blockchain face au post-capitalisme",
+  "credit": "Article coécrit avec <a href=\"https://www.anthonymasure.com/\" target=\"_blank\" rel=\"noopener\">Anthony Masure</a> dans la revue <a href=\"http://www.multitudes.net/\" target=\"_blank\" rel=\"noopener\">Multitudes</a>, n°71, dossier « Dériver la finance », été 2018.",
+  "abstract": "Le protocole Bitcoin (2009) s’inscrit dans le prolongement des utopies crypto-anarchistes visant une monnaie numérique sécurisée et distribuée pour échapper à la centralisation du pouvoir par les banques et les gouvernements. Récupérées par la finance spéculative, ces technologies dépassent désormais le champ monétaire : les protocoles blockchain pourraient-ils prendre de vitesse la logique destructrice du capitalisme financier ?",
+  "blocks": [
+   {
+    "kind": "lead",
+    "html": "Adaptation de la nouvelle de science-fiction de Philipp K. Dick « Souvenirs à vendre » (1966), le long-métrage <em>Total Recall</em> de Paul Verhoeven (1990) met en scène une corporation tyrannique exploitant les ressources minières martiennes. Rêvant fréquemment de la planète Mars alors même qu’il ne s’y est jamais rendu, un être humain, Douglas Quaid (dénommé Quail dans la nouvelle), se voit proposer par la société Rekal Inc. l’implantation de faux souvenirs de voyage dans son cerveau. La mémoire humaine devient un disque dur qui peut être réécrit (reprogrammé) depuis l’extérieur sans que celle-ci ne soit consciente des traces de cette manipulation. Dans le film de Verhoeven, Quaid part sur Mars pour tenter de découvrir sa véritable identité. À l’inverse, dans la nouvelle, il fait le choix de se rendre aux forces d’Interplan et préfère sauver sa vie en effaçant définitivement son passé d’agent secret pour ne pas céder sur son désir . Cette fiction interroge directement la nature fluctuante du psychisme humain : « Si vous étiez vraiment allé sur Mars comme agent d’Interplan, à l’heure actuelle vous auriez oublié la quasi-totalité de votre mission ; nos analyses […] démontrent qu’une foule de détails s’évanouissent très rapidement. Et définitivement. Dans le contrat global que nous [Rekal Inc.] offrons, les souvenirs sont si profondément implantés que rien n’est oublié . »"
+   },
+   {
+    "kind": "h",
+    "html": "Mort à crédit"
+   },
+   {
+    "kind": "p",
+    "html": "Le cauchemar psychotique de la nouvelle de K. Dick préfigure de façon inquiétante le développement des réseaux d’information, et plus particulièrement leur faculté à opérer à échelle globale des mécanismes de surveillance voire d’aliénation des populations. Dépassant les dystopies des séries d’anticipation, des entreprises chinoises (Alipay et WeChat) notamment spécialisées dans le paiement mobile, attribuent depuis 2013 à leurs utilisateurs une note de crédit à trois chiffres. Parallèlement, le gouvernement chinois a mis en place depuis 2014 un score social (« social credit ») censé mesurer la « réputation » des citoyens, entreprises ou organismes nationaux, et dont la généralisation est prévue pour 2020 . Dès lors que les GAFAM, les banques et les grandes entreprises occidentales évaluent également (et depuis longtemps) leurs partenaires et clients, la prolifération des données (big data) et leur collecte industrialisée (traqueurs, capteurs, etc.) rendent désormais possible le fantasme d’un enregistrement global et totalitaire (« total record ») faisant migrer les centres de pouvoir gouvernementaux vers des entreprises privées (data is power). Face à cette centralisation des écritures fiduciaires, les protocoles blockchain apparus à partir de 2009 permettent au contraire d’enregistrer de façon distribuée des données numériques via des technologies d’écriture théoriquement infalsifiables. Pointe avancée du capitalisme spéculatif pour certains , ces derniers ne seraient ainsi qu’une énième dérive de la finance néolibérale. Pourtant, l’étude du fonctionnement technique singulier de ces architectures d’informations ne nous invite-t-elle pas également à interroger la confiance placée dans les actuelles (et centralisées) instances du pouvoir ? Autrement dit, pourrait-on prendre de vitesse les excès du capitalisme en s’appuyant sur les technologies ayant permis son renouvellement ?"
+   },
+   {
+    "kind": "h",
+    "html": "Le crypto-anarchisme et les prémices des monnaies électroniques"
+   },
+   {
+    "kind": "p",
+    "html": "Face à la surveillance généralisée du Web (et du monde en général), la communauté cypherpunk (« crypto-anarchiste ») née dans les années 1980 a vite compris que l’alliance des États et des banques faisait planer le spectre d’une réduction drastique des libertés individuelles, bien loin des utopies de liberté qui existaient aux débuts des réseaux d’information . L’enregistrement (record) des activités humaines dans des bases de données centralisées et contrôlées par des États rejoint directement les inquiétudes pointées par K. Dick dans sa nouvelle. Vers la fin de cette fiction, un policier d’Interplan s’adresse à Douglas Quail, dont les incohérences psychiques dues à la « programmation de souvenirs artificiels » menacent de révéler son passé d’agent secret : « Tout ce que vous pensez pourra être retenu contre vous […] Mais ça n’a plus d’importance maintenant ; à cause de ce que vous avez pensé, de ce que vous avez exprimé, vous vous êtes d’ores et déjà condamné à l’oubli . » Afin de lutter contre la volonté des gouvernements de réduire voire d’interdire le chiffrement des données numériques (ce qui permettrait entre autres de résister à l’inscription d’opinions politiques dans des registres surveillés), l’informaticien David Chaum propose dès 1983 le concept d’une monnaie électronique anonyme et intraçable . Ce courant de pensée à la frontière entre anarchisme et libertarianisme (rejet d’un pouvoir lointain, régenteur et archi-centralisé) rejoint les ambivalences des actuelles luttes post-capitalistes : se servir des stratégies d’expansion du capitalisme permettrait de dépasser sa logique délétère. Les crypto-anarchistes vont utiliser les techniques du capitalisme de surveillance (celles de l’enregistrement de données), mais en y ajoutant un chiffrement rendant « illisibles » les informations, qui deviennent dès lors, tout comme les rêveries des nouvelles de K. Dick, particulièrement retorses à contrôler. L’idéal d’émancipation énoncé par David Chaum est prolongé par l’informaticien Timothy C. May, qui déclarait en 1992 que « tout comme la technologie de l’imprimerie a altéré et réduit le pouvoir des corporations médiévales et la structure sociale de pouvoir, les techniques de chiffrement changeront fondamentalement la nature de l’interférence du gouvernement et des grandes entreprises dans les transactions économiques ». Un an plus tard, le mathématicien Eric Hughes mettra encore davantage l’accent sur la relation entre l’émancipation collective et le chiffrement monétaire : « Nous, les cypherpunks, sommes dévoués à construire des systèmes garantissant l’anonymat. Nous défendons notre vie privée avec la cryptographie […], avec des signatures numériques, et avec une monnaie électronique . »"
+   },
+   {
+    "kind": "h",
+    "html": "De la crise des subprimes au protocole Bitcoin"
+   },
+   {
+    "kind": "p",
+    "html": "Pourtant, tout comme les monnaies locales, l’idée d’une monnaie électronique échappant au système bancaire ne se concrétise vraiment qu’au tournant de la crise des subprimes de 2007 et des faillites bancaires de 2008, qui mirent en évidence – si besoin – l’illusoire moralisation d’un capitalisme autophage : les derivatives (« produits dérivés ») représenteraient actuellement entre 544 billions (mille milliard) et 1,2 quadrillion (un million de milliards de milliards) de dollars, soit donc bien davantage que l’ensemble des bourses mondiales ou que l’ensemble des devises en circulation. Tout comme le bitcoin, le dollar est donc en grande partie « numérique » : seul moins de 10% de l’argent accessible (narrow money ) existerait sous une forme physique – cette tendance s’étant considérablement accentuée depuis la fin des accords de Bretton Woods en 1971 (le dollar était auparavant indexé sur l’or) [Fig. 2]. Valeur la plus connue des crypto-actifs (expression désormais employée par le législateur), le protocole Bitcoin et sa monnaie éponyme (le bitcoin, avec un « b » minuscule) ont été rendus publics en 2009 sous le pseudonyme de Satoshi Nakamoto, dont l’identité comme individu ou groupe reste à ce jour encore sujette à spéculation. La filiation avec le mouvement crypto-anarchiste est clairement annoncée dans la première transaction bitcoin (genesis block) datant du 3 janvier 2009, qui reprend – d’une façon probablement ironique – la une du quotidien Times du même jour indiquant que « le ministre des finances [britanniques] est sur le point de renflouer une deuxième fois les banques »."
+   },
+   {
+    "kind": "fig",
+    "src": "https://helleuguillaume.com/_assets/v11/5c9066d3e3d8d4d4532f3284942a8aebf433f6e0.png",
+    "caption": "Fig. 2 — Comparaison or/bitcoin. Les accords de Nixon en 1971 ont été suivis d’une hyper inflation du dollar (émission multipliée par 57 entre 1970 et 2018). A contrario de ce développement exponentiel, l’émission des bitcoins suit une courbe logarithmique pour atteindre le nombre maximal de 21 millions de bitcoins émis."
+   },
+   {
+    "kind": "h",
+    "html": "Bitcoin aujourd’hui : le triomphe de la spéculation ?"
+   },
+   {
+    "kind": "p",
+    "html": "Bitcoin a par la suite été en grande partie récupéré par un capitalisme spéculatif peu soucieux de l’idéologie anarchiste qui le sous-tendait. Inventeurs malheureux du concept d’annuaire universitaire ConnectU (Harvard) qui fut plagié par le développeur Mark Zuckerberg à l’origine de TheFacebook (2004), les frères Winklevoss ont par exemple acheté massivement des bitcoins dès 2013 via leur fond de capital-risque . Passé de 0,00071 euros en 2009 à quelques 6500 euros en mars 2018 après un pic à 16 000 autour de noël 2017, le bitcoin n’apparaît dans les mass médias, la plupart du temps, que sous l’angle de son utilisation à des fins frauduleuses (ransomwares, drogues, etc.), de la spéculation financière, ou de la pollution énergétique. L’étude de son fonctionnement technique singulier permet pourtant d’entrevoir d’autres finalités que celles du retour sur investissement. Bitcoin est aussi utilisé à des fins sociales par des personnes exclues des services bancaires , qui représentent près de deux milliards de personnes à l’échelle mondiale : ces individus à la marge économiquement « pourraient » devenir leur propre banque."
+   },
+   {
+    "kind": "h",
+    "html": "Un registre de transactions public et décentralisé"
+   },
+   {
+    "kind": "p",
+    "html": "Au niveau technique, Bitcoin actualise le principe séculaire du registre financier (bank record) au regard des techniques cryptographiques (arbre de Merkle, fonction de hachage, chiffrement asymétrique, etc.) et de la décentralisation propre à Internet (architecture client/serveur). Bitcoin prend ainsi la forme d’un livre de compte analogue à un registre bancaire, mais distribué (non centralisé) et partagé en ligne. Incrémentable par tous les nœuds du réseau, le registre Bitcoin est partagé en peer-to-peer (pair à pair) [Fig. 3]. Le protocole Bitcoin se résume à un enregistrement des transactions des unités-bitcoins faites sur le réseau, c’est-à-dire aux transferts de « propriété » de bitcoins d’une entité à une autre. Ce mécanisme rend par conséquent impossible, contrairement à l’économie de la dette, l’obtention de soldes négatifs. Comme la plupart des monnaies « traditionnelles » (dites « fiduciaires », FIAT), la seule « matérialité » des bitcoins réside dans un registre, à la différence que le registre Bitcoin n’est pas une représentation de valeur mais est la valeur-même : ces bitcoins n’existent donc que sous la forme de leur inscription dans la blockchain. La mention de personnes ayant « perdu » des bitcoins stockés dans des disques durs ou clés USB est un abus de langage : ce sont en réalité des « clés privées » (codes d’accès) qui ont été égarées, et sans lesquelles les utilisateurs ne peuvent pas s’authentifier sur le réseau. On estime qu’entre 2,8 et 3,8 millions de bitcoins (soit un peu moins de 20% des unités disponibles) ne peuvent plus être récupérés et sont donc définitivement « figés » dans la blockchain."
+   },
+   {
+    "kind": "fig",
+    "src": "https://helleuguillaume.com/_assets/v11/2f3a0e7e7e7b71142627bdad7caf1bb8793e8461.png",
+    "caption": "Fig. 3 — Différents systèmes d’interrelations. Centralisé [Fig. 3.1] (ex. : Paypal, Western Union), polarisé [Fig. 3.2] (système bancaire actuel), distribué [Fig. 3.3] (Bitcoin). On remarquera que seul ce dernier ne fait pas appel à un tiers de confiance (points noirs) pour fonctionner."
+   },
+   {
+    "kind": "h",
+    "html": "Fonctionnement des chaînes de blocs"
+   },
+   {
+    "kind": "p",
+    "html": "Les transactions Bitcoin ne sont pas enregistrées les unes après les autres, mais « page par page », dans des blocs contenant un ensemble de transactions validées par le réseau à un instant T [Fig. 1]. La main d’œuvre permettant de valider et d’inscrire ces « chaînes de blocs » (blockchain) est constituée de « mineurs ». Un mineur (ou « nœud ») est une personne qui contribue au réseau Bitcoin en téléchargeant le logiciel-registre open source et en y allouant de la puissance de calcul issue de son ordinateur. Ces mineurs sont chargés de mettre à jour le registre en validant et en écrivant les nouveaux blocs comprenant les nouvelles transactions. Sans cette main d’œuvre, le protocole disparaît. Les mineurs peuvent à chaque instant soumettre au réseau (aux autres mineurs) leur version du nouveau bloc à insérer dans le registre. Pour écrire leur « page », les mineurs vont sélectionner au sein de la memory pool (mémoire temporaire), qui comprend les transactions en attente soumises par les utilisateurs, celles qu’ils souhaitent inclure dans leurs blocs. Ces dernières étant classées par frais de transactions, celles contenant les frais les plus élevés seront sélectionnées en premier."
+   },
+   {
+    "kind": "fig",
+    "src": "https://helleuguillaume.com/_assets/v11/da5d1f91cdfa0ff6c63cfd76320d85462eaebfd2.png",
+    "caption": "Fig. 1 — Fonctionnement technique du protocole Bitcoin. Pour envoyer 5 bitcoins à Marc, Lisa va utiliser sa clé privée [Fig. 1.1] pour signer sa transaction [Fig. 1.2] qui sera mise en attente dans la mempool [Fig. 1.3]. Les mineurs [Fig. 1.5] ayant préalablement téléchargé le logiciel-client Bitcoin et alloué leur puissance de calcul au protocole [Fig. 1.4] vont sélectionner parmi la mempool les transactions à insérer dans leur version du bloc à miner. Le premier mineur qui validera son bloc pourra le soumettre au réseau. Pour ce faire le mineur va devoir « hacher » son bloc pour trouver, à l’aide d’un nonce, un hash valide [Fig. 1.8]. La difficulté de cette opération est calculée au regard de la puissance totale du réseau [Fig. 1.6] pour qu’elle prenne en moyenne 10 minutes [Fig. 1.7]. Une fois le bloc miné, celui-ci est inséré dans la blockchain [Fig. 1.9] et permet dès lors à Alice de voir sa transaction inscrite dans le registre [Fig. 1.10]. Le mineur, pour avoir miné le bloc, est rétribué par une transaction coinbase [Fig. 1.10] qui lui attribue, en plus des frais de transaction déjà gagnés, 12,5 bitcoins nouvellement créés par le protocole (taux appliqué jusqu’en 2020 avant d’être réduit à 6,25) [Fig. 1.11]."
+   },
+   {
+    "kind": "h",
+    "html": "Un consensus algorithmique"
+   },
+   {
+    "kind": "p",
+    "html": "Les versions d’un nouveau bloc pouvant varier d’un mineur à l’autre, le protocole doit donc faire appel à un « consensus ». Celui de Bitcoin repose sur la technologie du Proof-of-Work (« validation par preuve de travail ») , qui oblige le mineur à faire « valider » son bloc avant de le soumettre. Ce dernier doit pour cela exercer une sorte de « transformation » du bloc, appelée « opération de hachage ». Une fonction de hachage (sur Bitcoin SHA256) permet de transformer n’importe quelle donnée numérique en un produit (suite de caractères alphanumériques) appelé « hash » constituant une « empreinte » de la donnée initiale. Cette opération est irréversible et permet de vérifier si une donnée spécifique correspond bien à son hash (toute modification de cette dernière produisant un hash différent). Cet exercice consiste à trouver de manière itérative un nombre (nonce) intégré au nouveau bloc, de telle manière que cela produise un résultat (hash) respectant certaines caractéristiques prédéfinies par le réseau. La difficulté de cette opération, qui ne dépend que de la puissance de calcul et du temps alloué au réseau, est automatiquement ajustée au regard de la puissance totale cumulée. Si ce travail de minage n’est pas indispensable au fonctionnement du protocole Bitcoin, il est pourtant primordial pour garantir sa sécurité en raison du coût énergétique et financier que nécessiterait une éventuelle fraude ou attaque du système."
+   },
+   {
+    "kind": "h",
+    "html": "Mineurs et chasseurs de prime"
+   },
+   {
+    "kind": "p",
+    "html": "Le mineur qui aura réussi à soumettre sa version du bloc gagne tous les « frais de transaction » associés à celle-ci par les utilisateurs, mais ce dernier sera également – et surtout – rétribué par le protocole Bitcoin qui va lui attribuer des unités (bitcoins) nouvellement créées. La récompense automatique (block reward) est la seule et unique manière dont les bitcoins sont créés. Cette création monétaire (transaction coinbase) a la particularité d’être désinflationniste : la rétribution en bitcoins diminue par paliers au fur et à mesure que le nombre de blocs augmente. Cette déflation continuera jusqu’à l’émission du dernier bitcoin qui devrait avoir lieu autour de 2140, pour arriver alors au nombre arbitraire et fini de 21 millions de bitcoins. En avril 2018, date d’écriture de cet article, 17 millions de BTC ont déjà été minés. Ces caractéristiques techniques valent aux bitcoins d’être – à raison – comparés à l’or : on peut en estimer les stocks, la réserve minière encore disponible, et la capacité d’extraction annuelle."
+   },
+   {
+    "kind": "h",
+    "html": "Anonymat partiel et authentification"
+   },
+   {
+    "kind": "p",
+    "html": "Du point de vue des utilisateurs, la blockchain Bitcoin n’enregistre que des transactions de type A → B. Contrairement aux institutions bancaires qui authentifient le client grâce à son identité civile (nom, prénom, date de naissance, adresse, etc.), Bitcoin opère une pseudonymisation des individus. Cet anonymat partiel (contrairement aux idées reçues) fonctionne à l’aide d’une paire de « clés » (publique et privée) basée sur une technologie cryptographique appelée chiffrement asymétrique. Ces deux clés, intimement liées entre elles, vont pour l’une (clé privée) permettre de chiffrer et de soumettre une demande de transaction par l’utilisateur au réseau, et pour l’autre (clé publique) de vérifier par le réseau l’authenticité de la requête."
+   },
+   {
+    "kind": "h",
+    "html": "Ethereum : applications distribuées, contrats intelligents et jetons de valeurs"
+   },
+   {
+    "kind": "p",
+    "html": "Si Bitcoin concentre l’attention médiatique, ce dernier n’est pourtant que l’un des 1500 cryptos-actifs qui se sont développés depuis son lancement en 2009, et dont certains se distinguent particulièrement sur le plan technique. Développée par le russo-canadien Vitalik Buterin, la plateforme Ethereum (2015) propose ainsi de nouveaux protocoles comme les smart-contracts (« contrats intelligents » au déclenchement automatisé), les dApps (« applications décentralisées » non soumises à la captation des app stores), les ICOs (« Initial Coin Offering », levées de fond participatives) et les tokens (génération de jetons multi-usages de valeurs). Si Ethereum était à l’origine pensé comme une mise à jour de Bitcoin, les difficultés d’implémentations et de gouvernance ont poussé son inventeur à créer sa propre blockchain (Ethereum) avec sa monnaie dédiée (l’ether), qui sert avant tout à payer l’utilisation des différents services proposés par la plateforme."
+   },
+   {
+    "kind": "h",
+    "html": "Chronopolitique des smart-contracts"
+   },
+   {
+    "kind": "p",
+    "html": "Concept inventé par le crypto-anarchiste Nick Szabo en 1993, les smart-contracts ne se sont vraiment développés que sous l’impulsion d’Ethereum. En permettant d’embarquer toutes sortes de métadonnées dans la blockchain, ces derniers permettent d’automatiser des actions prédéfinies par les parties ayant mis en place le contrat, comme par exemple le remboursement d’un billet d’avion dont le vol a été annulé [Fig. 4]. Pour ce faire, il suffira au voyageur d’acheter (avec des ethers) son billet sur l’application décentralisée (dApp) de la compagnie aérienne concernée. Ce dernier pourra être matérialisé par un token (jeton-billet) spécialement conçu à cet effet. Les fonds récoltés par l’application seront bloqués par le biais d’un smart-contract. Cette même dApp sera, au moyen d’un service « Oracle » (chargé d’entrer des données extérieures dans la blockchain), connectée au réseau de l’aéroport, et déclenchera automatiquement via le smart-contract une action spécifique définie par le contrat. Si ces cas du quotidien généralement compliqués à régler sont désormais solvables en quelques minutes grâce à ces smart-contracts, d’autres usages plus politiques sont également possibles : versement d’aides sociales, rétribution égalitaire de tâches au sein d’un projet collectif (film, ouvrage, etc.), revente d’un surplus d’énergie autoproduite, etc. S’ajoute à cela la possibilité, pour n’importe qui, d’émettre des jetons (tokens) pouvant représenter de la monnaie ou toute autre valeur infalsifiable (vote, place de concert, item d’un jeu vidéo, part d’un bien immobilier, propriété intellectuelle, etc. ). Si nos actuels modes de vie sont économiquement rythmés par des temps journaliers, hebdomadaires ou mensuels, quelles seraient les conséquences humaines de contrats (débit ou crédit) exécutables à la milliseconde (salaires, factures, etc.) ? Des domaines comme les assurances, les administrations, l’énergie, les transports, les médias, etc. pourraient être considérablement transformés par ces chronopolitiques ."
+   },
+   {
+    "kind": "fig",
+    "src": "https://helleuguillaume.com/_assets/v11/590e44c34129968fde31d5d58ef50f75d5aec4d2.png",
+    "caption": "Fig. 4 — Fonctionnement des smart-contracts. L’utilisateur [Fig. 4.1] va envoyer des ethers à l’application décentralisée (dApp) de la compagnie aérienne [Fig. 4.2] qui va enregistrer la transaction dans un smart-contract [Fig. 4.3] et créer un token-billet [Fig. 4.4]. Ce jeton sera dépensé (détruit) lors de son utilisation [Fig. 4.5.1]. Si le vol est annulé [Fig. 4.5.2] un oracle [Fig. 4.7] connecté au réseau de l’aéroport [Fig. 4.6] déclenchera le smart-contract qui remboursera, au travers de la dApp [Fig. 4.2], l’utilisateur en ethers [Fig. 4.9]."
+   },
+   {
+    "kind": "h",
+    "html": "Hacker le capitalisme protocologique"
+   },
+   {
+    "kind": "p",
+    "html": "Dès lors que les usages des chaînes de blocs débordent largement du cadre monétaire, rien n’interdit a priori de se saisir des protocoles blockchain pour repenser l’architecture des instances de pouvoir que ces derniers tendent à révéler. Reste à savoir ce qu’engage cette notion de protocole. Le chercheur en théorie des médias Alexander R. Galloway a montré que les systèmes électroniques décentralisés ne s’opposent pas aux « sociétés de contrôle » dénoncées par Gilles Deleuze : les gouvernements disciplinaires ont été remplacés par des protocoles techniques à la localisation fuyante et au management « distribué »."
+   },
+   {
+    "kind": "p",
+    "html": "De nombreux problèmes demeurent pour rendre humainement soutenables les technologies blockchain : l’anonymat complet n’y étant (dans l’ensemble) pas garanti, le risque d’un enregistrement global où rien ne pourrait être oublié serait socialement très problématique. Le développement de chaînes de blocs privées (où les nœuds du réseau sont limités et contrôlés) pourrait de plus mettre à mal l’idée originelle de se passer des « tiers de confiance ». Reste également en suspens l’aspect énergétique, dont nul ne sait pour le moment ce qu’il adviendrait en cas d’adoption massive des protocoles blockchain – la pollution étant en l’occurrence déjà constitutive de nos sociétés de la croissance, et d’une manière exacerbée concernant l’actuel système financier ."
+   },
+   {
+    "kind": "p",
+    "html": "Des scénarios post-capitalistes nécessiteront donc tout d’abord une prise de conscience critique vis-à-vis des effets de mode (blockchain washing ) des technologies blockchain, et ne pourront émerger qu’à condition préalable, mais non suffisante, de leur connaissance technique et de la matérialité qui les sous-tendent. C’est pourquoi il s’agit moins de chercher de nouvelles armes que de déconstruire (hacker) les strates techniques et sémantiques des protocoles blockchain afin d’en faire des « médias tactiques » : exploiter les failles de cette standardisation universelle pour faciliter l’émergence d’une société plus libre et plus démocratique. Si « toute architecture d’un réseau est politique », l’émergence de futurs post-capitalistes ne résidera pas dans la destruction des protocoles mais dans la capacité à hypertrophier leurs potentiels pour inventer de nouveaux modes de vie – ou à défaut pour en démontrer les impasses."
+   },
+   {
+    "kind": "ack",
+    "html": "Remerciements : Xavier Mouton-Dubosc, Brice Genre, Alexandre Saint-Jevin, Adrian Sauzade, Stman."
+   }
+  ],
+  "refsTitle": "Publication & références",
+  "refs": [
+   {
+    "text": "Multitudes n°71 (2018)",
+    "href": "https://www.multitudes.net/total-record-les-protocoles-blockchain-face-au-post-capitalisme/"
+   },
+   {
+    "text": "Cairn.info",
+    "href": "https://shs.cairn.info/revue-multitudes-2018-2-page-70?lang=fr"
+   },
+   {
+    "text": "Archive HAL",
+    "href": "https://hal.science/hal-02926033"
+   },
+   {
+    "text": "English translation",
+    "href": "https://www.academia.edu/39798099/Total_Record_The_Blockchain_Protocol_Towards_Post_Capitalism"
+   }
+  ]
+ }
+]

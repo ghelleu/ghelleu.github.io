@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,400&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #ffffff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: inherit; }
+  @media (max-width: 900px) { .hdr-right { display: none !important; } }
+</style>
+</helmet>
+<div style="{{ rootStyle }}">
+  <div style="width: 100%; max-width: 1880px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
+
+    <header style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: nowrap;">
+      <div style="display: flex; flex-direction: row; align-items: center; gap: 40px; flex-wrap: nowrap; min-width: 0; flex: 1;">
+        <a href="Home.dc.html" style="font-size: clamp(13px, 1.25vw, 24px); font-weight: 400; line-height: 1.4; white-space: nowrap; color: var(--ink, #000);">Guillaume Helleu</a>
+        <nav style="display: flex; flex-direction: row; align-items: center; gap: 28px; flex-wrap: nowrap; min-width: 0;">
+          <sc-for list="{{ navItems }}" as="nav" hint-placeholder-count="6">
+            <a href="{{ nav.href }}" style="{{ nav.style }}" style-hover="{{ inkHover }}">{{ nav.label }}</a>
+          </sc-for>
+        </nav>
+      </div>
+      <div class="hdr-right" style="display: flex; flex-direction: row; align-items: center; gap: 28px; flex-wrap: nowrap;">
+        <button onClick="{{ toggleLang }}" style="{{ ctrlStyle }}" style-hover="{{ inkHover }}">{{ langLabel }}</button>
+        <button onClick="{{ toggleTheme }}" style="{{ ctrlStyle }}" style-hover="{{ inkHover }}">{{ themeLabel }}</button>
+        <span style="font-size: clamp(13px, 1.25vw, 24px); font-weight: 400; line-height: 1.4; white-space: nowrap; color: var(--muted, #787878);">CC0 2016 — 2026</span>
+      </div>
+    </header>
+
+    <!-- title block -->
+    <div style="display: flex; flex-direction: column; padding-bottom: 40px;">
+      <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878); margin: 0 0 8px;">Issue #01 · June 2025</div>
+      <h1 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: clamp(48px, 7.29vw, 140px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink, #000);">Architectural Latent Style</h1>
+      <p style="margin: 12px 0 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 400; font-size: clamp(24px, 3.125vw, 60px); line-height: 1.1; color: var(--ink, #000);">Ce texte explore les transformations du concept de style architectural à l’ère des intelligences artificielles génératives. En mobilisant la notion d’espace latent, il montre que les styles ne se présentent plus comme des entités historiques fixes ou des catégories homogènes, mais comme des régions dynamiques au sein d’un champ relationnel.</p>
+    </div>
+
+    <!-- hero placeholder -->
+    <div style="width: 100%; aspect-ratio: 1880 / 800; overflow: hidden; background: var(--preview, #e6e5e2);">
+      <image-slot id="als-hero" shape="rect" placeholder=" " src="assets/ph-07.jpg"></image-slot>
+    </div>
+
+    <!-- body 1 -->
+    <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+      <p style="flex: 1 1 0; min-width: 280px; margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">L’histoire de l’architecture a souvent été racontée à travers celle de ses styles. Du gothique au modernisme, du brutalisme au high-tech, ces catégories permettent de structurer un récit, de situer les formes dans le temps, de relier la construction à des intentions culturelles. Pourtant, dans un présent saturé d’images, d’influences croisées et de références globalisées, ces classifications semblent de moins en moins capables de rendre compte de la complexité esthétique contemporaine. Avec l’émergence des outils d’intelligence artificielle générative, le style cesse d’être un ensemble de règles fixes ou une époque identifiable : il devient un champ de variation continue, un territoire dynamique où les formes circulent, se contaminent, se ramifient.</p>
+      <p style="flex: 1 1 0; min-width: 280px; margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">Ce basculement est rendu possible par la structure même des intelligences artificielles génératives. Formées à partir de millions d’images, elles ne reproduisent pas littéralement un style : elles génèrent des images à partir de relations statistiques apprises dans ce que l’on appelle un espace latent, une représentation mathématique compressée de l’ensemble des images rencontrées durant l’entraînement. Chaque image y est traduite sous forme de vecteurs abstraits — des suites de nombres encodant des caractéristiques visuelles (formes, textures, couleurs, compositions). Dans ce champ numérique, deux images visuellement similaires seront représentées par des points rapprochés : c’est cette topologie qui permet d’explorer des proximités esthétiques, même implicites. Dans cet espace, chaque style correspond à une région de forte densité : un regroupement empirique d’exemples visuels ayant des traits en commun. Mais c’est surtout dans les trajectoires entre ces régions que s’ouvrent de nouveaux territoires stylistiques : des configurations intermédiaires qui n’ont pas d’équivalent historique, mais qui restent statistiquement cohérentes. Une image générée peut ainsi n’appartenir à aucun style défini, mais émerger d’un point situé entre plusieurs zones stylistiques du latent space. Elle devient alors une interpolation visuelle : un croisement fluide entre des influences multiples, sans hiérarchie ni frontière nette. Ce glissement engage une relecture des fondements de l’analyse architecturale. Plutôt que de penser les styles comme des typologies fixes ou des périodes closes, il faut les envisager comme des régions cartographiques, traversées par des tensions formelles. Un projet généré entre « brutalisme » et « baroque » ne correspond à aucun canon connu, mais peut néanmoins être perçu comme plausible. Ce que l’IA rend visible, ce ne sont pas des inventions radicales, mais des agencements latents — restés inexplorés dans le développement historique, mais que la combinatoire algorithmique révèle avec une clarté nouvelle. Ce que l’on découvre ici n’est pas une nouvelle chronologie, mais une cartographie parallèle — où les styles se connectent en constellations plutôt que de se succéder.</p>
+      <div style="flex: 1 1 0; min-width: 280px;"></div>
+    </div>
+
+    <!-- 3 photos -->
+    <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+      <div style="flex: 1 1 0; min-width: 240px; aspect-ratio: 613 / 800; background: #e6e5e2 url('assets/als-1.jpg') center / cover no-repeat;"></div>
+      <div style="flex: 1 1 0; min-width: 240px; aspect-ratio: 613 / 800; background: #e6e5e2 url('assets/als-2.jpg') center / cover no-repeat;"></div>
+      <div style="flex: 1 1 0; min-width: 240px; aspect-ratio: 613 / 800; background: #e6e5e2 url('assets/als-3.jpg') center / cover no-repeat;"></div>
+    </div>
+
+    <!-- body 2 -->
+    <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+      <div style="flex: 1 1 0; min-width: 280px; display: flex; flex-direction: column; gap: 20px;">
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">L’un des apports majeurs de ces modèles n’est donc pas tant de créer que de révéler. Ils fonctionnent comme des instruments d’archéologie inversée : non pas pour exhumer des formes anciennes, mais pour faire émerger des combinaisons esthétiques que l’histoire de l’architecture n’a jamais actualisées. Ce que les intelligences artificielles apprennent, ce ne sont pas des doctrines, mais des régularités visuelles. Elles n’intègrent ni le programme politique du brutalisme, ni la rhétorique théologique du baroque ; elles extraient, comparent, recombinent. Des textures, des volumes, des motifs — béton brut, coupoles dorées, colonnes torsadées — deviennent des fragments décontextualisés, disponibles pour de nouvelles fusions. À partir de cette matière visuelle, les IA ne reproduisent pas une architecture, mais ce que le style a laissé dans les images : ses traces, ses récurrences, ses excès. Ce qu’elles rendent visible, ce n’est donc pas un style au sens canonique, mais une mémoire statistique du style — une histoire latente faite de patterns formels, détachés de leurs discours d’origine.</p>
+        <p style="margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">Dans cette logique, l’oubli devient une ressource stylistique. Là où la critique architecturale a souvent disqualifié le kitsch, le décoratif ou l’inachevé, les IA génératives peuvent les réintégrer, sans filtre idéologique. Contrairement à l’histoire de l’architecture, qui hiérarchise, sélectionne, canonise, les IA ne valorisent aucune image au détriment d’une autre : elles analysent des similarités, sans jugement. Cela dit, la composition des datasets introduit malgré tout des biais, en surreprésentant certains styles ou en invisibilisant d’autres — une hiérarchie implicite qu’il faut garder à l’esprit. Dans ce cadre, il devient possible de générer « un baroque brutaliste » ou « un gothique postmoderne » non pas comme une provocation, mais comme une forme d’hybridation naturelle. L’IA ne copie pas des modèles : elle extrait des régularités visuelles et les recombine. Ce qu’elle met en jeu, c’est une continuité latente entre les formes — une manière de composer, sans système de valeurs, ce que l’histoire avait appris à dissocier.</p>
+      </div>
+      <p style="flex: 1 1 0; min-width: 280px; margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">Cela suppose un déplacement profond de notre manière de penser les styles. Ce ne sont plus des entités discrètes, mais des syntaxes ouvertes. Comme en linguistique, où une langue repose moins sur son vocabulaire que sur sa grammaire, un style architectural peut être compris comme un ensemble de règles transformationnelles. L’IA ne produit pas une image de style, mais une image stylisée — conforme à une série de contraintes internes apprises, et recombinables. On peut y voir une forme de traduction stylistique : passer d’un idiome baroque à un idiome brutaliste, non pas par superposition des formes, mais par croisement des structures. L’architecture devient alors un langage, et l’espace latent, son dictionnaire multidimensionnel.</p>
+      <div style="flex: 1 1 0; min-width: 280px;"></div>
+    </div>
+
+    <!-- diagram + caption -->
+    <div style="display: flex; flex-direction: column; gap: 40px; align-items: flex-end;">
+      <div style="width: 100%; aspect-ratio: 1880 / 769; background: #000 url('assets/als-diagram.png') center / contain no-repeat;"></div>
+      <p style="width: 612px; max-width: 100%; margin: 0; font-size: 16px; line-height: 1.4; color: #16161d;">Ce schéma illustre le principe d’un espace latent dans un modèle génératif. À gauche, les objets sont projetés dans un espace vectoriel réduit, où chaque point encode une combinaison de traits visuels appris. Les proximités spatiales reflètent des similarités statistiques entre les formes. En interpolant entre plusieurs exemples (lignes pointillées), le modèle génère de nouvelles instances intermédiaires — ici visualisées au centre sous forme de grille morphologique continue. À droite, un objet synthétique issu de cette interpolation incarne une configuration absente du jeu de données initial, mais rendue plausible par la structure du modèle. L’espace latent devient ainsi un territoire navigable de styles non actualisés, où l’image générée n’est plus une reproduction, mais une actualisation probabiliste d’un continuum formel.<br><br>Source : Cabezon Pedroso, T., &amp; Byrne, D. (2023). Browsing the Latent Space: A New Approach to Interactive Design Exploration for Volumetric Generative Systems. In Proceedings of the 15th Conference on Creativity and Cognition (C&amp;C ’23), pp. 330–333. https://doi.org/10.1145/3591196.3596815</p>
+    </div>
+
+    <!-- body 3 -->
+    <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+      <p style="flex: 1 1 0; min-width: 280px; margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">Dans l’espace latent, l’hybridation stylistique ne consiste pas à juxtaposer des éléments esthétiques. Elle ne se réduit pas à ajouter un décor baroque sur une structure brutaliste, ni à fusionner deux univers visuels pour créer un style “fusion”. Elle engage un processus plus profond : celui de la confrontation entre deux manières de concevoir l’architecture. Chaque style repose sur une syntaxe, une logique interne. Le brutalisme, par exemple, valorise la frontalité, l’exposition de la matière, la lisibilité structurelle. Le baroque, à l’inverse, privilégie la courbe, le mouvement, la mise en scène. Lorsque ces deux styles sont croisés par une IA générative, ce ne sont pas seulement leurs formes qui se rencontrent, mais leurs régularités — leurs habitudes de composition, leurs manières d’articuler l’espace.</p>
+      <p style="flex: 1 1 0; min-width: 280px; margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">Une hybridation intéressante ne cherche pas à masquer ces différences. Elle ne vise pas la synthèse harmonieuse, mais accepte les frictions. C’est précisément dans la tension entre deux systèmes incompatibles que surgit un potentiel critique. L’image générée devient un lieu de dissonance : un intérieur en béton brut traversé par des voûtes dorées, une monumentalité froide adoucie par des excès ornementaux. Ce désaccord formel ne doit pas être perçu comme un défaut, mais comme un révélateur. Il expose ce que chaque style évite de montrer : le baroque mis à nu dans son absence de structure, le brutalisme confronté à son rejet de l’émotion. L’IA permet alors de produire non pas une architecture de compromis, mais une architecture de l’écart — un espace d’expérimentation où les logiques formelles s’entrechoquent pour mieux révéler leurs limites et leurs possibles.</p>
+      <div style="flex: 1 1 0; min-width: 280px;"></div>
+    </div>
+
+    <!-- placeholder band -->
+    <div style="width: 100%; aspect-ratio: 1880 / 800; overflow: hidden; background: var(--preview, #e6e5e2);">
+      <image-slot id="als-img2" shape="rect" placeholder=" " src="assets/ph-08.png"></image-slot>
+    </div>
+
+    <!-- body 4 -->
+    <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+      <p style="flex: 1 1 0; min-width: 280px; margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">Dans ce contexte, concevoir ne revient plus à inventer une forme ex nihilo, mais à explorer un espace déjà peuplé de possibilités latentes. Les IA génératives transforment l’acte de création en une opération de navigation : au lieu de dessiner, on sélectionne ; au lieu de composer, on trace une trajectoire dans un champ invisible mais structuré. Ce champ — l’espace latent — ne contient pas des projets, mais des proximités esthétiques, des configurations stylistiques en attente. L’architecte devient alors un arpenteur de ce terrain probabiliste : il découvre des formes que le système rend possibles, mais que l’histoire n’a pas encore activées. Il ne s’agit plus d’imaginer ce qui pourrait exister, mais de détecter ce qui est déjà plausible dans la combinatoire du modèle. Concevoir revient alors à cartographier un territoire de formes en suspens — non pas produire du nouveau, mais rendre visible du non advenu.</p>
+      <p style="flex: 1 1 0; min-width: 280px; margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink, #000);">Penser l’architecture à travers l’espace latent, ce n’est pas seulement explorer de nouvelles esthétiques. C’est adopter une vision du monde où les formes ne sont plus des blocs figés, mais des champs de possibilités, des intensités traversables, des régimes de ressemblance. Une culture générative ne se contente pas de produire : elle réorganise notre manière de voir, de nommer, de comparer. Demain, il ne s’agira peut-être plus de choisir entre baroque et brutalisme — mais de situer, dans l’espace latent, le point exact où l’un commence à ressembler à l’autre. Là, précisément, où naît le style.</p>
+      <div style="flex: 1 1 0; min-width: 280px;"></div>
+    </div>
+
+    <!-- placeholder left -->
+    <div style="width: 1247px; max-width: 100%; align-self: flex-start; aspect-ratio: 1247 / 800; overflow: hidden; background: var(--preview, #e6e5e2);">
+      <image-slot id="als-img3" shape="rect" placeholder=" " src="assets/ph-02.jpg"></image-slot>
+    </div>
+    <!-- placeholder right -->
+    <div style="width: 1247px; max-width: 100%; align-self: flex-end; aspect-ratio: 1247 / 800; overflow: hidden; background: var(--preview, #e6e5e2);">
+      <image-slot id="als-img4" shape="rect" placeholder=" " src="assets/ph-06.jpg"></image-slot>
+    </div>
+
+    <footer style="padding: 40px 0 0; display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap;">
+      <div style="display: flex; flex-direction: column; align-items: flex-start;">
+        <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #000);">Guillaume Helleu</span>
+        <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #000); opacity: 0.5;">Digital Research, Technological Pedagogy and Creative Practice.</span>
+      </div>
+      <div style="width: 323px; max-width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
+        <a href="mailto:guillaumehelleu.pro@gmail.com" style="width: 100%; font-size: 16px; line-height: 1.4; text-align: right; color: var(--ink, #000); text-decoration: underline;">guillaumehelleu.pro@gmail.com</a>
+        <span style="width: 100%; font-size: 16px; line-height: 1.4; text-align: right; color: var(--ink, #000);">+41 78 308 59 56</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { lang: 'fr', theme: 'light' };
+  componentDidMount() {
+    try {
+      const lang = localStorage.getItem('gh-lang');
+      const theme = localStorage.getItem('gh-theme');
+      const patch = {};
+      if (lang === 'fr' || lang === 'en') patch.lang = lang;
+      if (theme === 'light' || theme === 'dark') patch.theme = theme;
+      if (Object.keys(patch).length) this.setState(patch);
+    } catch (e) {}
+    import('./image-slot.js').catch(() => {});
+  }
+  setLang(v) { try { localStorage.setItem('gh-lang', v); } catch (e) {} this.setState({ lang: v }); }
+  setTheme(v) { try { localStorage.setItem('gh-theme', v); } catch (e) {} this.setState({ theme: v }); }
+  get pal() {
+    return this.state.theme === 'dark'
+      ? { bg: '#0e0e10', ink: '#f2f0ea', muted: '#7d7b75', preview: '#1c1c1f' }
+      : { bg: '#ffffff', ink: '#000000', muted: '#787878', preview: '#e6e5e2' };
+  }
+  buildNav() {
+    const p = this.pal, active = 1;
+    const items = this.state.lang === 'fr'
+      ? [['Index', 'Index.dc.html'], ['Recherche', 'Recherche.dc.html'], ['Pedagogie', 'Pedagogie.dc.html'], ['Pratique', 'Pratique.dc.html'], ['À propos', 'About.dc.html']]
+      : [['Index', 'Index.dc.html'], ['Research', 'Recherche.dc.html'], ['Pedagogy', 'Pedagogie.dc.html'], ['Practice', 'Pratique.dc.html'], ['About', 'About.dc.html']];
+    return items.map(([label, href], i) => ({
+      label, href,
+      style: { fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, whiteSpace: 'nowrap', color: p.ink, textDecoration: i === active ? 'underline' : 'none', textUnderlineOffset: '4px' }
+    }));
+  }
+  renderVals() {
+    const p = this.pal;
+    return {
+      rootStyle: {
+        minHeight: '100vh', background: p.bg, color: p.ink, fontFamily: "'Inter', sans-serif",
+        padding: '20px', transition: 'background 0.35s ease, color 0.35s ease',
+        '--ink': p.ink, '--muted': p.muted, '--preview': p.preview
+      },
+      navItems: this.buildNav(),
+      inkHover: { color: p.muted },
+      ctrlStyle: { fontFamily: "'Inter', sans-serif", fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', color: p.ink, whiteSpace: 'nowrap' },
+      toggleLang: () => this.setLang(this.state.lang === 'fr' ? 'en' : 'fr'),
+      toggleTheme: () => this.setTheme(this.state.theme === 'light' ? 'dark' : 'light'),
+      langLabel: this.state.lang === 'fr' ? 'English' : 'Français',
+      themeLabel: this.state.theme === 'light' ? 'Dark' : 'Light'
+    };
+  }
+}
+</script>
+</body>
+</html>

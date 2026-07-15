@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #ffffff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: inherit; }
+  @media (max-width: 900px) { .hdr-right { display: none !important; } }
+</style>
+</helmet>
+<div style="{{ rootStyle }}">
+  <div style="width: 100%; max-width: 1880px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
+
+    <header style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: nowrap;">
+      <div style="display: flex; flex-direction: row; align-items: center; gap: 40px; flex-wrap: nowrap; min-width: 0; flex: 1;">
+        <a href="Home.dc.html" style="font-size: clamp(13px, 1.25vw, 24px); font-weight: 400; line-height: 1.4; white-space: nowrap; color: var(--ink, #000);">Guillaume Helleu</a>
+        <nav style="display: flex; flex-direction: row; align-items: center; gap: 28px; flex-wrap: nowrap; min-width: 0;">
+          <sc-for list="{{ navItems }}" as="nav" hint-placeholder-count="6">
+            <a href="{{ nav.href }}" style="{{ nav.style }}" style-hover="{{ inkHover }}">{{ nav.label }}</a>
+          </sc-for>
+        </nav>
+      </div>
+      <div class="hdr-right" style="display: flex; flex-direction: row; align-items: center; gap: 28px; flex-wrap: nowrap;">
+        <button onClick="{{ toggleLang }}" style="{{ ctrlStyle }}" style-hover="{{ inkHover }}">{{ langLabel }}</button>
+        <button onClick="{{ toggleTheme }}" style="{{ ctrlStyle }}" style-hover="{{ inkHover }}">{{ themeLabel }}</button>
+        <span style="font-size: clamp(13px, 1.25vw, 24px); font-weight: 400; line-height: 1.4; white-space: nowrap; color: var(--muted, #787878);">CC0 2016 — 2026</span>
+      </div>
+    </header>
+
+    <div style="display: flex; flex-direction: column; padding-bottom: 40px; max-width: 1379px;">
+      <h1 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: clamp(64px, 9.375vw, 180px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink, #000);">{{ heading }}</h1>
+      <p style="margin: 4px 0 0; max-width: none; width: 100%; font-family: 'Source Serif 4', Georgia, serif; font-weight: 400; font-size: clamp(28px, 3.125vw, 60px); line-height: 1.2; color: var(--ink, #000);">{{ lede }}</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 40px;">
+      <sc-for list="{{ items }}" as="it" hint-placeholder-count="6">
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; align-items: stretch;">
+          <div style="grid-column: 1 / span 2; min-width: 0; display: flex; flex-direction: column;">
+            <sc-if value="{{ it.metaTop }}" hint-placeholder-val="{{ true }}">
+              <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878); margin: 0 0 10px;">{{ it.metaTop }}</div>
+            </sc-if>
+            <a href="{{ it.href }}" style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: clamp(34px, 3.125vw, 60px); line-height: 1.1; color: var(--ink, #000);" style-hover="{{ inkHover }}">{{ it.title }}</a>
+            <sc-if value="{{ it.metaBottom }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878); margin: 10px 0 0;">{{ it.metaBottom }}</div>
+            </sc-if>
+            <p style="margin: 20px 0 0; font-size: clamp(18px, 1.25vw, 24px); line-height: 1.4; color: var(--ink, #000);">{{ it.body }}</p>
+            <a href="{{ it.href }}" style="align-self: flex-end; margin-top: 24px; font-size: 14px; line-height: 1.4; color: var(--ink, #000); text-decoration: underline; text-underline-offset: 3px;" style-hover="{{ inkHover }}">{{ it.link }}</a>
+          </div>
+          <div style="grid-column: 4; align-self: stretch; min-height: 260px; overflow: hidden; background: var(--preview, #e6e5e2);">
+            <image-slot id="{{ it.id }}" shape="rect" placeholder=" " src="{{ it.img }}"></image-slot>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <footer style="padding: 40px 0 0; display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap;">
+      <div style="display: flex; flex-direction: column; align-items: flex-start;">
+        <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #000);">Guillaume Helleu</span>
+        <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #000); opacity: 0.5;">Digital Research, Technological Pedagogy and Creative Practice.</span>
+      </div>
+      <div style="width: 323px; max-width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
+        <a href="mailto:guillaumehelleu.pro@gmail.com" style="width: 100%; font-size: 16px; line-height: 1.4; text-align: right; color: var(--ink, #000); text-decoration: underline;">guillaumehelleu.pro@gmail.com</a>
+        <span style="width: 100%; font-size: 16px; line-height: 1.4; text-align: right; color: var(--ink, #000);">+41 78 308 59 56</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { lang: 'fr', theme: 'light' };
+  componentDidMount() {
+    try {
+      const lang = localStorage.getItem('gh-lang');
+      const theme = localStorage.getItem('gh-theme');
+      const patch = {};
+      if (lang === 'fr' || lang === 'en') patch.lang = lang;
+      if (theme === 'light' || theme === 'dark') patch.theme = theme;
+      if (Object.keys(patch).length) this.setState(patch);
+    } catch (e) {}
+    import('./image-slot.js').catch(() => {});
+  }
+  setLang(v) { try { localStorage.setItem('gh-lang', v); } catch (e) {} this.setState({ lang: v }); }
+  setTheme(v) { try { localStorage.setItem('gh-theme', v); } catch (e) {} this.setState({ theme: v }); }
+  get isFr() { return this.state.lang !== 'en'; }
+  get pal() {
+    return this.state.theme === 'dark'
+      ? { bg: '#0e0e10', ink: '#f2f0ea', muted: '#7d7b75', preview: '#1c1c1f' }
+      : { bg: '#ffffff', ink: '#000000', muted: '#787878', preview: '#e6e5e2' };
+  }
+  buildNav() {
+    const p = this.pal, active = 2;
+    const items = this.isFr
+      ? [['Index', 'Index.dc.html'], ['Recherche', 'Recherche.dc.html'], ['Pedagogie', 'Pedagogie.dc.html'], ['Pratique', 'Pratique.dc.html'], ['À propos', 'About.dc.html']]
+      : [['Index', 'Index.dc.html'], ['Research', 'Recherche.dc.html'], ['Pedagogy', 'Pedagogie.dc.html'], ['Practice', 'Pratique.dc.html'], ['About', 'About.dc.html']];
+    return items.map(([label, href], i) => ({
+      label, href,
+      style: { fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, whiteSpace: 'nowrap', color: p.ink, textDecoration: i === active ? 'underline' : 'none', textUnderlineOffset: '4px' }
+    }));
+  }
+  buildItems() {
+    if (this.isFr) return [
+      { id: 'ped-pop', title: 'Proof-of-Punk', img: 'assets/ph-01.gif', metaBottom: 'Cours transversal théorique de Bachelor à la HEAD – Genève', href: 'Pedagogie-PoP.dc.html', link: 'Voir le détail du cours →', body: 'Ces dernières années furent marquées par l\u2019émergence de trois paradigmes technologiques : l\u2019immersion, le Web3 et l\u2019intelligence artificielle. Renforcée par la popularité des jeux vidéo et des médias sociaux, leur rencontre ouvre la voie vers une hybridation entre monde physique et virtuel, où artistes et designers doivent désormais composer avec l\u2019artificiel.' },
+      { id: 'ped-lfs', metaTop: 'Cours HEAD · Automne 2025', img: 'assets/ph-08.png', title: 'Learning From Synthetics', href: 'Pedagogie-LFS.dc.html', link: 'Lire l\u2019article →', body: 'Une formation à l\u2019intelligence artificielle destinée au corps enseignant du programme d\u2019architecture d\u2019intérieur de la HEAD – Genève. Six séances, de la théorie fondamentale au protocole appliqué.' },
+      { id: 'ped-crea', metaTop: 'Cours HEAD · Automne 2023 · Printemps 2024 · Printemps 2025', img: 'assets/ph-09.png', title: 'Créativités artificielles', href: 'Pedagogie-Creativites.dc.html', link: 'Lire l\u2019article →', body: 'L\u2019essor des technologies d\u2019intelligence artificielle générative transforme en profondeur les processus de création artistique et de conception en design. Depuis DALL·E, Midjourney ou ChatGPT, la possibilité de générer du contenu de haute qualité en quelques secondes soulève autant d\u2019enthousiasme que de préoccupations.' },
+      { id: 'ped-als', metaTop: 'Cours HEAD · Printemps 2025', img: 'assets/ph-07.jpg', title: 'Architectural Latent Space', href: 'Pedagogie-ALS.dc.html', link: 'Lire l\u2019article →', body: 'L\u2019essor de l\u2019intelligence artificielle générative transforme en profondeur les modes de représentation et de conception architecturale. Loin d\u2019être un simple outil, ces technologies modifient la relation entre l\u2019image et l\u2019architecture, ouvrant la voie à de nouvelles pratiques où le projet se construit autant par sa visualisation que par son éventuelle matérialisation.' },
+      { id: 'ped-tgh', metaTop: 'Cours HEAD · Printemps 2024', img: 'assets/ph-02.jpg', title: 'The Great Hack', href: 'Pedagogie-TGH.dc.html', link: 'Lire l\u2019article →', body: 'Avec le développement des technologies numériques, le métier d\u2019architecte a évolué, nécessitant une maîtrise pluridisciplinaire des systèmes et une capacité à travailler en équipe sur des projets d\u2019envergure — jusqu\u2019à créer une agence d\u2019architecture fictive mais crédible, reconnue à l\u2019échelle internationale.' },
+      { id: 'ped-id', metaTop: 'Cours HEAD · Printemps 2023', img: 'assets/ph-05.png', title: 'Interior Decentralization', href: 'Pedagogie-ID.dc.html', link: 'Lire l\u2019article →', body: 'Depuis la rencontre entre les technologies immersives (réalités mixtes) et le Web3 (initié par la blockchain Ethereum en 2015), la frontière entre monde physique et monde virtuel n\u2019a jamais été aussi fine — avec des implications majeures pour le design d\u2019intérieur, désormais étendu aux jeux vidéo et aux espaces impossibles.' }
+    ];
+    return [
+      { id: 'ped-pop', title: 'Proof-of-Punk', img: 'assets/ph-01.gif', metaBottom: 'Bachelor transversal theory course at HEAD – Genève', href: 'Pedagogie-PoP.dc.html', link: 'See course details →', body: 'The past few years have been marked by the emergence of three technological paradigms: immersion, Web3 and artificial intelligence. Reinforced by the popularity of video games and social media, their convergence opens the way to a hybridization between the physical and virtual worlds, where artists and designers must now compose with the artificial.' },
+      { id: 'ped-lfs', metaTop: 'HEAD course · Fall 2025', img: 'assets/ph-08.png', title: 'Learning From Synthetics', href: 'Pedagogie-LFS.dc.html', link: 'See course details →', body: 'An introduction to artificial intelligence for the teaching staff of HEAD – Genève\u2019s interior architecture program. Six sessions, from foundational theory to applied protocol.' },
+      { id: 'ped-crea', metaTop: 'HEAD course · Fall 2023 · Spring 2024 · Spring 2025', img: 'assets/ph-09.png', title: 'Créativités artificielles', href: 'Pedagogie-Creativites.dc.html', link: 'See course details →', body: 'The rise of generative AI technologies is profoundly transforming the processes of artistic creation and design. Since DALL·E, Midjourney or ChatGPT, the ability to generate high-quality content in seconds raises as much enthusiasm as concern.' },
+      { id: 'ped-als', metaTop: 'HEAD course · Spring 2025', img: 'assets/ph-07.jpg', title: 'Architectural Latent Space', href: 'Pedagogie-ALS.dc.html', link: 'See course details →', body: 'The rise of generative AI is profoundly transforming the modes of architectural representation and design. Far from being a mere tool, these technologies reshape the relationship between image and architecture, opening the way to new practices where the project is built as much through its visualization as its eventual materialization.' },
+      { id: 'ped-tgh', metaTop: 'HEAD course · Spring 2024', img: 'assets/ph-02.jpg', title: 'The Great Hack', href: 'Pedagogie-TGH.dc.html', link: 'See course details →', body: 'With the development of digital technologies, the architect\u2019s profession has evolved, requiring multidisciplinary mastery of systems and the ability to work as a team on large-scale projects — even creating a fictional yet credible architecture agency, recognized internationally.' },
+      { id: 'ped-id', metaTop: 'HEAD course · Spring 2023', img: 'assets/ph-05.png', title: 'Interior Decentralization', href: 'Pedagogie-ID.dc.html', link: 'See course details →', body: 'Since the encounter between immersive technologies (mixed realities) and Web3 (initiated by the Ethereum blockchain in 2015), the boundary between the physical and virtual worlds has never been so thin — with major implications for interior design, now extended to video games and impossible spaces.' }
+    ];
+  }
+  renderVals() {
+    const p = this.pal;
+    return {
+      rootStyle: {
+        minHeight: '100vh', background: p.bg, color: p.ink, fontFamily: "'Inter', sans-serif",
+        padding: '20px', transition: 'background 0.35s ease, color 0.35s ease',
+        '--ink': p.ink, '--muted': p.muted, '--preview': p.preview
+      },
+      navItems: this.buildNav(),
+      heading: this.isFr ? 'Pédagogie' : 'Pedagogy',
+      lede: this.isFr
+        ? 'Cours, ateliers et formations à la croisée du design, de l\u2019architecture et des technologies émergentes — de la théorie critique à la pratique concrète des IA génératives.'
+        : 'Courses, studios and trainings at the crossroads of design, architecture and emerging technologies — from critical theory to hands-on practice with generative AI.',
+      items: this.buildItems(),
+      inkHover: { color: p.muted },
+      ctrlStyle: { fontFamily: "'Inter', sans-serif", fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', color: p.ink, whiteSpace: 'nowrap' },
+      toggleLang: () => this.setLang(this.isFr ? 'en' : 'fr'),
+      toggleTheme: () => this.setTheme(this.state.theme === 'light' ? 'dark' : 'light'),
+      langLabel: this.isFr ? 'English' : 'Français',
+      themeLabel: this.state.theme === 'light' ? 'Dark' : 'Light'
+    };
+  }
+}
+</script>
+</body>
+</html>
