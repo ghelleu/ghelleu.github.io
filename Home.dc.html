@@ -22,6 +22,19 @@
   .tile-ov { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.22s ease; pointer-events: none; }
   .tile:hover .tile-ov { opacity: 1; }
   @media (max-width: 900px) { .hdr-right { display: none !important; } }
+  @media (max-width: 760px) {
+    header { flex-wrap: wrap !important; gap: 10px 18px !important; }
+    header > div { flex-wrap: wrap !important; min-width: 0 !important; }
+    header nav { flex-wrap: wrap !important; gap: 6px 16px !important; }
+    h1 { font-size: clamp(40px, 12vw, 64px) !important; white-space: normal !important; text-wrap: wrap !important; }
+    footer { flex-direction: column !important; align-items: flex-start !important; gap: 14px !important; }
+    footer > div { width: auto !important; max-width: 100% !important; }
+    footer a, footer span { text-align: left !important; }
+  }
+  @media (max-width: 760px) {
+    h1 { font-size: clamp(22px, 7vw, 44px) !important; }
+    .mrow { flex-direction: column !important; }
+  }
 </style>
 </helmet>
 <div style="{{ rootStyle }}">
@@ -52,7 +65,7 @@
     <!-- project mosaic -->
     <section style="display: flex; flex-direction: column; gap: 20px;">
       <!-- row 1 -->
-      <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start;">
+      <div class="mrow" style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start;">
         <a class="tile" href="Recherche-Iconophagy.dc.html" style="flex: 1247; min-width: 0; aspect-ratio: 1247 / 796; background: var(--preview, #e6e5e2);">
           <image-slot id="home-mosaic-1" shape="rect" placeholder=" " src="assets/foodporn-thumb.png"></image-slot>
           <div class="tile-ov" style="background: var(--chip, rgba(255,255,255,0.82));"><span style="font-size: clamp(16px, 1.6vw, 28px); color: var(--ink, #000); text-align: center; padding: 0 24px;">From Foodporn to Iconophagy →</span></div>
@@ -68,7 +81,7 @@
         <div class="tile-ov" style="background: var(--chip, rgba(255,255,255,0.82));"><span style="font-size: clamp(16px, 1.6vw, 28px); color: var(--ink, #000); text-align: center; padding: 0 24px;">Architectural Latent Style →</span></div>
       </a>
       <!-- row 3 -->
-      <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start;">
+      <div class="mrow" style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start;">
         <a class="tile" href="Pedagogie-PoP.dc.html" style="flex: 613; min-width: 0; aspect-ratio: 613 / 1171; background: var(--preview, #e6e5e2);">
           <image-slot id="home-mosaic-4" shape="rect" placeholder=" " src="assets/ph-01.gif"></image-slot>
           <div class="tile-ov" style="background: var(--chip, rgba(255,255,255,0.82));"><span style="font-size: clamp(16px, 1.6vw, 28px); color: var(--ink, #000); text-align: center; padding: 0 24px;">Proof-of-Punk →</span></div>

@@ -18,6 +18,15 @@
   a { color: inherit; text-decoration: none; }
   a:hover { color: inherit; }
   @media (max-width: 900px) { .hdr-right { display: none !important; } }
+  @media (max-width: 760px) {
+    header { flex-wrap: wrap !important; gap: 10px 18px !important; }
+    header > div { flex-wrap: wrap !important; min-width: 0 !important; }
+    header nav { flex-wrap: wrap !important; gap: 6px 16px !important; }
+    h1 { font-size: clamp(40px, 12vw, 64px) !important; white-space: normal !important; text-wrap: wrap !important; }
+    footer { flex-direction: column !important; align-items: flex-start !important; gap: 14px !important; }
+    footer > div { width: auto !important; max-width: 100% !important; }
+    footer a, footer span { text-align: left !important; }
+  }
 </style>
 </helmet>
 <div style="{{ rootStyle }}">
@@ -51,7 +60,7 @@
           <div style="font-size: 16px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink, #000);">{{ s.label }}</div>
           <div style="display: flex; flex-direction: column;">
             <sc-for list="{{ s.lines }}" as="ln" hint-placeholder-count="3">
-              <div style="font-size: 16px; line-height: 1.5; color: var(--ink, #000);">{{ ln.text }}<sc-if value="{{ ln.link }}" hint-placeholder-val="{{ false }}"><a href="#" style="text-decoration: underline; text-underline-offset: 3px; color: var(--ink, #000);" style-hover="{{ inkHover }}">{{ ln.link }}</a></sc-if></div>
+              <div style="font-size: 16px; line-height: 1.5; color: var(--ink, #000);">{{ ln.text }}<sc-if value="{{ ln.link }}" hint-placeholder-val="{{ false }}"><a href="{{ ln.url }}" target="_blank" rel="noopener" style="text-decoration: underline; text-underline-offset: 3px; color: var(--ink, #000);" style-hover="{{ inkHover }}">{{ ln.link }}</a></sc-if></div>
             </sc-for>
           </div>
         </div>
@@ -102,16 +111,51 @@ class Component extends DCLogic {
       style: { fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, whiteSpace: 'nowrap', color: p.ink, textDecoration: i === active ? 'underline' : 'none', textUnderlineOffset: '4px' }
     }));
   }
+  get linkMap() {
+    return {
+ "Séance inaugurale · 1.1 Présentation du syllabus": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=9272%3A558&node-id=9272-724&scaling=contain&content-scaling=fixed",
+ "Séance inaugurale · 1.2 Vers un monde hybridé": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A2103&node-id=3610-36283&scaling=contain&content-scaling=fixed",
+ "HAL 9000 · 2.1 Histoire des IA": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A2104&node-id=3606-30931&scaling=contain&content-scaling=fixed",
+ "HAL 9000 · 2.2 Fonctionnement du Deep Learning": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A181354&node-id=6240-8360&scaling=contain&content-scaling=fixed",
+ "Dark Futur · 3.1 Challenges sociétaux des IA": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A181353&node-id=3668-4116&scaling=contain&content-scaling=fixed",
+ "Dark Futur · 3.2 L’ère de la Post-vérité": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=6240%3A3763&node-id=6561-10562&scaling=contain&content-scaling=fixed",
+ "Dark Futur · 3.3 AI everywhere": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A2105&node-id=6356-18378&scaling=contain&content-scaling=fixed",
+ "No Prompt · 4.1 Creative AI": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=6240%3A2970&node-id=6356-18358&scaling=contain&content-scaling=fixed",
+ "No Prompt · 4.2 AI Pedagogy": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=6614%3A2092&node-id=9443-10646&scaling=min-zoom&content-scaling=fixed",
+ "Cyberspace · 5.1 Histoire du Web": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A181355&node-id=3904-22622&scaling=contain&content-scaling=fixed",
+ "Cyberspace · 5.2 Censure et culture libre": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A14821&node-id=3949-13914&scaling=contain&content-scaling=fixed",
+ "Cyberpunk · 6.1 L’avènement des Cypherpunk": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A181356&node-id=6658-2980&scaling=contain&content-scaling=fixed",
+ "Cyberpunk · 6.2 Origine de la blockchain": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A14822&node-id=6681-2651&scaling=contain&content-scaling=fixed",
+ "Cyberpunk · 6.3 Cryptokit": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=6718%3A3284&node-id=6718-6903&scaling=min-zoom&content-scaling=fixed",
+ "Cryptoart · 7.1 Du cryptoart aux NFT": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=6696%3A4151&node-id=6777-11015&scaling=contain&content-scaling=fixed",
+ "Cryptoart · 7.2 Regard croisé sur le multiple": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=6790%3A27197&node-id=9556-17483&scaling=contain&content-scaling=fixed",
+ "Game Over · 8.1 Histoire des jeux vidéo": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A14825&node-id=9601-14257&scaling=contain&content-scaling=fixed",
+ "Game Over · 8.2 Économie des jeux vidéo": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A181359&node-id=4306-32215&scaling=contain&content-scaling=fixed",
+ "Game Over · 8.3 Play-to-Earn": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=4417%3A17856&node-id=4417-18024&scaling=contain&content-scaling=fixed",
+ "Beyond Reality · 9.1 Métavers : nouveaux terrains de jeu": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A14826&node-id=4379-6227&scaling=contain&content-scaling=fixed",
+ "Beyond Reality · 9.2 Vers une réalité étendue": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A181360&node-id=4379-6342&scaling=contain&content-scaling=fixed",
+ "Dystopia · 10.1 A Brave New World": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A14827&node-id=4424-826&scaling=contain&content-scaling=fixed",
+ "Dystopia · 10.2 Black Mirror IRL": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A181361&node-id=4467-2447&scaling=contain&content-scaling=fixed",
+ "Selfie Story · 11.1 L’ère des médias sociaux": "https://www.figma.com/proto/KSsSxlVoMNsMFxLAEijT2C/POP---Proof-of-Punk-2025?page-id=3401%3A14828&node-id=6958-3751&scaling=min-zoom&content-scaling=fixed",
+ "2022/23 \u2014 S2 · 16 étudiants": "https://drive.google.com/drive/folders/1sTcS58EcotzdJ8ZeU-L5tGFGphLdLe--?usp=sharing",
+ "2023/24 \u2014 S1 · 20 étudiants": "https://drive.google.com/drive/folders/1RpzjTKnxD8ngsQiSZUOyujEQCY2r3p3Z?usp=sharing",
+ "2024/25 \u2014 S2 · 26 étudiants": "https://drive.google.com/drive/folders/1txamwtrul_mettQXVBH0W-KhQDAnpiUj?usp=sharing",
+ "2025/26 \u2014 S1": "https://drive.google.com/drive/folders/1Z8x9gzeNoV6h7GH00KvUcN6eHFBwvUPB?usp=sharing",
+ "Feedback": "https://docs.google.com/forms/d/e/1FAIpQLSd2wdats8-RCItJ64Sw-QmldYRi4p3LFeRIasSwGWpUdfRQRA/viewform?usp=sharing"
+    };
+  }
   parseBody(str) {
+    const map = this.linkMap;
     return str.split('\n').map(line => {
       for (const tok of ['dossier de rendu', 'formulaire', 'slide']) {
         const needle = '\u2014 ' + tok;
         const idx = line.lastIndexOf(needle);
         if (idx !== -1 && idx + needle.length >= line.length - 1) {
-          return { text: line.slice(0, idx + 2), link: tok };
+          const key = line.slice(0, idx).replace(/\s+/g, ' ').trim();
+          return { text: line.slice(0, idx + 2), link: tok, url: map[key] || '' };
         }
       }
-      return { text: line, link: '' };
+      return { text: line, link: '', url: '' };
     });
   }
   buildSections() {

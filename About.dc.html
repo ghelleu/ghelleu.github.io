@@ -19,6 +19,20 @@
   a:hover { color: inherit; }
   .bio u, .bio a { text-decoration: underline; text-underline-offset: 3px; }
   @media (max-width: 900px) { .hdr-right { display: none !important; } }
+  @media (max-width: 760px) {
+    header { flex-wrap: wrap !important; gap: 10px 18px !important; }
+    header > div { flex-wrap: wrap !important; min-width: 0 !important; }
+    header nav { flex-wrap: wrap !important; gap: 6px 16px !important; }
+    h1 { font-size: clamp(40px, 12vw, 64px) !important; white-space: normal !important; text-wrap: wrap !important; }
+    footer { flex-direction: column !important; align-items: flex-start !important; gap: 14px !important; }
+    footer > div { width: auto !important; max-width: 100% !important; }
+    footer a, footer span { text-align: left !important; }
+    .bio { min-width: 0 !important; }
+  }
+  @media (max-width: 860px) {
+    .about-cols { flex-direction: column !important; }
+    .about-cols > div { width: 100% !important; flex: 0 0 auto !important; max-width: 100% !important; }
+  }
 </style>
 </helmet>
 <div style="{{ rootStyle }}">
@@ -42,7 +56,7 @@
 
     <h1 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: clamp(64px, 9.375vw, 180px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink, #000);">About</h1>
 
-    <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; padding-bottom: 40px; flex-wrap: wrap;">
+    <div class="about-cols" style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; padding-bottom: 40px; flex-wrap: wrap;">
       <div class="bio" style="flex: 1; min-width: 320px; display: flex; flex-direction: column; gap: 28px; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(26px, 2.08vw, 40px); line-height: 1.4; color: var(--ink, #000);">
         <sc-if value="{{ isFr }}" hint-placeholder-val="{{ true }}">
           <p style="margin: 0;">Guillaume Helleu est architecte de formation et enseignant-chercheur à la HEAD – Genève, où il développe une activité pédagogique et critique autour des mutations contemporaines du design et de l’architecture à l’ère des technologies émergentes (IA générative, blockchain, métavers).</p>

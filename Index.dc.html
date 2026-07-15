@@ -20,6 +20,23 @@
   @media (max-width: 900px) { .hdr-right { display: none !important; } }
   .irow:hover, .irow:hover span { text-decoration: underline; text-underline-offset: 3px; }
   .filt:hover, .filt:hover span { text-decoration: underline; text-underline-offset: 4px; }
+  @media (max-width: 760px) {
+    header { flex-wrap: wrap !important; align-items: baseline !important; gap: 10px 22px !important; }
+    header > div { flex-wrap: wrap !important; min-width: 0 !important; }
+    header nav { flex-wrap: wrap !important; gap: 8px 18px !important; }
+    h1 { font-size: 56px !important; }
+    footer { flex-direction: column !important; align-items: flex-start !important; gap: 14px !important; }
+    footer > div { width: auto !important; max-width: 100% !important; }
+    footer a, footer span { text-align: left !important; }
+    .idx-head { display: none !important; }
+    .idx-col { min-width: 0 !important; }
+    .idx-img { display: none !important; }
+    .idx-row { flex-direction: column !important; align-items: flex-start !important; gap: 1px !important; }
+    .idx-row .c-type { order: 1; flex: none !important; min-width: 0 !important; max-width: none !important; font-size: 13px !important; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted, #787878) !important; }
+    .idx-row .c-title { order: 0; flex: none !important; width: 100%; font-size: 20px !important; line-height: 1.25 !important; }
+    .idx-row .c-date { order: 2; flex: none !important; min-width: 0 !important; font-size: 13px !important; color: var(--muted, #787878) !important; }
+    .idx-expand { padding-left: 0 !important; }
+  }
 </style>
 </helmet>
 <div style="{{ rootStyle }}">
@@ -44,7 +61,7 @@
     <h1 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: clamp(64px, 9.375vw, 180px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink, #000);">{{ pageTitle }}</h1>
 
     <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
-      <div style="flex: 1419; min-width: 320px; display: flex; flex-direction: column; gap: 20px;">
+      <div class="idx-col" style="flex: 1419; min-width: 320px; display: flex; flex-direction: column; gap: 20px;">
 
         <div style="display: flex; flex-direction: column; gap: 12px; padding-bottom: 20px;">
           <div style="display: flex; flex-direction: row; align-items: baseline; gap: 40px; flex-wrap: wrap;">
@@ -61,7 +78,7 @@
           </sc-if>
         </div>
 
-        <div style="display: flex; flex-direction: row; align-items: flex-start; gap: 40px; font-size: 24px; color: var(--muted, #787878);">
+        <div class="idx-head" style="display: flex; flex-direction: row; align-items: flex-start; gap: 40px; font-size: 24px; color: var(--muted, #787878);">
           <span style="flex: 0 0 180px;">{{ colType }}</span>
           <span style="flex: 1; min-width: 0;">{{ colTitle }}</span>
           <span style="flex: 0 0 120px;">{{ colDate }}</span>
@@ -70,13 +87,13 @@
         <div style="display: flex; flex-direction: column; gap: 10px;">
           <sc-for list="{{ rows }}" as="r" hint-placeholder-count="16">
             <div>
-              <div class="{{ r.rowClass }}" onClick="{{ r.onClick }}" onMouseEnter="{{ r.onHover }}" onMouseLeave="{{ r.onUnhover }}" style="display: flex; flex-direction: row; align-items: flex-start; gap: 40px; font-size: 24px; line-height: 1.4; color: {{ r.color }}; cursor: {{ r.cursor }};">
-                <span style="flex: 0 0 180px; max-width: 150px">{{ r.type }}</span>
-                <span style="flex: 1; min-width: 0; overflow-wrap: break-word;">{{ r.title }}</span>
-                <span style="flex: 0 0 120px; white-space: nowrap; min-width: 140px">{{ r.date }}</span>
+              <div class="idx-row {{ r.rowClass }}" onClick="{{ r.onClick }}" onMouseEnter="{{ r.onHover }}" onMouseLeave="{{ r.onUnhover }}" style="display: flex; flex-direction: row; align-items: flex-start; gap: 40px; font-size: 24px; line-height: 1.4; color: {{ r.color }}; cursor: {{ r.cursor }};">
+                <span class="c-type" style="flex: 0 0 180px; max-width: 150px">{{ r.type }}</span>
+                <span class="c-title" style="flex: 1; min-width: 0; overflow-wrap: break-word;">{{ r.title }}</span>
+                <span class="c-date" style="flex: 0 0 120px; white-space: nowrap; min-width: 140px">{{ r.date }}</span>
               </div>
               <sc-if value="{{ r.open }}" hint-placeholder-val="{{ false }}">
-                <div style="padding: 12px 0 24px 0; max-width: 1100px; display: flex; flex-direction: column; gap: 12px;">
+                <div class="idx-expand" style="padding: 12px 0 24px 0; max-width: 1100px; display: flex; flex-direction: column; gap: 12px;">
                   <sc-if value="{{ r.metaLine }}" hint-placeholder-val="">
                     <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878);">{{ r.metaLine }}</div>
                   </sc-if>
@@ -103,7 +120,7 @@
         </div>
 
       </div>
-      <div style="flex: 441; min-width: 220px; position: sticky; top: 20px; align-self: flex-start; aspect-ratio: 441 / 497; overflow: hidden; background: var(--preview, #e6e5e2);">
+      <div class="idx-img" style="flex: 441; min-width: 220px; position: sticky; top: 20px; align-self: flex-start; aspect-ratio: 441 / 497; overflow: hidden; background: var(--preview, #e6e5e2);">
         <image-slot id="index-image-1" shape="rect" placeholder=" " src="{{ heroImg }}"></image-slot>
       </div>
     </div>
@@ -160,6 +177,7 @@ class Component extends DCLogic {
   get typeDefs() {
     return {
       recherche: [
+        { key: 'issue', fr: 'Issue', en: 'Issue' },
         { key: 'press', fr: 'Presse', en: 'Press' },
         { key: 'publication', fr: 'Publication', en: 'Publication' },
         { key: 'project', fr: 'Projet', en: 'Project' }

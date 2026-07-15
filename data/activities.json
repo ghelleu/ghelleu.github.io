@@ -1,9 +1,9 @@
 [
  {
   "champ": "recherche",
-  "key": "publication",
-  "typeFr": "Publication",
-  "typeEn": "Publication",
+  "key": "issue",
+  "typeFr": "Issue",
+  "typeEn": "Issue",
   "title": "From Foodporn to Iconophagy",
   "date": "2026-07",
   "detail": false,
@@ -211,9 +211,9 @@
  },
  {
   "champ": "recherche",
-  "key": "publication",
-  "typeFr": "Publication",
-  "typeEn": "Publication",
+  "key": "issue",
+  "typeFr": "Issue",
+  "typeEn": "Issue",
   "title": "Architectural Latent Style",
   "date": "2025-06",
   "detail": false,
