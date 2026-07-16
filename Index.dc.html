@@ -290,7 +290,7 @@ class Component extends DCLogic {
         type: this.isFr ? r.typeFr : r.typeEn,
         title: r.title,
         date: r.date,
-        color: clickable ? p.ink : p.muted,
+        color: p.ink,
         cursor: clickable ? 'pointer' : 'default',
         rowClass: clickable ? 'irow' : '',
         open: canExpand && this.state.open === i,

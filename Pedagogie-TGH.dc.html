@@ -50,11 +50,12 @@
 
     <div style="display: flex; flex-direction: column; padding-bottom: 40px;">
       <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878); margin: 0 0 8px;">Cours de Master d’architecture d’intérieur (MAIA) à la HEAD – Genève · Printemps 2024</div>
-      <h1 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: clamp(44px, 6.25vw, 120px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink, #000);">The Great Hack</h1>
+      <h1 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: clamp(48px, 7.29vw, 140px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink, #000)">Interior Hack</h1>
       <p style="margin: 8px 0 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 400; font-size: clamp(26px, 3.125vw, 60px); line-height: 1.2; color: var(--ink, #000); width: 100%">Avec le développement des technologies numériques, au-delà des logiciels de conception 3D, le métier d’architecte a évolué, nécessitant une maîtrise pluridisciplinaire des systèmes et une capacité à travailler en équipe sur des projets d’envergure.</p>
     </div>
 
-    <div style="width: 100%; display: flex; flex-direction: column; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 20px;">
+      <div style="grid-column: 1 / 3; min-width: 0; display: flex; flex-direction: column; gap: 20px;">
       <sc-for list="{{ sections }}" as="s" hint-placeholder-count="4">
         <div style="display: flex; flex-direction: column; gap: 12px;">
           <div style="font-size: 16px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink, #000);">{{ s.label }}</div>
@@ -65,6 +66,7 @@
           </div>
         </div>
       </sc-for>
+      </div>
     </div>
 
     <footer style="padding: 40px 0 0; display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap;">

@@ -50,11 +50,12 @@
 
     <div style="display: flex; flex-direction: column; padding-bottom: 40px;">
       <div style="font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted, #787878); margin: 0 0 8px;">Cours de Joint Master Architecture (JMA) à la HEAD – Genève · Printemps 2023</div>
-      <h1 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: clamp(44px, 6.25vw, 120px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink, #000);">Interior Decentralization</h1>
+      <h1 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: clamp(48px, 7.29vw, 140px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink, #000);">Interior Decentralization</h1>
       <p style="margin: 8px 0 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 400; font-size: clamp(26px, 3.125vw, 60px); line-height: 1.2; color: var(--ink, #000); width: 100%">Depuis la rencontre entre les technologies immersives (réalités mixtes) et le Web3 (initié par la blockchain Ethereum en 2015), la frontière entre monde physique et monde virtuel n’a jamais été aussi fine. Le lien entre ces deux secteurs a des implications majeures pour le design d’intérieur, désormais étendu aux jeux vidéo et aux espaces impossibles (4D, perspectives non-euclidiennes, etc.).</p>
     </div>
 
-    <div style="width: 100%; display: flex; flex-direction: column; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 20px;">
+      <div style="grid-column: 1 / 3; min-width: 0; display: flex; flex-direction: column; gap: 20px;">
       <sc-for list="{{ sections }}" as="s" hint-placeholder-count="4">
         <div style="display: flex; flex-direction: column; gap: 12px;">
           <div style="font-size: 16px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink, #000);">{{ s.label }}</div>
@@ -65,6 +66,7 @@
           </div>
         </div>
       </sc-for>
+      </div>
     </div>
 
     <footer style="padding: 40px 0 0; display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap;">
@@ -113,7 +115,7 @@ class Component extends DCLogic {
   }
   buildSections() {
     const data = [
-      ['Thématique', 'Depuis la rencontre entre les technologies immersives (réalités mixtes) et le Web3 (initié par la blockchain Ethereum en 2015), la frontière entre monde physique et monde virtuel n’a jamais été aussi fine. Le lien entre ces deux secteurs a des implications majeures pour le design d’intérieur, désormais étendu aux jeux vidéo et aux espaces impossibles (4D, perspectives non-euclidiennes, etc.).\nCe cours explore les pratiques architecturales de demain. Quels nouveaux modèles économiques et chaînes de valeur émergent de ces technologies ? À quoi pourrait ressembler une architecture numérique « authentique » ? Quelles sont les conséquences de ces mutations sur les processus de création ?'],
+      ['Thématique', 'Depuis la rencontre entre les technologies immersives (réalités mixtes) et le Web3 (initié par la blockchain Ethereum en 2015), la frontière entre monde physique et monde virtuel n’a jamais été aussi fine. Le lien entre ces deux secteurs a des implications majeures pour le design d’intérieur, désormais étendu aux jeux vidéo et aux espaces impossibles (4D, perspectives non-euclidiennes, etc.).\nCe cours explore les pratiques architecturales de demain. Quels nouveaux modèles économiques et chaînes de valeur émergent de ces technologies ? À quoi pourrait ressembler une architecture numérique « authentique » ? Quelles sont les conséquences de ces mutations sur les processus de création ?'],
       ['Objectifs', 'L’objectif principal du module est de démystifier les technologies de la blockchain et des réalités mixtes. Les thématiques abordées vont des idéologies cypherpunk aux enjeux de la crise financière ; du fonctionnement technique des blockchains aux défis sociétaux du Web3 ; en passant par les applications de la tokenomique, des NFT et de la gouvernance décentralisée à l’architecture.\nLe cours propose une approche accessible de ces sujets à travers une série de conférences suivies de petits ateliers pratiques. Les étudiants pourront ainsi anticiper les transformations majeures du design d’intérieur liées aux technologies numériques. Le module s’inscrit dans une perspective prospective et professionnalisante, centrée sur les nouveaux modèles économiques.'],
       ['Formes d’enseignement', 'Le module se compose de cinq séances de 3h30, comprenant une conférence de 1h, une discussion de 15 minutes, et un atelier collaboratif de 2h (travail en petits groupes). Les séances abordent les thématiques suivantes :\nTechnologies blockchain\nDe l’Ethereum au Web3\nNFT et nouveaux modèles économiques de la création\nDAO : repenser la gouvernance\nMétavers et réalités mixtes\nChaque cours donne lieu à un mini-rapport, destiné à être intégré au rapport final du semestre, présenté lors de la sixième (et dernière) séance.']
     ];
