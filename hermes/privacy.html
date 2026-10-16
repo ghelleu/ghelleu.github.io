@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Politique de confidentialité : Hermes (intégration Google personnelle)</title>
+<meta name="description" content="Politique de confidentialité de Hermes, outil d'automatisation personnel de Guillaume Helleu : données Google consultées, usage, stockage, partage, conservation et suppression.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #ffffff; color: #111111; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 72px 24px 96px; }
+  .label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8a8a8a; }
+  h1 { font-size: clamp(26px, 4.4vw, 40px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.12; margin: 14px 0 10px; }
+  .sub { font-size: 13px; color: #8a8a8a; margin-bottom: 36px; }
+  h2 { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; color: #8a8a8a; margin: 44px 0 12px; }
+  p, li { font-size: 16px; line-height: 1.65; color: #222; }
+  ul { padding-left: 20px; }
+  li { margin-bottom: 6px; }
+  code { font-size: 13px; background: #f4f4f4; padding: 1px 5px; border-radius: 3px; word-break: break-all; }
+  hr { border: 0; border-top: 1px solid #e8e8e8; margin: 64px 0 40px; }
+  footer { border-top: 1px solid #e8e8e8; margin-top: 56px; padding-top: 20px; font-size: 13px; color: #8a8a8a; }
+  @media (max-width: 620px) { .wrap { padding: 48px 20px 72px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="label">Politique de confidentialité</div>
+  <h1>Hermes : intégration Google personnelle</h1>
+  <div class="sub">Application privée à utilisateur unique · responsable : Guillaume Helleu · dernière mise à jour : 16 octobre 2026</div>
+
+  <h2>1. Objet et périmètre</h2>
+  <p>Hermes est un outil d'automatisation privé, exploité par Guillaume Helleu sur sa propre infrastructure, pour son usage strictement personnel et professionnel. Il n'est proposé à aucun public, ne comporte aucune inscription et ne constitue pas un service commercial. La présente politique décrit la manière dont cette application accède aux données du compte Google de son propriétaire, les utilise, les conserve et les supprime.</p>
+  <p>Deux comptes Google sont concernés, tous deux autorisés par leur titulaire depuis l'écran de consentement Google : le compte personnel de Guillaume Helleu et le compte du studio Hint3rland, dont il est administrateur.</p>
+
+  <h2>2. Données Google consultées et finalités</h2>
+  <p>Les accès demandés correspondent exactement aux traitements effectués, et à rien d'autre.</p>
+  <ul>
+    <li><code>gmail.readonly</code>, <code>gmail.modify</code>, <code>gmail.send</code> : lire, trier, étiqueter et archiver le courrier, préparer des brouillons, envoyer des messages rédigés par le propriétaire.</li>
+    <li><code>drive</code> : classer, archiver, rechercher, téléverser et télécharger les fichiers du propriétaire, y compris dans un Drive partagé du studio.</li>
+    <li><code>calendar</code> : lire les agendas du propriétaire, y créer et y vérifier ses rendez-vous.</li>
+    <li><code>documents</code> : lire et produire les documents de travail du propriétaire.</li>
+    <li><code>spreadsheets</code> : tenir les feuilles de suivi et de facturation du propriétaire.</li>
+    <li><code>contacts.readonly</code> : rattacher les échanges aux bonnes personnes dans les fiches du propriétaire.</li>
+    <li><code>script.deployments</code>, <code>script.projects</code>, <code>script.webapp.deploy</code> : maintenir les scripts Apps Script que le propriétaire a écrits pour ses propres sites et formulaires.</li>
+  </ul>
+
+  <h2>3. Utilisation des données</h2>
+  <p>Les données Google servent uniquement à exécuter, pour le propriétaire et à sa demande, les tâches d'organisation décrites ci-dessus : trier sa correspondance, archiver ses documents, tenir ses agendas et ses feuilles de suivi, publier ses propres contenus sur ses propres sites. Aucune donnée Google n'alimente de la publicité et ne fait l'objet d'un profilage ou d'une évaluation de solvabilité. Aucun modèle d'intelligence artificielle n'est entraîné sur ces données.</p>
+
+  <h2>4. Stockage et sécurité</h2>
+  <p>Les données sont traitées et conservées sur une infrastructure privée contrôlée par le propriétaire, hébergée chez un prestataire d'hébergement, et accessibles à lui seul. Les jetons d'autorisation OAuth sont enregistrés dans des fichiers à permissions restreintes, jamais publiés dans un dépôt public et jamais transmis à un tiers. Les échanges avec Google passent exclusivement par les API officielles de Google, sur des connexions chiffrées (TLS).</p>
+
+  <h2>5. Partage avec des tiers</h2>
+  <p>Aucune donnée Google n'est vendue, louée ou transmise à un tiers. Le seul destinataire extérieur des appels techniques est Google lui-même, par ses API. Aucune personne autre que le propriétaire du compte ne consulte ces données, aucun outil publicitaire n'y accède et aucun transfert n'est effectué vers des courtiers en données.</p>
+  <p>L'application respecte la <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, y compris ses exigences d'usage limité (<em>Limited Use</em>).</p>
+
+  <h2>6. Conservation et suppression</h2>
+  <p>Les données restent accessibles aussi longtemps que le propriétaire maintient l'autorisation. L'accès peut être révoqué à tout moment, sans préavis et sans justification, depuis la page <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a> ; la révocation interrompt immédiatement tout accès de l'application. Toute donnée recopiée sur l'infrastructure du propriétaire peut être supprimée sur simple demande, à l'adresse de contact ci-dessous, et l'est sans délai.</p>
+
+  <h2>7. Contact</h2>
+  <p>Pour toute question relative à cette politique, ou pour demander la suppression de données : Guillaume Helleu, <a href="mailto:guillaumehelleu.pro@gmail.com">guillaumehelleu.pro@gmail.com</a></p>
+
+  <hr>
+
+  <div class="label">English version</div>
+  <h1 style="font-size:clamp(22px,3.6vw,32px)">Privacy Policy: Hermes (personal Google integration)</h1>
+  <p>Hermes is a private, single-user automation tool operated by Guillaume Helleu on his own infrastructure for his own personal and professional use. It is not offered to the public: there is no sign-up and no commercial service.</p>
+  <p><strong>Google data accessed and purposes.</strong> The scopes requested map one-to-one to the tasks performed: <code>gmail.readonly</code>, <code>gmail.modify</code>, <code>gmail.send</code> (read, sort, label and archive mail; prepare drafts; send messages written by the owner); <code>drive</code> (organise, archive, search, upload and download the owner's files, including one shared studio drive); <code>calendar</code> (read the owner's calendars, create and verify appointments); <code>documents</code> (read and produce the owner's working documents); <code>spreadsheets</code> (maintain the owner's tracking and invoicing sheets); <code>contacts.readonly</code> (link exchanges to the right people in the owner's own records); <code>script.deployments</code>, <code>script.projects</code>, <code>script.webapp.deploy</code> (maintain Apps Script code the owner wrote for his own sites and forms).</p>
+  <p><strong>Use of data.</strong> Google data is used only to carry out, for the owner and at his request, the organising tasks listed above. It feeds no advertising and is not used for profiling or creditworthiness assessment. No artificial-intelligence model is trained on that data.</p>
+  <p><strong>Storage and security.</strong> Data is processed and kept on private infrastructure controlled by the owner and accessible to him alone. OAuth tokens are stored in owner-only-permission files; they are never published in a public repository and never shared with third parties. All Google communication goes through Google's official APIs over TLS.</p>
+  <p><strong>Sharing.</strong> No Google data is sold, rented or transferred to any third party; the only external recipient of technical calls is Google itself through its APIs. No human other than the account owner reads the data, no advertising tool accesses it, and nothing is transferred to data brokers. The application complies with the Google API Services User Data Policy, including its Limited Use requirements.</p>
+  <p><strong>Retention and deletion.</strong> Data remains accessible as long as the owner maintains the authorisation. Access can be revoked at any time from <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>, which immediately stops all access. Any copy held on the owner's infrastructure can be deleted on request at the contact address below, and is deleted without delay.</p>
+  <p><strong>Contact.</strong> Guillaume Helleu, <a href="mailto:guillaumehelleu.pro@gmail.com">guillaumehelleu.pro@gmail.com</a></p>
+
+  <footer>guillaumehelleu.com · <a href="./">page d'accueil de l'intégration</a></footer>
+</div>
+</body>
+</html>
