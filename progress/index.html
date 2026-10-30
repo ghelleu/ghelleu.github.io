@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Progress · L'avenir de la post-production</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
+<style>
+/* Concept : la photo de Downtown Studio devient nuage de points puis relief vectoriel (three.js, fond fixe).
+   Par-dessus, une typographie très large et grasse, des repères de timeline de montage (pistes, timecode). */
+:root{
+  --bg:#050506; --ink:#F2F0EB; --dim:#8C8F94; --line:rgba(242,240,235,.14); --panel:rgba(14,15,17,.72);
+  --amber:#FF8A3D; --amber-2:#FFC38F;
+  --son:#4FD1B4; --eta:#FF6B88; --img:#7AA2FF; --vfx:#B98BFF; --xr:#E6D25A;
+  --wide:"Archivo", "Helvetica Neue", Arial, sans-serif;
+  --mono:"Archivo", "Helvetica Neue", Arial, sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--wide);font-variation-settings:"wdth" 100;font-variant-numeric:tabular-nums;font-size:17px;line-height:1.55;margin:0;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+::selection{background:var(--amber);color:#000}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.gut{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.max{max-width:1440px;margin:0 auto}
+.mono{font-family:var(--mono);font-variation-settings:"wdth" 112;font-weight:600;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+.dim{color:var(--dim)}
+.xw{font-family:var(--wide);font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;line-height:.86;letter-spacing:-.01em;margin:0}
+
+/* Fond 3D */
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block;touch-action:pan-y}
+#glFallback{position:fixed;inset:0;background:#000 center/cover no-repeat;z-index:0;opacity:.5}
+#shade{position:fixed;inset:0;z-index:1;pointer-events:none;background:
+  radial-gradient(120% 90% at 50% 40%, rgba(5,5,6,0) 30%, rgba(5,5,6,.85) 100%),
+  linear-gradient(180deg, rgba(5,5,6,.55) 0%, rgba(5,5,6,0) 22%, rgba(5,5,6,0) 70%, rgba(5,5,6,.9) 100%);transition:background .6s}
+#veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:var(--bg);opacity:0;transition:opacity .5s}
+.grain{position:fixed;inset:-50%;z-index:2;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");animation:grain 1.2s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-4%)}60%{transform:translate(-4%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+
+/* En-tête */
+header.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;transition:background .4s,backdrop-filter .4s,border-color .4s;border-bottom:1px solid transparent}
+header.top.solid{background:rgba(5,5,6,.72);backdrop-filter:blur(14px);border-bottom-color:var(--line)}
+.hud{transition:opacity .4s}
+.hud.off{opacity:0}
+header.top .bar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:20px}
+.logo{width:132px;display:block}
+.logo img{filter:invert(1)}
+nav.links{display:flex;align-items:center;gap:30px}
+nav.links a{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;position:relative;padding:6px 0}
+nav.links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--amber);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+nav.links a:hover::after,nav.links a[aria-current="page"]::after{transform:scaleX(1)}
+.cta-pill{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;background:var(--ink);color:#000;padding:11px 18px;border-radius:999px;display:inline-flex;gap:10px;align-items:center;border:0;cursor:pointer;transition:background .25s,color .25s}
+.cta-pill:hover{background:var(--amber)}
+.cta-pill.amber{background:var(--amber)}
+.cta-pill.amber:hover{background:var(--ink)}
+.menu-btn{display:none;background:none;border:0;color:var(--ink);font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;cursor:pointer;align-items:center;gap:10px}
+.menu-btn i{display:inline-block;width:26px;height:8px;border-top:1.5px solid currentColor;border-bottom:1.5px solid currentColor}
+.overlay{position:fixed;inset:0;z-index:70;background:rgba(5,5,6,.97);display:flex;flex-direction:column;justify-content:center;gap:6px;padding-top:env(safe-area-inset-top,0px)}
+.overlay[hidden]{display:none!important}
+.overlay a{font-family:var(--wide);font-variation-settings:"wdth" 125;font-weight:900;font-size:clamp(2.4rem,11vw,5rem);text-transform:uppercase;line-height:1}
+.overlay a:hover{color:var(--amber)}
+.overlay .close{position:absolute;top:calc(20px + env(safe-area-inset-top,0px));right:max(20px,env(safe-area-inset-right,0px))}
+
+main{position:relative;z-index:3;overflow-x:clip}
+.sec-head>*,.split>*,.reg-wrap>*,.hero-foot>*,.place>*,.duo>*,.legend3>*{min-width:0}
+.view[hidden]{display:none!important}
+
+/* HUD */
+.hud{position:fixed;z-index:4;pointer-events:none;font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);display:grid;gap:4px}
+.hud b{color:var(--ink);font-weight:600}
+.hud.bl{left:max(20px,env(safe-area-inset-left,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+.hud.br{right:max(20px,env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));text-align:right}
+.phase{display:flex;gap:14px}
+.phase span{opacity:.45;transition:opacity .3s,color .3s}
+.phase span.on{opacity:1;color:var(--amber)}
+
+/* Hero */
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding-block:120px 110px;pointer-events:none}
+.hero a,.hero button{pointer-events:auto}
+.hero .kicker{display:flex;gap:14px;align-items:center;margin-bottom:26px}
+.hero .kicker::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--amber);box-shadow:0 0 18px var(--amber);animation:rec 1.4s infinite}
+@keyframes rec{50%{opacity:.25}}
+.hero h1{font-size:clamp(2.6rem,10.8vw,11.5rem)}
+.hero h1 .ln{display:block}
+.hero h1 .amb{color:var(--amber)}
+.hero-foot{margin-top:38px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:30px;align-items:end}
+.hero-foot p{max-width:46ch;font-size:1.12rem;color:#D9D6CF}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px}
+.ghost{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);padding:11px 18px;border-radius:999px;background:rgba(5,5,6,.35);backdrop-filter:blur(6px)}
+.ghost:hover{border-color:var(--ink)}
+.drag-hint{position:absolute;right:max(20px,env(safe-area-inset-right,0px));top:46%;writing-mode:vertical-rl;transform:rotate(180deg)}
+
+/* Sections */
+.sec{padding-block:clamp(90px,14vw,190px);position:relative}
+.sec-head{display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;align-items:start;margin-bottom:56px}
+.sec-head .mono{padding-top:10px;color:var(--amber)}
+.sec-head h2{font-size:clamp(1.8rem,6vw,5.6rem)}
+.sec-head p{grid-column:2;max-width:58ch;color:#CFCBC3;font-size:1.08rem;margin:18px 0 0}
+
+/* Manifeste */
+.manifest{min-height:110vh;display:flex;align-items:center}
+.manifest p{font-family:var(--wide);font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(2.1rem,6.4vw,6.8rem);line-height:.95;margin:0;text-align:center;letter-spacing:-.01em}
+.manifest .w{opacity:.28;transition:opacity .25s,color .25s}
+.manifest .w.lit{opacity:1}
+.manifest .w.acc.lit{color:var(--amber)}
+
+/* Marquee */
+.marquee{border-block:1px solid var(--line);overflow:hidden;background:rgba(5,5,6,.6);backdrop-filter:blur(4px)}
+.marquee .track{display:flex;width:max-content;animation:mq 38s linear infinite}
+.marquee span{font-family:var(--wide);font-variation-settings:"wdth" 125;font-weight:800;text-transform:uppercase;font-size:clamp(1.3rem,3vw,2.4rem);padding:18px 0;white-space:nowrap}
+.marquee span i{font-style:normal;color:var(--amber);padding:0 .7em}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* Schéma timeline */
+.nle{background:var(--panel);border:1px solid var(--line);border-radius:14px;backdrop-filter:blur(14px);overflow:hidden}
+.nle-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.nle-bar .dots{display:flex;gap:6px}
+.nle-bar .dots i{width:9px;height:9px;border-radius:50%;background:#2a2c30}
+.tc{font-family:var(--mono);font-size:.82rem;color:var(--amber);letter-spacing:.06em}
+.nle-scroll{overflow-x:auto}
+.nle svg{display:block;min-width:820px;width:100%;height:auto}
+.nle svg text{font-family:var(--mono);letter-spacing:.08em}
+.nle svg .big{font-family:var(--wide);font-variation-settings:"wdth" 125;font-weight:800;letter-spacing:0}
+.lane{transition:opacity .35s}
+.nle.picking .lane{opacity:.18}
+.nle.picking .lane.on{opacity:1}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:16px 18px;border-top:1px solid var(--line)}
+.chip{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line);color:var(--ink);background:transparent;padding:9px 14px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:border-color .2s,background .2s}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.chip:hover{border-color:var(--c)}
+.chip[aria-pressed="true"]{background:var(--c);color:#000;border-color:var(--c)}
+.chip[aria-pressed="true"] i{background:#000}
+.legend3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);margin-top:40px;border:1px solid var(--line)}
+.legend3 div{background:var(--bg);padding:26px 24px;display:grid;gap:12px;align-content:start}
+.legend3 h3{font-variation-settings:"wdth" 125;font-weight:800;text-transform:uppercase;font-size:1.35rem;margin:0;line-height:1.05}
+.legend3 p{margin:0;color:#CFCBC3}
+
+/* Spécialités */
+.specs{border-top:1px solid var(--line)}
+.spec{display:grid;grid-template-columns:110px minmax(0,1fr) minmax(0,.9fr) 48px;gap:24px;align-items:center;padding:30px 0;border-bottom:1px solid var(--line);position:relative;cursor:pointer;transition:padding .35s}
+.spec::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,color-mix(in srgb,var(--c) 22%,transparent),transparent 70%);opacity:0;transition:opacity .35s;pointer-events:none}
+.spec:hover::before,.spec.on::before{opacity:1}
+.spec:hover{padding-left:16px}
+.spec .code{font-family:var(--mono);font-size:.8rem;color:var(--c);letter-spacing:.1em}
+.spec h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.6rem,3.6vw,3.1rem);line-height:.95;margin:0}
+.spec p{margin:0;color:#CFCBC3;font-size:.98rem}
+.spec .where{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:8px}
+.spec .arr{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:background .3s,border-color .3s,transform .3s}
+.spec:hover .arr{background:var(--c);border-color:var(--c);color:#000;transform:rotate(-45deg)}
+
+/* Deux publics */
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.duo article{background:rgba(5,5,6,.82);padding:clamp(26px,4vw,52px);display:grid;gap:18px;align-content:start;min-height:340px}
+.duo .num{font-family:var(--wide);font-variation-settings:"wdth" 125;font-weight:900;font-size:clamp(4rem,9vw,8rem);line-height:.8;color:transparent;-webkit-text-stroke:1.2px var(--amber)}
+.duo h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.5rem,2.8vw,2.4rem);line-height:1;margin:0}
+.duo p{margin:0;color:#CFCBC3;max-width:46ch}
+.pair{margin-top:1px;background:rgba(5,5,6,.82);border:1px solid var(--line);border-top:0;padding:clamp(26px,4vw,52px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:40px;align-items:center}
+.pair h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.5rem,2.8vw,2.4rem);line-height:1;margin:0 0 14px}
+.pair p{margin:0;color:#CFCBC3}
+.pairviz{display:grid;gap:10px}
+.prow{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:center}
+.prow .mono{color:var(--dim)}
+.pbar{display:flex;gap:6px;align-items:center}
+.pbar b{height:34px;border-radius:6px;display:grid;place-items:center;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;font-weight:600;color:#000}
+.pbar .m{flex:1.3;background:var(--amber)}
+.pbar .s{flex:1;background:var(--ink)}
+
+/* Lieu */
+.place{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:16px}
+.place figure{margin:0;position:relative;overflow:hidden;border-radius:10px}
+.place figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,0,1);filter:saturate(.9) contrast(1.05)}
+.place figure:hover img{transform:scale(1.04)}
+.place figcaption{position:absolute;left:14px;bottom:12px;font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.place .tall{grid-row:span 2}
+.sheet{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:24px;backdrop-filter:blur(12px);display:grid;gap:4px;align-content:start}
+.sheet .row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;padding:11px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.sheet .row:last-child{border-bottom:0}
+.sheet .row span:last-child{font-family:var(--mono);font-size:.78rem;color:var(--amber);font-variant-numeric:tabular-nums}
+
+/* CTA final */
+.final{min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:34px}
+.final h2{font-size:clamp(2.6rem,12vw,13rem)}
+.final h2 a{display:inline-block;transition:color .3s}
+.final h2 a:hover{color:var(--amber)}
+.final h2 .arrow{display:inline-block;transition:transform .4s}
+.final h2 a:hover .arrow{transform:translateX(.15em) rotate(-45deg)}
+
+/* Pages intérieures */
+.page-hero{padding-block:clamp(150px,20vw,240px) 60px}
+.page-hero h1{font-size:clamp(2.4rem,10vw,10rem)}
+.page-hero p{max-width:60ch;color:#D9D6CF;font-size:1.15rem;margin:30px 0 0}
+.grid-tc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.grid-tc article{background:rgba(5,5,6,.85);padding:32px;display:grid;gap:14px;align-content:start;min-height:220px}
+.grid-tc .mono{color:var(--amber)}
+.grid-tc h3{font-variation-settings:"wdth" 125;font-weight:800;text-transform:uppercase;font-size:1.45rem;line-height:1.05;margin:0}
+.grid-tc p{margin:0;color:#CFCBC3}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;counter-reset:s}
+.steps div{border-top:2px solid var(--ink);padding-top:18px;display:grid;gap:10px;align-content:start}
+.steps .mono{color:var(--amber)}
+.steps h3{font-variation-settings:"wdth" 125;font-weight:800;text-transform:uppercase;font-size:1.2rem;line-height:1.05;margin:0}
+.steps p{margin:0;color:#CFCBC3;font-size:.96rem}
+.faq details{border-bottom:1px solid var(--line);padding:26px 0}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;align-items:center;font-variation-settings:"wdth" 115;font-weight:700;font-size:clamp(1.1rem,2vw,1.5rem);text-transform:uppercase;line-height:1.15}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--mono);color:var(--amber);font-size:1.4rem;transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{max-width:64ch;color:#CFCBC3;margin:16px 0 0}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(30px,5vw,80px);align-items:start}
+.prose{display:grid;gap:18px;max-width:60ch;color:#D9D6CF;font-size:1.06rem}
+.prose p{margin:0}
+.big-quote{font-variation-settings:"wdth" 110;font-weight:300;font-size:clamp(1.6rem,3.4vw,2.9rem);line-height:1.15;margin:0;max-width:30ch}
+.big-quote em{font-style:normal;color:var(--amber)}
+.people{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.people div{background:rgba(5,5,6,.85);padding:26px;display:grid;gap:6px}
+.people strong{font-variation-settings:"wdth" 120;font-weight:800;text-transform:uppercase;font-size:1.3rem;line-height:1.05}
+.partners{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.partners div{background:rgba(5,5,6,.85);padding:28px;display:grid;gap:10px;align-content:start;min-height:170px}
+.partners strong{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:1.6rem;line-height:1}
+.partners p{margin:0;color:#CFCBC3;font-size:.95rem}
+.timeline-h{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.timeline-h div{border-left:1px solid var(--amber);padding:4px 0 4px 20px;display:grid;gap:10px;align-content:start}
+.timeline-h .yr{font-variation-settings:"wdth" 125;font-weight:900;font-size:clamp(2.4rem,5vw,4rem);line-height:.9}
+.timeline-h p{margin:0;color:#CFCBC3}
+
+/* Inscription */
+.reg-wrap{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:28px;align-items:start}
+form.reg{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:clamp(22px,3.4vw,40px);backdrop-filter:blur(16px);display:grid;gap:28px}
+.stepper{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.stepper span{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);border-top:2px solid var(--line);padding-top:10px;transition:color .3s,border-color .3s}
+.stepper span.on{color:var(--ink);border-color:var(--amber)}
+.stepper span.done{color:var(--amber);border-color:var(--amber)}
+fieldset{border:0;padding:0;margin:0;display:grid;gap:16px}
+legend{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1;margin-bottom:10px;padding:0}
+.field{display:grid;gap:8px}
+.field label{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+input[type=text],input[type=email],textarea,select{font:inherit;font-size:1.05rem;padding:14px 0;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);width:100%;border-radius:0;transition:border-color .25s}
+select option{background:#111;color:var(--ink)}
+input:focus,textarea:focus,select:focus{outline:none;border-bottom-color:var(--amber)}
+textarea{min-height:90px;resize:vertical}
+.opts{display:grid;gap:10px}
+.opt{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 16px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:16px 18px;cursor:pointer;transition:border-color .25s,background .25s}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt .dot{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--c,var(--ink));transition:background .2s}
+.opt strong{font-variation-settings:"wdth" 118;font-weight:800;text-transform:uppercase;font-size:1.05rem;line-height:1.1}
+.opt small{grid-column:2 / 4;color:var(--dim);font-size:.9rem;line-height:1.4}
+.opt .code{font-family:var(--mono);font-size:.7rem;color:var(--c,var(--dim));letter-spacing:.1em}
+.opt:hover{border-color:var(--c,var(--ink))}
+.opt:has(input:checked){border-color:var(--c,var(--amber));background:color-mix(in srgb,var(--c,var(--amber)) 12%,transparent)}
+.opt:has(input:checked) .dot{background:var(--c,var(--amber))}
+.opt:has(input:focus-visible){outline:2px solid var(--amber);outline-offset:2px}
+.form-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.form-nav .back{background:none;border:0;color:var(--dim);font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.err{color:var(--eta);font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;min-height:1.1em}
+.side{position:sticky;top:100px;display:grid;gap:14px}
+.side .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;backdrop-filter:blur(16px);display:grid;gap:16px}
+.mini{display:grid;gap:8px}
+.mini .r{display:grid;grid-template-columns:44px minmax(0,1fr);gap:10px;align-items:center}
+.mini .r .mono{color:var(--dim);font-size:.62rem}
+.mini .b{border-radius:6px;padding:10px 12px;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;line-height:1.35}
+.mini .b.reg{border:1px dashed var(--line);color:var(--dim)}
+.mini .b.tc{background:var(--ink);color:#000;font-weight:600}
+.mini .b.sp{background:color-mix(in srgb,var(--c) 24%,transparent);border:1px solid var(--c);color:var(--ink)}
+.mini .b.sp.empty{background:transparent;border:1px dashed var(--line);color:var(--dim)}
+.mini svg{display:block;margin-left:54px}
+.done{display:grid;gap:22px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:clamp(26px,4vw,48px);backdrop-filter:blur(16px)}
+.done h2{font-size:clamp(2.4rem,6vw,4.8rem)}
+.done p{margin:0;color:#D9D6CF;max-width:52ch}
+
+footer.site{position:relative;z-index:3;border-top:1px solid var(--line);background:rgba(5,5,6,.9)}
+footer.site .in{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:30px;padding-block:56px calc(56px + env(safe-area-inset-bottom,0px))}
+footer.site .logo{width:150px}
+footer.site p{margin:0;color:var(--dim);font-size:.92rem}
+footer.site nav{display:grid;gap:8px;align-content:start}
+footer.site .mono{color:var(--ink)}
+.copy{user-select:all;font-family:var(--mono);font-size:.82rem;color:var(--ink)}
+
+@media (max-width:980px){
+  nav.links{display:none}
+  .menu-btn{display:inline-flex}
+  .sec-head{grid-template-columns:1fr}
+  .sec-head p{grid-column:1}
+  .legend3,.duo,.grid-tc,.people,.partners,.timeline-h{grid-template-columns:1fr}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .spec{grid-template-columns:64px minmax(0,1fr) 44px}
+  .spec p{grid-column:2 / 3}
+  .spec .arr{grid-row:1;grid-column:3}
+  .pair,.split,.reg-wrap,.place{grid-template-columns:1fr}
+  .place .tall{grid-row:auto}
+  .hero-foot{grid-template-columns:1fr}
+  .side{position:static}
+  .drag-hint{display:none}
+  footer.site .in{grid-template-columns:1fr 1fr}
+  .hud.br{display:none}
+}
+@media (max-width:560px){
+  .steps{grid-template-columns:1fr}
+  .prow{grid-template-columns:90px 1fr}
+  footer.site .in{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+
+<canvas id="gl" aria-hidden="true"></canvas>
+<div id="shade"></div>
+<div id="veil"></div>
+<div class="grain"></div>
+
+<header class="top"><div class="bar gut max">
+  <a class="logo" href="#accueil" aria-label="Progress, accueil"><img src="img/logo-progress.png" alt="PROGRESS"></a>
+  <nav class="links" aria-label="Navigation principale">
+    <a href="#accueil">La formation</a>
+    <a href="#programme">Programme</a>
+    <a href="#progress">Progress</a>
+    <a href="#inscription" class="cta-pill">S'inscrire <span aria-hidden="true">→</span></a>
+  </nav>
+  <button class="menu-btn" id="menuOpen" type="button" aria-expanded="false" aria-controls="overlay">Menu <i></i></button>
+</div></header>
+
+<div class="overlay gut" id="overlay" hidden>
+  <button class="menu-btn close" id="menuClose" type="button" style="display:inline-flex">Fermer</button>
+  <a href="#accueil">La formation</a>
+  <a href="#programme">Programme</a>
+  <a href="#progress">Progress</a>
+  <a href="#inscription" style="color:var(--amber)">S'inscrire</a>
+</div>
+
+<div class="hud bl" aria-hidden="true">
+  <span>Downtown Studio · <b>Genève</b></span>
+  <span>TC <b id="tcHud">00:00:00:00</b> · 25 IPS</span>
+</div>
+<div class="hud br" aria-hidden="true">
+  <div class="phase" id="phaseHud"><span>01 Image</span><span>02 Nuage de points</span><span>03 Vecteur</span></div>
+  <span><b id="ptsHud">0</b> points</span>
+</div>
+
+<main>
+
+<!-- ===================== ACCUEIL / LA FORMATION ===================== -->
+<div class="view" data-view="accueil">
+
+  <section class="hero gut">
+    <div class="max" style="width:100%">
+      <div class="kicker mono">Formation continue · Post-production &amp; IA · Genève</div>
+      <h1 class="xw"><span class="ln"><span>L'avenir</span></span><span class="ln"><span>de la</span></span><span class="ln"><span class="amb">post&#8209;prod</span></span></h1>
+      <div class="hero-foot">
+        <p>Un tronc commun sur l'intelligence artificielle et les techniques qui transforment la post-production, suivi par tous. Puis votre métier, pratiqué auprès d'un professionnel de Downtown Studio.</p>
+        <div class="actions">
+          <a class="cta-pill amber" href="#inscription">Choisir ma spécialité <span aria-hidden="true">→</span></a>
+          <a class="ghost" href="#parcours">Le parcours</a>
+        </div>
+      </div>
+    </div>
+    <span class="drag-hint mono dim">Glisser pour faire pivoter la scène</span>
+  </section>
+
+  <section class="manifest gut" aria-label="En une phrase">
+    <div class="max">
+      <p id="manifest">Tous ensemble sur l'IA, puis chacun dans son métier, auprès des pros de Downtown Studio.</p>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="track" id="mq"></div></div>
+
+  <section class="sec gut" id="parcours">
+    <div class="max">
+      <div class="sec-head">
+        <span class="mono">01 · Le parcours</span>
+        <div>
+          <h2 class="xw">Une inscription.<br>Deux temps.</h2>
+          <p>À l'inscription, vous choisissez votre spécialité. Le tronc commun se suit avec tout le groupe ; à son terme, chaque participant rejoint sa propre piste, auprès d'un professionnel du studio. Sélectionnez une spécialité pour suivre son trajet.</p>
+        </div>
+      </div>
+
+      <div class="nle" id="nle">
+        <div class="nle-bar">
+          <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+          <span class="mono dim">Séquence · L'avenir de la post-production</span>
+          <span class="tc" id="nleTc">00:00:00:00</span>
+        </div>
+        <div class="nle-scroll"><svg id="nleSvg" viewBox="0 0 1200 520" role="img" aria-label="Schéma du parcours : inscription avec choix de spécialité, tronc commun partagé par tous les participants, puis cinq pistes de spécialité dont chaque participant suit une seule."></svg></div>
+        <div class="chips" id="chips"></div>
+      </div>
+
+      <div class="legend3">
+        <div><span class="mono" style="color:var(--amber)">À l'inscription</span><h3>Vous choisissez votre piste</h3><p>Une spécialité parmi cinq, et votre niveau. Ces deux réponses déterminent votre mentor et votre binôme.</p></div>
+        <div><span class="mono" style="color:var(--amber)">Tronc commun</span><h3>Le groupe au complet</h3><p>Ce qui émerge dans la post-production est neuf pour tout le monde. Jeunes diplômés et professionnels confirmés l'abordent ensemble.</p></div>
+        <div><span class="mono" style="color:var(--amber)">Spécialité</span><h3>Votre métier, sur place</h3><p>En binôme, auprès d'un professionnel de Downtown Studio, sur ses postes de travail et au rythme des productions du studio.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec gut" id="specialites">
+    <div class="max">
+      <div class="sec-head">
+        <span class="mono">02 · Spécialités</span>
+        <div>
+          <h2 class="xw">Cinq pistes</h2>
+          <p>Chaque spécialité correspond à un lieu de travail du studio et à l'équipe qui l'occupe.</p>
+        </div>
+      </div>
+      <div class="specs" id="specList"></div>
+    </div>
+  </section>
+
+  <section class="sec gut">
+    <div class="max">
+      <div class="sec-head">
+        <span class="mono">03 · Pour qui</span>
+        <div><h2 class="xw">Deux publics,<br>un même terrain</h2></div>
+      </div>
+      <div class="duo">
+        <article>
+          <span class="num">A</span>
+          <h3>Professionnels en activité</h3>
+          <p>Vous exercez un métier de la post-production et voulez intégrer à votre pratique les outils qui la transforment. Quinze ans d'expérience en son ne disent rien des bruitages générés par l'IA : le tronc commun part de là.</p>
+        </article>
+        <article>
+          <span class="num">B</span>
+          <h3>Jeunes diplômés</h3>
+          <p>Vous sortez d'une école de cinéma et cherchez à entrer dans le métier par la pratique. La spécialité vous place dans un vrai lieu de production, auprès de celles et ceux qui y travaillent.</p>
+        </article>
+      </div>
+      <div class="pair">
+        <div>
+          <h3>Des binômes de même niveau</h3>
+          <p>Le niveau déclaré à l'inscription sert à composer les binômes. Chaque mentor accompagne deux participants de niveau proche : un confirmé avance sur des sujets pointus, un débutant reprend les bases.</p>
+        </div>
+        <div class="pairviz" aria-hidden="true">
+          <div class="prow"><span class="mono">Confirmés</span><div class="pbar"><b class="m">Mentor</b><b class="s">P1</b><b class="s">P2</b></div></div>
+          <div class="prow"><span class="mono">Formés</span><div class="pbar"><b class="m">Mentor</b><b class="s">P3</b><b class="s">P4</b></div></div>
+          <div class="prow"><span class="mono">Découverte</span><div class="pbar"><b class="m">Mentor</b><b class="s">P5</b><b class="s">P6</b></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec gut">
+    <div class="max">
+      <div class="sec-head">
+        <span class="mono">04 · Le lieu</span>
+        <div>
+          <h2 class="xw">Downtown<br>Studio</h2>
+          <p>Un centre dédié aux industries audiovisuelles, au cœur de Genève. On y apprend sur les postes où se fabriquent les films.</p>
+        </div>
+      </div>
+      <div class="place">
+        <figure class="tall"><img src="img/dts-lumiere.jpg" alt="Le patio de Downtown Studio, un disque lumineux orange derrière un palmier"><figcaption>© Magali Girardin</figcaption></figure>
+        <figure><img src="img/dts-atrium.jpg" alt="L'atrium de Downtown Studio sous sa verrière" style="aspect-ratio:16/10"><figcaption>L'atrium</figcaption></figure>
+        <div class="sheet">
+          <span class="mono" style="color:var(--amber);margin-bottom:6px">Fiche technique</span>
+          <div class="row"><span>Auditorium de mixage</span><span>Dolby Atmos</span></div>
+          <div class="row"><span>Étalonnage</span><span>Baselight</span></div>
+          <div class="row"><span>Interfaces de colorimétrie</span><span>9</span></div>
+          <div class="row"><span>Postes de travail</span><span>14</span></div>
+          <div class="row"><span>Écrans</span><span>28</span></div>
+          <div class="row"><span>Interfaces audio</span><span>10</span></div>
+          <div class="row"><span>Stations VFX · XR</span><span>Studio</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final gut">
+    <div class="max" style="width:100%;display:grid;gap:30px">
+      <span class="mono" style="color:var(--amber)">05 · Inscription</span>
+      <h2 class="xw"><a href="#inscription">Choisir<br>ma piste <span class="arrow" aria-hidden="true">→</span></a></h2>
+      <p style="max-width:52ch;color:#CFCBC3;margin:0">Quatre étapes : vos coordonnées, votre spécialité, votre niveau, votre confirmation.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== PROGRAMME ===================== -->
+<div class="view" data-view="programme" hidden>
+  <section class="page-hero gut"><div class="max">
+    <span class="mono" style="color:var(--amber)">Programme</span>
+    <h1 class="xw" style="margin-top:20px">Le<br>programme</h1>
+    <p>L'intelligence artificielle et les nouvelles techniques modifient chacun des métiers de la post-production. La formation les fait découvrir à tout le groupe, puis les met en pratique dans un métier précis, auprès de celles et ceux qui l'exercent au quotidien.</p>
+  </div></section>
+
+  <section class="sec gut" style="padding-top:20px"><div class="max">
+    <div class="sec-head"><span class="mono">Tronc commun</span><div><h2 class="xw">Ce que tout<br>le groupe apprend</h2><p>Le tronc commun se tient avant les périodes de forte production du studio, pour que chacun soit prêt au moment de rejoindre sa spécialité.</p></div></div>
+    <div class="grid-tc">
+      <article><span class="mono">TC · 01</span><h3>Les outils d'IA générative</h3><p>Panorama des outils appliqués à l'image, au son et au montage, et ce qu'ils changent dans chaque métier de la chaîne.</p></article>
+      <article><span class="mono">TC · 02</span><h3>Au-delà de l'IA</h3><p>Les techniques qui émergent à côté : XR, temps réel, passerelles avec le jeu vidéo.</p></article>
+      <article><span class="mono">TC · 03</span><h3>Le travail en studio</h3><p>Préparer les médias, livrer, s'insérer dans une chaîne de post-production professionnelle.</p></article>
+      <article><span class="mono">TC · 04</span><h3>Droits et usages</h3><p>Les questions de droit, d'éthique et de crédit que posent ces outils dans la production.</p></article>
+    </div>
+  </div></section>
+
+  <section class="sec gut"><div class="max">
+    <div class="sec-head"><span class="mono">Organisation</span><div><h2 class="xw">Comment ça<br>se déroule</h2></div></div>
+    <div class="steps">
+      <div><span class="mono">Étape 1</span><h3>Inscription</h3><p>Vous choisissez votre spécialité et déclarez votre niveau.</p></div>
+      <div><span class="mono">Étape 2</span><h3>Constitution des binômes</h3><p>Les participants sont associés deux par deux, à niveau proche, et attribués à un mentor.</p></div>
+      <div><span class="mono">Étape 3</span><h3>Tronc commun</h3><p>Tout le groupe suit ensemble le socle sur l'IA et les nouvelles techniques.</p></div>
+      <div><span class="mono">Étape 4</span><h3>Spécialité</h3><p>Chaque binôme rejoint son mentor sur les postes du studio.</p></div>
+    </div>
+  </div></section>
+
+  <section class="sec gut"><div class="max">
+    <div class="sec-head"><span class="mono">Spécialités</span><div><h2 class="xw">Les cinq pistes</h2></div></div>
+    <div class="specs" id="specList2"></div>
+  </div></section>
+
+  <section class="sec gut"><div class="max">
+    <div class="sec-head"><span class="mono">Questions</span><div><h2 class="xw">Avant de<br>s'inscrire</h2></div></div>
+    <div class="faq">
+      <details open><summary>Je travaille dans le métier depuis longtemps. Le tronc commun me concerne-t-il ?</summary><p>Il porte sur des outils et des techniques qui apparaissent en ce moment. Un ingénieur du son expérimenté n'a pas davantage appris à générer des bruitages avec l'IA qu'un jeune diplômé : c'est sur ce terrain neuf que les deux publics se retrouvent. Dans la spécialité, vous êtes ensuite placé selon votre niveau.</p></details>
+      <details><summary>Faut-il déjà connaître les outils d'IA ?</summary><p>Non. Le tronc commun part des bases et s'adresse à des participants qui n'ont jamais utilisé ces outils.</p></details>
+      <details><summary>Comment sont formés les binômes ?</summary><p>À partir du niveau déclaré à l'inscription. Chaque mentor accompagne deux participants de niveau proche ; un participant qui découvre le métier n'est pas associé à un participant confirmé.</p></details>
+      <details><summary>Où se déroule la formation ?</summary><p>À Downtown Studio, 10 rue des Vieux-Grenadiers à Genève : la salle de cours de Progress pour le tronc commun, puis les studios, salles de montage, salle d'étalonnage et stations du studio pour les spécialités.</p></details>
+      <details><summary>Qu'est-ce qui distingue cette formation d'un cours logiciel ?</summary><p>Vous apprenez un métier dans le lieu où il s'exerce, auprès d'un professionnel qui le pratique sur des projets en cours. L'apprentissage d'un logiciel vient au service de ce métier.</p></details>
+    </div>
+  </div></section>
+
+  <section class="final gut"><div class="max" style="width:100%;display:grid;gap:30px">
+    <h2 class="xw"><a href="#inscription">S'inscrire <span class="arrow" aria-hidden="true">→</span></a></h2>
+  </div></section>
+</div>
+
+<!-- ===================== PROGRESS ===================== -->
+<div class="view" data-view="progress" hidden>
+  <section class="page-hero gut"><div class="max">
+    <span class="mono" style="color:var(--amber)">L'association</span>
+    <h1 class="xw" style="margin-top:20px">Progress</h1>
+    <p>Association genevoise à but non lucratif, Progress forme aux métiers de l'audiovisuel. Née au sein de Downtown Studio, elle relie les écoles et la profession.</p>
+  </div></section>
+
+  <section class="sec gut" style="padding-top:20px"><div class="max split">
+    <p class="big-quote">Apprendre dans les mêmes conditions, avec les mêmes outils et aux côtés des <em>mêmes professionnels</em> que ceux de sa future carrière.</p>
+    <div class="prose">
+      <p>Progress construit ses formations avec les équipes de Downtown Studio. Les participants y travaillent sur les postes du studio : stations VFX, colorimétrie Baselight, salles de montage image, studios de montage son, infrastructures XR, et les projets accueillis par le studio et son réseau.</p>
+      <p>Sa méthode tient en deux mouvements. Un sujet émergent, abordé collectivement, met à niveau des profils très différents. Une pratique encadrée, dans un lieu de production et auprès d'un professionnel, l'ancre ensuite dans un métier.</p>
+    </div>
+  </div></section>
+
+  <section class="sec gut"><div class="max">
+    <div class="sec-head"><span class="mono">Repères</span><div><h2 class="xw">D'où vient<br>Progress</h2></div></div>
+    <div class="timeline-h">
+      <div><span class="yr">2023</span><p>Fondation de l'association à Downtown Studio, centre dédié aux industries audiovisuelles lancé à Genève par Freestudios.</p></div>
+      <div><span class="yr">2024</span><p>Ouverture d'une salle de cours équipée grâce à la Fondation Wilsdorf. Lancement de Lift : de jeunes diplômés travaillent sur de vraies productions, encadrés par les professionnels du studio, notamment sur la série Winter Palace.</p></div>
+      <div><span class="yr">2026</span><p>Progress réunit ses formations en un programme construit avec les équipes du studio : L'avenir de la post-production.</p></div>
+    </div>
+  </div></section>
+
+  <section class="sec gut"><div class="max">
+    <div class="sec-head"><span class="mono">Comité</span><div><h2 class="xw">Gouvernance</h2><p>Comité élu par l'assemblée générale du 11 décembre 2025.</p></div></div>
+    <div class="people">
+      <div><span class="mono dim">Président</span><strong>Guillaume Helleu</strong></div>
+      <div><span class="mono dim">Secrétaire général</span><strong>Jean-Charles Weber</strong></div>
+      <div><span class="mono dim">Trésorière</span><strong>Delphine Guerchet</strong></div>
+    </div>
+  </div></section>
+
+  <section class="sec gut"><div class="max">
+    <div class="sec-head"><span class="mono">Partenaires</span><div><h2 class="xw">Avec</h2></div></div>
+    <div class="partners">
+      <div><strong>Downtown Studio</strong><p>Le lieu, ses équipes et ses productions.</p></div>
+      <div><strong>FFPC</strong><p>Fondation genevoise pour la formation professionnelle et continue.</p></div>
+      <div><strong>Fondation Wilsdorf</strong><p>Équipement de la salle de cours de Progress.</p></div>
+    </div>
+  </div></section>
+
+  <section class="final gut"><div class="max" style="width:100%;display:grid;gap:30px">
+    <span class="mono" style="color:var(--amber)">Contact</span>
+    <h2 class="xw" style="font-size:clamp(2.6rem,8vw,7rem)">Écrire à<br>Progress</h2>
+    <p class="copy">info@progressgeneve.ch</p>
+    <p style="margin:0;color:#CFCBC3">Association Progress · c/o Downtown Studio · 10 rue des Vieux-Grenadiers · 1205 Genève</p>
+  </div></section>
+</div>
+
+<!-- ===================== INSCRIPTION ===================== -->
+<div class="view" data-view="inscription" hidden>
+  <section class="page-hero gut" style="padding-bottom:40px"><div class="max">
+    <span class="mono" style="color:var(--amber)">L'avenir de la post-production</span>
+    <h1 class="xw" style="margin-top:20px">Inscription</h1>
+    <p>Votre inscription couvre le tronc commun, suivi avec tout le groupe, et la spécialité que vous choisissez. Votre parcours se dessine à mesure que vous répondez.</p>
+  </div></section>
+
+  <section class="gut" style="padding-bottom:140px"><div class="max reg-wrap">
+    <div>
+      <form class="reg" id="regForm" novalidate>
+        <div class="stepper" id="stepper"><span>01 · Vous</span><span>02 · Spécialité</span><span>03 · Niveau</span><span>04 · Envoi</span></div>
+
+        <fieldset data-step="1">
+          <legend>Vos coordonnées</legend>
+          <div class="field"><label for="f-nom">Prénom et nom</label><input type="text" id="f-nom" autocomplete="name"></div>
+          <div class="field"><label for="f-mail">E-mail</label><input type="email" id="f-mail" autocomplete="email"></div>
+          <div class="field"><label for="f-statut">Situation</label>
+            <select id="f-statut">
+              <option value="">Sélectionner</option>
+              <option>Professionnel·le de l'audiovisuel en activité</option>
+              <option>Jeune diplômé·e d'une école de cinéma</option>
+              <option>En reconversion vers l'audiovisuel</option>
+            </select></div>
+        </fieldset>
+
+        <fieldset data-step="2" hidden>
+          <legend>Votre spécialité</legend>
+          <div class="opts" id="specOpts"></div>
+        </fieldset>
+
+        <fieldset data-step="3" hidden>
+          <legend>Votre niveau</legend>
+          <div class="opts" id="lvlOpts">
+            <label class="opt"><input type="radio" name="lvl" value="Découverte"><span class="dot"></span><strong>Découverte</strong><span class="code">N1</span><small>Vous n'avez jamais exercé ce métier.</small></label>
+            <label class="opt"><input type="radio" name="lvl" value="Formé·e"><span class="dot"></span><strong>Formé·e</strong><span class="code">N2</span><small>Vous l'avez appris à l'école ou pratiqué sur quelques projets.</small></label>
+            <label class="opt"><input type="radio" name="lvl" value="Confirmé·e"><span class="dot"></span><strong>Confirmé·e</strong><span class="code">N3</span><small>Vous l'exercez professionnellement depuis plusieurs années.</small></label>
+          </div>
+          <div class="field"><label for="f-motiv">Vos attentes (facultatif)</label><textarea id="f-motiv"></textarea></div>
+        </fieldset>
+
+        <fieldset data-step="4" hidden>
+          <legend>Confirmation</legend>
+          <div id="finalRecap" class="prose" style="font-size:1.02rem"></div>
+          <label class="opt"><input type="checkbox" id="f-ok"><span class="dot"></span><strong>Organisation comprise</strong><span></span><small>Tronc commun avec l'ensemble du groupe, puis pratique dans ma spécialité, en binôme, auprès d'un professionnel du studio.</small></label>
+        </fieldset>
+
+        <div class="err" id="err" role="alert"></div>
+        <div class="form-nav">
+          <button type="button" class="back" id="prevBtn">← Retour</button>
+          <button type="button" class="cta-pill amber" id="nextBtn">Continuer →</button>
+        </div>
+      </form>
+
+      <div class="done" id="doneMsg" hidden>
+        <span class="mono" style="color:var(--amber)">Demande reçue</span>
+        <h2 class="xw">Merci</h2>
+        <p id="doneText"></p>
+        <div><button type="button" class="ghost" id="restartBtn" style="cursor:pointer;color:var(--ink)">Nouvelle inscription</button></div>
+      </div>
+    </div>
+
+    <aside class="side" aria-live="polite">
+      <div class="card">
+        <span class="mono" style="color:var(--amber)">Votre parcours</span>
+        <div class="mini" id="miniPath"></div>
+      </div>
+      <div class="card" style="gap:8px">
+        <span class="mono dim">Lieu</span>
+        <span>Downtown Studio · 10 rue des Vieux-Grenadiers · Genève</span>
+      </div>
+    </aside>
+  </div></section>
+</div>
+
+</main>
+
+<footer class="site"><div class="in gut max">
+  <div style="display:grid;gap:16px;align-content:start"><span class="logo"><img src="img/logo-progress.png" alt="PROGRESS" style="filter:invert(1)"></span><p>Association genevoise à but non lucratif de formation aux métiers de l'audiovisuel.</p></div>
+  <nav><span class="mono">Formation</span><a href="#accueil">L'avenir de la post-production</a><a href="#programme">Programme</a><a href="#inscription">Inscription</a></nav>
+  <nav><span class="mono">Association</span><a href="#progress">Progress</a><a href="#progress">Comité</a><a href="#progress">Partenaires</a></nav>
+  <div style="display:grid;gap:8px;align-content:start"><span class="mono">Contact</span><span class="copy">info@progressgeneve.ch</span><p>c/o Downtown Studio<br>10 rue des Vieux-Grenadiers<br>1205 Genève</p></div>
+</div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+"use strict";
+var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- Données ---------- */
+var SPECS=[
+  {id:"son",code:"A1",c:"--son",hex:"#4FD1B4",name:"Montage son et mixage",short:"Son",where:"Studios de montage son · auditorium Atmos",what:"Les outils de génération et de traitement du son, des bruitages générés par l'IA au mixage en auditorium."},
+  {id:"eta",code:"V1",c:"--eta",hex:"#FF6B88",name:"Étalonnage",short:"Étalonnage",where:"Salle Baselight Education",what:"La colorimétrie et ses outils nouveaux, sur la chaîne Baselight du studio."},
+  {id:"img",code:"V2",c:"--img",hex:"#7AA2FF",name:"Montage image",short:"Montage",where:"Salles de montage image",what:"Les outils d'IA qui modifient le montage et la préparation des médias."},
+  {id:"vfx",code:"V3",c:"--vfx",hex:"#B98BFF",name:"VFX et compositing",short:"VFX",where:"Stations VFX",what:"La génération et l'hybridation d'images au service des effets visuels et du compositing."},
+  {id:"xr",code:"X1",c:"--xr",hex:"#E6D25A",name:"XR et nouveaux médias",short:"XR",where:"Infrastructures XR du studio",what:"Les formats immersifs et les techniques de rendu en temps réel."}
+];
+var picked=null;
+
+/* ---------- Timecode ---------- */
+function tc(sec){var f=Math.floor(sec*25),fr=f%25,s=Math.floor(f/25),h=Math.floor(s/3600),m=Math.floor(s/60)%60,ss=s%60;function p(n){return(n<10?'0':'')+n}return p(h)+':'+p(m)+':'+p(ss)+':'+p(fr)}
+
+/* ---------- Manifeste : mots qui s'allument au scroll ---------- */
+var man=document.getElementById('manifest');
+var accentWords=["l'IA,","métier,","Downtown","Studio."];
+man.innerHTML=man.textContent.split(' ').map(function(w){return '<span class="w'+(accentWords.indexOf(w)>-1?' acc':'')+'">'+w+'</span>'}).join(' ');
+var words=[].slice.call(man.querySelectorAll('.w'));
+
+/* ---------- Bandeau défilant ---------- */
+var mqText=['IA générative','Montage son','Étalonnage','Montage image','VFX','XR','Tronc commun','Downtown Studio','Genève'];
+var mqHTML=mqText.map(function(t){return '<span>'+t+'<i>✦</i></span>'}).join('');
+document.getElementById('mq').innerHTML=mqHTML+mqHTML;
+
+/* ---------- Liste des spécialités ---------- */
+function specRows(){return SPECS.map(function(s){
+  return '<a class="spec" href="#inscription" data-go="'+s.id+'" style="--c:var('+s.c+')"><span class="code">'+s.code+' ·  PISTE</span><div><h3>'+s.name+'</h3><span class="where">'+s.where+'</span></div><p>'+s.what+'</p><span class="arr" aria-hidden="true">→</span></a>';
+}).join('')}
+document.getElementById('specList').innerHTML=specRows();
+document.getElementById('specList2').innerHTML=specRows();
+document.addEventListener('click',function(e){var a=e.target.closest('[data-go]');if(a)setPick(a.dataset.go)});
+
+/* ---------- Schéma NLE (SVG) ---------- */
+var svg=document.getElementById('nleSvg'),NS='http://www.w3.org/2000/svg';
+var X0=150,XREG=150,XTC0=360,XSPLIT=700,XEND=1170,YTC=120,Y0=230,DY=58;
+function el(t,a,parent){var n=document.createElementNS(NS,t);for(var k in a)n.setAttribute(k,a[k]);(parent||svg).appendChild(n);return n}
+function buildNLE(){
+  svg.innerHTML='';
+  var defs=el('defs',{});
+  var g=el('linearGradient',{id:'tcg',x1:'0',x2:'1'},defs);
+  el('stop',{offset:'0','stop-color':'#F2F0EB'},g);el('stop',{offset:'1','stop-color':'#FFC38F'},g);
+  // règle
+  for(var i=0;i<=40;i++){var x=X0+i*((XEND-X0)/40);el('line',{x1:x,x2:x,y1:30,y2:i%5===0?48:40,stroke:'rgba(242,240,235,.25)'});
+    if(i%10===0){var t=el('text',{x:x+4,y:26,fill:'#8C8F94','font-size':'11'});t.textContent='00:0'+(i/10)+':00:00'}}
+  el('line',{x1:X0,x2:XEND,y1:48,y2:48,stroke:'rgba(242,240,235,.14)'});
+  // étiquettes de pistes
+  function trk(y,label,color){var t=el('text',{x:20,y:y+5,fill:color||'#8C8F94','font-size':'12'});t.textContent=label}
+  trk(80,'INSCR.');trk(YTC,'TC · TOUS','#F2F0EB');
+  // inscription
+  el('rect',{x:XREG,y:62,width:XTC0-XREG-14,height:36,rx:6,fill:'none',stroke:'rgba(242,240,235,.45)','stroke-dasharray':'5 5'});
+  var t1=el('text',{x:XREG+14,y:85,fill:'#F2F0EB','font-size':'12'});t1.textContent='CHOIX DE LA SPÉCIALITÉ';
+  // tronc commun
+  el('rect',{x:XTC0,y:YTC-24,width:XSPLIT-XTC0,height:48,rx:8,fill:'url(#tcg)'});
+  var t2=el('text',{x:XTC0+18,y:YTC+8,fill:'#050506','font-size':'22',class:'big'});t2.textContent='TRONC COMMUN';
+  var t2b=el('text',{x:XSPLIT-16,y:YTC+5,fill:'#050506','font-size':'11','text-anchor':'end'});t2b.textContent='TOUT LE GROUPE';
+  // participants (points) sur le tronc commun
+  for(var p=0;p<10;p++){el('circle',{cx:XTC0+250+p*9,cy:YTC-34,r:3,fill:'#FF8A3D'})}
+  var t3=el('text',{x:XTC0+250,y:YTC-44,fill:'#FF8A3D','font-size':'10'});t3.textContent='PARTICIPANTS';
+  // pistes de spécialité
+  SPECS.forEach(function(s,i){
+    var y=Y0+i*DY;
+    var gl=el('g',{class:'lane','data-id':s.id,style:'cursor:pointer'});
+    trk(y,s.code+' · '+s.short.toUpperCase(),s.hex);
+    var d='M'+(XSPLIT-6)+' '+YTC+' C '+(XSPLIT+70)+' '+YTC+', '+(XSPLIT+40)+' '+y+', '+(XSPLIT+120)+' '+y;
+    el('path',{d:d,fill:'none',stroke:s.hex,'stroke-width':'2','stroke-dasharray':'2 6','stroke-linecap':'round'},gl);
+    el('rect',{x:XSPLIT+120,y:y-21,width:XEND-XSPLIT-120,height:42,rx:7,fill:s.hex,'fill-opacity':'.16',stroke:s.hex,'stroke-width':'1.5'},gl);
+    var tt=el('text',{x:XSPLIT+138,y:y+6,fill:'#F2F0EB','font-size':'17',class:'big'},gl);tt.textContent=s.name.toUpperCase();
+    var ts=el('text',{x:XEND-14,y:y+5,fill:s.hex,'font-size':'10','text-anchor':'end'},gl);ts.textContent='BINÔME + MENTOR';
+    gl.addEventListener('click',function(){setPick(picked===s.id?null:s.id)});
+  });
+  // tête de lecture
+  var ph=el('g',{id:'playhead'});
+  el('line',{x1:0,x2:0,y1:30,y2:510,stroke:'#FF8A3D','stroke-width':'1.5'},ph);
+  el('path',{d:'M-7 30 L7 30 L7 40 L0 47 L-7 40 Z',fill:'#FF8A3D'},ph);
+}
+buildNLE();
+var chips=document.getElementById('chips');
+chips.innerHTML=SPECS.map(function(s){return '<button type="button" class="chip" data-id="'+s.id+'" style="--c:var('+s.c+')" aria-pressed="false"><i></i>'+s.code+' · '+s.name+'</button>'}).join('');
+chips.addEventListener('click',function(e){var b=e.target.closest('.chip');if(b)setPick(picked===b.dataset.id?null:b.dataset.id)});
+
+function setPick(id){
+  picked=id;
+  var nle=document.getElementById('nle');
+  nle.classList.toggle('picking',!!id);
+  svg.querySelectorAll('.lane').forEach(function(l){l.classList.toggle('on',l.getAttribute('data-id')===id)});
+  chips.querySelectorAll('.chip').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.id===id))});
+  document.querySelectorAll('input[name=spec]').forEach(function(r){r.checked=(r.value===id)});
+  renderMini();
+}
+
+/* ---------- Formulaire ---------- */
+document.getElementById('specOpts').innerHTML=SPECS.map(function(s){
+  return '<label class="opt" style="--c:var('+s.c+')"><input type="radio" name="spec" value="'+s.id+'"><span class="dot"></span><strong>'+s.name+'</strong><span class="code">'+s.code+'</span><small>'+s.where+'</small></label>';
+}).join('');
+document.getElementById('specOpts').addEventListener('change',function(e){if(e.target.name==='spec')setPick(e.target.value)});
+document.getElementById('lvlOpts').addEventListener('change',renderMini);
+function lvl(){var r=document.querySelector('input[name=lvl]:checked');return r?r.value:null}
+function renderMini(){
+  var s=SPECS.find(function(x){return x.id===picked});
+  var h='<div class="r"><span class="mono">INSCR</span><div class="b reg">'+(s?'Spécialité choisie · '+s.code:'Spécialité à choisir')+'</div></div>';
+  h+='<div class="r"><span class="mono">TC</span><div class="b tc">Tronc commun · tout le groupe</div></div>';
+  h+='<svg width="40" height="22" viewBox="0 0 40 22" aria-hidden="true"><path d="M2 0 C2 14, 30 6, 30 22" fill="none" stroke="'+(s?s.hex:'#555')+'" stroke-width="1.5" stroke-dasharray="2 4"/></svg>';
+  h+=s?'<div class="r"><span class="mono" style="color:'+s.hex+'">'+s.code+'</span><div class="b sp" style="--c:'+s.hex+'"><b>'+s.name+'</b><br>'+s.where+'<br>Binôme '+(lvl()?'niveau '+lvl():'de même niveau')+' · mentor du studio</div></div>'
+      :'<div class="r"><span class="mono">··</span><div class="b sp empty">Votre piste apparaîtra ici</div></div>';
+  document.getElementById('miniPath').innerHTML=h;
+}
+var step=1,form=document.getElementById('regForm'),err=document.getElementById('err');
+function showStep(){
+  form.querySelectorAll('fieldset').forEach(function(f){f.hidden=Number(f.dataset.step)!==step});
+  document.querySelectorAll('#stepper span').forEach(function(sp,i){sp.className=(i+1===step?'on':(i+1<step?'done':''))});
+  document.getElementById('prevBtn').style.visibility=step===1?'hidden':'visible';
+  document.getElementById('nextBtn').innerHTML=step===4?'Envoyer →':'Continuer →';
+  err.textContent='';
+  if(step===4){
+    var s=SPECS.find(function(x){return x.id===picked});
+    document.getElementById('finalRecap').innerHTML='<p><b>'+esc(document.getElementById('f-nom').value)+'</b>, vous demandez votre inscription à L\'avenir de la post-production.</p><p>Tronc commun avec l\'ensemble du groupe, puis spécialité <b>'+s.name+'</b> ('+s.where+'), en binôme de niveau « '+lvl()+' » auprès d\'un professionnel de Downtown Studio.</p>';
+  }
+}
+function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+function valid(){
+  if(step===1){var n=document.getElementById('f-nom').value.trim(),m=document.getElementById('f-mail').value.trim(),st=document.getElementById('f-statut').value;
+    if(!n){err.textContent='Indiquez votre prénom et votre nom.';return false}
+    if(!/^\S+@\S+\.\S+$/.test(m)){err.textContent='Indiquez une adresse e-mail valide, par exemple nom@domaine.ch.';return false}
+    if(!st){err.textContent='Sélectionnez votre situation.';return false}}
+  if(step===2&&!picked){err.textContent='Choisissez une spécialité pour continuer.';return false}
+  if(step===3&&!lvl()){err.textContent='Indiquez votre niveau : il sert à composer les binômes.';return false}
+  if(step===4&&!document.getElementById('f-ok').checked){err.textContent='Cochez la case pour confirmer l\'organisation.';return false}
+  return true;
+}
+document.getElementById('nextBtn').addEventListener('click',function(){
+  if(!valid())return;
+  if(step<4){step++;showStep();return}
+  var s=SPECS.find(function(x){return x.id===picked});
+  document.getElementById('doneText').innerHTML='Votre demande d\'inscription en <b>'+s.name+'</b> est enregistrée. Progress vous écrira à <b>'+esc(document.getElementById('f-mail').value)+'</b> pour confirmer votre place et vous présenter votre mentor.';
+  form.hidden=true;document.getElementById('doneMsg').hidden=false;
+});
+document.getElementById('prevBtn').addEventListener('click',function(){if(step>1){step--;showStep()}});
+form.addEventListener('submit',function(e){e.preventDefault()});
+document.getElementById('restartBtn').addEventListener('click',function(){form.reset();step=1;form.hidden=false;document.getElementById('doneMsg').hidden=true;setPick(null);showStep()});
+
+/* ---------- Navigation ---------- */
+var VIEWS=['accueil','programme','progress','inscription'],current='accueil';
+var overlay=document.getElementById('overlay');
+function closeMenu(){overlay.hidden=true;document.getElementById('menuOpen').setAttribute('aria-expanded','false')}
+document.getElementById('menuOpen').addEventListener('click',function(){overlay.hidden=false;this.setAttribute('aria-expanded','true')});
+document.getElementById('menuClose').addEventListener('click',closeMenu);
+overlay.addEventListener('click',function(e){if(e.target.closest('a'))closeMenu()});
+function route(){
+  var h=(location.hash||'#accueil').slice(1);
+  var target=null;
+  if(VIEWS.indexOf(h)<0){target=document.getElementById(h);h='accueil'}
+  var changed=h!==current;current=h;
+  document.querySelectorAll('[data-view]').forEach(function(v){v.hidden=v.dataset.view!==h});
+  document.querySelectorAll('nav.links a').forEach(function(a){if(a.getAttribute('href')==='#'+h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  if(target){target.scrollIntoView()}else if(changed||!target){window.scrollTo(0,0)}
+  scene.inner=(h!=='accueil');
+}
+
+/* ---------- Scène three.js : photo → nuage de points → vecteur ---------- */
+var scene={inner:false,mix:0,vec:0,ready:false};
+var canvas=document.getElementById('gl');
+function fallback(){var d=document.createElement('div');d.id='glFallback';d.style.backgroundImage='url(img/dts-lumiere.jpg)';document.body.insertBefore(d,canvas);canvas.remove();scene.ready=false}
+var hasGL=false;try{hasGL=!!(window.THREE&&(canvas.getContext('webgl2')||canvas.getContext('webgl')))}catch(e){}
+if(!hasGL){fallback()}else{initGL()}
+
+function initGL(){
+  var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
+  var DPR=Math.min(window.devicePixelRatio||1,2);
+  renderer.setPixelRatio(DPR);renderer.setClearColor(0x050506,1);
+  var cam=new THREE.PerspectiveCamera(45,1,0.01,100);
+  var sc=new THREE.Scene();
+  var root=new THREE.Group();sc.add(root);
+  var img=new Image();
+  img.onload=function(){build(img)};
+  img.onerror=fallback;
+  img.src='img/dts-lumiere.jpg';
+  var pts,lines,lineMat,ptMat,aspImg=1.5,camDist=3,baseSize=2,gridRows=200;
+
+  function build(im){
+    var small=window.innerWidth<700;
+    var cols=small?190:300;
+    aspImg=im.naturalWidth/im.naturalHeight;
+    var rows=Math.round(cols/aspImg);gridRows=rows;
+    var cv=document.createElement('canvas');cv.width=cols;cv.height=rows;
+    var cx=cv.getContext('2d');cx.drawImage(im,0,0,cols,rows);
+    var data=cx.getImageData(0,0,cols,rows).data;
+    var N=cols*rows,H=2,W=H*aspImg;
+    var pos=new Float32Array(N*3),cloud=new Float32Array(N*3),col=new Float32Array(N*3),rnd=new Float32Array(N);
+    var luma=new Float32Array(N);
+    for(var y=0;y<rows;y++)for(var x=0;x<cols;x++){
+      var i=y*cols+x,k=i*4,r=data[k]/255,g=data[k+1]/255,b=data[k+2]/255;
+      var L=0.2126*r+0.7152*g+0.0722*b;luma[i]=L;
+      var px=(x/(cols-1)-.5)*W,py=-(y/(rows-1)-.5)*H;
+      pos[i*3]=px;pos[i*3+1]=py;pos[i*3+2]=0;
+      var rr=Math.random();rnd[i]=rr;
+      var z=(L-.35)*1.5+(rr-.5)*0.18;
+      cloud[i*3]=px*(1+ (rr-.5)*0.04);cloud[i*3+1]=py;cloud[i*3+2]=z;
+      col[i*3]=r;col[i*3+1]=g;col[i*3+2]=b;
+    }
+    var geo=new THREE.BufferGeometry();
+    geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    geo.setAttribute('aCloud',new THREE.BufferAttribute(cloud,3));
+    geo.setAttribute('aCol',new THREE.BufferAttribute(col,3));
+    geo.setAttribute('aRnd',new THREE.BufferAttribute(rnd,1));
+    ptMat=new THREE.ShaderMaterial({
+      transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,
+      uniforms:{uMix:{value:0},uVec:{value:0},uTime:{value:0},uBase:{value:2},uDist:{value:3},uAmber:{value:new THREE.Color('#FF8A3D')}},
+      vertexShader:[
+        'attribute vec3 aCloud;attribute vec3 aCol;attribute float aRnd;',
+        'uniform float uMix,uVec,uTime,uBase,uDist;varying vec3 vCol;varying float vA;uniform vec3 uAmber;',
+        'void main(){',
+        ' float m=smoothstep(0.0,1.0,clamp(uMix*1.3-aRnd*0.3,0.0,1.0));',
+        ' vec3 p=mix(position,aCloud,m);',
+        ' p+=m*vec3(sin(uTime*0.6+aRnd*40.0),cos(uTime*0.5+aRnd*31.0),sin(uTime*0.4+aRnd*17.0))*0.012*(1.0+uVec*2.0);',
+        ' p.z+=uVec*(aRnd-0.5)*0.6;',
+        ' vec4 mv=modelViewMatrix*vec4(p,1.0);',
+        ' gl_PointSize=uBase*mix(1.0,0.55,m)*(uDist/-mv.z);',
+        ' gl_Position=projectionMatrix*mv;',
+        ' float l=dot(aCol,vec3(0.2126,0.7152,0.0722));',
+        ' vec3 tint=mix(aCol,mix(vec3(l)*1.2,uAmber*l*1.6,step(0.55,l)),m*0.55);',
+        ' vCol=tint; vA=mix(1.0,0.9,m)*(1.0-uVec*0.78);',
+        '}'].join('\n'),
+      fragmentShader:[
+        'varying vec3 vCol;varying float vA;uniform float uMix;',
+        'void main(){vec2 c=gl_PointCoord-0.5;float d=length(c);',
+        ' float a=mix(1.0-step(0.5,max(abs(c.x),abs(c.y))*1.0),1.0-smoothstep(0.3,0.5,d),clamp(uMix*2.0,0.0,1.0));',
+        ' gl_FragColor=vec4(vCol*mix(0.62,1.0,uMix),a*vA);}'].join('\n')
+    });
+    pts=new THREE.Points(geo,ptMat);root.add(pts);
+
+    // Relief vectoriel : lignes horizontales et verticales issues de la luminance
+    var gx=small?70:110,gy=Math.round(gx/aspImg);
+    var seg=[],segCol=[];
+    function hAt(u,v){var xi=Math.min(cols-1,Math.round(u*(cols-1))),yi=Math.min(rows-1,Math.round(v*(rows-1)));return (luma[yi*cols+xi]-.35)*1.5}
+    function P(u,v){return [(u-.5)*W,-(v-.5)*H,hAt(u,v)]}
+    var cA=new THREE.Color('#FF8A3D'),cB=new THREE.Color('#F2F0EB');
+    function push(a,b,t){seg.push(a[0],a[1],a[2],b[0],b[1],b[2]);var c=cA.clone().lerp(cB,t);segCol.push(c.r,c.g,c.b,c.r,c.g,c.b)}
+    for(var j=0;j<=gy;j++)for(var ii=0;ii<gx;ii++){var u=ii/gx,u2=(ii+1)/gx,v=j/gy;var a=P(u,v),b=P(u2,v);push(a,b,Math.min(1,Math.max(0,(a[2]+.5))))}
+    for(var ii2=0;ii2<=gx;ii2+=2)for(var j2=0;j2<gy;j2++){var uu=ii2/gx,v1=j2/gy,v2=(j2+1)/gy;var a2=P(uu,v1),b2=P(uu,v2);push(a2,b2,Math.min(1,Math.max(0,(a2[2]+.5))))}
+    var lg=new THREE.BufferGeometry();
+    lg.setAttribute('position',new THREE.Float32BufferAttribute(seg,3));
+    lg.setAttribute('color',new THREE.Float32BufferAttribute(segCol,3));
+    lineMat=new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending});
+    lines=new THREE.LineSegments(lg,lineMat);root.add(lines);
+
+    document.getElementById('ptsHud').textContent=N.toLocaleString('fr-CH');
+    scene.ready=true;resize();
+    scene.t0=performance.now();
+  }
+
+  function resize(){
+    var w=window.innerWidth,h=window.innerHeight;
+    renderer.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();
+    var aspView=w/h,visH=Math.min(2,2*aspImg/aspView);
+    camDist=visH/(2*Math.tan(THREE.MathUtils.degToRad(22.5)));
+    if(ptMat){var spacingPx=(2/(gridRows-1))*(h/visH);
+      baseSize=Math.max(1.5,spacingPx*1.2)*DPR;
+      ptMat.uniforms.uBase.value=baseSize;ptMat.uniforms.uDist.value=camDist}
+  }
+  window.addEventListener('resize',resize);
+
+  // Interaction : glisser pour pivoter, souris pour parallaxe
+  var rotX=0,rotY=0,tX=0,tY=0,drag=null,velX=0,velY=0,mx=0,my=0;
+  function interactive(t){return t.closest&&t.closest('a,button,input,select,textarea,label,summary,.nle,form,.opt')}
+  window.addEventListener('pointerdown',function(e){if(interactive(e.target))return;drag={x:e.clientX,y:e.clientY,rx:tY,ry:tX};});
+  window.addEventListener('pointermove',function(e){
+    mx=e.clientX/window.innerWidth-.5;my=e.clientY/window.innerHeight-.5;
+    if(!drag)return;var dx=(e.clientX-drag.x)/window.innerWidth,dy=(e.clientY-drag.y)/window.innerHeight;
+    tY=drag.rx+dx*3.2;tX=drag.ry+dy*2.0;tX=Math.max(-1.1,Math.min(1.1,tX));
+  });
+  window.addEventListener('pointerup',function(){drag=null});
+  window.addEventListener('pointercancel',function(){drag=null});
+
+  var hdr=document.querySelector('header.top'),huds=document.querySelectorAll('.hud'),tcEl=document.getElementById('tcHud'),phaseEls=document.querySelectorAll('#phaseHud span'),veil=document.getElementById('veil');
+  var start=performance.now();
+  function frame(now){
+    requestAnimationFrame(frame);
+    var t=(now-start)/1000;
+    tcEl.textContent=tc(t);
+    if(!scene.ready){return}
+    var since=(now-scene.t0)/1000;
+    var vh=window.innerHeight,sy=window.scrollY;
+    // phase 1 : image → nuage (automatique après 1,4 s, ou dès le premier scroll)
+    var autoMix=reduce?1:Math.min(1,Math.max(0,(since-1.4)/2.6));
+    var scrollMix=Math.min(1,sy/(vh*0.5));
+    var mixT=scene.inner?1:Math.max(autoMix,scrollMix);
+    // phase 2 : nuage → vecteur au scroll
+    var vecT=scene.inner?1:Math.min(1,Math.max(0,(sy-vh*0.55)/(vh*0.9)));
+    scene.mix+=(mixT-scene.mix)*0.06;scene.vec+=(vecT-scene.vec)*0.06;
+    ptMat.uniforms.uMix.value=scene.mix;ptMat.uniforms.uVec.value=scene.vec;ptMat.uniforms.uTime.value=t;
+    lineMat.opacity=scene.vec*(scene.inner?0.55:0.85);
+    // caméra
+    if(!drag&&!reduce){tY+=(0-tY)*0.004+Math.sin(t*0.15)*0.0006*scene.mix}
+    rotX+=(tX+my*0.12*scene.mix-rotX)*0.07;rotY+=(tY+mx*0.2*scene.mix+scene.vec*0.55-rotY)*0.07;
+    root.rotation.x=rotX+scene.vec*-0.55;root.rotation.y=rotY;
+    var d=camDist*(1+scene.mix*0.08-scene.vec*0.12);
+    cam.position.set(0,-scene.vec*0.25,d);cam.lookAt(0,0,0);
+    // voile : lisibilité des pages intérieures et du bas de page
+    var deep=scene.inner?0.8:Math.min(0.72,Math.max(0,(sy-vh*1.5)/(vh*0.9))*0.72);
+    veil.style.opacity=deep.toFixed(3);
+    // HUD phases
+    hdr.classList.toggle('solid',sy>40||scene.inner);
+    huds.forEach(function(h){h.classList.toggle('off',scene.inner||sy>vh*1.9)});
+    var ph=scene.vec>0.5?2:(scene.mix>0.5?1:0);
+    phaseEls.forEach(function(s,i){s.classList.toggle('on',i===ph)});
+    renderer.render(sc,cam);
+  }
+  requestAnimationFrame(frame);
+}
+
+/* ---------- Scroll : manifeste et tête de lecture ---------- */
+var playhead=document.getElementById('playhead'),nleTc=document.getElementById('nleTc');
+var phT=0;
+function loopUI(){
+  requestAnimationFrame(loopUI);
+  if(current==='accueil'){
+    var r=man.getBoundingClientRect(),vh=window.innerHeight;
+    var p=Math.min(1,Math.max(0,(vh*0.85-r.top)/(r.height+vh*0.25)));
+    var n=Math.round(p*words.length);
+    for(var i=0;i<words.length;i++)words[i].classList.toggle('lit',i<n);
+    if(!reduce)phT+=1/60;
+    var cyc=(phT%9)/9;var x=X0+cyc*(XEND-X0);
+    if(playhead)playhead.setAttribute('transform','translate('+x.toFixed(1)+',0)');
+    nleTc.textContent=tc(cyc*240);
+  }
+}
+loopUI();
+
+window.addEventListener('hashchange',route);
+route();showStep();renderMini();
+})();
+</script>
+
+</body>
+</html>
