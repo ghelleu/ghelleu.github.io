@@ -65,7 +65,7 @@ nav.links a:hover::after,nav.links a[aria-current="page"]::after{transform:scale
 .overlay .close{position:absolute;top:calc(20px + env(safe-area-inset-top,0px));right:max(20px,env(safe-area-inset-right,0px))}
 
 main{position:relative;z-index:3;overflow-x:clip}
-.sec-head>*,.split>*,.reg-wrap>*,.hero-foot>*,.place>*,.duo>*,.legend3>*{min-width:0}
+.sec-head>*,.split>*,.reg-wrap>*,.hero-foot>*,.place>*,.issues>*,.stats>*,.duo>*,.legend3>*{min-width:0}
 .view[hidden]{display:none!important}
 
 
@@ -151,6 +151,16 @@ main{position:relative;z-index:3;overflow-x:clip}
 .final h2 .arrow{display:inline-block;transition:transform .4s}
 .final h2 a:hover .arrow{transform:translateX(.15em) rotate(-45deg)}
 
+.issues{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.issues article{background:rgba(5,5,6,.86);padding:clamp(26px,3.6vw,46px);display:grid;gap:16px;align-content:start}
+.issues h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.3rem,2.2vw,1.9rem);line-height:1;margin:0}
+.issues p{margin:0;color:#CFCBC3}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.stats div{background:rgba(5,5,6,.86);padding:28px 24px;display:grid;gap:12px;align-content:start}
+.stats b{font-variation-settings:"wdth" 125;font-weight:900;font-size:clamp(3.4rem,7vw,6.5rem);line-height:.85;color:var(--amber)}
+.stats span{color:#CFCBC3;font-size:.95rem}
+.grid-tc .wide{grid-column:1 / -1}
+.hero-foot p{max-width:62ch}
 /* Pages intérieures */
 .page-hero{padding-block:clamp(150px,20vw,240px) 60px}
 .page-hero h1{font-size:clamp(2.4rem,10vw,10rem)}
@@ -181,7 +191,7 @@ main{position:relative;z-index:3;overflow-x:clip}
 .partners div{background:rgba(5,5,6,.85);padding:28px;display:grid;gap:10px;align-content:start;min-height:170px}
 .partners strong{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:1.6rem;line-height:1}
 .partners p{margin:0;color:#CFCBC3;font-size:.95rem}
-.timeline-h{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.timeline-h{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
 .timeline-h div{border-left:1px solid var(--amber);padding:4px 0 4px 20px;display:grid;gap:10px;align-content:start}
 .timeline-h .yr{font-variation-settings:"wdth" 125;font-weight:900;font-size:clamp(2.4rem,5vw,4rem);line-height:.9}
 .timeline-h p{margin:0;color:#CFCBC3}
@@ -242,8 +252,9 @@ footer.site .mono{color:var(--ink)}
   .menu-btn{display:inline-flex}
   .sec-head{grid-template-columns:1fr}
   .sec-head p{grid-column:1}
-  .legend3,.duo,.grid-tc,.people,.partners,.timeline-h{grid-template-columns:1fr}
+  .issues,.legend3,.duo,.grid-tc,.people,.partners,.timeline-h{grid-template-columns:1fr}
   .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .spec{grid-template-columns:minmax(0,1fr) 44px}
   .spec p{grid-column:1 / 2}
   .spec .arr{grid-row:1;grid-column:2}
@@ -294,13 +305,13 @@ footer.site .mono{color:var(--ink)}
 
   <section class="hero gut">
     <div class="max" style="width:100%">
-      <div class="kicker mono">Formation continue · Genève</div>
+      <div class="kicker mono">Formation continue en post-production · Genève</div>
       <h1 class="xw"><span class="ln"><span>L'avenir</span></span><span class="ln"><span>de la</span></span><span class="ln"><span class="amb">post&#8209;prod</span></span></h1>
       <div class="hero-foot">
-        <p>Le tronc commun, suivi par l'ensemble du groupe, porte sur l'intelligence artificielle et les techniques qui transforment la post-production. La spécialité, choisie à l'inscription, se pratique ensuite à Downtown Studio auprès d'un professionnel du métier.</p>
+        <p>Depuis 2022, les outils génératifs sont entrés à chaque poste de la post-production : montage, effets visuels, voix, doublage, bruitage. Ils sont apparus après la formation de ceux qui exercent aujourd'hui, et les écoles commencent à peine à les enseigner. L'avenir de la post-production réunit professionnels en activité et jeunes diplômés pour les apprendre ensemble, puis place chacun auprès d'un professionnel de Downtown Studio, dans le métier choisi à l'inscription.</p>
         <div class="actions">
           <a class="cta-pill amber" href="#inscription">S'inscrire <span aria-hidden="true">→</span></a>
-          <a class="ghost" href="#parcours">Le parcours</a>
+          <a class="ghost" href="#enjeux">Les enjeux</a>
         </div>
       </div>
     </div>
@@ -308,13 +319,43 @@ footer.site .mono{color:var(--ink)}
 
   <div class="stage" aria-hidden="true"></div>
 
+  <section class="sec gut" id="enjeux">
+    <div class="max">
+      <div class="sec-head">
+        <span class="mono">Les enjeux</span>
+        <div>
+          <h2 class="xw">Ce qui change<br>dans le métier</h2>
+          <p>L'intelligence artificielle menace une partie des tâches de la post-production et en crée de nouvelles. Pour le secteur, le défi principal réside dans la transition des équipes en place vers ces compétences, à mener en pleine production.</p>
+        </div>
+      </div>
+      <div class="issues">
+        <article>
+          <h3>Une chaîne de production redistribuée</h3>
+          <p>Runway, Stable Diffusion, ElevenLabs, Descript : en quelques années, des outils génératifs ont pris en charge des tâches de montage, d'effets visuels, de sous-titrage et de doublage. Ils génèrent aussi des voix et des environnements 3D. Les rôles et les flux de travail se redéfinissent en conséquence.</p>
+        </article>
+        <article>
+          <h3>Des métiers qui se recomposent</h3>
+          <p>Les métiers de l'audiovisuel passent d'un modèle d'artisans très spécialisés à des profils capables de travailler à la frontière de plusieurs disciplines. Des fonctions nouvelles apparaissent autour de l'intégration de ces technologies dans la production, et les professionnels déjà en poste doivent les acquérir sans interrompre leur activité.</p>
+        </article>
+        <article>
+          <h3>Un écart entre l'école et le studio</h3>
+          <p>Les écoles romandes de cinéma sont revenues à des bachelors généralistes ; la spécialisation n'intervient qu'en master, où elle concerne quelques étudiants par métier. Dans une volée de master de cette rentrée, deux étudiants sur huit ont choisi le son. Les rythmes de production se sont accélérés, et les studios disposent de moins de temps pour intégrer un jeune diplômé dans une équipe aguerrie.</p>
+        </article>
+        <article>
+          <h3>Un cadre de formation à construire</h3>
+          <p>La Suisse romande ne dispose pas encore d'un cadre professionnalisant actualisé pour les techniciens de post-production. Les certifications existantes portent sur des logiciels. L'organisation du travail d'un studio, la préparation des médias et la livraison s'apprennent sur place, au contact de ceux qui les pratiquent.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section class="sec gut" id="parcours">
     <div class="max">
       <div class="sec-head">
         <span class="mono">Le parcours</span>
         <div>
           <h2 class="xw">Une inscription,<br>deux temps</h2>
-          <p>La spécialité se choisit à l'inscription. Le tronc commun réunit tous les participants ; chacun rejoint ensuite sa spécialité, en binôme, auprès d'un professionnel du studio.</p>
+          <p>Les techniques émergentes placent tout le monde au même point de départ. Un ingénieur du son qui exerce depuis quinze ans découvre les bruitages générés par ElevenLabs en même temps qu'un diplômé de l'année. La formation tire parti de cette situation : un tronc commun pour l'ensemble du groupe, puis une spécialité choisie à l'inscription et pratiquée en binôme auprès d'un mentor du studio.</p>
         </div>
       </div>
 
@@ -324,8 +365,8 @@ footer.site .mono{color:var(--ink)}
       </div>
 
       <div class="legend3">
-        <div><span class="mono" style="color:var(--amber)">Tronc commun</span><h3>Tout le groupe</h3><p>L'IA générative et les techniques émergentes, appliquées à chaque métier de la chaîne. Ces outils sont neufs pour tous les participants, quelle que soit leur expérience.</p></div>
-        <div><span class="mono" style="color:var(--amber)">Spécialité</span><h3>Un métier, un mentor</h3><p>Chaque mentor du studio accompagne deux participants de niveau proche. Le niveau déclaré à l'inscription sert à composer ces binômes.</p></div>
+        <div><span class="mono" style="color:var(--amber)">Tronc commun</span><h3>Le groupe entier</h3><p>Les outils génératifs et les techniques émergentes, appliqués à chaque métier de la chaîne. S'y ajoutent les règles de travail du studio, de la préparation des médias à la livraison. Le tronc commun se tient avant les périodes de forte production, afin que chacun soit prêt lorsque les projets arrivent.</p></div>
+        <div><span class="mono" style="color:var(--amber)">Spécialité</span><h3>Un mentor pour deux</h3><p>Chaque mentor accompagne deux participants de niveau proche, sur les productions en cours au studio. Le participant voit un film se terminer en post-production et teste les nouveaux outils sur des cas réels ; ce qu'il découvre revient à l'équipe pour les projets suivants.</p></div>
       </div>
     </div>
   </section>
@@ -336,7 +377,7 @@ footer.site .mono{color:var(--ink)}
         <span class="mono">Spécialités</span>
         <div>
           <h2 class="xw">Cinq métiers</h2>
-          <p>Chaque spécialité se pratique dans les espaces du studio qui lui sont dédiés.</p>
+          <p>Chaque spécialité correspond à un poste de travail de Downtown Studio et aux outils qui sont en train de transformer ce métier.</p>
         </div>
       </div>
       <div class="specs" id="specList"></div>
@@ -352,12 +393,30 @@ footer.site .mono{color:var(--ink)}
       <div class="duo">
         <article>
           <h3>Professionnels en activité</h3>
-          <p>Vous exercez un métier de la post-production et souhaitez intégrer à votre pratique les outils qui le transforment.</p>
+          <p>Monteurs, mixeurs, étalonneurs, graphistes VFX : vous maîtrisez votre métier, et les outils qui le transforment sont apparus après votre formation. Le tronc commun vous les fait pratiquer. La spécialité les confronte à votre niveau d'exigence, aux côtés d'un mentor qui partage votre expérience.</p>
         </article>
         <article>
           <h3>Jeunes diplômés</h3>
-          <p>Vous sortez d'une école de cinéma, où la spécialisation intervient tard. La spécialité vous place sur les postes d'un studio en activité, auprès des professionnels qui y travaillent.</p>
+          <p>Vous sortez d'un bachelor de cinéma, souvent généraliste, sans portfolio professionnel. La spécialité vous place sur des projets réels, avec leurs contraintes de budget et de délai, dans l'équipe qui les fabrique. Vous y apprenez l'organisation d'un studio autant que les outils.</p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec gut">
+    <div class="max">
+      <div class="sec-head">
+        <span class="mono">Le précédent</span>
+        <div>
+          <h2 class="xw">Lift et<br>Winter Palace</h2>
+          <p>Le principe a été éprouvé en 2024. Avec le programme Lift, Progress et Downtown Studio ont formé quatre diplômés de la HEAD et de l'ECAL en dix jours au poste de recorder de l'auditorium Atmos, une fonction qui n'existait pas en Suisse romande. Douze autres jeunes professionnels ont travaillé au montage son, au mixage et à l'étalonnage de Winter Palace, coproduite par Netflix, et de Rennaissance, coproduite par la RTS. Sur Winter Palace, les juniors disposaient du double du temps habituel et d'un mentorat. Plusieurs d'entre eux travaillent aujourd'hui avec Freestudios et d'autres prestataires du secteur.</p>
+        </div>
+      </div>
+      <div class="stats">
+        <div><b>4</b><span>recorders formés pour l'auditorium Atmos</span></div>
+        <div><b>12</b><span>jeunes professionnels sur des séries en production</span></div>
+        <div><b>2&times;</b><span>le temps habituel, accordé aux juniors de Winter Palace</span></div>
+        <div><b>2</b><span>séries : Winter Palace (Netflix) et Rennaissance (RTS)</span></div>
       </div>
     </div>
   </section>
@@ -368,14 +427,15 @@ footer.site .mono{color:var(--ink)}
         <span class="mono">Le lieu</span>
         <div>
           <h2 class="xw">Downtown<br>Studio</h2>
-          <p>Centre dédié aux industries audiovisuelles, 10 rue des Vieux-Grenadiers à Genève. Le tronc commun a lieu dans la salle de cours de Progress, les spécialités dans les espaces de production du studio.</p>
+          <p>Lancé en octobre 2022 par Freestudios, acteur de la post-production cinématographique, Downtown Studio est un centre d'expertise dédié aux industries audiovisuelles, au 10 rue des Vieux-Grenadiers à Genève. Ses équipes travaillent avec des producteurs indépendants depuis près de vingt ans. Le tronc commun a lieu dans la salle de cours de Progress, les spécialités dans les espaces de production du studio.</p>
         </div>
       </div>
       <div class="place">
         <figure class="tall"><img src="img/dts-lumiere.jpg" alt="Le patio de Downtown Studio, un disque lumineux orange derrière un palmier"><figcaption>© Magali Girardin</figcaption></figure>
         <figure><img src="img/dts-atrium.jpg" alt="L'atrium de Downtown Studio sous sa verrière" style="aspect-ratio:16/10"><figcaption>L'atrium</figcaption></figure>
         <div class="sheet">
-          <span class="mono" style="color:var(--amber);margin-bottom:6px">Salle de cours Progress</span>
+          <span class="mono" style="color:var(--amber);margin-bottom:6px">Équipements</span>
+          <div class="row"><span>Auditorium de mixage Atmos</span><span>400 m³</span></div>
           <div class="row"><span>Station d'étalonnage</span><span>Baselight</span></div>
           <div class="row"><span>Interfaces de colorimétrie</span><span>9</span></div>
           <div class="row"><span>Postes de travail</span><span>14</span></div>
@@ -398,34 +458,37 @@ footer.site .mono{color:var(--ink)}
   <section class="page-hero gut"><div class="max">
     <span class="mono" style="color:var(--amber)">Programme</span>
     <h1 class="xw" style="margin-top:20px">Le<br>programme</h1>
-    <p>Le tronc commun donne à tout le groupe les mêmes bases sur les outils et les techniques qui émergent. La spécialité les met en pratique dans un métier, sur les postes de Downtown Studio.</p>
+    <p>Le tronc commun donne au groupe des repères sur le fonctionnement des IA génératives et sur leur usage dans les métiers de l'image et du son. La spécialité les éprouve sur des productions réelles. Entre les deux, chaque participant mène une enquête appliquée à son métier, dont les résultats reviennent au studio.</p>
   </div></section>
 
   <section class="sec gut" style="padding-top:20px"><div class="max">
-    <div class="sec-head"><span class="mono">Tronc commun</span><div><h2 class="xw">Contenu</h2><p>Il se tient avant les périodes de forte production du studio, afin que les mentors soient disponibles au moment des spécialités.</p></div></div>
+    <div class="sec-head"><span class="mono">Tronc commun</span><div><h2 class="xw">Contenu</h2><p>Il se tient avant les pics de production du studio et alterne cours théoriques et ateliers d'expérimentation guidée.</p></div></div>
     <div class="grid-tc">
-      <article><h3>Les outils d'IA générative</h3><p>Image, vidéo, voix et musique : les outils actuels, leurs usages et leurs limites dans chaque métier de la post-production.</p></article>
-      <article><h3>Les techniques émergentes</h3><p>Réalité étendue, rendu en temps réel, passerelles avec le jeu vidéo.</p></article>
-      <article><h3>Le travail en studio</h3><p>Préparation des médias, organisation d'une chaîne de post-production, livraison.</p></article>
-      <article><h3>Droit et éthique</h3><p>Droits d'auteur, crédits et conditions d'usage des contenus générés dans une production.</p></article>
+      <article><h3>Les outils génératifs</h3><p>Image, vidéo, voix et musique : Runway, Stable Diffusion, ElevenLabs, Descript et les modèles apparus depuis. Ce que chacun produit réellement, et l'endroit où il s'insère dans la chaîne de post-production.</p></article>
+      <article><h3>Les techniques émergentes</h3><p>Réalité étendue, rendu en temps réel, passerelles entre le cinéma et le jeu vidéo. Des techniques en pleine émergence, pour lesquelles aucune formation établie n'existe encore.</p></article>
+      <article><h3>Le travail en studio</h3><p>Préparer les médias, gérer les données d'un projet, livrer selon les exigences des diffuseurs et des plateformes. La base que les professionnels du studio attendent de toute personne qui rejoint une production.</p></article>
+      <article><h3>Droit, éthique et crédits</h3><p>Statut des contenus générés, droit d'auteur, mention au générique, rémunération du travail utilisé. Des questions encore mal stabilisées, que chaque production rencontre dès qu'elle adopte ces outils.</p></article>
+      <article class="wide"><h3>Une enquête appliquée</h3><p>Chaque participant formule une question propre à son métier : les limites actuelles des voix générées, ou l'automatisation de la sélection des rushes. Il la met à l'épreuve pendant sa spécialité et documente ses essais. Ces résultats nourrissent les méthodes de travail du studio et la suite du programme.</p></article>
     </div>
   </div></section>
 
   <section class="sec gut"><div class="max">
     <div class="sec-head"><span class="mono">Organisation</span><div><h2 class="xw">Déroulé</h2></div></div>
     <div class="steps">
-      <div><span class="mono">Étape 1</span><h3>Inscription</h3><p>Vous choisissez votre spécialité et déclarez votre niveau.</p></div>
-      <div><span class="mono">Étape 2</span><h3>Constitution des binômes</h3><p>Les participants sont associés deux par deux, à niveau proche, et attribués à un mentor.</p></div>
-      <div><span class="mono">Étape 3</span><h3>Tronc commun</h3><p>Tout le groupe suit ensemble le socle sur l'IA et les nouvelles techniques.</p></div>
-      <div><span class="mono">Étape 4</span><h3>Spécialité</h3><p>Chaque binôme rejoint son mentor sur les postes du studio.</p></div>
+      <div><span class="mono">Étape 1</span><h3>Inscription</h3><p>Vous choisissez votre spécialité et déclarez votre niveau. L'organisation de la formation vous est présentée en entier avant votre engagement.</p></div>
+      <div><span class="mono">Étape 2</span><h3>Binômes</h3><p>Les participants sont associés deux par deux, à niveau proche, et attribués à un mentor de la spécialité. Un débutant n'est jamais associé à un participant confirmé.</p></div>
+      <div><span class="mono">Étape 3</span><h3>Tronc commun</h3><p>Le groupe entier suit le socle commun dans la salle de cours de Progress et formule les questions d'enquête de chacun.</p></div>
+      <div><span class="mono">Étape 4</span><h3>Spécialité</h3><p>Chaque binôme rejoint son mentor sur les productions en cours, puis restitue ses résultats à l'équipe du studio.</p></div>
     </div>
   </div></section>
 
   <section class="sec gut"><div class="max">
     <div class="sec-head"><span class="mono">Questions</span><div><h2 class="xw">Questions</h2></div></div>
     <div class="faq">
-      <details open><summary>Je travaille dans le métier depuis longtemps. Le tronc commun me concerne-t-il ?</summary><p>Oui. Il porte sur des outils et des techniques apparus récemment, que les professionnels expérimentés découvrent au même titre que les jeunes diplômés. Dans la spécialité, vous êtes ensuite placé selon votre niveau.</p></details>
-      <details><summary>Faut-il déjà connaître les outils d'IA ?</summary><p>Non. Le tronc commun part des bases et s'adresse à des participants qui n'ont jamais utilisé ces outils.</p></details>
+      <details open><summary>Je travaille dans le métier depuis longtemps. Le tronc commun me concerne-t-il ?</summary><p>Oui. Il porte sur des outils et des techniques apparus récemment, que les professionnels expérimentés découvrent au même titre que les jeunes diplômés. Dans la spécialité, vous êtes ensuite placé avec un mentor et un binôme de votre niveau.</p></details>
+      <details><summary>Faut-il déjà connaître les outils d'IA ?</summary><p>Non. Aucune compétence préalable en intelligence artificielle n'est demandée. Une connaissance du secteur audiovisuel et une réelle autonomie de travail sont attendues.</p></details>
+      <details><summary>Qui sont les mentors ?</summary><p>Des professionnels de Downtown Studio en activité dans chacune des spécialités. Ils réservent à leur binôme un temps de suivi fixe, y compris pendant les productions.</p></details>
+      <details><summary>Travaillerai-je sur de vrais films ?</summary><p>La spécialité se déroule sur les productions accueillies par le studio et son réseau. Les conditions de participation à un projet réel, notamment la mention au générique et la confidentialité, sont précisées avant le début de la spécialité.</p></details>
       <details><summary>Où se déroule la formation ?</summary><p>À Downtown Studio, 10 rue des Vieux-Grenadiers à Genève.</p></details>
     </div>
   </div></section>
@@ -440,28 +503,33 @@ footer.site .mono{color:var(--ink)}
   <section class="page-hero gut"><div class="max">
     <span class="mono" style="color:var(--amber)">L'association</span>
     <h1 class="xw" style="margin-top:20px">Progress</h1>
-    <p>Association genevoise à but non lucratif de formation continue aux métiers de l'audiovisuel, créée en novembre 2023 au sein de Downtown Studio.</p>
+    <p>Association genevoise à but non lucratif, créée en novembre 2023 au sein de Downtown Studio pour accompagner le passage entre les écoles de cinéma et la profession.</p>
   </div></section>
 
-  <section class="sec gut" style="padding-top:20px"><div class="max">
+  <section class="sec gut" style="padding-top:20px"><div class="max split">
     <div class="prose">
-      <p>Progress conçoit ses formations avec les équipes de Downtown Studio et les donne dans ses murs. Les participants travaillent sur les postes du studio, auprès des professionnels qui les occupent.</p>
-      <p>L'avenir de la post-production regroupe en un seul programme des cours jusqu'ici proposés séparément.</p>
+      <p>Progress est née d'un constat partagé par les professionnels du studio : la Suisse romande ne dispose pas d'un cadre professionnalisant actualisé pour les techniciens de post-production, et l'entrée dans le métier reste l'étape la plus difficile pour un jeune diplômé.</p>
+      <p>Ses deux premières années ont montré où se trouve sa valeur. Les formats qui ont produit des résultats sont ceux où les participants apprenaient au contact des professionnels et des projets du studio, comme Lift et la série Winter Palace. Les cours isolés sur un logiciel, proposés en parallèle, peinaient à réunir assez de participants pour ouvrir.</p>
+    </div>
+    <div class="prose">
+      <p>Progress organise désormais son offre autour de ce principe. Les équipements acquis grâce à la Fondation Wilsdorf, pour environ 200 000 francs, sont intégrés aux postes de travail du studio : stations VFX, colorimétrie Baselight Education, salles de montage image, studios de montage son, infrastructures XR.</p>
+      <p>L'ambition est de permettre aux participants d'apprendre dans les mêmes conditions, avec les mêmes outils et aux côtés des mêmes professionnels que ceux qu'ils rencontreront dans leur future carrière. L'avenir de la post-production est le premier programme construit sur ce modèle.</p>
     </div>
   </div></section>
 
   <section class="sec gut"><div class="max">
     <div class="sec-head"><span class="mono">Repères</span><div><h2 class="xw">D'où vient<br>Progress</h2></div></div>
     <div class="timeline-h">
-      <div><span class="yr">2023</span><p>Création de l'association au sein de Downtown Studio.</p></div>
-      <div><span class="yr">2024</span><p>Ouverture d'une salle de cours équipée grâce à la Fondation Wilsdorf. Lancement de Lift : de jeunes diplômés travaillent sur des productions du studio, encadrés par ses professionnels, notamment sur la série Winter Palace.</p></div>
-      <div><span class="yr">2025</span><p>Élection d'un nouveau comité par l'assemblée générale du 11 décembre.</p></div>
-      <div><span class="yr">2026</span><p>Lancement de L'avenir de la post-production.</p></div>
+      <div><span class="yr">2022</span><p>Freestudios lance Downtown Studio, centre d'expertise dédié aux industries audiovisuelles, avec l'approbation du Département de l'économie et de l'emploi.</p></div>
+      <div><span class="yr">2023</span><p>Création de l'association Progress au sein de Downtown Studio.</p></div>
+      <div><span class="yr">2024</span><p>Ouverture de la salle de cours équipée grâce à la Fondation Wilsdorf. Lancement de Lift : seize jeunes professionnels formés en production, dont quatre recorders pour l'auditorium Atmos.</p></div>
+      <div><span class="yr">2025</span><p>Étude de faisabilité sur le modèle de formation. L'assemblée générale du 11 décembre élit un nouveau comité.</p></div>
+      <div><span class="yr">2026</span><p>Progress recentre son offre sur l'apprentissage en production et lance L'avenir de la post-production.</p></div>
     </div>
   </div></section>
 
   <section class="sec gut"><div class="max">
-    <div class="sec-head"><span class="mono">Comité</span><div><h2 class="xw">Comité</h2></div></div>
+    <div class="sec-head"><span class="mono">Comité</span><div><h2 class="xw">Comité</h2><p>Élu par l'assemblée générale extraordinaire du 11 décembre 2025.</p></div></div>
     <div class="people">
       <div><span class="mono dim">Président</span><strong>Guillaume Helleu</strong></div>
       <div><span class="mono dim">Secrétaire général</span><strong>Jean-Charles Weber</strong></div>
@@ -472,9 +540,9 @@ footer.site .mono{color:var(--ink)}
   <section class="sec gut"><div class="max">
     <div class="sec-head"><span class="mono">Partenaires</span><div><h2 class="xw">Partenaires</h2></div></div>
     <div class="partners">
-      <div><strong>Downtown Studio</strong><p>Le lieu, ses équipes et ses productions.</p></div>
-      <div><strong>FFPC</strong><p>Fondation genevoise pour la formation professionnelle et continue.</p></div>
-      <div><strong>Fondation Wilsdorf</strong><p>Équipement de la salle de cours de Progress.</p></div>
+      <div><strong>Downtown Studio</strong><p>Hébergement de l'association, postes de travail, mentors et productions sur lesquelles se déroulent les spécialités.</p></div>
+      <div><strong>FFPC</strong><p>La Fondation genevoise pour la formation professionnelle et continue soutient les formations de Progress pour les participants domiciliés dans le canton de Genève.</p></div>
+      <div><strong>Fondation Wilsdorf</strong><p>Financement de la salle de cours et des équipements de Progress.</p></div>
     </div>
   </div></section>
 
@@ -577,11 +645,11 @@ var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').mat
 
 /* ---------- Données ---------- */
 var SPECS=[
-  {id:"son",code:"A1",c:"--son",hex:"#4FD1B4",name:"Montage son et mixage",short:"Son",where:"Studios de montage son · auditorium Atmos",what:"Les outils de génération et de traitement du son, des bruitages générés par l'IA au mixage en auditorium."},
-  {id:"eta",code:"V1",c:"--eta",hex:"#FF6B88",name:"Étalonnage",short:"Étalonnage",where:"Salle Baselight Education",what:"La colorimétrie et ses outils nouveaux, sur la chaîne Baselight du studio."},
-  {id:"img",code:"V2",c:"--img",hex:"#7AA2FF",name:"Montage image",short:"Montage",where:"Salles de montage image",what:"Les outils d'IA qui modifient le montage et la préparation des médias."},
-  {id:"vfx",code:"V3",c:"--vfx",hex:"#B98BFF",name:"VFX et compositing",short:"VFX",where:"Stations VFX",what:"La génération et l'hybridation d'images au service des effets visuels et du compositing."},
-  {id:"xr",code:"X1",c:"--xr",hex:"#E6D25A",name:"XR et nouveaux médias",short:"XR",where:"Infrastructures XR du studio",what:"Les formats immersifs et les techniques de rendu en temps réel."}
+  {id:"son",c:"--son",hex:"#4FD1B4",name:"Montage son et mixage",short:"Son",where:"Studios de montage son · auditorium Atmos de 400 m³",what:"Bruitages et voix générés, doublage synthétique : les outils qui arrivent au montage son, mis à l'épreuve dans l'auditorium Atmos du studio, le premier de ce type en Suisse romande."},
+  {id:"eta",c:"--eta",hex:"#FF6B88",name:"Étalonnage",short:"Étalonnage",where:"Salle Baselight Education",what:"La colorimétrie sur la chaîne Baselight du studio, là où se tiennent les certifications Baselight Education, et les traitements d'image assistés par l'IA qui s'y ajoutent."},
+  {id:"img",c:"--img",hex:"#7AA2FF",name:"Montage image",short:"Montage",where:"Salles de montage image",what:"Transcription, sélection des rushes, sous-titrage : les tâches que l'IA prend désormais en charge, et ce qu'elles changent dans le travail du monteur."},
+  {id:"vfx",c:"--vfx",hex:"#B98BFF",name:"VFX et compositing",short:"VFX",where:"Stations VFX",what:"Extensions de décor et nettoyage de plans par génération d'images, pratiqués pendant les pics de travail du studio, comme la période de Watches and Wonders."},
+  {id:"xr",c:"--xr",hex:"#E6D25A",name:"XR et nouveaux médias",short:"XR",where:"Infrastructures XR et nouveaux médias",what:"Formats immersifs et rendu en temps réel, pour les lieux culturels et les événements genevois qui intègrent désormais mapping et réalité virtuelle."}
 ];
 var picked=null;
 
