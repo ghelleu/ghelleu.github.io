@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Progress · L'avenir de la post-production</title>
+<title>Progress · Formation continue en post-production</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,7 +65,7 @@ nav.links a:hover::after,nav.links a[aria-current="page"]::after{transform:scale
 .overlay .close{position:absolute;top:calc(20px + env(safe-area-inset-top,0px));right:max(20px,env(safe-area-inset-right,0px))}
 
 main{position:relative;z-index:3;overflow-x:clip}
-.sec-head>*,.split>*,.reg-wrap>*,.hero-foot>*,.place>*,.issues>*,.stats>*,.duo>*,.legend3>*{min-width:0}
+.sec-head>*,.split>*,.reg-wrap>*,.hero-foot>*,.place>*,.progs>*,.modules>*,.issues>*,.stats>*,.duo>*,.legend3>*{min-width:0}
 .view[hidden]{display:none!important}
 
 
@@ -121,7 +121,7 @@ main{position:relative;z-index:3;overflow-x:clip}
 .spec .code{font-family:var(--mono);font-size:.8rem;color:var(--c);letter-spacing:.1em}
 .spec h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.6rem,3.6vw,3.1rem);line-height:.95;margin:0}
 .spec p{margin:0;color:#CFCBC3;font-size:.98rem}
-.spec .where{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:8px}
+.spec .where{display:block;font-size:.9rem;color:var(--dim);margin-top:10px;max-width:46ch}
 .spec .arr{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:background .3s,border-color .3s,transform .3s}
 .spec:hover .arr{background:var(--c);border-color:var(--c);color:#000;transform:rotate(-45deg)}
 
@@ -161,6 +161,32 @@ main{position:relative;z-index:3;overflow-x:clip}
 .stats span{color:#CFCBC3;font-size:.95rem}
 .grid-tc .wide{grid-column:1 / -1}
 .hero-foot p{max-width:62ch}
+.sec[id]{scroll-margin-top:70px}
+.tbd{display:inline;font-family:var(--mono);font-size:.82em;font-weight:600;color:var(--amber);background:rgba(255,138,61,.1);border:1px dashed rgba(255,138,61,.6);border-radius:4px;padding:1px 6px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.hero-title{font-size:clamp(3.2rem,15vw,15rem)}
+.hero-sub{font-variation-settings:"wdth" 112;font-weight:700;font-size:clamp(1.15rem,2.2vw,1.8rem);line-height:1.15;margin:22px 0 0;max-width:34ch}
+.prose-cols{columns:2 380px;column-gap:clamp(30px,5vw,70px);color:#D9D6CF;font-size:1.06rem}
+.prose-cols p{margin:0 0 1.1em;break-inside:avoid}
+.progs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.prog{background:rgba(5,5,6,.86);padding:clamp(26px,3.6vw,46px);display:grid;gap:18px;align-content:start;transition:background .3s}
+.prog:hover{background:rgba(255,138,61,.1)}
+.prog h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.5rem,2.8vw,2.4rem);line-height:1;margin:0}
+.prog p{margin:0;color:#CFCBC3}
+.prog .more{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
+.note{margin:28px 0 0;color:#CFCBC3;max-width:70ch}
+.stats.s3{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:30px}
+.modules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:40px}
+.modules article{background:rgba(5,5,6,.86);padding:28px;display:grid;gap:12px;align-content:start}
+.modules .mono{color:var(--amber)}
+.modules h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:1.35rem;line-height:1.02;margin:0}
+.modules p{margin:0;color:#CFCBC3;font-size:.96rem}
+.fiche .sec-head h2{font-size:clamp(1.8rem,5vw,4.6rem)}
+.sheet .row.info{grid-template-columns:120px minmax(0,1fr);font-size:.92rem}
+.sheet .row.info span:first-child{color:var(--dim)}
+.sheet .row.info span:last-child{font-family:var(--wide);font-size:.92rem;color:var(--ink)}
+.partners.p4{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stepper.s5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.hint{margin:0;color:var(--dim);font-size:.9rem}
 /* Pages intérieures */
 .page-hero{padding-block:clamp(150px,20vw,240px) 60px}
 .page-hero h1{font-size:clamp(2.4rem,10vw,10rem)}
@@ -202,7 +228,7 @@ form.reg{background:var(--panel);border:1px solid var(--line);border-radius:14px
 .stepper{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
 .stepper span{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);border-top:2px solid var(--line);padding-top:10px;transition:color .3s,border-color .3s}
 .stepper span.on{color:var(--ink);border-color:var(--amber)}
-.stepper span.done{color:var(--amber);border-color:var(--amber)}
+.stepper span.past{color:var(--amber);border-color:var(--amber)}
 fieldset{border:0;padding:0;margin:0;display:grid;gap:16px}
 legend{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1;margin-bottom:10px;padding:0}
 .field{display:grid;gap:8px}
@@ -252,7 +278,7 @@ footer.site .mono{color:var(--ink)}
   .menu-btn{display:inline-flex}
   .sec-head{grid-template-columns:1fr}
   .sec-head p{grid-column:1}
-  .issues,.legend3,.duo,.grid-tc,.people,.partners,.timeline-h{grid-template-columns:1fr}
+  .issues,.progs,.modules,.partners.p4,.stats.s3,.legend3,.duo,.grid-tc,.people,.partners,.timeline-h{grid-template-columns:1fr}
   .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .spec{grid-template-columns:minmax(0,1fr) 44px}
@@ -282,9 +308,8 @@ footer.site .mono{color:var(--ink)}
 <header class="top"><div class="bar gut max">
   <a class="logo" href="#accueil" aria-label="Progress, accueil"><img src="img/logo-progress.png" alt="PROGRESS"></a>
   <nav class="links" aria-label="Navigation principale">
-    <a href="#accueil">La formation</a>
-    <a href="#programme">Programme</a>
-    <a href="#progress">Progress</a>
+    <a href="#programme">Programmes</a>
+    <a href="#progress">L'association</a>
     <a href="#inscription" class="cta-pill">S'inscrire <span aria-hidden="true">→</span></a>
   </nav>
   <button class="menu-btn" id="menuOpen" type="button" aria-expanded="false" aria-controls="overlay">Menu <i></i></button>
@@ -292,9 +317,9 @@ footer.site .mono{color:var(--ink)}
 
 <div class="overlay gut" id="overlay" hidden>
   <button class="menu-btn close" id="menuClose" type="button" style="display:inline-flex">Fermer</button>
-  <a href="#accueil">La formation</a>
-  <a href="#programme">Programme</a>
-  <a href="#progress">Progress</a>
+  <a href="#accueil">Accueil</a>
+  <a href="#programme">Programmes</a>
+  <a href="#progress">L'association</a>
   <a href="#inscription" style="color:var(--amber)">S'inscrire</a>
 </div>
 
@@ -305,13 +330,12 @@ footer.site .mono{color:var(--ink)}
 
   <section class="hero gut">
     <div class="max" style="width:100%">
-      <div class="kicker mono">Formation continue en post-production · Genève</div>
-      <h1 class="xw"><span class="ln"><span>L'avenir</span></span><span class="ln"><span>de la</span></span><span class="ln"><span class="amb">post&#8209;prod</span></span></h1>
+      <h1 class="xw hero-title">Progress</h1>
+      <p class="hero-sub">Formation continue aux métiers de la post-production, au sein de Downtown Studio à Genève</p>
       <div class="hero-foot">
-        <p>Depuis 2022, les outils génératifs sont entrés à chaque poste de la post-production : montage, effets visuels, voix, doublage, bruitage. Ils sont apparus après la formation de ceux qui exercent aujourd'hui, et les écoles commencent à peine à les enseigner. L'avenir de la post-production réunit professionnels en activité et jeunes diplômés pour les apprendre ensemble, puis place chacun auprès d'un professionnel de Downtown Studio, dans le métier choisi à l'inscription.</p>
+        <p>Depuis 2022, les outils génératifs sont entrés dans chaque poste de la post-production audiovisuelle, du montage image au doublage et du traitement du son à l'étalonnage. Les professionnels en activité ont été formés avant leur apparition ; les jeunes diplômés les découvrent souvent seuls, hors de tout cadre de production. Progress, association genevoise à but non lucratif fondée en 2023 au sein de Downtown Studio, organise l'apprentissage de ces pratiques là où elles s'inventent, sur les postes de travail et dans les productions d'un studio en activité.</p>
         <div class="actions">
-          <a class="cta-pill amber" href="#inscription">S'inscrire <span aria-hidden="true">→</span></a>
-          <a class="ghost" href="#enjeux">Les enjeux</a>
+          <a class="cta-pill amber" href="#programme">Découvrir les programmes <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
@@ -319,54 +343,57 @@ footer.site .mono{color:var(--ink)}
 
   <div class="stage" aria-hidden="true"></div>
 
-  <section class="sec gut" id="enjeux">
+  <section class="sec gut" id="constat">
     <div class="max">
       <div class="sec-head">
-        <span class="mono">Les enjeux</span>
-        <div>
-          <h2 class="xw">Ce qui change<br>dans le métier</h2>
-          <p>L'intelligence artificielle menace une partie des tâches de la post-production et en crée de nouvelles. Pour le secteur, le défi principal réside dans la transition des équipes en place vers ces compétences, à mener en pleine production.</p>
-        </div>
+        <span class="mono">Le constat</span>
+        <div><h2 class="xw">Une chaîne de production en recomposition</h2></div>
       </div>
-      <div class="issues">
-        <article>
-          <h3>Une chaîne de production redistribuée</h3>
-          <p>Runway, Stable Diffusion, ElevenLabs, Descript : en quelques années, des outils génératifs ont pris en charge des tâches de montage, d'effets visuels, de sous-titrage et de doublage. Ils génèrent aussi des voix et des environnements 3D. Les rôles et les flux de travail se redéfinissent en conséquence.</p>
-        </article>
-        <article>
-          <h3>Des métiers qui se recomposent</h3>
-          <p>Les métiers de l'audiovisuel passent d'un modèle d'artisans très spécialisés à des profils capables de travailler à la frontière de plusieurs disciplines. Des fonctions nouvelles apparaissent autour de l'intégration de ces technologies dans la production, et les professionnels déjà en poste doivent les acquérir sans interrompre leur activité.</p>
-        </article>
-        <article>
-          <h3>Un écart entre l'école et le studio</h3>
-          <p>Les écoles romandes de cinéma sont revenues à des bachelors généralistes ; la spécialisation n'intervient qu'en master, où elle concerne quelques étudiants par métier. Dans une volée de master de cette rentrée, deux étudiants sur huit ont choisi le son. Les rythmes de production se sont accélérés, et les studios disposent de moins de temps pour intégrer un jeune diplômé dans une équipe aguerrie.</p>
-        </article>
-        <article>
-          <h3>Un cadre de formation à construire</h3>
-          <p>La Suisse romande ne dispose pas encore d'un cadre professionnalisant actualisé pour les techniciens de post-production. Les certifications existantes portent sur des logiciels. L'organisation du travail d'un studio, la préparation des médias et la livraison s'apprennent sur place, au contact de ceux qui les pratiquent.</p>
-        </article>
+      <div class="prose-cols">
+        <p>Les outils génératifs interviennent désormais dans des tâches jusqu'ici confiées à des techniciens spécialisés (sélection et transcription des rushes, sous-titrage, nettoyage de plans, extension de décors, génération de voix et de bruitages). Ils modifient en conséquence la répartition du travail et les compétences attendues à chaque poste. Le dossier de l'association décrit ce mouvement comme le passage d'un modèle d'artisans très spécialisés à des profils capables de travailler aux frontières de plusieurs disciplines.</p>
+        <p>Pour le secteur, la difficulté principale tient à la transition des équipes en place. Les professionnels doivent acquérir ces compétences sans interrompre leur activité, alors que les rythmes de production se sont accélérés et que les studios disposent de moins de temps pour intégrer un jeune diplômé dans une équipe aguerrie.</p>
+        <p>La Suisse romande ne dispose pas encore d'un cadre professionnalisant actualisé pour les techniciens de post-production. Les certifications existantes portent sur la maîtrise d'un logiciel donné. L'organisation du travail en studio, la préparation des médias, la gestion des données d'un projet et les exigences de livraison des diffuseurs s'apprennent sur place, au contact de ceux qui les pratiquent. C'est à cet endroit que Progress situe son action.</p>
       </div>
     </div>
   </section>
 
-  <section class="sec gut" id="parcours">
+  <section class="sec gut" id="methode">
     <div class="max">
       <div class="sec-head">
-        <span class="mono">Le parcours</span>
-        <div>
-          <h2 class="xw">Une inscription,<br>deux temps</h2>
-          <p>Les techniques émergentes placent tout le monde au même point de départ. Un ingénieur du son qui exerce depuis quinze ans découvre les bruitages générés par ElevenLabs en même temps qu'un diplômé de l'année. La formation tire parti de cette situation : un tronc commun pour l'ensemble du groupe, puis une spécialité choisie à l'inscription et pratiquée en binôme auprès d'un mentor du studio.</p>
-        </div>
+        <span class="mono">La méthode</span>
+        <div><h2 class="xw">Apprendre en production</h2></div>
+      </div>
+      <div class="prose-cols">
+        <p>Progress fonde ses programmes sur un principe vérifié par ses deux premières années d'activité : les apprentissages les plus solides se font au contact des professionnels, des infrastructures et des projets réels. Les participants travaillent dans les conditions qu'ils rencontreront dans leur carrière, sur les mêmes outils et auprès des mêmes équipes.</p>
+        <p>Chaque programme commence par un socle commun. Il donne à l'ensemble du groupe des repères sur le fonctionnement des intelligences artificielles génératives et sur leurs usages dans les métiers de l'image et du son. Il transmet aussi les règles de travail d'un studio. Il se tient avant les périodes de forte production, afin que chaque participant soit opérationnel lorsque les projets arrivent.</p>
+        <p>La pratique se poursuit ensuite dans une spécialité, auprès d'un professionnel de Downtown Studio et sur les productions accueillies par le studio. Le participant y éprouve les nouveaux outils sur des cas réels, au moment où un film se termine en post-production, et en mesure les effets sur la qualité du travail et sur les délais.</p>
+        <p>Cette pratique s'accompagne d'une enquête. Chaque participant formule une question propre à son métier, par exemple les limites actuelles des voix générées ou l'automatisation de la sélection des rushes, la met à l'épreuve pendant sa spécialité et documente ses essais. Le dispositif emprunte au format d'atelier de l'enseignement de l'architecture, où le travail autonome est ponctué de critiques et de points d'étape réguliers. Les résultats sont restitués à l'équipe du studio et alimentent les méthodes de travail des productions suivantes.</p>
       </div>
 
-      <div class="nle" id="nle">
-        <div class="nle-scroll"><svg id="nleSvg" viewBox="0 50 1200 470" role="img" aria-label="Schéma du parcours : inscription avec choix de spécialité, tronc commun partagé par tous les participants, puis cinq pistes de spécialité dont chaque participant suit une seule."></svg></div>
+      <div class="nle" id="nle" style="margin-top:56px">
+        <div class="nle-scroll"><svg id="nleSvg" viewBox="0 50 1200 470" role="img" aria-label="Schéma du parcours : inscription avec choix de spécialité, socle commun suivi par tous les participants, puis cinq spécialités dont chaque participant suit une seule."></svg></div>
         <div class="chips" id="chips"></div>
       </div>
+    </div>
+  </section>
 
-      <div class="legend3">
-        <div><span class="mono" style="color:var(--amber)">Tronc commun</span><h3>Le groupe entier</h3><p>Les outils génératifs et les techniques émergentes, appliqués à chaque métier de la chaîne. S'y ajoutent les règles de travail du studio, de la préparation des médias à la livraison. Le tronc commun se tient avant les périodes de forte production, afin que chacun soit prêt lorsque les projets arrivent.</p></div>
-        <div><span class="mono" style="color:var(--amber)">Spécialité</span><h3>Un mentor pour deux</h3><p>Chaque mentor accompagne deux participants de niveau proche, sur les productions en cours au studio. Le participant voit un film se terminer en post-production et teste les nouveaux outils sur des cas réels ; ce qu'il découvre revient à l'équipe pour les projets suivants.</p></div>
+  <section class="sec gut" id="programmes">
+    <div class="max">
+      <div class="sec-head">
+        <span class="mono">Programmes</span>
+        <div><h2 class="xw">Programmes</h2></div>
+      </div>
+      <div class="progs">
+        <a class="prog" href="#progress-ai">
+          <h3>Progress AI : IA et création cinéma</h3>
+          <p>Programme de trois modules de cinq jours consacré à la production audiovisuelle assistée par l'intelligence artificielle générative, de la préparation visuelle d'un film à l'hybridation entre prises de vues réelles et plans générés. Soutenu par la FFPC. Décembre 2026.</p>
+          <span class="more">Voir la fiche <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="prog" href="#avenir">
+          <h3>L'avenir de la post-production</h3>
+          <p>Formation fondée sur un socle commun consacré aux outils génératifs et aux techniques émergentes, suivi d'une pratique encadrée dans une spécialité de la post-production, sur les productions de Downtown Studio. <span class="tbd">[À CONFIRMER : dates et durée]</span></p>
+          <span class="more">Voir la fiche <span aria-hidden="true">→</span></span>
+        </a>
       </div>
     </div>
   </section>
@@ -376,8 +403,8 @@ footer.site .mono{color:var(--ink)}
       <div class="sec-head">
         <span class="mono">Spécialités</span>
         <div>
-          <h2 class="xw">Cinq métiers</h2>
-          <p>Chaque spécialité correspond à un poste de travail de Downtown Studio et aux outils qui sont en train de transformer ce métier.</p>
+          <h2 class="xw">Les postes de travail du studio</h2>
+          <p>Chaque spécialité correspond à un poste de travail de Downtown Studio et aux transformations que les outils génératifs y produisent. Les équipements acquis par l'association avec le soutien de la Fondation Wilsdorf sont intégrés à ces postes.</p>
         </div>
       </div>
       <div class="specs" id="specList"></div>
@@ -387,19 +414,20 @@ footer.site .mono{color:var(--ink)}
   <section class="sec gut">
     <div class="max">
       <div class="sec-head">
-        <span class="mono">Pour qui</span>
-        <div><h2 class="xw">Deux publics</h2></div>
+        <span class="mono">Publics</span>
+        <div><h2 class="xw">À qui s'adressent les programmes</h2></div>
       </div>
       <div class="duo">
         <article>
-          <h3>Professionnels en activité</h3>
-          <p>Monteurs, mixeurs, étalonneurs, graphistes VFX : vous maîtrisez votre métier, et les outils qui le transforment sont apparus après votre formation. Le tronc commun vous les fait pratiquer. La spécialité les confronte à votre niveau d'exigence, aux côtés d'un mentor qui partage votre expérience.</p>
+          <h3>Les professionnels en activité</h3>
+          <p>Monteurs, mixeurs, étalonneurs, graphistes VFX : leur expérience du métier reste l'atout principal dans l'usage de ces outils, apparus après leur formation. Le socle commun leur en donne la pratique ; la spécialité les confronte à leur niveau d'exigence, auprès d'un professionnel qui partage leur expérience.</p>
         </article>
         <article>
-          <h3>Jeunes diplômés</h3>
-          <p>Vous sortez d'un bachelor de cinéma, souvent généraliste, sans portfolio professionnel. La spécialité vous place sur des projets réels, avec leurs contraintes de budget et de délai, dans l'équipe qui les fabrique. Vous y apprenez l'organisation d'un studio autant que les outils.</p>
+          <h3>Les jeunes diplômés</h3>
+          <p>Issus pour la plupart de bachelors de cinéma généralistes, ils entrent sur le marché sans expérience de production ni portfolio professionnel. La spécialité les place sur des projets réels, avec leurs contraintes de budget et de délai, dans l'équipe qui les fabrique. Ils y apprennent l'organisation d'un studio autant que l'usage des outils.</p>
         </article>
       </div>
+      <p class="note">Les programmes sont ouverts aux personnes en reconversion qui justifient d'une pratique du secteur audiovisuel. Aucune compétence préalable en intelligence artificielle n'est requise.</p>
     </div>
   </section>
 
@@ -407,16 +435,16 @@ footer.site .mono{color:var(--ink)}
     <div class="max">
       <div class="sec-head">
         <span class="mono">Le précédent</span>
-        <div>
-          <h2 class="xw">Lift et<br>Winter Palace</h2>
-          <p>Le principe a été éprouvé en 2024. Avec le programme Lift, Progress et Downtown Studio ont formé quatre diplômés de la HEAD et de l'ECAL en dix jours au poste de recorder de l'auditorium Atmos, une fonction qui n'existait pas en Suisse romande. Douze autres jeunes professionnels ont travaillé au montage son, au mixage et à l'étalonnage de Winter Palace, coproduite par Netflix, et de Rennaissance, coproduite par la RTS. Sur Winter Palace, les juniors disposaient du double du temps habituel et d'un mentorat. Plusieurs d'entre eux travaillent aujourd'hui avec Freestudios et d'autres prestataires du secteur.</p>
-        </div>
+        <div><h2 class="xw">Lift, un principe éprouvé</h2></div>
       </div>
-      <div class="stats">
+      <div class="prose-cols">
+        <p>Le principe sur lequel reposent les programmes a été mis à l'épreuve avec Lift, programme de passerelle vers la profession conduit par Progress et Downtown Studio, avec le soutien de la FFPC. Lift place de jeunes diplômés sur des productions réelles en tant que professionnels juniors, avec un mentorat assuré par des experts en activité et le double du temps habituellement accordé à un professionnel confirmé.</p>
+        <p>Une première session a formé quatre diplômés de la HEAD et de l'ECAL, en dix jours intensifs, à la fonction de recorder de l'auditorium Atmos, une fonction qui n'existait pas en Suisse romande. Douze autres jeunes professionnels ont ensuite travaillé au montage son, au mixage et à l'étalonnage de deux séries : Winter Palace, de Pierre Monnard, coproduite par Netflix, et Rennaissance, de Dylan Taher et Léo Wadimoff, coproduite par la RTS. Plusieurs d'entre eux collaborent aujourd'hui avec Freestudios et d'autres prestataires du secteur.</p>
+      </div>
+      <div class="stats s3">
         <div><b>4</b><span>recorders formés pour l'auditorium Atmos</span></div>
         <div><b>12</b><span>jeunes professionnels sur des séries en production</span></div>
-        <div><b>2&times;</b><span>le temps habituel, accordé aux juniors de Winter Palace</span></div>
-        <div><b>2</b><span>séries : Winter Palace (Netflix) et Rennaissance (RTS)</span></div>
+        <div><b>2&times;</b><span>le temps habituel accordé aux juniors</span></div>
       </div>
     </div>
   </section>
@@ -426,8 +454,8 @@ footer.site .mono{color:var(--ink)}
       <div class="sec-head">
         <span class="mono">Le lieu</span>
         <div>
-          <h2 class="xw">Downtown<br>Studio</h2>
-          <p>Lancé en octobre 2022 par Freestudios, acteur de la post-production cinématographique, Downtown Studio est un centre d'expertise dédié aux industries audiovisuelles, au 10 rue des Vieux-Grenadiers à Genève. Ses équipes travaillent avec des producteurs indépendants depuis près de vingt ans. Le tronc commun a lieu dans la salle de cours de Progress, les spécialités dans les espaces de production du studio.</p>
+          <h2 class="xw">Downtown Studio</h2>
+          <p>Lancé en octobre 2022 par Freestudios, acteur de la post-production cinématographique, Downtown Studio est un centre d'expertise dédié aux industries audiovisuelles, situé au 10 rue des Vieux-Grenadiers à Genève. Le projet a reçu l'approbation du Département de l'économie et de l'emploi pour son potentiel en matière d'emploi. Ses équipes collaborent avec des producteurs indépendants depuis près de vingt ans. Le socle commun des programmes se tient dans la salle de cours de Progress ; la pratique se déroule dans les espaces de production du studio.</p>
         </div>
       </div>
       <div class="place">
@@ -453,43 +481,80 @@ footer.site .mono{color:var(--ink)}
   </section>
 </div>
 
-<!-- ===================== PROGRAMME ===================== -->
+<!-- ===================== PROGRAMMES ===================== -->
 <div class="view" data-view="programme" hidden>
   <section class="page-hero gut"><div class="max">
-    <span class="mono" style="color:var(--amber)">Programme</span>
-    <h1 class="xw" style="margin-top:20px">Le<br>programme</h1>
-    <p>Le tronc commun donne au groupe des repères sur le fonctionnement des IA génératives et sur leur usage dans les métiers de l'image et du son. La spécialité les éprouve sur des productions réelles. Entre les deux, chaque participant mène une enquête appliquée à son métier, dont les résultats reviennent au studio.</p>
+    <span class="mono" style="color:var(--amber)">Programmes</span>
+    <h1 class="xw" style="margin-top:20px">Programmes</h1>
   </div></section>
 
-  <section class="sec gut" style="padding-top:20px"><div class="max">
-    <div class="sec-head"><span class="mono">Tronc commun</span><div><h2 class="xw">Contenu</h2><p>Il se tient avant les pics de production du studio et alterne cours théoriques et ateliers d'expérimentation guidée.</p></div></div>
-    <div class="grid-tc">
-      <article><h3>Les outils génératifs</h3><p>Image, vidéo, voix et musique : Runway, Stable Diffusion, ElevenLabs, Descript et les modèles apparus depuis. Ce que chacun produit réellement, et l'endroit où il s'insère dans la chaîne de post-production.</p></article>
-      <article><h3>Les techniques émergentes</h3><p>Réalité étendue, rendu en temps réel, passerelles entre le cinéma et le jeu vidéo. Des techniques en pleine émergence, pour lesquelles aucune formation établie n'existe encore.</p></article>
-      <article><h3>Le travail en studio</h3><p>Préparer les médias, gérer les données d'un projet, livrer selon les exigences des diffuseurs et des plateformes. La base que les professionnels du studio attendent de toute personne qui rejoint une production.</p></article>
-      <article><h3>Droit, éthique et crédits</h3><p>Statut des contenus générés, droit d'auteur, mention au générique, rémunération du travail utilisé. Des questions encore mal stabilisées, que chaque production rencontre dès qu'elle adopte ces outils.</p></article>
-      <article class="wide"><h3>Une enquête appliquée</h3><p>Chaque participant formule une question propre à son métier : les limites actuelles des voix générées, ou l'automatisation de la sélection des rushes. Il la met à l'épreuve pendant sa spécialité et documente ses essais. Ces résultats nourrissent les méthodes de travail du studio et la suite du programme.</p></article>
+  <section class="sec gut fiche" id="progress-ai" style="padding-top:20px"><div class="max">
+    <div class="sec-head"><span class="mono">Programme</span><div>
+      <h2 class="xw">Progress AI : IA et création cinéma</h2>
+      <p>Programme de formation continue en trois modules autonomes de cinq jours, consacré à la production audiovisuelle assistée par l'intelligence artificielle générative. Chaque module peut être suivi séparément ; ensemble, ils parcourent le pipeline complet d'un film, de la préparation visuelle à la finalisation. Un scénario commun, écrit par Dirty Bacon Productions, sert de support aux exercices des trois modules.</p>
+    </div></div>
+    <div class="modules">
+      <article><span class="mono">Module 1</span><h3>Fondations visuelles</h3><p>Le module introduit les outils de génération d'images et de vidéos et forme à la grammaire du prompt cinématographique : cadrage, focale, lumière, références esthétiques et direction artistique. Les participants passent du scénario au découpage, construisent la cohérence visuelle des personnages, des costumes, des décors et des environnements, et réalisent une bible visuelle de production (fiches personnages, mood boards, palette chromatique, story-board prévisualisé).</p></article>
+      <article><span class="mono">Module 2</span><h3>Production complète</h3><p>À partir de la bible du premier module, les participants produisent un court métrage de une à trois minutes entièrement généré. Le module couvre le choix et la combinaison des modèles vidéo selon la nature des plans, la continuité narrative et les raccords entre plans, la création de la bande sonore (voix, musique et ambiances générées, sound design), puis le montage et l'étalonnage sur DaVinci Resolve. Un sound designer et un monteur interviennent pendant deux journées.</p></article>
+      <article><span class="mono">Module 3</span><h3>Hybridation entre réel et génération</h3><p>Le module porte sur l'usage professionnel le plus exigeant de ces outils : l'association de prises de vues réelles et de plans générés. Il commence par une journée de tournage léger dans le studio de Downtown Studio, encadrée par un directeur de la photographie et un comédien professionnel, puis aborde l'analyse de footage, le matching colorimétrique, le compositing, les extensions de décor et l'intégration d'un acteur réel dans un environnement généré. Les participants réalisent un court métrage hybride et documentent leur méthode dans un guide de pipeline.</p></article>
+    </div>
+    <div class="split fiche-foot">
+      <div class="prose">
+        <p><b>Public.</b> Professionnels et semi-professionnels de l'audiovisuel et de la création numérique : réalisateurs, assistants à la réalisation, directeurs artistiques, chefs opérateurs, monteurs, artistes VFX, ingénieurs du son, producteurs et coordinateurs de production. Le premier module ne demande aucune connaissance préalable en intelligence artificielle ; les deux suivants restent accessibles aux candidats qui pratiquent déjà ces outils.</p>
+        <p><b>Évaluation.</b> Chaque module se conclut par l'évaluation du livrable devant un jury de professionnels du cinéma et de spécialistes de l'intelligence artificielle.</p>
+      </div>
+      <div class="sheet">
+        <span class="mono" style="color:var(--amber);margin-bottom:6px">Informations pratiques</span>
+        <div class="row info"><span>Durée</span><span>trois modules de cinq jours consécutifs, 30 périodes de 60 minutes par module</span></div>
+        <div class="row info"><span>Effectif</span><span>6 à 8 participants par module</span></div>
+        <div class="row info"><span>Lieu</span><span>Downtown Studio, 10 rue des Vieux-Grenadiers, Genève (salle de cours et studio de tournage)</span></div>
+        <div class="row info"><span>Calendrier</span><span>décembre 2026 <span class="tbd">[À CONFIRMER : dates de chaque module]</span></span></div>
+        <div class="row info"><span>Tarif</span><span><span class="tbd">[À CONFIRMER : le document de travail FFPC indique 300 CHF pour le module 1 et 500 CHF pour les modules 2 et 3]</span></span></div>
+        <div class="row info"><span>Financement</span><span>programme soutenu par la Fondation genevoise pour la formation professionnelle et continue (FFPC)</span></div>
+        <div class="row info"><span>Attestation</span><span>attestation cantonale</span></div>
+        <div class="row info"><span>Partenaires</span><span>Downtown Studio, Dirty Bacon Productions</span></div>
+        <div style="padding-top:16px"><a class="cta-pill amber" href="#inscription" data-prog="pai">S'inscrire <span aria-hidden="true">→</span></a></div>
+      </div>
     </div>
   </div></section>
 
-  <section class="sec gut"><div class="max">
-    <div class="sec-head"><span class="mono">Organisation</span><div><h2 class="xw">Déroulé</h2></div></div>
-    <div class="steps">
-      <div><span class="mono">Étape 1</span><h3>Inscription</h3><p>Vous choisissez votre spécialité et déclarez votre niveau. L'organisation de la formation vous est présentée en entier avant votre engagement.</p></div>
-      <div><span class="mono">Étape 2</span><h3>Binômes</h3><p>Les participants sont associés deux par deux, à niveau proche, et attribués à un mentor de la spécialité. Un débutant n'est jamais associé à un participant confirmé.</p></div>
-      <div><span class="mono">Étape 3</span><h3>Tronc commun</h3><p>Le groupe entier suit le socle commun dans la salle de cours de Progress et formule les questions d'enquête de chacun.</p></div>
-      <div><span class="mono">Étape 4</span><h3>Spécialité</h3><p>Chaque binôme rejoint son mentor sur les productions en cours, puis restitue ses résultats à l'équipe du studio.</p></div>
+  <section class="sec gut fiche" id="avenir"><div class="max">
+    <div class="sec-head"><span class="mono">Programme</span><div>
+      <h2 class="xw">L'avenir de la post-production</h2>
+      <p>Formation destinée aux professionnels en activité et aux jeunes diplômés, qui associe un socle commun consacré aux outils génératifs et aux techniques émergentes à une pratique encadrée dans une spécialité, sur les productions de Downtown Studio.</p>
+    </div></div>
+    <div class="split fiche-foot">
+      <div class="prose">
+        <p><b>Objectifs.</b> À l'issue de la formation, les participants comprennent le fonctionnement des intelligences artificielles génératives et leur place dans la chaîne de post-production ; ils savent les intégrer à leur métier en tenant compte des exigences de qualité et de livraison d'une production professionnelle ; ils maîtrisent l'organisation du travail en studio ; ils ont conduit et documenté une enquête appliquée sur une question de leur métier.</p>
+        <p><b>Le socle commun.</b> Il alterne cours théoriques et ateliers d'expérimentation guidée. Il traite des outils de génération d'images, de vidéos, de voix et de musique, de ce que chacun produit réellement et de l'endroit où il s'insère dans la chaîne de fabrication. Il aborde les techniques émergentes pour lesquelles aucune formation établie n'existe encore, de la réalité étendue au rendu en temps réel. Il transmet les règles de travail d'un studio, de la préparation des médias à la gestion des données d'un projet et aux exigences de livraison des diffuseurs et des plateformes. Il examine enfin les questions juridiques et éthiques encore mal stabilisées que pose l'usage de ces outils : statut des contenus générés, droit d'auteur, mention au générique et rémunération du travail utilisé.</p>
+        <p><b>La spécialité.</b> Chaque participant rejoint un professionnel de Downtown Studio dans la spécialité choisie à l'inscription, sur les productions en cours. Les participants sont répartis par niveau, afin que l'encadrement corresponde à leur expérience. <span class="tbd">[À ARBITRER : nombre de participants par mentor et temps de suivi garanti]</span></p>
+        <p><b>L'enquête appliquée.</b> Formulée pendant le socle commun, la question de chaque participant est mise à l'épreuve pendant la spécialité, documentée et restituée à l'équipe du studio.</p>
+      </div>
+      <div class="sheet">
+        <span class="mono" style="color:var(--amber);margin-bottom:6px">Informations pratiques</span>
+        <div class="row info"><span>Durée et rythme</span><span><span class="tbd">[À CONFIRMER]</span></span></div>
+        <div class="row info"><span>Effectif</span><span><span class="tbd">[À CONFIRMER]</span></span></div>
+        <div class="row info"><span>Lieu</span><span>Downtown Studio, 10 rue des Vieux-Grenadiers, Genève</span></div>
+        <div class="row info"><span>Calendrier</span><span><span class="tbd">[À CONFIRMER]</span></span></div>
+        <div class="row info"><span>Tarif</span><span><span class="tbd">[À CONFIRMER]</span></span></div>
+        <div class="row info"><span>Financement</span><span>la FFPC soutient les formations de Progress pour les participants domiciliés dans le canton de Genève <span class="tbd">[À CONFIRMER pour ce programme]</span></span></div>
+        <div class="row info"><span>Attestation</span><span><span class="tbd">[À CONFIRMER]</span></span></div>
+        <div class="row info"><span>Admission</span><span>connaissance du secteur audiovisuel et autonomie de travail ; aucune compétence préalable en intelligence artificielle <span class="tbd">[À CONFIRMER : modalités de sélection]</span></span></div>
+        <div style="padding-top:16px"><a class="cta-pill amber" href="#inscription" data-prog="ava">S'inscrire <span aria-hidden="true">→</span></a></div>
+      </div>
     </div>
   </div></section>
 
-  <section class="sec gut"><div class="max">
-    <div class="sec-head"><span class="mono">Questions</span><div><h2 class="xw">Questions</h2></div></div>
+  <section class="sec gut" id="questions"><div class="max">
+    <div class="sec-head"><span class="mono">Questions fréquentes</span><div><h2 class="xw">Questions fréquentes</h2></div></div>
     <div class="faq">
-      <details open><summary>Je travaille dans le métier depuis longtemps. Le tronc commun me concerne-t-il ?</summary><p>Oui. Il porte sur des outils et des techniques apparus récemment, que les professionnels expérimentés découvrent au même titre que les jeunes diplômés. Dans la spécialité, vous êtes ensuite placé avec un mentor et un binôme de votre niveau.</p></details>
-      <details><summary>Faut-il déjà connaître les outils d'IA ?</summary><p>Non. Aucune compétence préalable en intelligence artificielle n'est demandée. Une connaissance du secteur audiovisuel et une réelle autonomie de travail sont attendues.</p></details>
-      <details><summary>Qui sont les mentors ?</summary><p>Des professionnels de Downtown Studio en activité dans chacune des spécialités. Ils réservent à leur binôme un temps de suivi fixe, y compris pendant les productions.</p></details>
-      <details><summary>Travaillerai-je sur de vrais films ?</summary><p>La spécialité se déroule sur les productions accueillies par le studio et son réseau. Les conditions de participation à un projet réel, notamment la mention au générique et la confidentialité, sont précisées avant le début de la spécialité.</p></details>
-      <details><summary>Où se déroule la formation ?</summary><p>À Downtown Studio, 10 rue des Vieux-Grenadiers à Genève.</p></details>
+      <details open><summary>Je pratique mon métier depuis de nombreuses années. Le socle commun me concerne-t-il ?</summary><p>Oui. Il porte sur des outils et des techniques apparus récemment, que les professionnels expérimentés découvrent au même moment que les jeunes diplômés. Votre expérience reste l'atout principal pour juger de leur usage, et la spécialité vous place auprès d'un professionnel et de participants de niveau comparable.</p></details>
+      <details><summary>Faut-il déjà connaître les outils d'intelligence artificielle ?</summary><p>Non. Aucune compétence préalable en intelligence artificielle n'est demandée. Une connaissance du secteur audiovisuel et une réelle autonomie de travail sont attendues.</p></details>
+      <details><summary>Qui encadre la pratique ?</summary><p>Des professionnels de Downtown Studio en activité dans chacune des spécialités. <span class="tbd">[À CONFIRMER : noms et modalités de suivi]</span></p></details>
+      <details><summary>Travaillerai-je sur des productions réelles ?</summary><p>La spécialité se déroule sur les productions accueillies par le studio et son réseau. Les conditions de participation, notamment la mention au générique et la confidentialité, sont précisées avant le début de la spécialité.</p></details>
+      <details><summary>Les formations sont-elles financées ?</summary><p>La Fondation genevoise pour la formation professionnelle et continue (FFPC) soutient les formations de Progress pour les participants domiciliés dans le canton de Genève, ce qui permet de maintenir des tarifs accessibles. Les conditions propres à chaque programme figurent sur sa fiche.</p></details>
+      <details><summary>Quelle attestation est délivrée ?</summary><p>Progress AI donne lieu à une attestation cantonale. <span class="tbd">[À CONFIRMER pour L'avenir de la post-production]</span></p></details>
+      <details><summary>Où se déroulent les formations ?</summary><p>À Downtown Studio, 10 rue des Vieux-Grenadiers, à Genève.</p></details>
     </div>
   </div></section>
 
@@ -498,33 +563,31 @@ footer.site .mono{color:var(--ink)}
   </div></section>
 </div>
 
-<!-- ===================== PROGRESS ===================== -->
+<!-- ===================== ASSOCIATION ===================== -->
 <div class="view" data-view="progress" hidden>
   <section class="page-hero gut"><div class="max">
     <span class="mono" style="color:var(--amber)">L'association</span>
-    <h1 class="xw" style="margin-top:20px">Progress</h1>
-    <p>Association genevoise à but non lucratif, créée en novembre 2023 au sein de Downtown Studio pour accompagner le passage entre les écoles de cinéma et la profession.</p>
+    <h1 class="xw" style="margin-top:20px">L'association</h1>
+    <p>Progress est une association genevoise à but non lucratif, créée en novembre 2023 au sein de Downtown Studio. Sa mission est d'accompagner les professionnels de l'audiovisuel dans l'évolution de leurs métiers et les jeunes diplômés dans leur entrée dans la profession.</p>
   </div></section>
 
-  <section class="sec gut" style="padding-top:20px"><div class="max split">
-    <div class="prose">
-      <p>Progress est née d'un constat partagé par les professionnels du studio : la Suisse romande ne dispose pas d'un cadre professionnalisant actualisé pour les techniciens de post-production, et l'entrée dans le métier reste l'étape la plus difficile pour un jeune diplômé.</p>
-      <p>Ses deux premières années ont montré où se trouve sa valeur. Les formats qui ont produit des résultats sont ceux où les participants apprenaient au contact des professionnels et des projets du studio, comme Lift et la série Winter Palace. Les cours isolés sur un logiciel, proposés en parallèle, peinaient à réunir assez de participants pour ouvrir.</p>
-    </div>
-    <div class="prose">
-      <p>Progress organise désormais son offre autour de ce principe. Les équipements acquis grâce à la Fondation Wilsdorf, pour environ 200 000 francs, sont intégrés aux postes de travail du studio : stations VFX, colorimétrie Baselight Education, salles de montage image, studios de montage son, infrastructures XR.</p>
-      <p>L'ambition est de permettre aux participants d'apprendre dans les mêmes conditions, avec les mêmes outils et aux côtés des mêmes professionnels que ceux qu'ils rencontreront dans leur future carrière. L'avenir de la post-production est le premier programme construit sur ce modèle.</p>
+  <section class="sec gut" style="padding-top:20px"><div class="max">
+    <div class="prose-cols">
+      <p>L'association est née d'un constat partagé par les professionnels du studio : la Suisse romande ne dispose pas d'un cadre professionnalisant actualisé pour les techniciens de post-production, et la transition entre l'école et la production reste l'étape la plus difficile d'une carrière.</p>
+      <p>Ses premières années ont permis d'éprouver plusieurs formats. Un catalogue de cours spécialisés, consacré à des logiciels et à des techniques précises, a été proposé en 2024 et 2025 avec des partenaires reconnus, dont certains délivraient les certifications officielles des éditeurs de logiciels. En parallèle, Lift a placé de jeunes diplômés sur des productions réelles du studio. Une étude de faisabilité conduite en 2025 avec des consultants externes a confirmé la pertinence de la mission et montré que la valeur de l'association tient à sa capacité à relier les participants à un environnement professionnel réel.</p>
+      <p>Progress organise désormais ses programmes autour de ce principe. Les équipements acquis grâce au soutien de la Fondation Wilsdorf sont intégrés aux postes de travail du studio, afin que les participants apprennent dans les mêmes conditions, avec les mêmes outils et aux côtés des mêmes professionnels que ceux qu'ils rencontreront dans leur carrière. <span class="tbd">[À ARBITRER : mention du montant d'environ 200 000 CHF]</span></p>
+      <p>L'association met également ses équipements à disposition de partenaires de formation. La salle de cours accueille les ateliers d'écriture de l'association WIP (Work In Progress), et les formations certifiantes du programme Baselight Education y sont animées par Boris Rabusseau, formateur officiel Baselight.</p>
     </div>
   </div></section>
 
   <section class="sec gut"><div class="max">
-    <div class="sec-head"><span class="mono">Repères</span><div><h2 class="xw">D'où vient<br>Progress</h2></div></div>
+    <div class="sec-head"><span class="mono">Repères</span><div><h2 class="xw">Repères</h2></div></div>
     <div class="timeline-h">
-      <div><span class="yr">2022</span><p>Freestudios lance Downtown Studio, centre d'expertise dédié aux industries audiovisuelles, avec l'approbation du Département de l'économie et de l'emploi.</p></div>
-      <div><span class="yr">2023</span><p>Création de l'association Progress au sein de Downtown Studio.</p></div>
-      <div><span class="yr">2024</span><p>Ouverture de la salle de cours équipée grâce à la Fondation Wilsdorf. Lancement de Lift : seize jeunes professionnels formés en production, dont quatre recorders pour l'auditorium Atmos.</p></div>
-      <div><span class="yr">2025</span><p>Étude de faisabilité sur le modèle de formation. L'assemblée générale du 11 décembre élit un nouveau comité.</p></div>
-      <div><span class="yr">2026</span><p>Progress recentre son offre sur l'apprentissage en production et lance L'avenir de la post-production.</p></div>
+      <div><span class="yr">2022</span><p>Freestudios lance Downtown Studio à Genève, centre d'expertise dédié aux industries audiovisuelles, avec l'approbation du Département de l'économie et de l'emploi.</p></div>
+      <div><span class="yr">2023</span><p>Création de l'association Progress au sein de Downtown Studio. Première session de Lift : formation de recorders pour l'auditorium Atmos. <span class="tbd">[À CONFIRMER : date]</span></p></div>
+      <div><span class="yr">2024</span><p>Ouverture de la salle de cours équipée grâce à la Fondation Wilsdorf. Lancement du catalogue de cours avec des partenaires de formation. Douze jeunes professionnels travaillent sur les séries Winter Palace et Rennaissance.</p></div>
+      <div><span class="yr">2025</span><p>Étude de faisabilité sur le modèle de formation. Le 11 décembre, une assemblée générale extraordinaire élit un nouveau comité.</p></div>
+      <div><span class="yr">2026</span><p>Progress recentre ses programmes sur l'apprentissage en production. Lancement de Progress AI, soutenu par la FFPC, en décembre.</p></div>
     </div>
   </div></section>
 
@@ -539,32 +602,34 @@ footer.site .mono{color:var(--ink)}
 
   <section class="sec gut"><div class="max">
     <div class="sec-head"><span class="mono">Partenaires</span><div><h2 class="xw">Partenaires</h2></div></div>
-    <div class="partners">
-      <div><strong>Downtown Studio</strong><p>Hébergement de l'association, postes de travail, mentors et productions sur lesquelles se déroulent les spécialités.</p></div>
-      <div><strong>FFPC</strong><p>La Fondation genevoise pour la formation professionnelle et continue soutient les formations de Progress pour les participants domiciliés dans le canton de Genève.</p></div>
-      <div><strong>Fondation Wilsdorf</strong><p>Financement de la salle de cours et des équipements de Progress.</p></div>
+    <div class="partners p4">
+      <div><strong>Downtown Studio</strong><p>Hébergement de l'association, postes de travail, encadrement et productions sur lesquelles se déroule la pratique.</p></div>
+      <div><strong>Fondation genevoise pour la formation professionnelle et continue (FFPC)</strong><p>Soutien des formations de Progress pour les participants domiciliés dans le canton de Genève.</p></div>
+      <div><strong>Fondation Wilsdorf</strong><p>Financement de la salle de cours et des équipements de l'association.</p></div>
+      <div><strong>Dirty Bacon Productions</strong><p>Conception pédagogique et scénario commun du programme Progress AI.</p></div>
     </div>
+    <p class="note"><span class="tbd">[À CONFIRMER : partenaires de formation à mentionner (WIP, Baselight Education, IFAGE, XN Swiss, Floating Point, Wagcom)]</span></p>
   </div></section>
 
   <section class="final gut"><div class="max" style="width:100%;display:grid;gap:30px">
     <h2 class="xw" style="font-size:clamp(2.6rem,8vw,7rem)">Contact</h2>
     <p class="copy">info@progressgeneve.ch</p>
-    <p style="margin:0;color:#CFCBC3">Association Progress · c/o Downtown Studio · 10 rue des Vieux-Grenadiers · 1205 Genève</p>
+    <p style="margin:0;color:#CFCBC3">Association Progress, c/o Downtown Studio, 10 rue des Vieux-Grenadiers, 1205 Genève</p>
   </div></section>
 </div>
 
 <!-- ===================== INSCRIPTION ===================== -->
 <div class="view" data-view="inscription" hidden>
   <section class="page-hero gut" style="padding-bottom:40px"><div class="max">
-    <span class="mono" style="color:var(--amber)">L'avenir de la post-production</span>
+    <span class="mono" style="color:var(--amber)">Inscription</span>
     <h1 class="xw" style="margin-top:20px">Inscription</h1>
-    <p>L'inscription couvre le tronc commun et la spécialité choisie.</p>
+    <p>L'inscription se fait par programme. Pour L'avenir de la post-production, elle couvre le socle commun et la spécialité choisie. Pour Progress AI, chaque module fait l'objet d'une inscription distincte. Votre demande est examinée par l'association, qui vous confirme votre place et les modalités de paiement.</p>
   </div></section>
 
   <section class="gut" style="padding-bottom:140px"><div class="max reg-wrap">
     <div>
       <form class="reg" id="regForm" novalidate>
-        <div class="stepper" id="stepper"><span>01 · Vous</span><span>02 · Spécialité</span><span>03 · Niveau</span><span>04 · Envoi</span></div>
+        <div class="stepper s5" id="stepper"><span>Vous</span><span>Programme</span><span>Spécialité ou module</span><span>Niveau</span><span>Envoi</span></div>
 
         <fieldset data-step="1">
           <legend>Vos coordonnées</legend>
@@ -577,27 +642,48 @@ footer.site .mono{color:var(--ink)}
               <option>Jeune diplômé·e d'une école de cinéma</option>
               <option>En reconversion vers l'audiovisuel</option>
             </select></div>
+          <div class="field"><label for="f-canton">Canton de domicile</label>
+            <select id="f-canton">
+              <option value="">Sélectionner</option>
+              <option>Genève</option>
+              <option>Autre canton</option>
+              <option>Hors de Suisse</option>
+            </select></div>
+          <p class="hint">Les participants domiciliés dans le canton de Genève bénéficient du soutien de la FFPC. Merci d'indiquer votre canton de domicile.</p>
         </fieldset>
 
         <fieldset data-step="2" hidden>
-          <legend>Votre spécialité</legend>
-          <div class="opts" id="specOpts"></div>
+          <legend>Votre programme</legend>
+          <div class="opts" id="progOpts">
+            <label class="opt"><input type="radio" name="prog" value="ava"><span class="dot"></span><strong>L'avenir de la post-production</strong><span></span><small>Socle commun et spécialité choisie.</small></label>
+            <label class="opt"><input type="radio" name="prog" value="pai"><span class="dot"></span><strong>Progress AI : IA et création cinéma</strong><span></span><small>Trois modules de cinq jours, décembre 2026.</small></label>
+          </div>
         </fieldset>
 
         <fieldset data-step="3" hidden>
+          <legend id="step3Title">Votre spécialité</legend>
+          <div class="opts" id="specOpts"></div>
+          <div class="opts" id="modOpts" hidden>
+            <label class="opt"><input type="checkbox" name="mod" value="Module 1 : Fondations visuelles"><span class="dot"></span><strong>Module 1 : Fondations visuelles</strong><span></span><small>Aucune connaissance préalable en intelligence artificielle n'est demandée.</small></label>
+            <label class="opt"><input type="checkbox" name="mod" value="Module 2 : Production complète"><span class="dot"></span><strong>Module 2 : Production complète</strong><span></span><small>Court métrage entièrement généré, à partir de la bible du premier module.</small></label>
+            <label class="opt"><input type="checkbox" name="mod" value="Module 3 : Hybridation entre réel et génération"><span class="dot"></span><strong>Module 3 : Hybridation entre réel et génération</strong><span></span><small>Prises de vues réelles et plans générés.</small></label>
+          </div>
+        </fieldset>
+
+        <fieldset data-step="4" hidden>
           <legend>Votre niveau</legend>
           <div class="opts" id="lvlOpts">
             <label class="opt"><input type="radio" name="lvl" value="Découverte"><span class="dot"></span><strong>Découverte</strong><span></span><small>Vous n'avez jamais exercé ce métier.</small></label>
-            <label class="opt"><input type="radio" name="lvl" value="Formé·e"><span class="dot"></span><strong>Formé·e</strong><span></span><small>Vous l'avez appris à l'école ou pratiqué sur quelques projets.</small></label>
+            <label class="opt"><input type="radio" name="lvl" value="Formé·e"><span class="dot"></span><strong>Formé·e</strong><span></span><small>Vous l'avez appris en formation ou pratiqué sur quelques projets.</small></label>
             <label class="opt"><input type="radio" name="lvl" value="Confirmé·e"><span class="dot"></span><strong>Confirmé·e</strong><span></span><small>Vous l'exercez professionnellement depuis plusieurs années.</small></label>
           </div>
           <div class="field"><label for="f-motiv">Vos attentes (facultatif)</label><textarea id="f-motiv"></textarea></div>
         </fieldset>
 
-        <fieldset data-step="4" hidden>
-          <legend>Confirmation</legend>
+        <fieldset data-step="5" hidden>
+          <legend>Envoi</legend>
           <div id="finalRecap" class="prose" style="font-size:1.02rem"></div>
-          <label class="opt"><input type="checkbox" id="f-ok"><span class="dot"></span><strong>J'ai pris connaissance de l'organisation</strong><span></span><small>Tronc commun avec l'ensemble du groupe, puis pratique dans ma spécialité, en binôme, auprès d'un professionnel du studio.</small></label>
+          <label class="opt"><input type="checkbox" id="f-ok"><span class="dot"></span><strong>J'ai pris connaissance de l'organisation du programme</strong><span></span><small>L'association examine ma demande et me confirme ma place ainsi que les modalités de paiement.</small></label>
         </fieldset>
 
         <div class="err" id="err" role="alert"></div>
@@ -611,18 +697,18 @@ footer.site .mono{color:var(--ink)}
         <span class="mono" style="color:var(--amber)">Demande reçue</span>
         <h2 class="xw">Merci</h2>
         <p id="doneText"></p>
-        <div><button type="button" class="ghost" id="restartBtn" style="cursor:pointer;color:var(--ink)">Nouvelle inscription</button></div>
+        <div><button type="button" class="ghost" id="restartBtn" style="cursor:pointer;color:var(--ink)">Nouvelle demande</button></div>
       </div>
     </div>
 
     <aside class="side" aria-live="polite">
       <div class="card">
-        <span class="mono" style="color:var(--amber)">Votre parcours</span>
+        <span class="mono" style="color:var(--amber)">Votre demande</span>
         <div class="mini" id="miniPath"></div>
       </div>
       <div class="card" style="gap:8px">
         <span class="mono dim">Lieu</span>
-        <span>Downtown Studio · 10 rue des Vieux-Grenadiers · Genève</span>
+        <span>Downtown Studio, 10 rue des Vieux-Grenadiers, Genève</span>
       </div>
     </aside>
   </div></section>
@@ -632,8 +718,8 @@ footer.site .mono{color:var(--ink)}
 
 <footer class="site"><div class="in gut max">
   <div style="display:grid;gap:16px;align-content:start"><span class="logo"><img src="img/logo-progress.png" alt="PROGRESS" style="filter:invert(1)"></span><p>Association genevoise à but non lucratif de formation aux métiers de l'audiovisuel.</p></div>
-  <nav><span class="mono">Formation</span><a href="#accueil">L'avenir de la post-production</a><a href="#programme">Programme</a><a href="#inscription">Inscription</a></nav>
-  <nav><span class="mono">Association</span><a href="#progress">Progress</a><a href="#progress">Comité</a><a href="#progress">Partenaires</a></nav>
+  <nav><span class="mono">Programmes</span><a href="#progress-ai">Progress AI</a><a href="#avenir">L'avenir de la post-production</a><a href="#inscription">Inscription</a></nav>
+  <nav><span class="mono">Association</span><a href="#progress">L'association</a><a href="#methode">La méthode</a><a href="#questions">Questions fréquentes</a></nav>
   <div style="display:grid;gap:8px;align-content:start"><span class="mono">Contact</span><span class="copy">info@progressgeneve.ch</span><p>c/o Downtown Studio<br>10 rue des Vieux-Grenadiers<br>1205 Genève</p></div>
 </div></footer>
 
@@ -645,11 +731,11 @@ var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').mat
 
 /* ---------- Données ---------- */
 var SPECS=[
-  {id:"son",c:"--son",hex:"#4FD1B4",name:"Montage son et mixage",short:"Son",where:"Studios de montage son · auditorium Atmos de 400 m³",what:"Bruitages et voix générés, doublage synthétique : les outils qui arrivent au montage son, mis à l'épreuve dans l'auditorium Atmos du studio, le premier de ce type en Suisse romande."},
-  {id:"eta",c:"--eta",hex:"#FF6B88",name:"Étalonnage",short:"Étalonnage",where:"Salle Baselight Education",what:"La colorimétrie sur la chaîne Baselight du studio, là où se tiennent les certifications Baselight Education, et les traitements d'image assistés par l'IA qui s'y ajoutent."},
-  {id:"img",c:"--img",hex:"#7AA2FF",name:"Montage image",short:"Montage",where:"Salles de montage image",what:"Transcription, sélection des rushes, sous-titrage : les tâches que l'IA prend désormais en charge, et ce qu'elles changent dans le travail du monteur."},
-  {id:"vfx",c:"--vfx",hex:"#B98BFF",name:"VFX et compositing",short:"VFX",where:"Stations VFX",what:"Extensions de décor et nettoyage de plans par génération d'images, pratiqués pendant les pics de travail du studio, comme la période de Watches and Wonders."},
-  {id:"xr",c:"--xr",hex:"#E6D25A",name:"XR et nouveaux médias",short:"XR",where:"Infrastructures XR et nouveaux médias",what:"Formats immersifs et rendu en temps réel, pour les lieux culturels et les événements genevois qui intègrent désormais mapping et réalité virtuelle."}
+  {id:"son",c:"--son",hex:"#4FD1B4",name:"Montage son et mixage",short:"Son",where:"Studios de montage son et auditorium de mixage Atmos de 400 m³, le premier de ce type en Suisse romande.",what:"La spécialité porte sur l'arrivée des voix, des bruitages et du doublage générés dans une chaîne de fabrication sonore exigeante, et sur les critères qui permettent d'en juger l'usage."},
+  {id:"eta",c:"--eta",hex:"#FF6B88",name:"Étalonnage",short:"Étalonnage",where:"Salle d'étalonnage Baselight, où se tiennent les formations certifiantes du programme Baselight Education.",what:"La spécialité articule la pratique de la colorimétrie et les traitements d'image assistés par l'intelligence artificielle."},
+  {id:"img",c:"--img",hex:"#7AA2FF",name:"Montage image",short:"Montage",where:"Salles de montage image.",what:"La spécialité examine les tâches désormais automatisables (transcription, sélection des rushes, sous-titrage) et leurs effets sur le travail du monteur et sur l'organisation d'une salle de montage."},
+  {id:"vfx",c:"--vfx",hex:"#B98BFF",name:"Effets visuels et compositing",short:"VFX",where:"Stations VFX.",what:"Extensions de décor et nettoyage de plans par génération d'images, pratiqués sur les projets du studio."},
+  {id:"xr",c:"--xr",hex:"#E6D25A",name:"XR et nouveaux médias",short:"XR",where:"Infrastructures XR et nouveaux médias.",what:"Formats immersifs et rendu en temps réel, que les lieux culturels intègrent de plus en plus dans leurs programmations, du mapping à la réalité virtuelle."}
 ];
 var picked=null;
 
@@ -677,7 +763,7 @@ function buildNLE(){
   var t1=el('text',{x:XREG+14,y:85,fill:'#F2F0EB','font-size':'12'});t1.textContent='CHOIX DE LA SPÉCIALITÉ';
   // tronc commun
   el('rect',{x:XTC0,y:YTC-24,width:XSPLIT-XTC0,height:48,rx:8,fill:'url(#tcg)'});
-  var t2=el('text',{x:XTC0+18,y:YTC+8,fill:'#050506','font-size':'22',class:'big'});t2.textContent='TRONC COMMUN';
+  var t2=el('text',{x:XTC0+18,y:YTC+8,fill:'#050506','font-size':'22',class:'big'});t2.textContent='SOCLE COMMUN';
     // pistes de spécialité
   SPECS.forEach(function(s,i){
     var y=Y0+i*DY;
@@ -695,8 +781,10 @@ var chips=document.getElementById('chips');
 chips.innerHTML=SPECS.map(function(s){return '<button type="button" class="chip" data-id="'+s.id+'" style="--c:var('+s.c+')" aria-pressed="false"><i></i>'+s.name+'</button>'}).join('');
 chips.addEventListener('click',function(e){var b=e.target.closest('.chip');if(b)setPick(picked===b.dataset.id?null:b.dataset.id)});
 
+var prog=null;
 function setPick(id){
   picked=id;
+  if(id)setProg('ava');
   var nle=document.getElementById('nle');
   nle.classList.toggle('picking',!!id);
   svg.querySelectorAll('.lane').forEach(function(l){l.classList.toggle('on',l.getAttribute('data-id')===id)});
@@ -704,55 +792,79 @@ function setPick(id){
   document.querySelectorAll('input[name=spec]').forEach(function(r){r.checked=(r.value===id)});
   renderMini();
 }
+function setProg(p){
+  prog=p;
+  document.querySelectorAll('input[name=prog]').forEach(function(r){r.checked=(r.value===p)});
+  document.getElementById('specOpts').hidden=(p==='pai');
+  document.getElementById('modOpts').hidden=(p!=='pai');
+  document.getElementById('step3Title').textContent=(p==='pai')?'Vos modules':'Votre spécialité';
+  renderMini();
+}
+document.addEventListener('click',function(e){var a=e.target.closest('[data-prog]');if(a)setProg(a.dataset.prog)});
 
 /* ---------- Formulaire ---------- */
 document.getElementById('specOpts').innerHTML=SPECS.map(function(s){
   return '<label class="opt" style="--c:var('+s.c+')"><input type="radio" name="spec" value="'+s.id+'"><span class="dot"></span><strong>'+s.name+'</strong><span></span><small>'+s.where+'</small></label>';
 }).join('');
 document.getElementById('specOpts').addEventListener('change',function(e){if(e.target.name==='spec')setPick(e.target.value)});
+document.getElementById('progOpts').addEventListener('change',function(e){if(e.target.name==='prog')setProg(e.target.value)});
+document.getElementById('modOpts').addEventListener('change',renderMini);
 document.getElementById('lvlOpts').addEventListener('change',renderMini);
 function lvl(){var r=document.querySelector('input[name=lvl]:checked');return r?r.value:null}
+function mods(){return [].slice.call(document.querySelectorAll('input[name=mod]:checked')).map(function(c){return c.value})}
 function renderMini(){
-  var s=SPECS.find(function(x){return x.id===picked});
-  var h='<div class="r"><div class="b tc">Tronc commun · tout le groupe</div></div>';
-  h+='<svg width="40" height="22" viewBox="0 0 40 22" aria-hidden="true"><path d="M2 0 C2 14, 30 6, 30 22" fill="none" stroke="'+(s?s.hex:'#555')+'" stroke-width="1.5" stroke-dasharray="2 4"/></svg>';
-  h+=s?'<div class="r"><div class="b sp" style="--c:'+s.hex+'"><b>'+s.name+'</b><br>'+s.where+'<br>Binôme '+(lvl()?'niveau '+lvl():'de même niveau')+' · mentor du studio</div></div>'
-      :'<div class="r"><div class="b sp empty">Spécialité à choisir</div></div>';
+  var h;
+  if(prog==='pai'){
+    var m=mods();
+    h='<div class="r"><div class="b tc">Progress AI : IA et création cinéma</div></div>';
+    h+=m.length?m.map(function(x){return '<div class="r"><div class="b sp" style="--c:#FF8A3D">'+x+'</div></div>'}).join(''):'<div class="r"><div class="b sp empty">Modules à choisir</div></div>';
+  }else if(prog==='ava'){
+    var s=SPECS.find(function(x){return x.id===picked});
+    h='<div class="r"><div class="b tc">Socle commun · ensemble du groupe</div></div>';
+    h+='<svg width="40" height="22" viewBox="0 0 40 22" aria-hidden="true"><path d="M2 0 C2 14, 30 6, 30 22" fill="none" stroke="'+(s?s.hex:'#555')+'" stroke-width="1.5" stroke-dasharray="2 4"/></svg>';
+    h+=s?'<div class="r"><div class="b sp" style="--c:'+s.hex+'"><b>'+s.name+'</b>'+(lvl()?'<br>Niveau : '+lvl():'')+'</div></div>':'<div class="r"><div class="b sp empty">Spécialité à choisir</div></div>';
+  }else{
+    h='<div class="r"><div class="b sp empty">Programme à choisir</div></div>';
+  }
   document.getElementById('miniPath').innerHTML=h;
 }
-var step=1,form=document.getElementById('regForm'),err=document.getElementById('err');
+var LAST=5,step=1,form=document.getElementById('regForm'),err=document.getElementById('err');
 function showStep(){
   form.querySelectorAll('fieldset').forEach(function(f){f.hidden=Number(f.dataset.step)!==step});
-  document.querySelectorAll('#stepper span').forEach(function(sp,i){sp.className=(i+1===step?'on':(i+1<step?'done':''))});
+  document.querySelectorAll('#stepper span').forEach(function(sp,i){sp.className=(i+1===step?'on':(i+1<step?'past':''))});
   document.getElementById('prevBtn').style.visibility=step===1?'hidden':'visible';
-  document.getElementById('nextBtn').innerHTML=step===4?'Envoyer →':'Continuer →';
+  document.getElementById('nextBtn').innerHTML=step===LAST?'Envoyer →':'Continuer →';
   err.textContent='';
-  if(step===4){
-    var s=SPECS.find(function(x){return x.id===picked});
-    document.getElementById('finalRecap').innerHTML='<p><b>'+esc(document.getElementById('f-nom').value)+'</b>, vous demandez votre inscription à L\'avenir de la post-production.</p><p>Tronc commun avec l\'ensemble du groupe, puis spécialité <b>'+s.name+'</b> ('+s.where+'), en binôme de niveau « '+lvl()+' » auprès d\'un professionnel de Downtown Studio.</p>';
+  if(step===LAST){
+    var n='<b>'+esc(document.getElementById('f-nom').value)+'</b>',t;
+    if(prog==='pai'){t='<p>'+n+', votre demande porte sur Progress AI : IA et création cinéma.</p><p>Modules demandés : '+mods().join(', ')+'. Niveau déclaré : '+lvl()+'.</p>'}
+    else{var s=SPECS.find(function(x){return x.id===picked});t='<p>'+n+', votre demande porte sur L\'avenir de la post-production.</p><p>Socle commun avec l\'ensemble du groupe, puis spécialité <b>'+s.name+'</b>. Niveau déclaré : '+lvl()+'.</p>'}
+    document.getElementById('finalRecap').innerHTML=t;
   }
 }
 function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
 function valid(){
-  if(step===1){var n=document.getElementById('f-nom').value.trim(),m=document.getElementById('f-mail').value.trim(),st=document.getElementById('f-statut').value;
+  if(step===1){var n=document.getElementById('f-nom').value.trim(),m=document.getElementById('f-mail').value.trim(),st=document.getElementById('f-statut').value,ca=document.getElementById('f-canton').value;
     if(!n){err.textContent='Indiquez votre prénom et votre nom.';return false}
     if(!/^\S+@\S+\.\S+$/.test(m)){err.textContent='Indiquez une adresse e-mail valide, par exemple nom@domaine.ch.';return false}
-    if(!st){err.textContent='Sélectionnez votre situation.';return false}}
-  if(step===2&&!picked){err.textContent='Choisissez une spécialité pour continuer.';return false}
-  if(step===3&&!lvl()){err.textContent='Indiquez votre niveau : il sert à composer les binômes.';return false}
-  if(step===4&&!document.getElementById('f-ok').checked){err.textContent='Cochez la case pour confirmer l\'organisation.';return false}
+    if(!st){err.textContent='Sélectionnez votre situation.';return false}
+    if(!ca){err.textContent='Indiquez votre canton de domicile.';return false}}
+  if(step===2&&!prog){err.textContent='Choisissez un programme pour continuer.';return false}
+  if(step===3&&prog==='ava'&&!picked){err.textContent='Choisissez une spécialité pour continuer.';return false}
+  if(step===3&&prog==='pai'&&!mods().length){err.textContent='Choisissez au moins un module pour continuer.';return false}
+  if(step===4&&!lvl()){err.textContent='Indiquez votre niveau pour continuer.';return false}
+  if(step===LAST&&!document.getElementById('f-ok').checked){err.textContent='Cochez la case pour confirmer votre demande.';return false}
   return true;
 }
 document.getElementById('nextBtn').addEventListener('click',function(){
   if(!valid())return;
-  if(step<4){step++;showStep();return}
-  var s=SPECS.find(function(x){return x.id===picked});
-  document.getElementById('doneText').innerHTML='Votre demande d\'inscription en <b>'+s.name+'</b> est enregistrée. Progress vous écrira à <b>'+esc(document.getElementById('f-mail').value)+'</b> pour confirmer votre place et vous présenter votre mentor.';
+  if(step<LAST){step++;showStep();return}
+  document.getElementById('doneText').innerHTML='Votre demande est enregistrée. L\'association l\'examine et vous écrira à <b>'+esc(document.getElementById('f-mail').value)+'</b> pour confirmer votre place et les modalités de paiement.';
   form.hidden=true;document.getElementById('doneMsg').hidden=false;
 });
 document.getElementById('prevBtn').addEventListener('click',function(){if(step>1){step--;showStep()}});
 form.addEventListener('submit',function(e){e.preventDefault()});
-document.getElementById('restartBtn').addEventListener('click',function(){form.reset();step=1;form.hidden=false;document.getElementById('doneMsg').hidden=true;setPick(null);showStep()});
+document.getElementById('restartBtn').addEventListener('click',function(){form.reset();step=1;form.hidden=false;document.getElementById('doneMsg').hidden=true;prog=null;setPick(null);setProg(null);showStep()});
 
 /* ---------- Navigation ---------- */
 var VIEWS=['accueil','programme','progress','inscription'],current='accueil';
@@ -764,11 +876,11 @@ overlay.addEventListener('click',function(e){if(e.target.closest('a'))closeMenu(
 function route(){
   var h=(location.hash||'#accueil').slice(1);
   var target=null;
-  if(VIEWS.indexOf(h)<0){target=document.getElementById(h);h='accueil'}
+  if(VIEWS.indexOf(h)<0){target=document.getElementById(h);var v=target&&target.closest('[data-view]');h=v?v.dataset.view:'accueil'}
   var changed=h!==current;current=h;
   document.querySelectorAll('[data-view]').forEach(function(v){v.hidden=v.dataset.view!==h});
   document.querySelectorAll('nav.links a').forEach(function(a){if(a.getAttribute('href')==='#'+h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
-  if(target){target.scrollIntoView()}else if(changed||!target){window.scrollTo(0,0)}
+  if(target){window.scrollTo({top:0,behavior:'instant'});target.scrollIntoView({behavior:'instant'})}else if(changed||!target){window.scrollTo({top:0,behavior:'instant'})}
   scene.inner=(h!=='accueil');
 }
 
@@ -919,7 +1031,7 @@ function initGL(){
 }
 
 window.addEventListener('hashchange',route);
-route();showStep();renderMini();
+route();setProg(null);showStep();
 })();
 </script>
 
