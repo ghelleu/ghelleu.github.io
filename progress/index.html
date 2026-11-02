@@ -3,339 +3,449 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Progress · Formation continue en post-production</title>
+<title>Progress · Formation IA et post-production</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
 <style>
 :root{
-  --bg:#050506; --ink:#F2F0EB; --dim:#8C8F94; --line:rgba(242,240,235,.14); --panel:rgba(14,15,17,.72);
-  --amber:#FF8A3D; --amber-2:#FFC38F;
-  --son:#4FD1B4; --eta:#FF6B88; --img:#7AA2FF; --vfx:#B98BFF; --xr:#E6D25A;
-  --wide:"Archivo", "Helvetica Neue", Arial, sans-serif;
-  --mono:"Archivo", "Helvetica Neue", Arial, sans-serif;
+  --bg:#000; --ink:#F4F4F1; --soft:#C9C9C4; --dim:#808080; --line:rgba(255,255,255,.13); --line2:rgba(255,255,255,.32);
+  --panel:rgba(8,8,8,.8);
+  --font:"Archivo","Helvetica Neue",Arial,sans-serif;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--wide);font-variation-settings:"wdth" 100;font-variant-numeric:tabular-nums;font-size:17px;line-height:1.55;margin:0;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-variation-settings:"wdth" 100;font-variant-numeric:tabular-nums;font-size:17px;line-height:1.55;margin:0;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
-::selection{background:var(--amber);color:#000}
+::selection{background:var(--ink);color:#000}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
-:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .gut{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
 .max{max-width:1440px;margin:0 auto}
-.mono{font-family:var(--mono);font-variation-settings:"wdth" 112;font-weight:600;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+.lab{font-variation-settings:"wdth" 110;font-weight:600;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
 .dim{color:var(--dim)}
-.xw{font-family:var(--wide);font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;line-height:.86;letter-spacing:-.01em;margin:0}
+.xw{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;line-height:.88;letter-spacing:-.01em;margin:0}
 
 /* Fond 3D */
 #gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block;touch-action:pan-y}
-#glFallback{position:fixed;inset:0;background:#000 center/cover no-repeat;z-index:0;opacity:.5}
+#glFallback{position:fixed;inset:0;background:#000 center/cover no-repeat;z-index:0;opacity:.4;filter:grayscale(1)}
 #shade{position:fixed;inset:0;z-index:1;pointer-events:none;background:
-  radial-gradient(120% 90% at 50% 40%, rgba(5,5,6,0) 30%, rgba(5,5,6,.85) 100%),
-  linear-gradient(180deg, rgba(5,5,6,.55) 0%, rgba(5,5,6,0) 22%, rgba(5,5,6,0) 70%, rgba(5,5,6,.9) 100%);transition:background .6s}
-#veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:var(--bg);opacity:0;transition:opacity .5s}
-.grain{position:fixed;inset:-50%;z-index:2;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");animation:grain 1.2s steps(6) infinite}
+  radial-gradient(120% 90% at 50% 40%, rgba(0,0,0,0) 30%, rgba(0,0,0,.88) 100%),
+  linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 70%, rgba(0,0,0,.9) 100%)}
+#veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:var(--bg);opacity:0}
+.grain{position:fixed;inset:-50%;z-index:2;pointer-events:none;opacity:.06;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");animation:grain 1.2s steps(6) infinite}
 @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-4%)}60%{transform:translate(-4%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
 
 /* En-tête */
-header.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;transition:background .4s,backdrop-filter .4s,border-color .4s;border-bottom:1px solid transparent}
-header.top.solid{background:rgba(5,5,6,.72);backdrop-filter:blur(14px);border-bottom-color:var(--line)}
-header.top .bar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:20px}
-.logo{width:132px;display:block}
+header.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;border-bottom:1px solid transparent;transition:background .4s,border-color .4s}
+header.top.solid{background:rgba(0,0,0,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--line)}
+header.top .bar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:18px}
+.logo{width:128px;display:block}
 .logo img{filter:invert(1)}
 nav.links{display:flex;align-items:center;gap:30px}
-nav.links a{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;position:relative;padding:6px 0}
-nav.links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--amber);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+nav.links a{font-variation-settings:"wdth" 110;font-weight:600;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;position:relative;padding:6px 0}
+nav.links a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .35s}
 nav.links a:hover::after,nav.links a[aria-current="page"]::after{transform:scaleX(1)}
-.cta-pill{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;background:var(--ink);color:#000;padding:11px 18px;border-radius:999px;display:inline-flex;gap:10px;align-items:center;border:0;cursor:pointer;transition:background .25s,color .25s}
-.cta-pill:hover{background:var(--amber)}
-.cta-pill.amber{background:var(--amber)}
-.cta-pill.amber:hover{background:var(--ink)}
-.menu-btn{display:none;background:none;border:0;color:var(--ink);font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;cursor:pointer;align-items:center;gap:10px}
+.btn{font-variation-settings:"wdth" 110;font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;background:var(--ink);color:#000;padding:12px 18px;border-radius:0;display:inline-flex;gap:10px;align-items:center;border:1px solid var(--ink);cursor:pointer;transition:background .25s,color .25s}
+.btn:hover{background:transparent;color:var(--ink)}
+.btn.line{background:transparent;color:var(--ink);border-color:var(--line2)}
+.btn.line:hover{border-color:var(--ink);background:var(--ink);color:#000}
+.menu-btn{display:none;background:none;border:0;color:var(--ink);font-family:var(--font);font-weight:600;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;align-items:center;gap:10px}
 .menu-btn i{display:inline-block;width:26px;height:8px;border-top:1.5px solid currentColor;border-bottom:1.5px solid currentColor}
-.overlay{position:fixed;inset:0;z-index:70;background:rgba(5,5,6,.97);display:flex;flex-direction:column;justify-content:center;gap:6px;padding-top:env(safe-area-inset-top,0px)}
-.overlay[hidden]{display:none!important}
-.overlay a{font-family:var(--wide);font-variation-settings:"wdth" 125;font-weight:900;font-size:clamp(2.4rem,11vw,5rem);text-transform:uppercase;line-height:1}
-.overlay a:hover{color:var(--amber)}
+.overlay{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.97);display:flex;flex-direction:column;justify-content:center;gap:6px;padding-top:env(safe-area-inset-top,0px)}
+.overlay a{font-variation-settings:"wdth" 125;font-weight:900;font-size:clamp(2.4rem,11vw,5rem);text-transform:uppercase;line-height:1}
 .overlay .close{position:absolute;top:calc(20px + env(safe-area-inset-top,0px));right:max(20px,env(safe-area-inset-right,0px))}
 
-main{position:relative;z-index:3;overflow-x:clip}
-.sec-head>*,.split>*,.reg-wrap>*,.hero-foot>*,.place>*,.progs>*,.modules>*,.issues>*,.stats>*,.duo>*,.legend3>*{min-width:0}
-.view[hidden]{display:none!important}
+/* Barre de timecode : navigation par chapitres */
+.tcbar{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr) auto;gap:18px;align-items:center;padding-block:6px 12px;opacity:0;max-height:0;overflow:hidden;transition:opacity .4s,max-height .4s;pointer-events:none}
+.tcbar.on{opacity:1;max-height:50px;pointer-events:auto}
+.tc-now{font-variation-settings:"wdth" 110;font-weight:600;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tc-now b{font-weight:800;margin-right:8px}
+.tc-track{position:relative;height:18px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.18) 0 1px,transparent 1px 10px) 0 100%/100% 5px no-repeat}
+.tc-track::before{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line2)}
+.tc-mk{position:absolute;bottom:0;width:1px;height:13px;background:var(--line2);cursor:pointer}
+.tc-mk::after{content:attr(data-n);position:absolute;bottom:15px;left:-6px;font-size:.55rem;font-weight:700;letter-spacing:.08em;color:var(--dim)}
+.tc-mk.seen{background:var(--ink)}.tc-mk.seen::after{color:var(--ink)}
+.tc-mk::before{content:"";position:absolute;inset:-6px -8px}
+.tc-head{position:absolute;bottom:0;width:1px;height:18px;background:var(--ink);box-shadow:0 0 10px 1px rgba(255,255,255,.7);left:0}
+.tc-head::before{content:"";position:absolute;top:-4px;left:-4px;border:4px solid transparent;border-top:5px solid var(--ink)}
+.tc-code{font-weight:700;font-size:.74rem;letter-spacing:.06em}
 
+main{position:relative;z-index:3;overflow-x:clip}
+.view[hidden]{display:none!important}
+.g2>*,.chgrid>*,.split>*,.reg-wrap>*,.place>*,.progs>*,.modules>*,.stats>*,.duo>*,.flow>*,.nodes>*,.rel>*,.issues>*{min-width:0}
 
 /* Hero */
-.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding-block:120px 110px;pointer-events:none}
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding-block:130px 90px;pointer-events:none;position:relative}
 .hero a,.hero button{pointer-events:auto}
-.hero .kicker{margin-bottom:26px}
-.stage{height:100vh;height:100svh}
-.hero h1{font-size:clamp(2.6rem,10.8vw,11.5rem)}
-.hero h1 .ln{display:block}
-.hero h1 .amb{color:var(--amber)}
-.hero-foot{margin-top:38px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:30px;align-items:end}
-.hero-foot p{max-width:46ch;font-size:1.12rem;color:#D9D6CF}
-.hero .actions{display:flex;flex-wrap:wrap;gap:12px}
-.ghost{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);padding:11px 18px;border-radius:999px;background:rgba(5,5,6,.35);backdrop-filter:blur(6px)}
-.ghost:hover{border-color:var(--ink)}
+.hero-title{font-size:clamp(2.6rem,12.4vw,15rem)}
+.hero-sub{font-variation-settings:"wdth" 118;font-weight:800;text-transform:uppercase;font-size:clamp(1.25rem,2.6vw,2.2rem);line-height:1.05;margin:20px 0 0;max-width:28ch}
+.hero-foot{margin-top:34px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:30px;align-items:end;border-top:1px solid var(--line2);padding-top:26px}
+.hero-foot p{max-width:60ch;font-size:1.12rem;color:var(--soft);margin:0}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.hud{position:absolute;right:max(20px,env(safe-area-inset-right,0px));top:120px;display:grid;gap:4px;text-align:right;font-size:.62rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.hud b{color:var(--ink);font-weight:700}
+.stage{height:70vh;height:70svh}
 
-/* Sections */
-.sec{padding-block:clamp(90px,14vw,190px);position:relative}
-.sec-head{display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;align-items:start;margin-bottom:56px}
-.sec-head .mono{padding-top:10px;color:var(--amber)}
-.sec-head h2{font-size:clamp(1.8rem,6vw,5.6rem)}
-.sec-head p{grid-column:2;max-width:58ch;color:#CFCBC3;font-size:1.08rem;margin:18px 0 0}
+/* Chapitres */
+.sec{padding-block:clamp(90px,13vw,180px);position:relative}
+.sec[id]{scroll-margin-top:96px}
+.chgrid{display:grid;grid-template-columns:220px minmax(0,1fr);gap:24px;align-items:start}
+.ch-no{font-variation-settings:"wdth" 125;font-weight:900;font-size:clamp(3.4rem,8vw,7.5rem);line-height:.8;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.55);display:block}
+.ch-tag{display:block;margin-top:16px}
+.ch-title{font-size:clamp(2rem,6vw,5.4rem);max-width:16ch}
+.ruler{height:9px;margin:34px 0 0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.35) 0 1px,transparent 1px 12px) 0 100%/100% 5px no-repeat,repeating-linear-gradient(90deg,rgba(255,255,255,.6) 0 1px,transparent 1px 120px) 0 100%/100% 9px no-repeat;transform-origin:left;transform:scaleX(0);transition:transform 1.4s cubic-bezier(.2,.7,0,1)}
+.in .ruler,.ruler.in{transform:scaleX(1)}
+.lede{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,4vw,60px);margin-top:40px;color:var(--soft);font-size:1.08rem}
+.lede p{margin:0}
+.lede.one{grid-template-columns:minmax(0,62ch)}
+.lede strong{color:var(--ink);font-weight:700}
+.block{margin-top:clamp(50px,7vw,90px)}
+.cap{margin:14px 0 0;color:var(--dim);font-size:.86rem}
 
+/* Lumière qui suit le pointeur */
+.lit{position:relative;isolation:isolate}
+.lit::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.09),transparent 60%);opacity:0;transition:opacity .4s}
+.lit:hover::after{opacity:1}
 
+/* Révélation */
+[data-rv]{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.2,.7,0,1),transform .9s cubic-bezier(.2,.7,0,1)}
+[data-rv].in{opacity:1;transform:none}
+.no-js [data-rv]{opacity:1;transform:none}
 
-/* Schéma timeline */
-.nle{background:var(--panel);border:1px solid var(--line);border-radius:14px;backdrop-filter:blur(14px);overflow:hidden}
-.nle-scroll{overflow-x:auto}
-.nle svg{display:block;min-width:820px;width:100%;height:auto}
-.nle svg text{font-family:var(--mono);letter-spacing:.08em}
-.nle svg .big{font-family:var(--wide);font-variation-settings:"wdth" 125;font-weight:800;letter-spacing:0}
-.lane{transition:opacity .35s}
-.nle.picking .lane{opacity:.18}
-.nle.picking .lane.on{opacity:1}
-.chips{display:flex;flex-wrap:wrap;gap:8px;padding:16px 18px;border-top:1px solid var(--line)}
-.chip{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line);color:var(--ink);background:transparent;padding:9px 14px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:border-color .2s,background .2s}
-.chip i{width:8px;height:8px;border-radius:50%;background:var(--c)}
-.chip:hover{border-color:var(--c)}
-.chip[aria-pressed="true"]{background:var(--c);color:#000;border-color:var(--c)}
-.chip[aria-pressed="true"] i{background:#000}
-.legend3{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);margin-top:40px;border:1px solid var(--line)}
-.legend3 div{background:var(--bg);padding:26px 24px;display:grid;gap:12px;align-content:start}
-.legend3 h3{font-variation-settings:"wdth" 125;font-weight:800;text-transform:uppercase;font-size:1.35rem;margin:0;line-height:1.05}
-.legend3 p{margin:0;color:#CFCBC3}
+/* 01 · Frise des sorties */
+.panel{border:1px solid var(--line);background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.ph{display:flex;justify-content:space-between;gap:16px;padding:14px 18px;border-bottom:1px solid var(--line);font-size:.64rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.ph b{color:var(--ink);font-weight:700}
+.chart{padding:10px 8px 4px}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart text{font-family:var(--font);font-weight:600;letter-spacing:.12em}
+.rel-dot{transition:r .25s,opacity .4s}
+.rel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(10,auto);grid-auto-flow:column;border-top:1px solid var(--line)}
+.rel div{display:grid;grid-template-columns:70px 92px minmax(0,1fr);gap:10px;padding:9px 18px;border-bottom:1px solid var(--line);font-size:.86rem;color:var(--dim);transition:color .3s,background .3s;cursor:default}
+.rel div:nth-child(-n+10){border-right:1px solid var(--line)}
+.rel div span:nth-child(2){font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding-top:3px}
+.rel div.on{color:var(--ink)}
+.rel div.hl{background:rgba(255,255,255,.08)}
+
+/* 03 · Enjeux */
+.issues{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.issues section{background:rgba(0,0,0,.86);padding:clamp(24px,3.4vw,42px)}
+.issues h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.3rem,2.2vw,1.9rem);line-height:1;margin:0 0 22px}
+.issues ol{list-style:none;margin:0;padding:0;counter-reset:i}
+.issues li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:12px;padding:16px 0;border-top:1px solid var(--line);color:var(--soft)}
+.issues li::before{counter-increment:i;content:attr(data-p) counter(i,decimal-leading-zero);font-size:.66rem;font-weight:700;letter-spacing:.12em;color:var(--ink);padding-top:4px}
+
+/* 04 · Échange */
+.flow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) minmax(0,1fr);align-items:stretch}
+.who{padding:clamp(22px,3vw,36px);display:grid;gap:10px;align-content:center}
+.who strong{font-variation-settings:"wdth" 112;font-weight:900;text-transform:uppercase;font-size:clamp(1.2rem,1.8vw,1.7rem);line-height:1;overflow-wrap:anywhere}
+.who span{color:var(--dim);font-size:.92rem}
+.flow svg{display:block;width:100%;height:100%;min-height:220px}
+.flow .who:last-child{text-align:right}
+.give{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line)}
+.give div{padding:20px 22px;display:grid;gap:10px;align-content:start}
+.give div+div{border-left:1px solid var(--line)}
+.give ul{margin:0;padding:0;list-style:none;display:grid;gap:6px;color:var(--soft)}
+.give li::before{content:"→ ";color:var(--dim)}
+.give div:last-child li::before{content:"← "}
+
+/* 05 · Graphe de nœuds */
+.nodes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:44px;position:relative;padding:30px 0 90px}
+.node{border:1px solid var(--line2);background:rgba(6,6,6,.92);position:relative;transition:border-color .4s,box-shadow .4s}
+.node .nh{display:flex;justify-content:space-between;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);transition:background .4s,color .4s}
+.node .nb{padding:16px 14px 18px;display:grid;gap:10px}
+.node h3{font-variation-settings:"wdth" 120;font-weight:900;text-transform:uppercase;font-size:1.25rem;line-height:1;margin:0}
+.node p{margin:0;color:var(--soft);font-size:.93rem}
+.node .port{position:absolute;top:50%;width:9px;height:9px;border:1px solid var(--ink);background:#000;border-radius:50%;transform:translateY(-50%)}
+.node .port.i{left:-5px}.node .port.o{right:-5px}
+.node.act{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink),0 0 40px rgba(255,255,255,.18)}
+.node.act .nh{background:var(--ink);color:#000}
+.node.act .port{background:var(--ink)}
+.wire{position:absolute;top:50%;left:100%;width:44px;height:1px;background:var(--line2);overflow:hidden}
+.wire i{position:absolute;inset:0;background:linear-gradient(90deg,transparent,#fff,transparent);transform:translateX(-100%)}
+.wire.run i{animation:pulse .7s linear}
+@keyframes pulse{to{transform:translateX(100%)}}
+.loop{position:absolute;left:calc(25% + 11px);right:calc(12.5% - 6px);bottom:28px;height:62px;border:1px solid var(--line2);border-top:0;pointer-events:none}
+.loop::before{content:"";position:absolute;left:-5px;top:-6px;border:5px solid transparent;border-bottom:7px solid var(--ink);transform:translateY(-6px)}
+.loop span{position:absolute;left:50%;bottom:-10px;transform:translateX(-50%);background:#000;padding:0 12px;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+.loop.run{border-color:var(--ink);box-shadow:0 0 18px rgba(255,255,255,.2)}
+
+/* 06 · Journal de recherche */
+.log{padding:6px 0}
+.log div{display:grid;grid-template-columns:44px 170px minmax(0,1fr) 60px;gap:14px;align-items:baseline;padding:13px 18px;border-bottom:1px solid var(--line);opacity:.18;transition:opacity .5s}
+.log div:last-child{border-bottom:0}
+.log div.on{opacity:1}
+.log .n{font-size:.66rem;font-weight:700;letter-spacing:.12em;color:var(--dim)}
+.log .k{font-variation-settings:"wdth" 118;font-weight:800;text-transform:uppercase;font-size:.92rem}
+.log .v{color:var(--soft);font-size:.95rem}
+.log .s{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-align:right}
+
+/* Programmes */
+.progs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.prog{background:rgba(0,0,0,.88);padding:clamp(26px,3.6vw,46px);display:grid;gap:20px;align-content:start;transition:background .3s}
+.prog:hover{background:rgba(20,20,20,.92)}
+.prog h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.5rem,2.8vw,2.5rem);line-height:.95;margin:0}
+.prog p{margin:0;color:var(--soft)}
+.meta{display:grid;border-top:1px solid var(--line)}
+.meta div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.meta div span:first-child{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding-top:3px}
+.more{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
 
 /* Spécialités */
 .specs{border-top:1px solid var(--line)}
-.spec{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr) 48px;gap:24px;align-items:center;padding:30px 0;border-bottom:1px solid var(--line);position:relative;cursor:pointer;transition:padding .35s}
-.spec::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,color-mix(in srgb,var(--c) 22%,transparent),transparent 70%);opacity:0;transition:opacity .35s;pointer-events:none}
-.spec:hover::before,.spec.on::before{opacity:1}
-.spec:hover{padding-left:16px}
-.spec .code{font-family:var(--mono);font-size:.8rem;color:var(--c);letter-spacing:.1em}
-.spec h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.6rem,3.6vw,3.1rem);line-height:.95;margin:0}
-.spec p{margin:0;color:#CFCBC3;font-size:.98rem}
-.spec .where{display:block;font-size:.9rem;color:var(--dim);margin-top:10px;max-width:46ch}
-.spec .arr{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:background .3s,border-color .3s,transform .3s}
-.spec:hover .arr{background:var(--c);border-color:var(--c);color:#000;transform:rotate(-45deg)}
+.spec{display:grid;grid-template-columns:70px minmax(0,1fr) minmax(0,.9fr) 48px;gap:24px;align-items:center;padding:28px 0;border-bottom:1px solid var(--line);position:relative;transition:padding .35s}
+.spec::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.08),transparent 70%);opacity:0;transition:opacity .35s;pointer-events:none}
+.spec:hover::before{opacity:1}
+.spec:hover{padding-left:14px}
+.spec .no{font-size:.7rem;font-weight:700;letter-spacing:.14em;color:var(--dim)}
+.spec h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.5rem,3.4vw,2.9rem);line-height:.95;margin:0}
+.spec p{margin:0;color:var(--soft);font-size:.98rem}
+.spec .where{display:block;font-size:.88rem;color:var(--dim);margin-top:10px;max-width:46ch}
+.spec .arr{width:44px;height:44px;border:1px solid var(--line2);display:grid;place-items:center;transition:background .3s,color .3s,transform .3s}
+.spec:hover .arr{background:var(--ink);color:#000;transform:rotate(-45deg)}
 
-/* Deux publics */
+/* Publics, Lift, lieu */
 .duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-.duo article{background:rgba(5,5,6,.82);padding:clamp(26px,4vw,52px);display:grid;gap:18px;align-content:start}
-.duo h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.5rem,2.8vw,2.4rem);line-height:1;margin:0}
-.duo p{margin:0;color:#CFCBC3;max-width:46ch}
-
-/* Lieu */
-.place{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:16px}
-.place figure{margin:0;position:relative;overflow:hidden;border-radius:10px}
-.place figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,0,1);filter:saturate(.9) contrast(1.05)}
+.duo article{background:rgba(0,0,0,.86);padding:clamp(26px,4vw,48px);display:grid;gap:16px;align-content:start}
+.duo h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.4rem,2.6vw,2.2rem);line-height:1;margin:0}
+.duo p{margin:0;color:var(--soft);max-width:48ch}
+.note{margin:24px 0 0;color:var(--soft);max-width:70ch}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.stats div{background:rgba(0,0,0,.86);padding:28px 24px;display:grid;gap:12px;align-content:start}
+.stats b{font-variation-settings:"wdth" 125;font-weight:900;font-size:clamp(3.4rem,7vw,6.5rem);line-height:.85}
+.stats span{color:var(--soft);font-size:.95rem}
+.place{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.place figure{margin:0;position:relative;overflow:hidden;background:#000}
+.place figure img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1);transition:transform 1.2s cubic-bezier(.2,.7,0,1)}
 .place figure:hover img{transform:scale(1.04)}
-.place figcaption{position:absolute;left:14px;bottom:12px;font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.place figcaption{position:absolute;left:14px;bottom:12px;font-size:.6rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.8)}
 .place .tall{grid-row:span 2}
-.sheet{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:24px;backdrop-filter:blur(12px);display:grid;gap:4px;align-content:start}
+.sheet{background:var(--panel);padding:24px;display:grid;gap:4px;align-content:start}
 .sheet .row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;padding:11px 0;border-bottom:1px solid var(--line);font-size:.95rem}
 .sheet .row:last-child{border-bottom:0}
-.sheet .row span:last-child{font-family:var(--mono);font-size:.78rem;color:var(--amber);font-variant-numeric:tabular-nums}
+.sheet .row span:last-child{font-weight:700;font-size:.86rem}
+.sheet .row.info{grid-template-columns:120px minmax(0,1fr);font-size:.92rem}
+.sheet .row.info span:first-child{color:var(--dim)}
+.sheet .row.info span:last-child{font-weight:400;font-size:.92rem}
+.sheet>.lab{margin-bottom:6px}
+
+/* Mentions à valider */
+.tbd{display:inline;font-size:.8em;font-weight:700;letter-spacing:.02em;color:var(--ink);background:repeating-linear-gradient(135deg,rgba(255,255,255,.12) 0 4px,transparent 4px 8px);border:1px dashed rgba(255,255,255,.7);padding:1px 6px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 
 /* CTA final */
-.final{min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:34px}
+.final{min-height:80vh;display:flex;flex-direction:column;justify-content:center;gap:30px}
 .final h2{font-size:clamp(2.6rem,12vw,13rem)}
-.final h2 a{display:inline-block;transition:color .3s}
-.final h2 a:hover{color:var(--amber)}
+.final h2 a{display:inline-block;transition:opacity .3s}
+.final h2 a:hover{opacity:.7}
 .final h2 .arrow{display:inline-block;transition:transform .4s}
 .final h2 a:hover .arrow{transform:translateX(.15em) rotate(-45deg)}
 
-.issues{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-.issues article{background:rgba(5,5,6,.86);padding:clamp(26px,3.6vw,46px);display:grid;gap:16px;align-content:start}
-.issues h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.3rem,2.2vw,1.9rem);line-height:1;margin:0}
-.issues p{margin:0;color:#CFCBC3}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-.stats div{background:rgba(5,5,6,.86);padding:28px 24px;display:grid;gap:12px;align-content:start}
-.stats b{font-variation-settings:"wdth" 125;font-weight:900;font-size:clamp(3.4rem,7vw,6.5rem);line-height:.85;color:var(--amber)}
-.stats span{color:#CFCBC3;font-size:.95rem}
-.grid-tc .wide{grid-column:1 / -1}
-.hero-foot p{max-width:62ch}
-.sec[id]{scroll-margin-top:70px}
-.tbd{display:inline;font-family:var(--mono);font-size:.82em;font-weight:600;color:var(--amber);background:rgba(255,138,61,.1);border:1px dashed rgba(255,138,61,.6);border-radius:4px;padding:1px 6px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
-.hero-title{font-size:clamp(3.2rem,15vw,15rem)}
-.hero-sub{font-variation-settings:"wdth" 112;font-weight:700;font-size:clamp(1.15rem,2.2vw,1.8rem);line-height:1.15;margin:22px 0 0;max-width:34ch}
-.prose-cols{columns:2 380px;column-gap:clamp(30px,5vw,70px);color:#D9D6CF;font-size:1.06rem}
-.prose-cols p{margin:0 0 1.1em;break-inside:avoid}
-.progs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-.prog{background:rgba(5,5,6,.86);padding:clamp(26px,3.6vw,46px);display:grid;gap:18px;align-content:start;transition:background .3s}
-.prog:hover{background:rgba(255,138,61,.1)}
-.prog h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.5rem,2.8vw,2.4rem);line-height:1;margin:0}
-.prog p{margin:0;color:#CFCBC3}
-.prog .more{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
-.note{margin:28px 0 0;color:#CFCBC3;max-width:70ch}
-.stats.s3{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:30px}
-.modules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:40px}
-.modules article{background:rgba(5,5,6,.86);padding:28px;display:grid;gap:12px;align-content:start}
-.modules .mono{color:var(--amber)}
-.modules h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:1.35rem;line-height:1.02;margin:0}
-.modules p{margin:0;color:#CFCBC3;font-size:.96rem}
-.fiche .sec-head h2{font-size:clamp(1.8rem,5vw,4.6rem)}
-.sheet .row.info{grid-template-columns:120px minmax(0,1fr);font-size:.92rem}
-.sheet .row.info span:first-child{color:var(--dim)}
-.sheet .row.info span:last-child{font-family:var(--wide);font-size:.92rem;color:var(--ink)}
-.partners.p4{grid-template-columns:repeat(2,minmax(0,1fr))}
-.stepper.s5{grid-template-columns:repeat(5,minmax(0,1fr))}
-.hint{margin:0;color:var(--dim);font-size:.9rem}
 /* Pages intérieures */
-.page-hero{padding-block:clamp(150px,20vw,240px) 60px}
+.page-hero{padding-block:clamp(150px,20vw,230px) 60px}
 .page-hero h1{font-size:clamp(2.4rem,10vw,10rem)}
-.page-hero p{max-width:60ch;color:#D9D6CF;font-size:1.15rem;margin:30px 0 0}
-.grid-tc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-.grid-tc article{background:rgba(5,5,6,.85);padding:32px;display:grid;gap:14px;align-content:start}
-.grid-tc .mono{color:var(--amber)}
-.grid-tc h3{font-variation-settings:"wdth" 125;font-weight:800;text-transform:uppercase;font-size:1.45rem;line-height:1.05;margin:0}
-.grid-tc p{margin:0;color:#CFCBC3}
-.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;counter-reset:s}
-.steps div{border-top:2px solid var(--ink);padding-top:18px;display:grid;gap:10px;align-content:start}
-.steps .mono{color:var(--amber)}
-.steps h3{font-variation-settings:"wdth" 125;font-weight:800;text-transform:uppercase;font-size:1.2rem;line-height:1.05;margin:0}
-.steps p{margin:0;color:#CFCBC3;font-size:.96rem}
-.faq details{border-bottom:1px solid var(--line);padding:26px 0}
-.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;align-items:center;font-variation-settings:"wdth" 115;font-weight:700;font-size:clamp(1.1rem,2vw,1.5rem);text-transform:uppercase;line-height:1.15}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";font-family:var(--mono);color:var(--amber);font-size:1.4rem;transition:transform .3s}
-.faq details[open] summary::after{transform:rotate(45deg)}
-.faq details p{max-width:64ch;color:#CFCBC3;margin:16px 0 0}
+.page-hero p{max-width:60ch;color:var(--soft);font-size:1.15rem;margin:30px 0 0}
+.sec-head{display:grid;grid-template-columns:220px minmax(0,1fr);gap:24px;align-items:start;margin-bottom:50px}
+.sec-head .lab{padding-top:10px;color:var(--dim)}
+.sec-head h2{font-size:clamp(1.8rem,5vw,4.6rem)}
+.sec-head p{max-width:62ch;color:var(--soft);font-size:1.06rem;margin:18px 0 0}
+.modules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:40px}
+.modules article{background:rgba(0,0,0,.88);padding:28px;display:grid;gap:12px;align-content:start}
+.modules h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:1.35rem;line-height:1.02;margin:0}
+.modules p{margin:0;color:var(--soft);font-size:.96rem}
 .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(30px,5vw,80px);align-items:start}
-.prose{display:grid;gap:18px;max-width:60ch;color:#D9D6CF;font-size:1.06rem}
+.prose{display:grid;gap:18px;max-width:62ch;color:var(--soft);font-size:1.04rem}
 .prose p{margin:0}
-.people{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-.people div{background:rgba(5,5,6,.85);padding:26px;display:grid;gap:6px}
+.prose b{color:var(--ink)}
+.prose-cols{columns:2 380px;column-gap:clamp(30px,5vw,70px);color:var(--soft);font-size:1.06rem}
+.prose-cols p{margin:0 0 1.1em;break-inside:avoid}
+.faq details{border-bottom:1px solid var(--line);padding:24px 0}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;align-items:center;font-variation-settings:"wdth" 115;font-weight:700;font-size:clamp(1.05rem,1.9vw,1.4rem);text-transform:uppercase;line-height:1.15}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:1.4rem;transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{max-width:64ch;color:var(--soft);margin:16px 0 0}
+.people,.partners{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.people div{background:rgba(0,0,0,.86);padding:26px;display:grid;gap:6px}
 .people strong{font-variation-settings:"wdth" 120;font-weight:800;text-transform:uppercase;font-size:1.3rem;line-height:1.05}
-.partners{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-.partners div{background:rgba(5,5,6,.85);padding:28px;display:grid;gap:10px;align-content:start;min-height:170px}
-.partners strong{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:1.6rem;line-height:1}
-.partners p{margin:0;color:#CFCBC3;font-size:.95rem}
+.partners.p4{grid-template-columns:repeat(2,minmax(0,1fr))}
+.partners div{background:rgba(0,0,0,.86);padding:28px;display:grid;gap:10px;align-content:start;min-height:160px}
+.partners strong{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:1.45rem;line-height:1}
+.partners p{margin:0;color:var(--soft);font-size:.95rem}
 .timeline-h{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
-.timeline-h div{border-left:1px solid var(--amber);padding:4px 0 4px 20px;display:grid;gap:10px;align-content:start}
+.timeline-h div{border-left:1px solid var(--line2);padding:4px 0 4px 20px;display:grid;gap:10px;align-content:start}
 .timeline-h .yr{font-variation-settings:"wdth" 125;font-weight:900;font-size:clamp(2.4rem,5vw,4rem);line-height:.9}
-.timeline-h p{margin:0;color:#CFCBC3}
+.timeline-h p{margin:0;color:var(--soft)}
+
+/* Schéma du parcours */
+.nle{overflow:hidden}
+.nle-scroll{overflow-x:auto}
+.nle svg{display:block;min-width:820px;width:100%;height:auto}
+.nle svg text{font-family:var(--font);font-weight:600;letter-spacing:.1em}
+.nle svg .big{font-variation-settings:"wdth" 125;font-weight:800;letter-spacing:0}
+.lane{transition:opacity .35s}
+.nle.picking .lane{opacity:.2}
+.nle.picking .lane.on{opacity:1}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:16px 18px;border-top:1px solid var(--line)}
+.chip{font-family:var(--font);font-weight:600;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line2);color:var(--ink);background:transparent;padding:9px 14px;cursor:pointer;transition:border-color .2s,background .2s,color .2s}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);color:#000;border-color:var(--ink)}
 
 /* Inscription */
 .reg-wrap{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:28px;align-items:start}
-form.reg{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:clamp(22px,3.4vw,40px);backdrop-filter:blur(16px);display:grid;gap:28px}
-.stepper{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
-.stepper span{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);border-top:2px solid var(--line);padding-top:10px;transition:color .3s,border-color .3s}
-.stepper span.on{color:var(--ink);border-color:var(--amber)}
-.stepper span.past{color:var(--amber);border-color:var(--amber)}
+form.reg{background:var(--panel);border:1px solid var(--line);padding:clamp(22px,3.4vw,40px);backdrop-filter:blur(16px);display:grid;gap:28px}
+.stepper{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.stepper span{font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);border-top:2px solid var(--line);padding-top:10px;transition:color .3s,border-color .3s}
+.stepper span.on{color:var(--ink);border-color:var(--ink)}
+.stepper span.past{color:var(--soft);border-color:var(--soft)}
 fieldset{border:0;padding:0;margin:0;display:grid;gap:16px}
 legend{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1;margin-bottom:10px;padding:0}
 .field{display:grid;gap:8px}
-.field label{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
-input[type=text],input[type=email],textarea,select{font:inherit;font-size:1.05rem;padding:14px 0;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);width:100%;border-radius:0;transition:border-color .25s}
+.field label{font-size:.66rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+input[type=text],input[type=email],textarea,select{font:inherit;font-size:1.05rem;padding:14px 0;border:0;border-bottom:1px solid var(--line2);background:transparent;color:var(--ink);width:100%;border-radius:0}
 select option{background:#111;color:var(--ink)}
-input:focus,textarea:focus,select:focus{outline:none;border-bottom-color:var(--amber)}
+input:focus,textarea:focus,select:focus{outline:none;border-bottom-color:var(--ink)}
 textarea{min-height:90px;resize:vertical}
-.opts{display:grid;gap:10px}
-.opt{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 16px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:16px 18px;cursor:pointer;transition:border-color .25s,background .25s}
+.opts{display:grid;gap:8px}
+.opt{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 16px;align-items:center;border:1px solid var(--line);padding:16px 18px;cursor:pointer;transition:border-color .25s,background .25s}
 .opt input{position:absolute;opacity:0;pointer-events:none}
-.opt .dot{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--c,var(--ink));transition:background .2s}
-.opt strong{font-variation-settings:"wdth" 118;font-weight:800;text-transform:uppercase;font-size:1.05rem;line-height:1.1}
-.opt small{grid-column:2 / 4;color:var(--dim);font-size:.9rem;line-height:1.4}
-.opt .code{font-family:var(--mono);font-size:.7rem;color:var(--c,var(--dim));letter-spacing:.1em}
-.opt:hover{border-color:var(--c,var(--ink))}
-.opt:has(input:checked){border-color:var(--c,var(--amber));background:color-mix(in srgb,var(--c,var(--amber)) 12%,transparent)}
-.opt:has(input:checked) .dot{background:var(--c,var(--amber))}
-.opt:has(input:focus-visible){outline:2px solid var(--amber);outline-offset:2px}
+.opt .dot{width:14px;height:14px;border:1.5px solid var(--ink)}
+.opt strong{font-variation-settings:"wdth" 118;font-weight:800;text-transform:uppercase;font-size:1.02rem;line-height:1.1}
+.opt small{grid-column:2;color:var(--dim);font-size:.9rem;line-height:1.4}
+.opt:hover{border-color:var(--line2)}
+.opt:has(input:checked){border-color:var(--ink);background:rgba(255,255,255,.07)}
+.opt:has(input:checked) .dot{background:var(--ink)}
+.opt:has(input:focus-visible){outline:2px solid var(--ink);outline-offset:2px}
+.hint{margin:0;color:var(--dim);font-size:.9rem}
 .form-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.form-nav .back{background:none;border:0;color:var(--dim);font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
-.err{color:var(--eta);font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;min-height:1.1em}
-.side{position:sticky;top:100px;display:grid;gap:14px}
-.side .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;backdrop-filter:blur(16px);display:grid;gap:16px}
+.form-nav .back{background:none;border:0;color:var(--dim);font-family:var(--font);font-weight:600;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.err{color:var(--ink);font-size:.8rem;font-weight:600;min-height:1.1em}
+.err:not(:empty)::before{content:"! ";font-weight:900}
+.side{position:sticky;top:110px;display:grid;gap:14px}
+.side .card{background:var(--panel);border:1px solid var(--line);padding:22px;backdrop-filter:blur(16px);display:grid;gap:16px}
 .mini{display:grid;gap:8px}
-.mini .r{display:grid}
-.mini .b{border-radius:6px;padding:10px 12px;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;line-height:1.35}
-.mini .b.reg{border:1px dashed var(--line);color:var(--dim)}
-.mini .b.tc{background:var(--ink);color:#000;font-weight:600}
-.mini .b.sp{background:color-mix(in srgb,var(--c) 24%,transparent);border:1px solid var(--c);color:var(--ink)}
-.mini .b.sp.empty{background:transparent;border:1px dashed var(--line);color:var(--dim)}
+.mini .b{padding:10px 12px;font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;line-height:1.4}
+.mini .b.tc{background:var(--ink);color:#000;font-weight:700}
+.mini .b.sp{border:1px solid var(--ink)}
+.mini .b.empty{border:1px dashed var(--line2);color:var(--dim)}
 .mini svg{display:block;margin-left:14px}
-.done{display:grid;gap:22px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:clamp(26px,4vw,48px);backdrop-filter:blur(16px)}
+.done{display:grid;gap:22px;background:var(--panel);border:1px solid var(--line);padding:clamp(26px,4vw,48px)}
 .done h2{font-size:clamp(2.4rem,6vw,4.8rem)}
-.done p{margin:0;color:#D9D6CF;max-width:52ch}
+.done p{margin:0;color:var(--soft);max-width:52ch}
 
-footer.site{position:relative;z-index:3;border-top:1px solid var(--line);background:rgba(5,5,6,.9)}
+footer.site{position:relative;z-index:3;border-top:1px solid var(--line);background:rgba(0,0,0,.92)}
 footer.site .in{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:30px;padding-block:56px calc(56px + env(safe-area-inset-bottom,0px))}
-footer.site .logo{width:150px}
+footer.site .logo{width:140px}
 footer.site p{margin:0;color:var(--dim);font-size:.92rem}
 footer.site nav{display:grid;gap:8px;align-content:start}
-footer.site .mono{color:var(--ink)}
-.copy{user-select:all;font-family:var(--mono);font-size:.82rem;color:var(--ink)}
+.copy{user-select:all;font-weight:600}
 
+@media (max-width:1100px){
+  .nodes{grid-template-columns:repeat(2,minmax(0,1fr));gap:44px 44px;padding-bottom:30px}
+  .nodes .node:nth-child(2) .wire{display:none}
+  .loop{display:none}
+}
 @media (max-width:980px){
   nav.links{display:none}
   .menu-btn{display:inline-flex}
-  .sec-head{grid-template-columns:1fr}
-  .sec-head p{grid-column:1}
-  .issues,.progs,.modules,.partners.p4,.stats.s3,.legend3,.duo,.grid-tc,.people,.partners,.timeline-h{grid-template-columns:1fr}
-  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .chgrid,.sec-head{grid-template-columns:1fr}
+  .ch-no{font-size:3.6rem}
+  .lede,.issues,.progs,.modules,.partners.p4,.stats,.duo,.people,.partners,.timeline-h,.rel,.give{grid-template-columns:1fr}
+  .rel{grid-template-rows:none;grid-auto-flow:row}.rel div:nth-child(-n+10){border-right:0}
+  .give div+div{border-left:0;border-top:1px solid var(--line)}
+  .flow{grid-template-columns:1fr}
+  .flow .who:last-child{text-align:left}
+  .flow svg{min-height:150px;height:150px}
   .spec{grid-template-columns:minmax(0,1fr) 44px}
+  .spec .no{grid-column:1 / -1}
   .spec p{grid-column:1 / 2}
-  .spec .arr{grid-row:1;grid-column:2}
+  .spec .arr{grid-row:2;grid-column:2}
   .split,.reg-wrap,.place{grid-template-columns:1fr}
   .place .tall{grid-row:auto}
   .hero-foot{grid-template-columns:1fr}
+  .hud{display:none}
   .side{position:static}
+  .tcbar{grid-template-columns:minmax(0,1fr) auto}
+  .tc-track{display:none}
+  .log div{grid-template-columns:36px minmax(0,1fr) 50px}
+  .log .v{grid-column:2 / 4}
   footer.site .in{grid-template-columns:1fr 1fr}
 }
-@media (max-width:560px){
-  .steps{grid-template-columns:1fr}
+@media (max-width:640px){
+  .nodes{grid-template-columns:1fr;gap:34px}
+  .wire{top:100%;left:50%;width:1px;height:34px}
+  .wire i{background:linear-gradient(180deg,transparent,#fff,transparent);transform:translateY(-100%)}
+  .wire.run i{animation:pulseV .7s linear}
+  .nodes .node:nth-child(2) .wire{display:block}
+  .node .port.i{left:50%;top:-5px;transform:translateX(-50%)}
+  .node .port.o{left:50%;right:auto;top:auto;bottom:-5px;transform:translateX(-50%)}
+  .rel div{grid-template-columns:62px 78px minmax(0,1fr);padding:9px 14px}
+  .stepper span:not(.on){font-size:0}
+  .stepper span.on{grid-column:span 1;white-space:nowrap;overflow:visible}
   footer.site .in{grid-template-columns:1fr}
 }
-@media (prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+@keyframes pulseV{to{transform:translateY(100%)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}[data-rv]{opacity:1;transform:none}.ruler{transform:none}}
 </style>
 </head>
-<body>
-
+<body class="no-js">
 
 <canvas id="gl" aria-hidden="true"></canvas>
 <div id="shade"></div>
 <div id="veil"></div>
 <div class="grain"></div>
 
-<header class="top"><div class="bar gut max">
-  <a class="logo" href="#accueil" aria-label="Progress, accueil"><img src="img/logo-progress.png" alt="PROGRESS"></a>
-  <nav class="links" aria-label="Navigation principale">
-    <a href="#programme">Programmes</a>
-    <a href="#progress">L'association</a>
-    <a href="#inscription" class="cta-pill">S'inscrire <span aria-hidden="true">→</span></a>
-  </nav>
-  <button class="menu-btn" id="menuOpen" type="button" aria-expanded="false" aria-controls="overlay">Menu <i></i></button>
+<header class="top"><div class="gut max">
+  <div class="bar">
+    <a class="logo" href="#accueil" aria-label="Progress, accueil"><img src="img/logo-progress.png" alt="PROGRESS"></a>
+    <nav class="links" aria-label="Navigation principale">
+      <a href="#accueil">Le projet</a>
+      <a href="#programme">Programmes</a>
+      <a href="#progress">L'association</a>
+      <a href="#inscription" class="btn">S'inscrire <span aria-hidden="true">→</span></a>
+    </nav>
+    <button class="menu-btn" id="menuOpen" type="button" aria-expanded="false" aria-controls="overlay">Menu <i></i></button>
+  </div>
+  <div class="tcbar" id="tcbar" aria-label="Chapitres">
+    <div class="tc-now" id="tcNow"></div>
+    <div class="tc-track" id="tcTrack"><div class="tc-head" id="tcHead"></div></div>
+    <div class="tc-code" id="tcCode">00:00:00:00</div>
+  </div>
 </div></header>
 
 <div class="overlay gut" id="overlay" hidden>
   <button class="menu-btn close" id="menuClose" type="button" style="display:inline-flex">Fermer</button>
-  <a href="#accueil">Accueil</a>
+  <a href="#accueil">Le projet</a>
   <a href="#programme">Programmes</a>
   <a href="#progress">L'association</a>
-  <a href="#inscription" style="color:var(--amber)">S'inscrire</a>
+  <a href="#inscription">S'inscrire</a>
 </div>
 
 <main>
 
-<!-- ===================== ACCUEIL / LA FORMATION ===================== -->
+<!-- ===================== ACCUEIL : LE PROJET ===================== -->
 <div class="view" data-view="accueil">
 
   <section class="hero gut">
+    <div class="hud" aria-hidden="true">
+      <span>Source <b>dts-lumiere.jpg</b></span>
+      <span>Grille <b id="hudGrid">…</b></span>
+      <span>Points <b id="hudPts">…</b></span>
+      <span>État <b id="hudState">image</b></span>
+    </div>
     <div class="max" style="width:100%">
-      <h1 class="xw hero-title">Progress</h1>
-      <p class="hero-sub">Formation continue aux métiers de la post-production, au sein de Downtown Studio à Genève</p>
+      <span class="lab dim">Downtown Studio · Genève</span>
+      <h1 class="xw hero-title" style="margin-top:14px">Progress</h1>
+      <p class="hero-sub">Formation à l'intelligence artificielle appliquée à la post-production</p>
       <div class="hero-foot">
-        <p>Depuis 2022, les outils génératifs sont entrés dans chaque poste de la post-production audiovisuelle, du montage image au doublage et du traitement du son à l'étalonnage. Les professionnels en activité ont été formés avant leur apparition ; les jeunes diplômés les découvrent souvent seuls, hors de tout cadre de production. Progress, association genevoise à but non lucratif fondée en 2023 au sein de Downtown Studio, organise l'apprentissage de ces pratiques là où elles s'inventent, sur les postes de travail et dans les productions d'un studio en activité.</p>
+        <p>Chaque participant est associé à un professionnel du studio, qui lui transmet son métier. De son côté, le participant suit les nouveaux outils d'IA, les teste et étudie avec son mentor ceux qui peuvent entrer dans la chaîne de production.</p>
         <div class="actions">
-          <a class="cta-pill amber" href="#programme">Découvrir les programmes <span aria-hidden="true">→</span></a>
+          <a class="btn" href="#contexte">Le projet <span aria-hidden="true">↓</span></a>
+          <a class="btn line" href="#programme">Programmes <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
@@ -343,126 +453,259 @@ footer.site .mono{color:var(--ink)}
 
   <div class="stage" aria-hidden="true"></div>
 
-  <section class="sec gut" id="constat">
+  <!-- 01 -->
+  <section class="sec gut" id="contexte" data-ch="Le contexte">
     <div class="max">
-      <div class="sec-head">
-        <span class="mono">Le constat</span>
-        <div><h2 class="xw">Une chaîne de production en recomposition</h2></div>
+      <div class="chgrid" data-rv>
+        <div><span class="ch-no">01</span><span class="lab ch-tag">Le contexte</span></div>
+        <div>
+          <h2 class="xw ch-title">L'IA générative transforme la post-production</h2>
+          <div class="ruler"></div>
+          <div class="lede">
+            <p>Depuis 2022, des outils capables de générer des images, des vidéos, des voix et de la musique sont accessibles au public. Ils prennent en charge des tâches confiées jusqu'ici à des techniciens spécialisés : transcription et sélection des rushes, sous-titrage, nettoyage de plans, extension de décors, création de voix et de bruitages.</p>
+            <p>Les logiciels de référence de la profession intègrent à leur tour ces fonctions. Les métiers de la post-production se recomposent et les compétences attendues à chaque poste évoluent avec eux. <strong>Les sorties se succèdent presque chaque semaine</strong>, et un professionnel en production n'a pas le temps de toutes les suivre.</p>
+          </div>
+        </div>
       </div>
-      <div class="prose-cols">
-        <p>Les outils génératifs interviennent désormais dans des tâches jusqu'ici confiées à des techniciens spécialisés (sélection et transcription des rushes, sous-titrage, nettoyage de plans, extension de décors, génération de voix et de bruitages). Ils modifient en conséquence la répartition du travail et les compétences attendues à chaque poste. Le dossier de l'association décrit ce mouvement comme le passage d'un modèle d'artisans très spécialisés à des profils capables de travailler aux frontières de plusieurs disciplines.</p>
-        <p>Pour le secteur, la difficulté principale tient à la transition des équipes en place. Les professionnels doivent acquérir ces compétences sans interrompre leur activité, alors que les rythmes de production se sont accélérés et que les studios disposent de moins de temps pour intégrer un jeune diplômé dans une équipe aguerrie.</p>
-        <p>La Suisse romande ne dispose pas encore d'un cadre professionnalisant actualisé pour les techniciens de post-production. Les certifications existantes portent sur la maîtrise d'un logiciel donné. L'organisation du travail en studio, la préparation des médias, la gestion des données d'un projet et les exigences de livraison des diffuseurs s'apprennent sur place, au contact de ceux qui les pratiquent. C'est à cet endroit que Progress situe son action.</p>
+
+      <div class="panel block lit" data-rv>
+        <div class="ph"><span><b>Sorties</b> · outils génératifs</span><span id="relCount">2022 → 2025</span></div>
+        <div class="chart"><svg id="relSvg" viewBox="0 0 1000 200" role="img" aria-label="Frise chronologique des sorties d'outils génératifs, d'août 2022 à septembre 2025, réparties entre image, vidéo et audio."></svg></div>
+        <div class="rel" id="relList"></div>
+      </div>
+      <p class="cap">Sélection de sorties publiques d'outils génératifs, d'août 2022 à septembre 2025. Chaque point correspond à un outil ou à une version majeure.</p>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="sec gut" id="postulat" data-ch="Le postulat">
+    <div class="max">
+      <div class="chgrid" data-rv>
+        <div><span class="ch-no">02</span><span class="lab ch-tag">Le postulat</span></div>
+        <div>
+          <h2 class="xw ch-title">Connaître ces outils pour en décider</h2>
+          <div class="ruler"></div>
+          <div class="lede">
+            <p>L'arrivée de l'IA générative dans le cinéma suscite des positions tranchées sur l'emploi, le droit d'auteur et la valeur du travail créatif. Ces questions sont légitimes, et la formation les aborde.</p>
+            <p>Progress considère qu'elles ne peuvent être tranchées sans une connaissance précise de ce que ces outils produisent et de leurs effets sur le travail. L'association fait de cette exploration un travail à part entière, mené dans un studio en activité et sur des cas réels.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="sec gut" id="methode">
+  <!-- 03 -->
+  <section class="sec gut" id="enjeux" data-ch="Les enjeux">
     <div class="max">
-      <div class="sec-head">
-        <span class="mono">La méthode</span>
-        <div><h2 class="xw">Apprendre en production</h2></div>
+      <div class="chgrid" data-rv>
+        <div><span class="ch-no">03</span><span class="lab ch-tag">Les enjeux</span></div>
+        <div>
+          <h2 class="xw ch-title">Ce qui se joue pour la filière</h2>
+          <div class="ruler"></div>
+        </div>
       </div>
-      <div class="prose-cols">
-        <p>Progress fonde ses programmes sur un principe vérifié par ses deux premières années d'activité : les apprentissages les plus solides se font au contact des professionnels, des infrastructures et des projets réels. Les participants travaillent dans les conditions qu'ils rencontreront dans leur carrière, sur les mêmes outils et auprès des mêmes équipes.</p>
-        <p>Chaque programme commence par un socle commun. Il donne à l'ensemble du groupe des repères sur le fonctionnement des intelligences artificielles génératives et sur leurs usages dans les métiers de l'image et du son. Il transmet aussi les règles de travail d'un studio. Il se tient avant les périodes de forte production, afin que chaque participant soit opérationnel lorsque les projets arrivent.</p>
-        <p>La pratique se poursuit ensuite dans une spécialité, auprès d'un professionnel de Downtown Studio et sur les productions accueillies par le studio. Le participant y éprouve les nouveaux outils sur des cas réels, au moment où un film se termine en post-production, et en mesure les effets sur la qualité du travail et sur les délais.</p>
-        <p>Cette pratique s'accompagne d'une enquête. Chaque participant formule une question propre à son métier, par exemple les limites actuelles des voix générées ou l'automatisation de la sélection des rushes, la met à l'épreuve pendant sa spécialité et documente ses essais. Le dispositif emprunte au format d'atelier de l'enseignement de l'architecture, où le travail autonome est ponctué de critiques et de points d'étape réguliers. Les résultats sont restitués à l'équipe du studio et alimentent les méthodes de travail des productions suivantes.</p>
-      </div>
-
-      <div class="nle" id="nle" style="margin-top:56px">
-        <div class="nle-scroll"><svg id="nleSvg" viewBox="0 50 1200 470" role="img" aria-label="Schéma du parcours : inscription avec choix de spécialité, socle commun suivi par tous les participants, puis cinq spécialités dont chaque participant suit une seule."></svg></div>
-        <div class="chips" id="chips"></div>
+      <div class="issues block" data-rv>
+        <section class="lit">
+          <h3>Enjeux</h3>
+          <ol>
+            <li data-p="E.">Les professionnels en activité doivent intégrer ces outils sans interrompre leur travail, alors que les rythmes de production se sont accélérés.</li>
+            <li data-p="E.">Les jeunes diplômés arrivent sur le marché sans expérience de production, et les studios disposent de moins de temps pour les intégrer.</li>
+            <li data-p="E.">La Suisse romande ne dispose pas d'un cadre de formation actualisé pour les techniciens de post-production.</li>
+            <li data-p="E.">Les connaissances sur ces outils restent dispersées et sont rarement vérifiées en conditions de production.</li>
+          </ol>
+        </section>
+        <section class="lit">
+          <h3>Objectifs</h3>
+          <ol>
+            <li data-p="O.">Former aux outils génératifs dans les conditions réelles d'un studio.</li>
+            <li data-p="O.">Tenir à jour les compétences des équipes en place.</li>
+            <li data-p="O.">Donner aux jeunes diplômés une première expérience de production.</li>
+            <li data-p="O.">Documenter et publier les résultats des essais, au bénéfice de l'ensemble du secteur.</li>
+          </ol>
+        </section>
       </div>
     </div>
   </section>
 
-  <section class="sec gut" id="programmes">
+  <!-- 04 -->
+  <section class="sec gut" id="echange" data-ch="L'approche">
     <div class="max">
-      <div class="sec-head">
-        <span class="mono">Programmes</span>
-        <div><h2 class="xw">Programmes</h2></div>
+      <div class="chgrid" data-rv>
+        <div><span class="ch-no">04</span><span class="lab ch-tag">L'approche</span></div>
+        <div>
+          <h2 class="xw ch-title">Un échange d'expertise</h2>
+          <div class="ruler"></div>
+          <div class="lede">
+            <p>Le professionnel du studio maîtrise un métier, ses méthodes et ses logiciels. Son activité de production lui laisse peu de temps pour suivre les sorties d'outils. Le participant consacre une part importante de sa formation à cette veille.</p>
+            <p>Chacun apporte à l'autre ce qui lui manque. <strong>Le professionnel transmet les bases du métier. Le participant rapporte les outils récents</strong> et ce qu'il en a appris en les testant.</p>
+          </div>
+        </div>
       </div>
-      <div class="progs">
-        <a class="prog" href="#progress-ai">
-          <h3>Progress AI : IA et création cinéma</h3>
-          <p>Programme de trois modules de cinq jours consacré à la production audiovisuelle assistée par l'intelligence artificielle générative, de la préparation visuelle d'un film à l'hybridation entre prises de vues réelles et plans générés. Soutenu par la FFPC. Décembre 2026.</p>
-          <span class="more">Voir la fiche <span aria-hidden="true">→</span></span>
-        </a>
-        <a class="prog" href="#avenir">
+      <div class="panel block lit" data-rv>
+        <div class="flow">
+          <div class="who"><span class="lab dim">Mentor</span><strong>Professionnel du studio</strong><span>Monteur, mixeur, étalonneur ou graphiste VFX de Downtown Studio</span></div>
+          <svg id="flowSvg" viewBox="0 0 600 240" preserveAspectRatio="none" aria-hidden="true"></svg>
+          <div class="who"><span class="lab dim">Participant</span><strong>Professionnel ou jeune diplômé</strong><span>Inscrit dans la spécialité correspondante</span></div>
+        </div>
+        <div class="give">
+          <div><span class="lab dim">Transmis par le mentor</span><ul><li>Méthodes de travail</li><li>Logiciels de la spécialité</li><li>Organisation d'un studio</li><li>Exigences de livraison</li></ul></div>
+          <div><span class="lab dim">Rapporté par le participant</span><ul><li>Sorties récentes</li><li>Essais sur des cas réels</li><li>Résultats documentés</li><li>Limites constatées</li></ul></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="sec gut" id="cycle" data-ch="Le cycle">
+    <div class="max">
+      <div class="chgrid" data-rv>
+        <div><span class="ch-no">05</span><span class="lab ch-tag">Le cycle</span></div>
+        <div>
+          <h2 class="xw ch-title">Le cycle de travail</h2>
+          <div class="ruler"></div>
+          <div class="lede one"><p>La spécialité suit un cycle qui se répète pendant toute la formation. Chaque nouvelle sortie d'outil relance la boucle.</p></div>
+        </div>
+      </div>
+      <div class="nodes block" id="nodes" data-rv>
+        <article class="node"><div class="nh"><span>01</span><span>Mentor</span></div><div class="nb"><h3>Apprendre le métier</h3><p>Le participant apprend auprès de son mentor les méthodes et les logiciels de sa spécialité, sur les productions du studio.</p></div><span class="port o"></span><span class="wire"><i></i></span></article>
+        <article class="node"><div class="nh"><span>02</span><span>Participant</span></div><div class="nb"><h3>Faire la veille</h3><p>Il suit les sorties d'outils d'IA susceptibles de s'insérer dans le flux de travail de son métier.</p></div><span class="port i"></span><span class="port o"></span><span class="wire"><i></i></span></article>
+        <article class="node"><div class="nh"><span>03</span><span>Participant</span></div><div class="nb"><h3>Tester</h3><p>Il éprouve l'outil retenu sur un cas réel et documente la qualité obtenue, le temps gagné ou perdu et les limites rencontrées.</p></div><span class="port i"></span><span class="port o"></span><span class="wire"><i></i></span></article>
+        <article class="node"><div class="nh"><span>04</span><span>Mentor et participant</span></div><div class="nb"><h3>Valider</h3><p>Il présente ses essais à son mentor. Ensemble, ils décident si l'outil peut entrer dans le flux de travail du studio et à quelles conditions.</p></div><span class="port i"></span></article>
+        <div class="loop" id="loop"><span>Nouvelle sortie · retour à la veille</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="sec gut" id="recherche" data-ch="La recherche">
+    <div class="max">
+      <div class="chgrid" data-rv>
+        <div><span class="ch-no">06</span><span class="lab ch-tag">La recherche</span></div>
+        <div>
+          <h2 class="xw ch-title">Une recherche publiée</h2>
+          <div class="ruler"></div>
+          <div class="lede">
+            <p>Les essais des participants sont suivis par des chercheurs, qui en garantissent la méthode. <span class="tbd">[À CONFIRMER : collaboration avec l'IRAD, Institut de recherche en art et en design de la HEAD Genève]</span></p>
+            <p>Les résultats sont publiés afin que l'ensemble du secteur en bénéficie, au-delà des participants et du studio. <span class="tbd">[À CONFIRMER : format et fréquence des publications]</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="panel block lit" data-rv>
+        <div class="ph"><span><b>Pipeline</b> · d'un essai à sa publication</span><span id="logState">en attente</span></div>
+        <div class="log" id="log">
+          <div><span class="n">01</span><span class="k">Essai</span><span class="v">Test d'un outil sur un cas réel, dans la spécialité</span><span class="s">OK</span></div>
+          <div><span class="n">02</span><span class="k">Validation</span><span class="v">Avis du mentor sur l'intégration au flux de travail</span><span class="s">OK</span></div>
+          <div><span class="n">03</span><span class="k">Documentation</span><span class="v">Protocole, résultats et limites rédigés par le participant</span><span class="s">OK</span></div>
+          <div><span class="n">04</span><span class="k">Relecture</span><span class="v">Suivi méthodologique par des chercheurs</span><span class="s">OK</span></div>
+          <div><span class="n">05</span><span class="k">Publication</span><span class="v">Diffusion des résultats à l'ensemble du secteur</span><span class="s">OK</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="sec gut" id="programmes" data-ch="Programmes">
+    <div class="max">
+      <div class="chgrid" data-rv>
+        <div><span class="ch-no">07</span><span class="lab ch-tag">Programmes</span></div>
+        <div><h2 class="xw ch-title">Deux programmes</h2><div class="ruler"></div></div>
+      </div>
+      <div class="progs block" data-rv>
+        <a class="prog lit" href="#avenir">
+          <span class="lab dim">Formation longue</span>
           <h3>L'avenir de la post-production</h3>
-          <p>Formation fondée sur un socle commun consacré aux outils génératifs et aux techniques émergentes, suivi d'une pratique encadrée dans une spécialité de la post-production, sur les productions de Downtown Studio. <span class="tbd">[À CONFIRMER : dates et durée]</span></p>
-          <span class="more">Voir la fiche <span aria-hidden="true">→</span></span>
+          <p>Le programme décrit sur cette page. Un socle commun consacré aux outils génératifs, puis une spécialité pratiquée auprès d'un professionnel de Downtown Studio, sur les productions du studio.</p>
+          <div class="meta"><div><span>Format</span><span>Socle commun et spécialité</span></div><div><span>Calendrier</span><span><span class="tbd">[À CONFIRMER : dates et durée]</span></span></div></div>
+          <span class="more">Voir la fiche →</span>
+        </a>
+        <a class="prog lit" href="#progress-ai">
+          <span class="lab dim">Formation courte</span>
+          <h3>Progress AI : IA et création cinéma</h3>
+          <p>Trois modules de cinq jours consacrés à la production audiovisuelle assistée par l'IA générative, de la préparation visuelle d'un film à l'hybridation entre prises de vues réelles et plans générés.</p>
+          <div class="meta"><div><span>Format</span><span>3 modules de 5 jours, 6 à 8 participants</span></div><div><span>Calendrier</span><span>Décembre 2026</span></div><div><span>Soutien</span><span>FFPC</span></div></div>
+          <span class="more">Voir la fiche →</span>
         </a>
       </div>
     </div>
   </section>
 
-  <section class="sec gut" id="specialites">
+  <!-- 08 -->
+  <section class="sec gut" id="specialites" data-ch="Spécialités">
     <div class="max">
-      <div class="sec-head">
-        <span class="mono">Spécialités</span>
+      <div class="chgrid" data-rv>
+        <div><span class="ch-no">08</span><span class="lab ch-tag">Spécialités</span></div>
         <div>
-          <h2 class="xw">Les postes de travail du studio</h2>
-          <p>Chaque spécialité correspond à un poste de travail de Downtown Studio et aux transformations que les outils génératifs y produisent. Les équipements acquis par l'association avec le soutien de la Fondation Wilsdorf sont intégrés à ces postes.</p>
+          <h2 class="xw ch-title">Cinq postes de travail</h2>
+          <div class="ruler"></div>
+          <div class="lede one"><p>Chaque spécialité correspond à un poste de travail de Downtown Studio. Les équipements acquis par l'association avec le soutien de la Fondation Wilsdorf y sont intégrés.</p></div>
         </div>
       </div>
-      <div class="specs" id="specList"></div>
+      <div class="specs block" id="specList" data-rv></div>
     </div>
   </section>
 
-  <section class="sec gut">
+  <!-- 09 -->
+  <section class="sec gut" id="publics" data-ch="Publics">
     <div class="max">
-      <div class="sec-head">
-        <span class="mono">Publics</span>
-        <div><h2 class="xw">À qui s'adressent les programmes</h2></div>
+      <div class="chgrid" data-rv>
+        <div><span class="ch-no">09</span><span class="lab ch-tag">Publics</span></div>
+        <div><h2 class="xw ch-title">À qui s'adresse la formation</h2><div class="ruler"></div></div>
       </div>
-      <div class="duo">
-        <article>
-          <h3>Les professionnels en activité</h3>
-          <p>Monteurs, mixeurs, étalonneurs, graphistes VFX : leur expérience du métier reste l'atout principal dans l'usage de ces outils, apparus après leur formation. Le socle commun leur en donne la pratique ; la spécialité les confronte à leur niveau d'exigence, auprès d'un professionnel qui partage leur expérience.</p>
+      <div class="duo block" data-rv>
+        <article class="lit">
+          <h3>Professionnels en activité</h3>
+          <p>Monteurs, mixeurs, étalonneurs et graphistes VFX ont appris leur métier avant l'apparition de ces outils. Leur expérience reste l'atout principal pour juger de leur usage. La formation leur permet de les pratiquer et de les évaluer avec leur niveau d'exigence.</p>
         </article>
-        <article>
-          <h3>Les jeunes diplômés</h3>
-          <p>Issus pour la plupart de bachelors de cinéma généralistes, ils entrent sur le marché sans expérience de production ni portfolio professionnel. La spécialité les place sur des projets réels, avec leurs contraintes de budget et de délai, dans l'équipe qui les fabrique. Ils y apprennent l'organisation d'un studio autant que l'usage des outils.</p>
+        <article class="lit">
+          <h3>Jeunes diplômés</h3>
+          <p>Issus pour la plupart de bachelors de cinéma généralistes, ils entrent sur le marché sans expérience de production. La spécialité les place sur des projets réels, avec leurs contraintes de budget et de délai, au sein de l'équipe qui les fabrique.</p>
         </article>
       </div>
-      <p class="note">Les programmes sont ouverts aux personnes en reconversion qui justifient d'une pratique du secteur audiovisuel. Aucune compétence préalable en intelligence artificielle n'est requise.</p>
+      <p class="note">La formation est ouverte aux personnes en reconversion qui justifient d'une pratique du secteur audiovisuel. Aucune compétence préalable en intelligence artificielle n'est requise.</p>
     </div>
   </section>
 
-  <section class="sec gut">
+  <!-- 10 -->
+  <section class="sec gut" id="lift" data-ch="Le précédent">
     <div class="max">
-      <div class="sec-head">
-        <span class="mono">Le précédent</span>
-        <div><h2 class="xw">Lift, un principe éprouvé</h2></div>
-      </div>
-      <div class="prose-cols">
-        <p>Le principe sur lequel reposent les programmes a été mis à l'épreuve avec Lift, programme de passerelle vers la profession conduit par Progress et Downtown Studio, avec le soutien de la FFPC. Lift place de jeunes diplômés sur des productions réelles en tant que professionnels juniors, avec un mentorat assuré par des experts en activité et le double du temps habituellement accordé à un professionnel confirmé.</p>
-        <p>Une première session a formé quatre diplômés de la HEAD et de l'ECAL, en dix jours intensifs, à la fonction de recorder de l'auditorium Atmos, une fonction qui n'existait pas en Suisse romande. Douze autres jeunes professionnels ont ensuite travaillé au montage son, au mixage et à l'étalonnage de deux séries : Winter Palace, de Pierre Monnard, coproduite par Netflix, et Rennaissance, de Dylan Taher et Léo Wadimoff, coproduite par la RTS. Plusieurs d'entre eux collaborent aujourd'hui avec Freestudios et d'autres prestataires du secteur.</p>
-      </div>
-      <div class="stats s3">
-        <div><b>4</b><span>recorders formés pour l'auditorium Atmos</span></div>
-        <div><b>12</b><span>jeunes professionnels sur des séries en production</span></div>
-        <div><b>2&times;</b><span>le temps habituel accordé aux juniors</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec gut">
-    <div class="max">
-      <div class="sec-head">
-        <span class="mono">Le lieu</span>
+      <div class="chgrid" data-rv>
+        <div><span class="ch-no">10</span><span class="lab ch-tag">Le précédent</span></div>
         <div>
-          <h2 class="xw">Downtown Studio</h2>
-          <p>Lancé en octobre 2022 par Freestudios, acteur de la post-production cinématographique, Downtown Studio est un centre d'expertise dédié aux industries audiovisuelles, situé au 10 rue des Vieux-Grenadiers à Genève. Le projet a reçu l'approbation du Département de l'économie et de l'emploi pour son potentiel en matière d'emploi. Ses équipes collaborent avec des producteurs indépendants depuis près de vingt ans. Le socle commun des programmes se tient dans la salle de cours de Progress ; la pratique se déroule dans les espaces de production du studio.</p>
+          <h2 class="xw ch-title">Lift, un principe éprouvé</h2>
+          <div class="ruler"></div>
+          <div class="lede">
+            <p>Lift, programme conduit par Progress et Downtown Studio avec le soutien de la FFPC, place de jeunes diplômés sur des productions réelles en tant que professionnels juniors. Ils sont encadrés par des experts en activité et disposent du double du temps habituellement accordé à un professionnel confirmé.</p>
+            <p>Une première session a formé quatre diplômés de la HEAD et de l'ECAL, en dix jours intensifs, à la fonction de recorder de l'auditorium Atmos. Douze jeunes professionnels ont ensuite travaillé au montage son, au mixage et à l'étalonnage de deux séries : Winter Palace, de Pierre Monnard, coproduite par Netflix, et Rennaissance, de Dylan Taher et Léo Wadimoff, coproduite par la RTS.</p>
+          </div>
         </div>
       </div>
-      <div class="place">
-        <figure class="tall"><img src="img/dts-lumiere.jpg" alt="Le patio de Downtown Studio, un disque lumineux orange derrière un palmier"><figcaption>© Magali Girardin</figcaption></figure>
+      <div class="stats block" data-rv>
+        <div class="lit"><b data-count="4">4</b><span>recorders formés pour l'auditorium Atmos</span></div>
+        <div class="lit"><b data-count="12">12</b><span>jeunes professionnels sur deux séries en production</span></div>
+        <div class="lit"><b>2&times;</b><span>le temps habituellement accordé à un professionnel confirmé</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="sec gut" id="lieu" data-ch="Le lieu">
+    <div class="max">
+      <div class="chgrid" data-rv>
+        <div><span class="ch-no">11</span><span class="lab ch-tag">Le lieu</span></div>
+        <div>
+          <h2 class="xw ch-title">Downtown Studio</h2>
+          <div class="ruler"></div>
+          <div class="lede">
+            <p>Downtown Studio est un centre d'expertise dédié aux industries audiovisuelles, lancé en octobre 2022 par Freestudios au 10 rue des Vieux-Grenadiers à Genève. Le projet a reçu l'approbation du Département de l'économie et de l'emploi. Ses équipes collaborent avec des producteurs indépendants depuis près de vingt ans.</p>
+            <p>Le socle commun se tient dans la salle de cours de Progress. La pratique se déroule dans les espaces de production du studio.</p>
+          </div>
+        </div>
+      </div>
+      <div class="place block" data-rv>
+        <figure class="tall"><img src="img/dts-lumiere.jpg" alt="Le patio de Downtown Studio, un disque lumineux derrière un palmier"><figcaption>© Magali Girardin</figcaption></figure>
         <figure><img src="img/dts-atrium.jpg" alt="L'atrium de Downtown Studio sous sa verrière" style="aspect-ratio:16/10"><figcaption>L'atrium</figcaption></figure>
         <div class="sheet">
-          <span class="mono" style="color:var(--amber);margin-bottom:6px">Équipements</span>
+          <span class="lab dim">Équipements</span>
           <div class="row"><span>Auditorium de mixage Atmos</span><span>400 m³</span></div>
           <div class="row"><span>Station d'étalonnage</span><span>Baselight</span></div>
           <div class="row"><span>Interfaces de colorimétrie</span><span>9</span></div>
@@ -475,7 +718,7 @@ footer.site .mono{color:var(--ink)}
   </section>
 
   <section class="final gut">
-    <div class="max" style="width:100%;display:grid;gap:30px">
+    <div class="max" style="width:100%">
       <h2 class="xw"><a href="#inscription">S'inscrire <span class="arrow" aria-hidden="true">→</span></a></h2>
     </div>
   </section>
@@ -484,27 +727,58 @@ footer.site .mono{color:var(--ink)}
 <!-- ===================== PROGRAMMES ===================== -->
 <div class="view" data-view="programme" hidden>
   <section class="page-hero gut"><div class="max">
-    <span class="mono" style="color:var(--amber)">Programmes</span>
+    <span class="lab dim">Programmes</span>
     <h1 class="xw" style="margin-top:20px">Programmes</h1>
   </div></section>
 
-  <section class="sec gut fiche" id="progress-ai" style="padding-top:20px"><div class="max">
-    <div class="sec-head"><span class="mono">Programme</span><div>
+  <section class="sec gut" id="avenir" style="padding-top:20px"><div class="max">
+    <div class="sec-head"><span class="lab">Formation longue</span><div>
+      <h2 class="xw">L'avenir de la post-production</h2>
+      <p>Formation destinée aux professionnels en activité et aux jeunes diplômés. Elle associe un socle commun consacré aux outils génératifs et aux techniques émergentes à une pratique encadrée dans une spécialité, sur les productions de Downtown Studio.</p>
+    </div></div>
+    <div class="nle panel" id="nle" style="margin-bottom:50px">
+      <div class="nle-scroll"><svg id="nleSvg" viewBox="0 50 1200 470" role="img" aria-label="Schéma du parcours : inscription avec choix de spécialité, socle commun suivi par tous les participants, puis cinq spécialités dont chaque participant suit une seule."></svg></div>
+      <div class="chips" id="chips"></div>
+    </div>
+    <div class="split">
+      <div class="prose">
+        <p><b>Objectifs.</b> À l'issue de la formation, les participants comprennent le fonctionnement des intelligences artificielles génératives et leur place dans la chaîne de post-production. Ils savent les intégrer à leur métier en respectant les exigences de qualité et de livraison d'une production professionnelle. Ils maîtrisent l'organisation du travail en studio et ont conduit une recherche documentée sur une question de leur métier.</p>
+        <p><b>Le socle commun.</b> Il alterne cours théoriques et ateliers d'expérimentation. Il traite des outils de génération d'images, de vidéos, de voix et de musique, de ce que chacun produit et de la place qu'il peut occuper dans la chaîne de fabrication. Il aborde les techniques émergentes pour lesquelles aucune formation établie n'existe encore, de la réalité étendue au rendu en temps réel. Il transmet les règles de travail d'un studio, de la préparation des médias aux exigences de livraison des diffuseurs et des plateformes. Il examine enfin les questions juridiques et éthiques liées à ces outils : statut des contenus générés, droit d'auteur, mention au générique et rémunération du travail utilisé.</p>
+        <p><b>La spécialité.</b> Chaque participant rejoint un professionnel de Downtown Studio dans la spécialité choisie à l'inscription, sur les productions en cours. Les participants sont répartis par niveau, afin que l'encadrement corresponde à leur expérience. <span class="tbd">[À ARBITRER : nombre de participants par mentor et temps de suivi garanti]</span></p>
+        <p><b>La veille et les essais.</b> Pendant la spécialité, le participant suit les sorties d'outils qui concernent son métier, les teste sur des cas réels et présente ses résultats à son mentor. Ces essais sont documentés, suivis par des chercheurs et publiés. <span class="tbd">[À CONFIRMER : partenaire de recherche]</span></p>
+      </div>
+      <div class="sheet panel">
+        <span class="lab dim">Informations pratiques</span>
+        <div class="row info"><span>Durée et rythme</span><span><span class="tbd">[À CONFIRMER]</span></span></div>
+        <div class="row info"><span>Effectif</span><span><span class="tbd">[À CONFIRMER]</span></span></div>
+        <div class="row info"><span>Lieu</span><span>Downtown Studio, 10 rue des Vieux-Grenadiers, Genève</span></div>
+        <div class="row info"><span>Calendrier</span><span><span class="tbd">[À CONFIRMER]</span></span></div>
+        <div class="row info"><span>Tarif</span><span><span class="tbd">[À CONFIRMER]</span></span></div>
+        <div class="row info"><span>Financement</span><span>la FFPC soutient les formations de Progress pour les participants domiciliés dans le canton de Genève <span class="tbd">[À CONFIRMER pour ce programme]</span></span></div>
+        <div class="row info"><span>Attestation</span><span><span class="tbd">[À CONFIRMER]</span></span></div>
+        <div class="row info"><span>Admission</span><span>connaissance du secteur audiovisuel et autonomie de travail, sans compétence préalable en intelligence artificielle <span class="tbd">[À CONFIRMER : modalités de sélection]</span></span></div>
+        <div style="padding-top:16px"><a class="btn" href="#inscription" data-prog="ava">S'inscrire <span aria-hidden="true">→</span></a></div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="sec gut" id="progress-ai"><div class="max">
+    <div class="sec-head"><span class="lab">Formation courte</span><div>
       <h2 class="xw">Progress AI : IA et création cinéma</h2>
-      <p>Programme de formation continue en trois modules autonomes de cinq jours, consacré à la production audiovisuelle assistée par l'intelligence artificielle générative. Chaque module peut être suivi séparément ; ensemble, ils parcourent le pipeline complet d'un film, de la préparation visuelle à la finalisation. Un scénario commun, écrit par Dirty Bacon Productions, sert de support aux exercices des trois modules.</p>
+      <p>Programme de formation continue en trois modules autonomes de cinq jours, consacré à la production audiovisuelle assistée par l'intelligence artificielle générative. Chaque module peut être suivi séparément. Ensemble, ils couvrent la fabrication complète d'un film, de la préparation visuelle à la finalisation. Un scénario commun, écrit par Dirty Bacon Productions, sert de support aux exercices.</p>
     </div></div>
     <div class="modules">
-      <article><span class="mono">Module 1</span><h3>Fondations visuelles</h3><p>Le module introduit les outils de génération d'images et de vidéos et forme à la grammaire du prompt cinématographique : cadrage, focale, lumière, références esthétiques et direction artistique. Les participants passent du scénario au découpage, construisent la cohérence visuelle des personnages, des costumes, des décors et des environnements, et réalisent une bible visuelle de production (fiches personnages, mood boards, palette chromatique, story-board prévisualisé).</p></article>
-      <article><span class="mono">Module 2</span><h3>Production complète</h3><p>À partir de la bible du premier module, les participants produisent un court métrage de une à trois minutes entièrement généré. Le module couvre le choix et la combinaison des modèles vidéo selon la nature des plans, la continuité narrative et les raccords entre plans, la création de la bande sonore (voix, musique et ambiances générées, sound design), puis le montage et l'étalonnage sur DaVinci Resolve. Un sound designer et un monteur interviennent pendant deux journées.</p></article>
-      <article><span class="mono">Module 3</span><h3>Hybridation entre réel et génération</h3><p>Le module porte sur l'usage professionnel le plus exigeant de ces outils : l'association de prises de vues réelles et de plans générés. Il commence par une journée de tournage léger dans le studio de Downtown Studio, encadrée par un directeur de la photographie et un comédien professionnel, puis aborde l'analyse de footage, le matching colorimétrique, le compositing, les extensions de décor et l'intégration d'un acteur réel dans un environnement généré. Les participants réalisent un court métrage hybride et documentent leur méthode dans un guide de pipeline.</p></article>
+      <article><span class="lab dim">Module 1</span><h3>Fondations visuelles</h3><p>Le module introduit les outils de génération d'images et de vidéos et la grammaire du prompt cinématographique : cadrage, focale, lumière, références esthétiques et direction artistique. Les participants passent du scénario au découpage, construisent la cohérence visuelle des personnages, des costumes et des décors, et réalisent une bible visuelle de production.</p></article>
+      <article><span class="lab dim">Module 2</span><h3>Production complète</h3><p>À partir de la bible du premier module, les participants produisent un court métrage de une à trois minutes entièrement généré. Le module couvre le choix des modèles vidéo selon la nature des plans, la continuité entre les plans, la création de la bande sonore, puis le montage et l'étalonnage sur DaVinci Resolve. Un sound designer et un monteur interviennent pendant deux journées.</p></article>
+      <article><span class="lab dim">Module 3</span><h3>Hybridation entre réel et génération</h3><p>Le module associe prises de vues réelles et plans générés. Il commence par une journée de tournage dans le studio de Downtown Studio, encadrée par un directeur de la photographie et un comédien professionnel. Il aborde ensuite le matching colorimétrique, le compositing, les extensions de décor et l'intégration d'un acteur réel dans un environnement généré. Les participants documentent leur méthode dans un guide de pipeline.</p></article>
     </div>
-    <div class="split fiche-foot">
+    <div class="split">
       <div class="prose">
-        <p><b>Public.</b> Professionnels et semi-professionnels de l'audiovisuel et de la création numérique : réalisateurs, assistants à la réalisation, directeurs artistiques, chefs opérateurs, monteurs, artistes VFX, ingénieurs du son, producteurs et coordinateurs de production. Le premier module ne demande aucune connaissance préalable en intelligence artificielle ; les deux suivants restent accessibles aux candidats qui pratiquent déjà ces outils.</p>
+        <p><b>Public.</b> Professionnels et semi-professionnels de l'audiovisuel et de la création numérique : réalisateurs, assistants à la réalisation, directeurs artistiques, chefs opérateurs, monteurs, artistes VFX, ingénieurs du son, producteurs et coordinateurs de production. Le premier module ne demande aucune connaissance préalable en intelligence artificielle. Les deux suivants restent accessibles aux candidats qui pratiquent déjà ces outils.</p>
         <p><b>Évaluation.</b> Chaque module se conclut par l'évaluation du livrable devant un jury de professionnels du cinéma et de spécialistes de l'intelligence artificielle.</p>
       </div>
-      <div class="sheet">
-        <span class="mono" style="color:var(--amber);margin-bottom:6px">Informations pratiques</span>
+      <div class="sheet panel">
+        <span class="lab dim">Informations pratiques</span>
         <div class="row info"><span>Durée</span><span>trois modules de cinq jours consécutifs, 30 périodes de 60 minutes par module</span></div>
         <div class="row info"><span>Effectif</span><span>6 à 8 participants par module</span></div>
         <div class="row info"><span>Lieu</span><span>Downtown Studio, 10 rue des Vieux-Grenadiers, Genève (salle de cours et studio de tournage)</span></div>
@@ -513,43 +787,16 @@ footer.site .mono{color:var(--ink)}
         <div class="row info"><span>Financement</span><span>programme soutenu par la Fondation genevoise pour la formation professionnelle et continue (FFPC)</span></div>
         <div class="row info"><span>Attestation</span><span>attestation cantonale</span></div>
         <div class="row info"><span>Partenaires</span><span>Downtown Studio, Dirty Bacon Productions</span></div>
-        <div style="padding-top:16px"><a class="cta-pill amber" href="#inscription" data-prog="pai">S'inscrire <span aria-hidden="true">→</span></a></div>
-      </div>
-    </div>
-  </div></section>
-
-  <section class="sec gut fiche" id="avenir"><div class="max">
-    <div class="sec-head"><span class="mono">Programme</span><div>
-      <h2 class="xw">L'avenir de la post-production</h2>
-      <p>Formation destinée aux professionnels en activité et aux jeunes diplômés, qui associe un socle commun consacré aux outils génératifs et aux techniques émergentes à une pratique encadrée dans une spécialité, sur les productions de Downtown Studio.</p>
-    </div></div>
-    <div class="split fiche-foot">
-      <div class="prose">
-        <p><b>Objectifs.</b> À l'issue de la formation, les participants comprennent le fonctionnement des intelligences artificielles génératives et leur place dans la chaîne de post-production ; ils savent les intégrer à leur métier en tenant compte des exigences de qualité et de livraison d'une production professionnelle ; ils maîtrisent l'organisation du travail en studio ; ils ont conduit et documenté une enquête appliquée sur une question de leur métier.</p>
-        <p><b>Le socle commun.</b> Il alterne cours théoriques et ateliers d'expérimentation guidée. Il traite des outils de génération d'images, de vidéos, de voix et de musique, de ce que chacun produit réellement et de l'endroit où il s'insère dans la chaîne de fabrication. Il aborde les techniques émergentes pour lesquelles aucune formation établie n'existe encore, de la réalité étendue au rendu en temps réel. Il transmet les règles de travail d'un studio, de la préparation des médias à la gestion des données d'un projet et aux exigences de livraison des diffuseurs et des plateformes. Il examine enfin les questions juridiques et éthiques encore mal stabilisées que pose l'usage de ces outils : statut des contenus générés, droit d'auteur, mention au générique et rémunération du travail utilisé.</p>
-        <p><b>La spécialité.</b> Chaque participant rejoint un professionnel de Downtown Studio dans la spécialité choisie à l'inscription, sur les productions en cours. Les participants sont répartis par niveau, afin que l'encadrement corresponde à leur expérience. <span class="tbd">[À ARBITRER : nombre de participants par mentor et temps de suivi garanti]</span></p>
-        <p><b>L'enquête appliquée.</b> Formulée pendant le socle commun, la question de chaque participant est mise à l'épreuve pendant la spécialité, documentée et restituée à l'équipe du studio.</p>
-      </div>
-      <div class="sheet">
-        <span class="mono" style="color:var(--amber);margin-bottom:6px">Informations pratiques</span>
-        <div class="row info"><span>Durée et rythme</span><span><span class="tbd">[À CONFIRMER]</span></span></div>
-        <div class="row info"><span>Effectif</span><span><span class="tbd">[À CONFIRMER]</span></span></div>
-        <div class="row info"><span>Lieu</span><span>Downtown Studio, 10 rue des Vieux-Grenadiers, Genève</span></div>
-        <div class="row info"><span>Calendrier</span><span><span class="tbd">[À CONFIRMER]</span></span></div>
-        <div class="row info"><span>Tarif</span><span><span class="tbd">[À CONFIRMER]</span></span></div>
-        <div class="row info"><span>Financement</span><span>la FFPC soutient les formations de Progress pour les participants domiciliés dans le canton de Genève <span class="tbd">[À CONFIRMER pour ce programme]</span></span></div>
-        <div class="row info"><span>Attestation</span><span><span class="tbd">[À CONFIRMER]</span></span></div>
-        <div class="row info"><span>Admission</span><span>connaissance du secteur audiovisuel et autonomie de travail ; aucune compétence préalable en intelligence artificielle <span class="tbd">[À CONFIRMER : modalités de sélection]</span></span></div>
-        <div style="padding-top:16px"><a class="cta-pill amber" href="#inscription" data-prog="ava">S'inscrire <span aria-hidden="true">→</span></a></div>
+        <div style="padding-top:16px"><a class="btn" href="#inscription" data-prog="pai">S'inscrire <span aria-hidden="true">→</span></a></div>
       </div>
     </div>
   </div></section>
 
   <section class="sec gut" id="questions"><div class="max">
-    <div class="sec-head"><span class="mono">Questions fréquentes</span><div><h2 class="xw">Questions fréquentes</h2></div></div>
+    <div class="sec-head"><span class="lab">Questions</span><div><h2 class="xw">Questions fréquentes</h2></div></div>
     <div class="faq">
       <details open><summary>Je pratique mon métier depuis de nombreuses années. Le socle commun me concerne-t-il ?</summary><p>Oui. Il porte sur des outils et des techniques apparus récemment, que les professionnels expérimentés découvrent au même moment que les jeunes diplômés. Votre expérience reste l'atout principal pour juger de leur usage, et la spécialité vous place auprès d'un professionnel et de participants de niveau comparable.</p></details>
-      <details><summary>Faut-il déjà connaître les outils d'intelligence artificielle ?</summary><p>Non. Aucune compétence préalable en intelligence artificielle n'est demandée. Une connaissance du secteur audiovisuel et une réelle autonomie de travail sont attendues.</p></details>
+      <details><summary>Faut-il déjà connaître les outils d'intelligence artificielle ?</summary><p>Non. Aucune compétence préalable en intelligence artificielle n'est demandée. Une connaissance du secteur audiovisuel et une autonomie de travail sont attendues.</p></details>
       <details><summary>Qui encadre la pratique ?</summary><p>Des professionnels de Downtown Studio en activité dans chacune des spécialités. <span class="tbd">[À CONFIRMER : noms et modalités de suivi]</span></p></details>
       <details><summary>Travaillerai-je sur des productions réelles ?</summary><p>La spécialité se déroule sur les productions accueillies par le studio et son réseau. Les conditions de participation, notamment la mention au générique et la confidentialité, sont précisées avant le début de la spécialité.</p></details>
       <details><summary>Les formations sont-elles financées ?</summary><p>La Fondation genevoise pour la formation professionnelle et continue (FFPC) soutient les formations de Progress pour les participants domiciliés dans le canton de Genève, ce qui permet de maintenir des tarifs accessibles. Les conditions propres à chaque programme figurent sur sa fiche.</p></details>
@@ -558,7 +805,7 @@ footer.site .mono{color:var(--ink)}
     </div>
   </div></section>
 
-  <section class="final gut"><div class="max" style="width:100%;display:grid;gap:30px">
+  <section class="final gut"><div class="max" style="width:100%">
     <h2 class="xw"><a href="#inscription">S'inscrire <span class="arrow" aria-hidden="true">→</span></a></h2>
   </div></section>
 </div>
@@ -566,22 +813,22 @@ footer.site .mono{color:var(--ink)}
 <!-- ===================== ASSOCIATION ===================== -->
 <div class="view" data-view="progress" hidden>
   <section class="page-hero gut"><div class="max">
-    <span class="mono" style="color:var(--amber)">L'association</span>
+    <span class="lab dim">L'association</span>
     <h1 class="xw" style="margin-top:20px">L'association</h1>
-    <p>Progress est une association genevoise à but non lucratif, créée en novembre 2023 au sein de Downtown Studio. Sa mission est d'accompagner les professionnels de l'audiovisuel dans l'évolution de leurs métiers et les jeunes diplômés dans leur entrée dans la profession.</p>
+    <p>Progress est une association genevoise à but non lucratif, créée en novembre 2023 au sein de Downtown Studio. Elle accompagne les professionnels de l'audiovisuel dans l'évolution de leurs métiers et les jeunes diplômés dans leur entrée dans la profession.</p>
   </div></section>
 
   <section class="sec gut" style="padding-top:20px"><div class="max">
     <div class="prose-cols">
-      <p>L'association est née d'un constat partagé par les professionnels du studio : la Suisse romande ne dispose pas d'un cadre professionnalisant actualisé pour les techniciens de post-production, et la transition entre l'école et la production reste l'étape la plus difficile d'une carrière.</p>
-      <p>Ses premières années ont permis d'éprouver plusieurs formats. Un catalogue de cours spécialisés, consacré à des logiciels et à des techniques précises, a été proposé en 2024 et 2025 avec des partenaires reconnus, dont certains délivraient les certifications officielles des éditeurs de logiciels. En parallèle, Lift a placé de jeunes diplômés sur des productions réelles du studio. Une étude de faisabilité conduite en 2025 avec des consultants externes a confirmé la pertinence de la mission et montré que la valeur de l'association tient à sa capacité à relier les participants à un environnement professionnel réel.</p>
-      <p>Progress organise désormais ses programmes autour de ce principe. Les équipements acquis grâce au soutien de la Fondation Wilsdorf sont intégrés aux postes de travail du studio, afin que les participants apprennent dans les mêmes conditions, avec les mêmes outils et aux côtés des mêmes professionnels que ceux qu'ils rencontreront dans leur carrière. <span class="tbd">[À ARBITRER : mention du montant d'environ 200 000 CHF]</span></p>
+      <p>L'association est née d'un constat partagé par les professionnels du studio. La Suisse romande ne dispose pas d'un cadre de formation actualisé pour les techniciens de post-production, et le passage de l'école à la production reste l'étape la plus difficile d'une carrière.</p>
+      <p>Ses premières années ont permis d'éprouver plusieurs formats. Un catalogue de cours consacrés à des logiciels et à des techniques précises a été proposé en 2024 et 2025 avec des partenaires de formation, dont certains délivraient les certifications officielles des éditeurs. En parallèle, Lift a placé de jeunes diplômés sur des productions réelles du studio. Une étude de faisabilité conduite en 2025 avec des consultants externes a confirmé la pertinence de la mission. Elle a montré que la valeur de l'association tient à sa capacité à relier les participants à un environnement professionnel réel.</p>
+      <p>Progress organise désormais ses programmes autour de ce principe. Les équipements acquis grâce au soutien de la Fondation Wilsdorf sont intégrés aux postes de travail du studio, afin que les participants apprennent avec les outils et aux côtés des professionnels qu'ils retrouveront dans leur carrière. <span class="tbd">[À ARBITRER : mention du montant d'environ 200 000 CHF]</span></p>
       <p>L'association met également ses équipements à disposition de partenaires de formation. La salle de cours accueille les ateliers d'écriture de l'association WIP (Work In Progress), et les formations certifiantes du programme Baselight Education y sont animées par Boris Rabusseau, formateur officiel Baselight.</p>
     </div>
   </div></section>
 
   <section class="sec gut"><div class="max">
-    <div class="sec-head"><span class="mono">Repères</span><div><h2 class="xw">Repères</h2></div></div>
+    <div class="sec-head"><span class="lab">Repères</span><div><h2 class="xw">Repères</h2></div></div>
     <div class="timeline-h">
       <div><span class="yr">2022</span><p>Freestudios lance Downtown Studio à Genève, centre d'expertise dédié aux industries audiovisuelles, avec l'approbation du Département de l'économie et de l'emploi.</p></div>
       <div><span class="yr">2023</span><p>Création de l'association Progress au sein de Downtown Studio. Première session de Lift : formation de recorders pour l'auditorium Atmos. <span class="tbd">[À CONFIRMER : date]</span></p></div>
@@ -592,44 +839,44 @@ footer.site .mono{color:var(--ink)}
   </div></section>
 
   <section class="sec gut"><div class="max">
-    <div class="sec-head"><span class="mono">Comité</span><div><h2 class="xw">Comité</h2><p>Élu par l'assemblée générale extraordinaire du 11 décembre 2025.</p></div></div>
+    <div class="sec-head"><span class="lab">Comité</span><div><h2 class="xw">Comité</h2><p>Élu par l'assemblée générale extraordinaire du 11 décembre 2025.</p></div></div>
     <div class="people">
-      <div><span class="mono dim">Président</span><strong>Guillaume Helleu</strong></div>
-      <div><span class="mono dim">Secrétaire général</span><strong>Jean-Charles Weber</strong></div>
-      <div><span class="mono dim">Trésorière</span><strong>Delphine Guerchet</strong></div>
+      <div><span class="lab dim">Président</span><strong>Guillaume Helleu</strong></div>
+      <div><span class="lab dim">Secrétaire général</span><strong>Jean-Charles Weber</strong></div>
+      <div><span class="lab dim">Trésorière</span><strong>Delphine Guerchet</strong></div>
     </div>
   </div></section>
 
   <section class="sec gut"><div class="max">
-    <div class="sec-head"><span class="mono">Partenaires</span><div><h2 class="xw">Partenaires</h2></div></div>
+    <div class="sec-head"><span class="lab">Partenaires</span><div><h2 class="xw">Partenaires</h2></div></div>
     <div class="partners p4">
       <div><strong>Downtown Studio</strong><p>Hébergement de l'association, postes de travail, encadrement et productions sur lesquelles se déroule la pratique.</p></div>
       <div><strong>Fondation genevoise pour la formation professionnelle et continue (FFPC)</strong><p>Soutien des formations de Progress pour les participants domiciliés dans le canton de Genève.</p></div>
       <div><strong>Fondation Wilsdorf</strong><p>Financement de la salle de cours et des équipements de l'association.</p></div>
       <div><strong>Dirty Bacon Productions</strong><p>Conception pédagogique et scénario commun du programme Progress AI.</p></div>
     </div>
-    <p class="note"><span class="tbd">[À CONFIRMER : partenaires de formation à mentionner (WIP, Baselight Education, IFAGE, XN Swiss, Floating Point, Wagcom)]</span></p>
+    <p class="note"><span class="tbd">[À CONFIRMER : partenaires de formation à mentionner (WIP, Baselight Education, IFAGE, XN Swiss, Floating Point, Wagcom) et partenaire de recherche]</span></p>
   </div></section>
 
-  <section class="final gut"><div class="max" style="width:100%;display:grid;gap:30px">
+  <section class="final gut"><div class="max" style="width:100%;display:grid;gap:24px">
     <h2 class="xw" style="font-size:clamp(2.6rem,8vw,7rem)">Contact</h2>
-    <p class="copy">info@progressgeneve.ch</p>
-    <p style="margin:0;color:#CFCBC3">Association Progress, c/o Downtown Studio, 10 rue des Vieux-Grenadiers, 1205 Genève</p>
+    <p class="copy" style="margin:0">info@progressgeneve.ch</p>
+    <p style="margin:0;color:var(--soft)">Association Progress, c/o Downtown Studio, 10 rue des Vieux-Grenadiers, 1205 Genève</p>
   </div></section>
 </div>
 
 <!-- ===================== INSCRIPTION ===================== -->
 <div class="view" data-view="inscription" hidden>
   <section class="page-hero gut" style="padding-bottom:40px"><div class="max">
-    <span class="mono" style="color:var(--amber)">Inscription</span>
+    <span class="lab dim">Inscription</span>
     <h1 class="xw" style="margin-top:20px">Inscription</h1>
-    <p>L'inscription se fait par programme. Pour L'avenir de la post-production, elle couvre le socle commun et la spécialité choisie. Pour Progress AI, chaque module fait l'objet d'une inscription distincte. Votre demande est examinée par l'association, qui vous confirme votre place et les modalités de paiement.</p>
+    <p>L'inscription se fait par programme. Pour L'avenir de la post-production, elle couvre le socle commun et la spécialité choisie. Pour Progress AI, chaque module fait l'objet d'une inscription distincte. L'association examine votre demande, puis vous confirme votre place et les modalités de paiement.</p>
   </div></section>
 
   <section class="gut" style="padding-bottom:140px"><div class="max reg-wrap">
     <div>
       <form class="reg" id="regForm" novalidate>
-        <div class="stepper s5" id="stepper"><span>Vous</span><span>Programme</span><span>Spécialité ou module</span><span>Niveau</span><span>Envoi</span></div>
+        <div class="stepper" id="stepper"><span>Vous</span><span>Programme</span><span>Spécialité ou module</span><span>Niveau</span><span>Envoi</span></div>
 
         <fieldset data-step="1">
           <legend>Vos coordonnées</legend>
@@ -649,14 +896,14 @@ footer.site .mono{color:var(--ink)}
               <option>Autre canton</option>
               <option>Hors de Suisse</option>
             </select></div>
-          <p class="hint">Les participants domiciliés dans le canton de Genève bénéficient du soutien de la FFPC. Merci d'indiquer votre canton de domicile.</p>
+          <p class="hint">Les participants domiciliés dans le canton de Genève bénéficient du soutien de la FFPC.</p>
         </fieldset>
 
         <fieldset data-step="2" hidden>
           <legend>Votre programme</legend>
           <div class="opts" id="progOpts">
-            <label class="opt"><input type="radio" name="prog" value="ava"><span class="dot"></span><strong>L'avenir de la post-production</strong><span></span><small>Socle commun et spécialité choisie.</small></label>
-            <label class="opt"><input type="radio" name="prog" value="pai"><span class="dot"></span><strong>Progress AI : IA et création cinéma</strong><span></span><small>Trois modules de cinq jours, décembre 2026.</small></label>
+            <label class="opt"><input type="radio" name="prog" value="ava"><span class="dot"></span><strong>L'avenir de la post-production</strong><small>Socle commun et spécialité choisie.</small></label>
+            <label class="opt"><input type="radio" name="prog" value="pai"><span class="dot"></span><strong>Progress AI : IA et création cinéma</strong><small>Trois modules de cinq jours, décembre 2026.</small></label>
           </div>
         </fieldset>
 
@@ -664,18 +911,18 @@ footer.site .mono{color:var(--ink)}
           <legend id="step3Title">Votre spécialité</legend>
           <div class="opts" id="specOpts"></div>
           <div class="opts" id="modOpts" hidden>
-            <label class="opt"><input type="checkbox" name="mod" value="Module 1 : Fondations visuelles"><span class="dot"></span><strong>Module 1 : Fondations visuelles</strong><span></span><small>Aucune connaissance préalable en intelligence artificielle n'est demandée.</small></label>
-            <label class="opt"><input type="checkbox" name="mod" value="Module 2 : Production complète"><span class="dot"></span><strong>Module 2 : Production complète</strong><span></span><small>Court métrage entièrement généré, à partir de la bible du premier module.</small></label>
-            <label class="opt"><input type="checkbox" name="mod" value="Module 3 : Hybridation entre réel et génération"><span class="dot"></span><strong>Module 3 : Hybridation entre réel et génération</strong><span></span><small>Prises de vues réelles et plans générés.</small></label>
+            <label class="opt"><input type="checkbox" name="mod" value="Module 1 : Fondations visuelles"><span class="dot"></span><strong>Module 1 : Fondations visuelles</strong><small>Aucune connaissance préalable en intelligence artificielle n'est demandée.</small></label>
+            <label class="opt"><input type="checkbox" name="mod" value="Module 2 : Production complète"><span class="dot"></span><strong>Module 2 : Production complète</strong><small>Court métrage entièrement généré, à partir de la bible du premier module.</small></label>
+            <label class="opt"><input type="checkbox" name="mod" value="Module 3 : Hybridation entre réel et génération"><span class="dot"></span><strong>Module 3 : Hybridation entre réel et génération</strong><small>Prises de vues réelles et plans générés.</small></label>
           </div>
         </fieldset>
 
         <fieldset data-step="4" hidden>
           <legend>Votre niveau</legend>
           <div class="opts" id="lvlOpts">
-            <label class="opt"><input type="radio" name="lvl" value="Découverte"><span class="dot"></span><strong>Découverte</strong><span></span><small>Vous n'avez jamais exercé ce métier.</small></label>
-            <label class="opt"><input type="radio" name="lvl" value="Formé·e"><span class="dot"></span><strong>Formé·e</strong><span></span><small>Vous l'avez appris en formation ou pratiqué sur quelques projets.</small></label>
-            <label class="opt"><input type="radio" name="lvl" value="Confirmé·e"><span class="dot"></span><strong>Confirmé·e</strong><span></span><small>Vous l'exercez professionnellement depuis plusieurs années.</small></label>
+            <label class="opt"><input type="radio" name="lvl" value="Découverte"><span class="dot"></span><strong>Découverte</strong><small>Vous n'avez jamais exercé ce métier.</small></label>
+            <label class="opt"><input type="radio" name="lvl" value="Formé·e"><span class="dot"></span><strong>Formé·e</strong><small>Vous l'avez appris en formation ou pratiqué sur quelques projets.</small></label>
+            <label class="opt"><input type="radio" name="lvl" value="Confirmé·e"><span class="dot"></span><strong>Confirmé·e</strong><small>Vous l'exercez professionnellement depuis plusieurs années.</small></label>
           </div>
           <div class="field"><label for="f-motiv">Vos attentes (facultatif)</label><textarea id="f-motiv"></textarea></div>
         </fieldset>
@@ -683,31 +930,31 @@ footer.site .mono{color:var(--ink)}
         <fieldset data-step="5" hidden>
           <legend>Envoi</legend>
           <div id="finalRecap" class="prose" style="font-size:1.02rem"></div>
-          <label class="opt"><input type="checkbox" id="f-ok"><span class="dot"></span><strong>J'ai pris connaissance de l'organisation du programme</strong><span></span><small>L'association examine ma demande et me confirme ma place ainsi que les modalités de paiement.</small></label>
+          <label class="opt"><input type="checkbox" id="f-ok"><span class="dot"></span><strong>J'ai pris connaissance de l'organisation du programme</strong><small>L'association examine ma demande et me confirme ma place ainsi que les modalités de paiement.</small></label>
         </fieldset>
 
         <div class="err" id="err" role="alert"></div>
         <div class="form-nav">
           <button type="button" class="back" id="prevBtn">← Retour</button>
-          <button type="button" class="cta-pill amber" id="nextBtn">Continuer →</button>
+          <button type="button" class="btn" id="nextBtn">Continuer →</button>
         </div>
       </form>
 
       <div class="done" id="doneMsg" hidden>
-        <span class="mono" style="color:var(--amber)">Demande reçue</span>
+        <span class="lab dim">Demande reçue</span>
         <h2 class="xw">Merci</h2>
         <p id="doneText"></p>
-        <div><button type="button" class="ghost" id="restartBtn" style="cursor:pointer;color:var(--ink)">Nouvelle demande</button></div>
+        <div><button type="button" class="btn line" id="restartBtn">Nouvelle demande</button></div>
       </div>
     </div>
 
     <aside class="side" aria-live="polite">
       <div class="card">
-        <span class="mono" style="color:var(--amber)">Votre demande</span>
+        <span class="lab dim">Votre demande</span>
         <div class="mini" id="miniPath"></div>
       </div>
       <div class="card" style="gap:8px">
-        <span class="mono dim">Lieu</span>
+        <span class="lab dim">Lieu</span>
         <span>Downtown Studio, 10 rue des Vieux-Grenadiers, Genève</span>
       </div>
     </aside>
@@ -718,76 +965,185 @@ footer.site .mono{color:var(--ink)}
 
 <footer class="site"><div class="in gut max">
   <div style="display:grid;gap:16px;align-content:start"><span class="logo"><img src="img/logo-progress.png" alt="PROGRESS" style="filter:invert(1)"></span><p>Association genevoise à but non lucratif de formation aux métiers de l'audiovisuel.</p></div>
-  <nav><span class="mono">Programmes</span><a href="#progress-ai">Progress AI</a><a href="#avenir">L'avenir de la post-production</a><a href="#inscription">Inscription</a></nav>
-  <nav><span class="mono">Association</span><a href="#progress">L'association</a><a href="#methode">La méthode</a><a href="#questions">Questions fréquentes</a></nav>
-  <div style="display:grid;gap:8px;align-content:start"><span class="mono">Contact</span><span class="copy">info@progressgeneve.ch</span><p>c/o Downtown Studio<br>10 rue des Vieux-Grenadiers<br>1205 Genève</p></div>
+  <nav><span class="lab">Programmes</span><a href="#avenir">L'avenir de la post-production</a><a href="#progress-ai">Progress AI</a><a href="#inscription">Inscription</a></nav>
+  <nav><span class="lab">Le projet</span><a href="#echange">L'approche</a><a href="#cycle">Le cycle de travail</a><a href="#questions">Questions fréquentes</a><a href="#progress">L'association</a></nav>
+  <div style="display:grid;gap:8px;align-content:start"><span class="lab">Contact</span><span class="copy">info@progressgeneve.ch</span><p>c/o Downtown Studio<br>10 rue des Vieux-Grenadiers<br>1205 Genève</p></div>
 </div></footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (function(){
 "use strict";
+document.body.classList.remove('no-js');
 var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+var NS='http://www.w3.org/2000/svg';
+function el(t,a,parent){var n=document.createElementNS(NS,t);for(var k in a)n.setAttribute(k,a[k]);if(parent)parent.appendChild(n);return n}
 
 /* ---------- Données ---------- */
 var SPECS=[
-  {id:"son",c:"--son",hex:"#4FD1B4",name:"Montage son et mixage",short:"Son",where:"Studios de montage son et auditorium de mixage Atmos de 400 m³, le premier de ce type en Suisse romande.",what:"La spécialité porte sur l'arrivée des voix, des bruitages et du doublage générés dans une chaîne de fabrication sonore exigeante, et sur les critères qui permettent d'en juger l'usage."},
-  {id:"eta",c:"--eta",hex:"#FF6B88",name:"Étalonnage",short:"Étalonnage",where:"Salle d'étalonnage Baselight, où se tiennent les formations certifiantes du programme Baselight Education.",what:"La spécialité articule la pratique de la colorimétrie et les traitements d'image assistés par l'intelligence artificielle."},
-  {id:"img",c:"--img",hex:"#7AA2FF",name:"Montage image",short:"Montage",where:"Salles de montage image.",what:"La spécialité examine les tâches désormais automatisables (transcription, sélection des rushes, sous-titrage) et leurs effets sur le travail du monteur et sur l'organisation d'une salle de montage."},
-  {id:"vfx",c:"--vfx",hex:"#B98BFF",name:"Effets visuels et compositing",short:"VFX",where:"Stations VFX.",what:"Extensions de décor et nettoyage de plans par génération d'images, pratiqués sur les projets du studio."},
-  {id:"xr",c:"--xr",hex:"#E6D25A",name:"XR et nouveaux médias",short:"XR",where:"Infrastructures XR et nouveaux médias.",what:"Formats immersifs et rendu en temps réel, que les lieux culturels intègrent de plus en plus dans leurs programmations, du mapping à la réalité virtuelle."}
+  {id:"son",name:"Montage son et mixage",short:"Son",where:"Studios de montage son et auditorium de mixage Atmos de 400 m³, le premier de ce type en Suisse romande.",what:"Voix, bruitages et doublage générés, et les critères qui permettent d'en juger l'usage dans une chaîne de fabrication sonore exigeante."},
+  {id:"eta",name:"Étalonnage",short:"Étalonnage",where:"Salle d'étalonnage Baselight, où se tiennent les formations certifiantes du programme Baselight Education.",what:"La pratique de la colorimétrie et les traitements d'image assistés par l'intelligence artificielle."},
+  {id:"img",name:"Montage image",short:"Montage",where:"Salles de montage image.",what:"Les tâches désormais automatisables, comme la transcription, la sélection des rushes ou le sous-titrage, et leurs effets sur le travail du monteur."},
+  {id:"vfx",name:"Effets visuels et compositing",short:"VFX",where:"Stations VFX.",what:"Extensions de décor et nettoyage de plans par génération d'images, pratiqués sur les projets du studio."},
+  {id:"xr",name:"XR et nouveaux médias",short:"XR",where:"Infrastructures XR et nouveaux médias.",what:"Formats immersifs et rendu en temps réel, du mapping à la réalité virtuelle."}
 ];
-var picked=null;
+/* Sorties publiques d'outils génératifs (mois de sortie) */
+var REL=[
+  ["2022-08","img","Stable Diffusion"],
+  ["2022-09","aud","Whisper (transcription)"],
+  ["2023-01","aud","ElevenLabs (voix)"],
+  ["2023-02","vid","Runway Gen-1"],
+  ["2023-03","img","Midjourney v5"],
+  ["2023-03","img","Adobe Firefly"],
+  ["2024-02","vid","Sora (annonce)"],
+  ["2024-03","aud","Suno v3 (musique)"],
+  ["2024-06","vid","Kling"],
+  ["2024-06","vid","Luma Dream Machine"],
+  ["2024-06","vid","Runway Gen-3 Alpha"],
+  ["2024-08","img","Flux"],
+  ["2024-12","vid","Sora (accès public)"],
+  ["2024-12","vid","Veo 2"],
+  ["2025-03","vid","Runway Gen-4"],
+  ["2025-04","vid","Premiere Pro, extension générative"],
+  ["2025-05","vid","Veo 3 (vidéo et son)"],
+  ["2025-08","img","Gemini 2.5 Flash Image"],
+  ["2025-09","vid","Sora 2"]
+];
+var LANES={img:["Image",0],vid:["Vidéo",1],aud:["Audio",2]};
+var picked=null,prog=null;
 
-/* ---------- Liste des spécialités ---------- */
-function specRows(){return SPECS.map(function(s){
-  return '<a class="spec" href="#inscription" data-go="'+s.id+'" style="--c:var('+s.c+')"><div><h3>'+s.name+'</h3><span class="where">'+s.where+'</span></div><p>'+s.what+'</p><span class="arr" aria-hidden="true">→</span></a>';
-}).join('')}
-document.getElementById('specList').innerHTML=specRows();
+/* ---------- Spécialités ---------- */
+document.getElementById('specList').innerHTML=SPECS.map(function(s,i){
+  return '<a class="spec" href="#inscription" data-go="'+s.id+'"><span class="no">S.0'+(i+1)+'</span><div><h3>'+s.name+'</h3><span class="where">'+s.where+'</span></div><p>'+s.what+'</p><span class="arr" aria-hidden="true">→</span></a>';
+}).join('');
 document.addEventListener('click',function(e){var a=e.target.closest('[data-go]');if(a)setPick(a.dataset.go)});
 
-/* ---------- Schéma NLE (SVG) ---------- */
-var svg=document.getElementById('nleSvg'),NS='http://www.w3.org/2000/svg';
-var X0=150,XREG=150,XTC0=360,XSPLIT=700,XEND=1170,YTC=120,Y0=230,DY=58;
-function el(t,a,parent){var n=document.createElementNS(NS,t);for(var k in a)n.setAttribute(k,a[k]);(parent||svg).appendChild(n);return n}
+/* ---------- 01 : frise des sorties ---------- */
+var relSvg=document.getElementById('relSvg'),relList=document.getElementById('relList');
+var M0=new Date(2022,5,1),M1=new Date(2026,0,1),XL=90,XR=985;
+function mx(d){var p=d.split('-');var m=(+p[0]-2022)*12+(+p[1]-1)-5+.5;var tot=(2026-2022)*12-5;return XL+(XR-XL)*m/tot}
+function buildRel(){
+  relSvg.innerHTML='';
+  var narrow=window.innerWidth<640;XL=narrow?56:90;XR=narrow?512:985;relSvg.setAttribute('viewBox','0 0 '+(narrow?520:1000)+' 200');
+  for(var y=2023;y<=2025;y++){var x=mx(y+'-01')-((XR-XL)/43)*.5;el('line',{x1:x,x2:x,y1:12,y2:176,stroke:'rgba(255,255,255,.14)'},relSvg);var t=el('text',{x:x+6,y:194,fill:'#808080','font-size':'11'},relSvg);t.textContent=y}
+  var t0=el('text',{x:XL,y:194,fill:'#808080','font-size':'11'},relSvg);t0.textContent='2022';
+  Object.keys(LANES).forEach(function(k){var yy=36+LANES[k][1]*56;el('line',{x1:XL,x2:XR,y1:yy,y2:yy,stroke:'rgba(255,255,255,.2)','stroke-dasharray':'1 5'},relSvg);var t=el('text',{x:0,y:yy+4,fill:'#F4F4F1','font-size':'11'},relSvg);t.textContent=LANES[k][0].toUpperCase()});
+  var seen={};
+  REL.forEach(function(r,i){
+    var key=r[0]+r[1];seen[key]=(seen[key]||0)+1;
+    var yy=36+LANES[r[1]][1]*56+(seen[key]-1)*12-((seen[key]>1)?0:0);
+    var c=el('circle',{cx:mx(r[0]),cy:yy,r:5,fill:'#F4F4F1',class:'rel-dot','data-i':i,opacity:reduce?1:0},relSvg);
+  });
+  el('line',{id:'relHead',x1:XL,x2:XL,y1:6,y2:180,stroke:'#fff','stroke-width':'1.5',opacity:0,style:'filter:drop-shadow(0 0 6px #fff)'},relSvg);
+  relList.innerHTML=REL.map(function(r,i){return '<div data-i="'+i+'"'+(reduce?' class="on"':'')+'><span>'+r[0].replace('-','.')+'</span><span>'+LANES[r[1]][0]+'</span><span>'+r[2]+'</span></div>'}).join('');
+}
+buildRel();
+function hl(i,on){var d=relSvg.querySelector('circle[data-i="'+i+'"]'),row=relList.querySelector('[data-i="'+i+'"]');if(d)d.setAttribute('r',on?9:5);if(row)row.classList.toggle('hl',on)}
+relList.addEventListener('mouseover',function(e){var r=e.target.closest('[data-i]');if(r)hl(r.dataset.i,true)});
+relList.addEventListener('mouseout',function(e){var r=e.target.closest('[data-i]');if(r)hl(r.dataset.i,false)});
+relSvg.addEventListener('mouseover',function(e){var c=e.target.closest('circle');if(c)hl(c.dataset.i,true)});
+relSvg.addEventListener('mouseout',function(e){var c=e.target.closest('circle');if(c)hl(c.dataset.i,false)});
+function playRel(){
+  if(reduce)return;
+  var head=document.getElementById('relHead'),start=null,D=4200;
+  head.setAttribute('opacity',1);
+  function step(ts){if(!start)start=ts;var p=Math.min(1,(ts-start)/D),x=XL+(XR-XL)*p;
+    head.setAttribute('x1',x);head.setAttribute('x2',x);
+    REL.forEach(function(r,i){if(mx(r[0])<=x+1){var d=relSvg.querySelector('circle[data-i="'+i+'"]');if(d.getAttribute('opacity')!=='1'){d.setAttribute('opacity',1);d.setAttribute('r',9);setTimeout(function(){d.setAttribute('r',5)},260);relList.querySelector('[data-i="'+i+'"]').classList.add('on')}}});
+    if(p<1)requestAnimationFrame(step);else head.setAttribute('opacity',.35)}
+  requestAnimationFrame(step);
+}
+
+/* ---------- 04 : flux d'échange ---------- */
+(function(){
+  var s=document.getElementById('flowSvg');
+  var top='M10 80 C 200 20, 400 20, 590 80',bot='M590 160 C 400 220, 200 220, 10 160';
+  el('path',{d:top,fill:'none',stroke:'rgba(255,255,255,.5)','stroke-width':'1','vector-effect':'non-scaling-stroke'},s);
+  el('path',{d:bot,fill:'none',stroke:'rgba(255,255,255,.5)','stroke-width':'1','stroke-dasharray':'3 5','vector-effect':'non-scaling-stroke'},s);
+  var t1=el('text',{x:300,y:40,fill:'#808080','font-size':'11','text-anchor':'middle','font-family':'Archivo','font-weight':'600','letter-spacing':'2'},s);t1.textContent='MÉTIER →';
+  var t2=el('text',{x:300,y:212,fill:'#808080','font-size':'11','text-anchor':'middle','font-family':'Archivo','font-weight':'600','letter-spacing':'2'},s);t2.textContent='← VEILLE ET ESSAIS';
+  if(reduce)return;
+  [top,bot].forEach(function(d,k){for(var j=0;j<4;j++){var c=el('circle',{r:3.2,fill:'#fff',style:'filter:drop-shadow(0 0 5px #fff)'},s);var a=el('animateMotion',{dur:(k?3.4:2.6)+'s',repeatCount:'indefinite',begin:(j*(k?.85:.65))+'s',path:d},c)}});
+})();
+
+/* ---------- 05 : graphe de nœuds ---------- */
+var nodes=[].slice.call(document.querySelectorAll('#nodes .node')),loopEl=document.getElementById('loop'),cyc=-1,cycT=null;
+function cycStep(){
+  nodes.forEach(function(n){n.classList.remove('act')});loopEl.classList.remove('run');
+  cyc=(cyc+1)%5;
+  if(cyc<4){nodes[cyc].classList.add('act');var w=nodes[cyc].querySelector('.wire');if(w){w.classList.remove('run');void w.offsetWidth;setTimeout(function(){w.classList.add('run')},1300)}}
+  else{loopEl.classList.add('run');cyc=0;nodes[1].classList.add('act')}
+}
+function startCycle(){if(cycT||reduce)return;cycStep();cycT=setInterval(cycStep,2000)}
+
+/* ---------- 06 : journal ---------- */
+function playLog(){
+  var rows=[].slice.call(document.querySelectorAll('#log div')),st=document.getElementById('logState');
+  if(reduce){rows.forEach(function(r){r.classList.add('on')});st.textContent='terminé';return}
+  rows.forEach(function(r,i){setTimeout(function(){r.classList.add('on');st.textContent=(i+1)+' / '+rows.length;if(i===rows.length-1)st.textContent='publié'},400+i*650)});
+}
+
+/* ---------- Révélation au scroll ---------- */
+var io=new IntersectionObserver(function(ents){ents.forEach(function(e){if(!e.isIntersecting)return;var t=e.target;t.classList.add('in');io.unobserve(t);
+  if(t.querySelector&&t.querySelector('#relSvg'))playRel();
+  if(t.id==='nodes')startCycle();
+  if(t.querySelector&&t.querySelector('#log'))playLog();
+})},{threshold:.18});
+document.querySelectorAll('[data-rv]').forEach(function(n){io.observe(n)});
+
+/* ---------- Lumière au pointeur ---------- */
+document.addEventListener('pointermove',function(e){var l=e.target.closest&&e.target.closest('.lit');if(!l)return;var r=l.getBoundingClientRect();l.style.setProperty('--mx',(e.clientX-r.left)+'px');l.style.setProperty('--my',(e.clientY-r.top)+'px')});
+
+/* ---------- Barre de timecode ---------- */
+var chaps=[].slice.call(document.querySelectorAll('[data-view="accueil"] [data-ch]')),tcbar=document.getElementById('tcbar'),track=document.getElementById('tcTrack'),head=document.getElementById('tcHead');
+chaps.forEach(function(c,i){var m=document.createElement('span');m.className='tc-mk';m.dataset.n=String(i+1).padStart(2,'0');m.title=c.dataset.ch;m.addEventListener('click',function(){c.scrollIntoView({behavior:reduce?'auto':'smooth'})});track.appendChild(m);c._mk=m});
+function pad(n){return String(n).padStart(2,'0')}
+function tcUpdate(){
+  if(current!=='accueil'){tcbar.classList.remove('on');return}
+  var y=window.scrollY,vh=window.innerHeight;
+  var a=chaps[0].offsetTop-vh*.5,b=chaps[chaps.length-1].offsetTop+chaps[chaps.length-1].offsetHeight-vh;
+  var docH=document.documentElement.scrollHeight-vh;
+  tcbar.classList.toggle('on',y>a);
+  var p=Math.max(0,Math.min(1,y/docH));
+  chaps.forEach(function(c){c._mk.style.left=(100*Math.min(1,c.offsetTop/docH))+'%'});
+  head.style.left=(p*100)+'%';
+  var cur=null;chaps.forEach(function(c,i){var on=c.offsetTop-vh*.45<=y;c._mk.classList.toggle('seen',on);if(on)cur=i});
+  document.getElementById('tcNow').innerHTML=cur===null?'':'<b>'+pad(cur+1)+'</b>'+chaps[cur].dataset.ch;
+  var f=Math.round(p*11*60*25),ff=f%25,ss=Math.floor(f/25)%60,mm=Math.floor(f/1500)%60;
+  document.getElementById('tcCode').textContent='00:'+pad(mm)+':'+pad(ss)+':'+pad(ff);
+}
+window.addEventListener('scroll',tcUpdate,{passive:true});window.addEventListener('resize',tcUpdate);
+
+/* ---------- Schéma du parcours (fiche) ---------- */
+var svg=document.getElementById('nleSvg');
+var XREG=150,XTC0=360,XSPLIT=700,XEND=1170,YTC=120,Y0=230,DY=58;
 function buildNLE(){
   svg.innerHTML='';
-  var defs=el('defs',{});
-  var g=el('linearGradient',{id:'tcg',x1:'0',x2:'1'},defs);
-  el('stop',{offset:'0','stop-color':'#F2F0EB'},g);el('stop',{offset:'1','stop-color':'#FFC38F'},g);
-  // étiquettes de pistes
-  function trk(y,label,color){var t=el('text',{x:20,y:y+5,fill:color||'#8C8F94','font-size':'12'});t.textContent=label}
-  trk(80,'INSCRIPTION');trk(YTC,'TOUS','#F2F0EB');
-  // inscription
-  el('rect',{x:XREG,y:62,width:XTC0-XREG-14,height:36,rx:6,fill:'none',stroke:'rgba(242,240,235,.45)','stroke-dasharray':'5 5'});
-  var t1=el('text',{x:XREG+14,y:85,fill:'#F2F0EB','font-size':'12'});t1.textContent='CHOIX DE LA SPÉCIALITÉ';
-  // tronc commun
-  el('rect',{x:XTC0,y:YTC-24,width:XSPLIT-XTC0,height:48,rx:8,fill:'url(#tcg)'});
-  var t2=el('text',{x:XTC0+18,y:YTC+8,fill:'#050506','font-size':'22',class:'big'});t2.textContent='SOCLE COMMUN';
-    // pistes de spécialité
+  function trk(y,label,c){var t=el('text',{x:20,y:y+5,fill:c||'#808080','font-size':'12'},svg);t.textContent=label}
+  trk(80,'INSCRIPTION');trk(YTC,'TOUS','#F4F4F1');
+  el('rect',{x:XREG,y:62,width:XTC0-XREG-14,height:36,fill:'none',stroke:'rgba(255,255,255,.45)','stroke-dasharray':'5 5'},svg);
+  var t1=el('text',{x:XREG+14,y:85,fill:'#F4F4F1','font-size':'12'},svg);t1.textContent='CHOIX DE LA SPÉCIALITÉ';
+  el('rect',{x:XTC0,y:YTC-24,width:XSPLIT-XTC0,height:48,fill:'#F4F4F1'},svg);
+  var t2=el('text',{x:XTC0+18,y:YTC+8,fill:'#000','font-size':'22',class:'big'},svg);t2.textContent='SOCLE COMMUN';
   SPECS.forEach(function(s,i){
-    var y=Y0+i*DY;
-    var gl=el('g',{class:'lane','data-id':s.id,style:'cursor:pointer'});
-    trk(y,s.short.toUpperCase(),s.hex);
-    var d='M'+(XSPLIT-6)+' '+YTC+' C '+(XSPLIT+70)+' '+YTC+', '+(XSPLIT+40)+' '+y+', '+(XSPLIT+120)+' '+y;
-    el('path',{d:d,fill:'none',stroke:s.hex,'stroke-width':'2','stroke-dasharray':'2 6','stroke-linecap':'round'},gl);
-    el('rect',{x:XSPLIT+120,y:y-21,width:XEND-XSPLIT-120,height:42,rx:7,fill:s.hex,'fill-opacity':'.16',stroke:s.hex,'stroke-width':'1.5'},gl);
-    var tt=el('text',{x:XSPLIT+138,y:y+6,fill:'#F2F0EB','font-size':'17',class:'big'},gl);tt.textContent=s.name.toUpperCase();
+    var y=Y0+i*DY,gl=el('g',{class:'lane','data-id':s.id,style:'cursor:pointer'},svg);
+    trk(y,'S.0'+(i+1)+' '+s.short.toUpperCase());
+    el('path',{d:'M'+(XSPLIT-6)+' '+YTC+' C '+(XSPLIT+70)+' '+YTC+', '+(XSPLIT+40)+' '+y+', '+(XSPLIT+120)+' '+y,fill:'none',stroke:'#F4F4F1','stroke-width':'1.5','stroke-dasharray':'2 6','stroke-linecap':'round'},gl);
+    el('rect',{class:'lr',x:XSPLIT+120,y:y-21,width:XEND-XSPLIT-120,height:42,fill:'rgba(255,255,255,.06)',stroke:'rgba(255,255,255,.6)','stroke-width':'1'},gl);
+    var tt=el('text',{class:'big lt',x:XSPLIT+138,y:y+6,fill:'#F4F4F1','font-size':'17'},gl);tt.textContent=s.name.toUpperCase();
     gl.addEventListener('click',function(){setPick(picked===s.id?null:s.id)});
   });
 }
 buildNLE();
 var chips=document.getElementById('chips');
-chips.innerHTML=SPECS.map(function(s){return '<button type="button" class="chip" data-id="'+s.id+'" style="--c:var('+s.c+')" aria-pressed="false"><i></i>'+s.name+'</button>'}).join('');
+chips.innerHTML=SPECS.map(function(s){return '<button type="button" class="chip" data-id="'+s.id+'" aria-pressed="false">'+s.name+'</button>'}).join('');
 chips.addEventListener('click',function(e){var b=e.target.closest('.chip');if(b)setPick(picked===b.dataset.id?null:b.dataset.id)});
 
-var prog=null;
 function setPick(id){
   picked=id;
   if(id)setProg('ava');
-  var nle=document.getElementById('nle');
-  nle.classList.toggle('picking',!!id);
-  svg.querySelectorAll('.lane').forEach(function(l){l.classList.toggle('on',l.getAttribute('data-id')===id)});
+  document.getElementById('nle').classList.toggle('picking',!!id);
+  svg.querySelectorAll('.lane').forEach(function(l){var on=l.getAttribute('data-id')===id;l.classList.toggle('on',on);l.querySelector('.lr').setAttribute('fill',on?'#F4F4F1':'rgba(255,255,255,.06)');l.querySelector('.lt').setAttribute('fill',on?'#000':'#F4F4F1')});
   chips.querySelectorAll('.chip').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.id===id))});
   document.querySelectorAll('input[name=spec]').forEach(function(r){r.checked=(r.value===id)});
   renderMini();
@@ -804,7 +1160,7 @@ document.addEventListener('click',function(e){var a=e.target.closest('[data-prog
 
 /* ---------- Formulaire ---------- */
 document.getElementById('specOpts').innerHTML=SPECS.map(function(s){
-  return '<label class="opt" style="--c:var('+s.c+')"><input type="radio" name="spec" value="'+s.id+'"><span class="dot"></span><strong>'+s.name+'</strong><span></span><small>'+s.where+'</small></label>';
+  return '<label class="opt"><input type="radio" name="spec" value="'+s.id+'"><span class="dot"></span><strong>'+s.name+'</strong><small>'+s.where+'</small></label>';
 }).join('');
 document.getElementById('specOpts').addEventListener('change',function(e){if(e.target.name==='spec')setPick(e.target.value)});
 document.getElementById('progOpts').addEventListener('change',function(e){if(e.target.name==='prog')setProg(e.target.value)});
@@ -816,15 +1172,15 @@ function renderMini(){
   var h;
   if(prog==='pai'){
     var m=mods();
-    h='<div class="r"><div class="b tc">Progress AI : IA et création cinéma</div></div>';
-    h+=m.length?m.map(function(x){return '<div class="r"><div class="b sp" style="--c:#FF8A3D">'+x+'</div></div>'}).join(''):'<div class="r"><div class="b sp empty">Modules à choisir</div></div>';
+    h='<div class="b tc">Progress AI : IA et création cinéma</div>';
+    h+=m.length?m.map(function(x){return '<div class="b sp">'+x+'</div>'}).join(''):'<div class="b empty">Modules à choisir</div>';
   }else if(prog==='ava'){
     var s=SPECS.find(function(x){return x.id===picked});
-    h='<div class="r"><div class="b tc">Socle commun · ensemble du groupe</div></div>';
-    h+='<svg width="40" height="22" viewBox="0 0 40 22" aria-hidden="true"><path d="M2 0 C2 14, 30 6, 30 22" fill="none" stroke="'+(s?s.hex:'#555')+'" stroke-width="1.5" stroke-dasharray="2 4"/></svg>';
-    h+=s?'<div class="r"><div class="b sp" style="--c:'+s.hex+'"><b>'+s.name+'</b>'+(lvl()?'<br>Niveau : '+lvl():'')+'</div></div>':'<div class="r"><div class="b sp empty">Spécialité à choisir</div></div>';
+    h='<div class="b tc">Socle commun · ensemble du groupe</div>';
+    h+='<svg width="40" height="22" viewBox="0 0 40 22" aria-hidden="true"><path d="M2 0 C2 14, 30 6, 30 22" fill="none" stroke="'+(s?'#F4F4F1':'#555')+'" stroke-width="1.5" stroke-dasharray="2 4"/></svg>';
+    h+=s?'<div class="b sp"><b>'+s.name+'</b>'+(lvl()?'<br>Niveau : '+lvl():'')+'</div>':'<div class="b empty">Spécialité à choisir</div>';
   }else{
-    h='<div class="r"><div class="b sp empty">Programme à choisir</div></div>';
+    h='<div class="b empty">Programme à choisir</div>';
   }
   document.getElementById('miniPath').innerHTML=h;
 }
@@ -880,11 +1236,13 @@ function route(){
   var changed=h!==current;current=h;
   document.querySelectorAll('[data-view]').forEach(function(v){v.hidden=v.dataset.view!==h});
   document.querySelectorAll('nav.links a').forEach(function(a){if(a.getAttribute('href')==='#'+h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
-  if(target){window.scrollTo({top:0,behavior:'instant'});target.scrollIntoView({behavior:'instant'})}else if(changed||!target){window.scrollTo({top:0,behavior:'instant'})}
+  if(target){window.scrollTo({top:0,behavior:'instant'});target.scrollIntoView({behavior:'instant'})}else{window.scrollTo({top:0,behavior:'instant'})}
   scene.inner=(h!=='accueil');
+  document.querySelectorAll('[data-view="'+h+'"] [data-rv]').forEach(function(n){var r=n.getBoundingClientRect();if(r.top<window.innerHeight)n.classList.add('in')});
+  tcUpdate();
 }
 
-/* ---------- Scène three.js : photo → nuage de points → vecteur ---------- */
+/* ---------- Scène three.js : photo → nuage de points → relief ---------- */
 var scene={inner:false,mix:0,vec:0,ready:false};
 var canvas=document.getElementById('gl');
 function fallback(){var d=document.createElement('div');d.id='glFallback';d.style.backgroundImage='url(img/dts-lumiere.jpg)';document.body.insertBefore(d,canvas);canvas.remove();scene.ready=false}
@@ -894,7 +1252,7 @@ if(!hasGL){fallback()}else{initGL()}
 function initGL(){
   var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
   var DPR=Math.min(window.devicePixelRatio||1,2);
-  renderer.setPixelRatio(DPR);renderer.setClearColor(0x050506,1);
+  renderer.setPixelRatio(DPR);renderer.setClearColor(0x000000,1);
   var cam=new THREE.PerspectiveCamera(45,1,0.01,100);
   var sc=new THREE.Scene();
   var root=new THREE.Group();sc.add(root);
@@ -902,13 +1260,15 @@ function initGL(){
   img.onload=function(){build(img)};
   img.onerror=fallback;
   img.src='img/dts-lumiere.jpg';
-  var pts,lines,lineMat,ptMat,aspImg=1.5,camDist=3,baseSize=2,gridRows=200;
+  var lines,lineMat,ptMat,aspImg=1.5,camDist=3,gridRows=200;
 
   function build(im){
     var small=window.innerWidth<700;
     var cols=small?190:300;
     aspImg=im.naturalWidth/im.naturalHeight;
     var rows=Math.round(cols/aspImg);gridRows=rows;
+    document.getElementById('hudGrid').textContent=cols+' × '+rows;
+    document.getElementById('hudPts').textContent=(cols*rows).toLocaleString('fr-CH');
     var cv=document.createElement('canvas');cv.width=cols;cv.height=rows;
     var cx=cv.getContext('2d');cx.drawImage(im,0,0,cols,rows);
     var data=cx.getImageData(0,0,cols,rows).data;
@@ -922,7 +1282,7 @@ function initGL(){
       pos[i*3]=px;pos[i*3+1]=py;pos[i*3+2]=0;
       var rr=Math.random();rnd[i]=rr;
       var z=(L-.35)*1.5+(rr-.5)*0.18;
-      cloud[i*3]=px*(1+ (rr-.5)*0.04);cloud[i*3+1]=py;cloud[i*3+2]=z;
+      cloud[i*3]=px*(1+(rr-.5)*0.04);cloud[i*3+1]=py;cloud[i*3+2]=z;
       col[i*3]=r;col[i*3+1]=g;col[i*3+2]=b;
     }
     var geo=new THREE.BufferGeometry();
@@ -932,10 +1292,10 @@ function initGL(){
     geo.setAttribute('aRnd',new THREE.BufferAttribute(rnd,1));
     ptMat=new THREE.ShaderMaterial({
       transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,
-      uniforms:{uMix:{value:0},uVec:{value:0},uTime:{value:0},uBase:{value:2},uDist:{value:3},uAmber:{value:new THREE.Color('#FF8A3D')}},
+      uniforms:{uMix:{value:0},uVec:{value:0},uTime:{value:0},uBase:{value:2},uDist:{value:3}},
       vertexShader:[
         'attribute vec3 aCloud;attribute vec3 aCol;attribute float aRnd;',
-        'uniform float uMix,uVec,uTime,uBase,uDist;varying vec3 vCol;varying float vA;uniform vec3 uAmber;',
+        'uniform float uMix,uVec,uTime,uBase,uDist;varying vec3 vCol;varying float vA;',
         'void main(){',
         ' float m=smoothstep(0.0,1.0,clamp(uMix*1.3-aRnd*0.3,0.0,1.0));',
         ' vec3 p=mix(position,aCloud,m);',
@@ -945,23 +1305,22 @@ function initGL(){
         ' gl_PointSize=uBase*mix(1.0,0.55,m)*(uDist/-mv.z);',
         ' gl_Position=projectionMatrix*mv;',
         ' float l=dot(aCol,vec3(0.2126,0.7152,0.0722));',
-        ' vec3 tint=mix(aCol,mix(vec3(l)*1.2,uAmber*l*1.6,step(0.55,l)),m*0.55);',
-        ' vCol=tint; vA=mix(1.0,0.9,m)*(1.0-uVec*0.78);',
+        ' vCol=vec3(mix(l,pow(l,0.8)*1.25,m));',
+        ' vA=mix(1.0,0.9,m)*(1.0-uVec*0.78);',
         '}'].join('\n'),
       fragmentShader:[
         'varying vec3 vCol;varying float vA;uniform float uMix;',
         'void main(){vec2 c=gl_PointCoord-0.5;float d=length(c);',
-        ' float a=mix(1.0-step(0.5,max(abs(c.x),abs(c.y))*1.0),1.0-smoothstep(0.3,0.5,d),clamp(uMix*2.0,0.0,1.0));',
-        ' gl_FragColor=vec4(vCol*mix(0.62,1.0,uMix),a*vA);}'].join('\n')
+        ' float a=mix(1.0-step(0.5,max(abs(c.x),abs(c.y))),1.0-smoothstep(0.3,0.5,d),clamp(uMix*2.0,0.0,1.0));',
+        ' gl_FragColor=vec4(vCol*mix(0.6,1.0,uMix),a*vA);}'].join('\n')
     });
-    pts=new THREE.Points(geo,ptMat);root.add(pts);
+    root.add(new THREE.Points(geo,ptMat));
 
-    // Relief vectoriel : lignes horizontales et verticales issues de la luminance
     var gx=small?70:110,gy=Math.round(gx/aspImg);
     var seg=[],segCol=[];
     function hAt(u,v){var xi=Math.min(cols-1,Math.round(u*(cols-1))),yi=Math.min(rows-1,Math.round(v*(rows-1)));return (luma[yi*cols+xi]-.35)*1.5}
     function P(u,v){return [(u-.5)*W,-(v-.5)*H,hAt(u,v)]}
-    var cA=new THREE.Color('#FF8A3D'),cB=new THREE.Color('#F2F0EB');
+    var cA=new THREE.Color('#3a3a3a'),cB=new THREE.Color('#ffffff');
     function push(a,b,t){seg.push(a[0],a[1],a[2],b[0],b[1],b[2]);var c=cA.clone().lerp(cB,t);segCol.push(c.r,c.g,c.b,c.r,c.g,c.b)}
     for(var j=0;j<=gy;j++)for(var ii=0;ii<gx;ii++){var u=ii/gx,u2=(ii+1)/gx,v=j/gy;var a=P(u,v),b=P(u2,v);push(a,b,Math.min(1,Math.max(0,(a[2]+.5))))}
     for(var ii2=0;ii2<=gx;ii2+=2)for(var j2=0;j2<gy;j2++){var uu=ii2/gx,v1=j2/gy,v2=(j2+1)/gy;var a2=P(uu,v1),b2=P(uu,v2);push(a2,b2,Math.min(1,Math.max(0,(a2[2]+.5))))}
@@ -981,54 +1340,47 @@ function initGL(){
     var aspView=w/h,visH=Math.min(2,2*aspImg/aspView);
     camDist=visH/(2*Math.tan(THREE.MathUtils.degToRad(22.5)));
     if(ptMat){var spacingPx=(2/(gridRows-1))*(h/visH);
-      baseSize=Math.max(1.5,spacingPx*1.2)*DPR;
-      ptMat.uniforms.uBase.value=baseSize;ptMat.uniforms.uDist.value=camDist}
+      ptMat.uniforms.uBase.value=Math.max(1.5,spacingPx*1.2)*DPR;ptMat.uniforms.uDist.value=camDist}
   }
   window.addEventListener('resize',resize);
 
-  // Interaction : glisser pour pivoter, souris pour parallaxe
-  var rotX=0,rotY=0,tX=0,tY=0,drag=null,velX=0,velY=0,mx=0,my=0;
-  function interactive(t){return t.closest&&t.closest('a,button,input,select,textarea,label,summary,.nle,form,.opt')}
-  window.addEventListener('pointerdown',function(e){if(interactive(e.target))return;drag={x:e.clientX,y:e.clientY,rx:tY,ry:tX};});
+  var rotX=0,rotY=0,tX=0,tY=0,drag=null,mxp=0,myp=0;
+  function interactive(t){return t.closest&&t.closest('a,button,input,select,textarea,label,summary,.nle,form,.opt,.panel,.nodes')}
+  window.addEventListener('pointerdown',function(e){if(interactive(e.target))return;drag={x:e.clientX,y:e.clientY,rx:tY,ry:tX}});
   window.addEventListener('pointermove',function(e){
-    mx=e.clientX/window.innerWidth-.5;my=e.clientY/window.innerHeight-.5;
+    mxp=e.clientX/window.innerWidth-.5;myp=e.clientY/window.innerHeight-.5;
     if(!drag)return;var dx=(e.clientX-drag.x)/window.innerWidth,dy=(e.clientY-drag.y)/window.innerHeight;
-    tY=drag.rx+dx*3.2;tX=drag.ry+dy*2.0;tX=Math.max(-1.1,Math.min(1.1,tX));
+    tY=drag.rx+dx*3.2;tX=Math.max(-1.1,Math.min(1.1,drag.ry+dy*2.0));
   });
   window.addEventListener('pointerup',function(){drag=null});
   window.addEventListener('pointercancel',function(){drag=null});
 
-  var hdr=document.querySelector('header.top'),veil=document.getElementById('veil');
+  var hdr=document.querySelector('header.top'),veil=document.getElementById('veil'),hudState=document.getElementById('hudState'),lastState='';
   var start=performance.now();
   function frame(now){
     requestAnimationFrame(frame);
     var t=(now-start)/1000;
-    if(!scene.ready){return}
-    var since=(now-scene.t0)/1000;
-    var vh=window.innerHeight,sy=window.scrollY;
-    // phase 1 : image → nuage (automatique après 1,4 s, ou dès le premier scroll)
+    if(!scene.ready)return;
+    var since=(now-scene.t0)/1000,vh=window.innerHeight,sy=window.scrollY;
     var autoMix=reduce?1:Math.min(1,Math.max(0,(since-1.4)/2.6));
-    var scrollMix=Math.min(1,sy/(vh*0.5));
-    var mixT=scene.inner?1:Math.max(autoMix,scrollMix);
-    // phase 2 : nuage → vecteur au scroll
+    var mixT=scene.inner?1:Math.max(autoMix,Math.min(1,sy/(vh*0.5)));
     var vecT=scene.inner?1:Math.min(1,Math.max(0,(sy-vh*0.55)/(vh*0.9)));
     scene.mix+=(mixT-scene.mix)*0.06;scene.vec+=(vecT-scene.vec)*0.06;
     ptMat.uniforms.uMix.value=scene.mix;ptMat.uniforms.uVec.value=scene.vec;ptMat.uniforms.uTime.value=t;
-    lineMat.opacity=scene.vec*(scene.inner?0.55:0.85);
-    // caméra
+    lineMat.opacity=scene.vec*(scene.inner?0.5:0.8);
+    var st=scene.vec>.5?'relief':(scene.mix>.5?'nuage de points':'image');if(st!==lastState){hudState.textContent=st;lastState=st}
     if(!drag&&!reduce){tY+=(0-tY)*0.004+Math.sin(t*0.15)*0.0006*scene.mix}
-    rotX+=(tX+my*0.12*scene.mix-rotX)*0.07;rotY+=(tY+mx*0.2*scene.mix+scene.vec*0.55-rotY)*0.07;
+    rotX+=(tX+myp*0.12*scene.mix-rotX)*0.07;rotY+=(tY+mxp*0.2*scene.mix+scene.vec*0.55-rotY)*0.07;
     root.rotation.x=rotX+scene.vec*-0.55;root.rotation.y=rotY;
-    var d=camDist*(1+scene.mix*0.08-scene.vec*0.12);
-    cam.position.set(0,-scene.vec*0.25,d);cam.lookAt(0,0,0);
-    // voile : lisibilité des pages intérieures et du bas de page
-    var deep=scene.inner?0.8:Math.min(0.72,Math.max(0,(sy-vh*1.5)/(vh*0.9))*0.72);
+    cam.position.set(0,-scene.vec*0.25,camDist*(1+scene.mix*0.08-scene.vec*0.12));cam.lookAt(0,0,0);
+    var deep=scene.inner?0.82:Math.min(0.74,Math.max(0,(sy-vh*0.8)/(vh*0.7))*0.74);
     veil.style.opacity=deep.toFixed(3);
     hdr.classList.toggle('solid',sy>40||scene.inner);
     renderer.render(sc,cam);
   }
   requestAnimationFrame(frame);
 }
+if(!hasGL){window.addEventListener('scroll',function(){document.querySelector('header.top').classList.toggle('solid',window.scrollY>40||scene.inner)},{passive:true})}
 
 window.addEventListener('hashchange',route);
 route();setProg(null);showStep();
