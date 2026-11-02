@@ -289,18 +289,7 @@ main{position:relative;z-index:3;overflow-x:clip}
 .timeline-h p{margin:0;color:var(--soft)}
 
 /* Schéma du parcours */
-.nle{overflow:hidden}
-.nle-scroll{overflow-x:auto}
-.nle svg{display:block;min-width:820px;width:100%;height:auto}
-.nle svg text{font-family:var(--font);font-weight:600;letter-spacing:.1em}
-.nle svg .big{font-variation-settings:"wdth" 125;font-weight:800;letter-spacing:0}
 .lane{transition:opacity .35s}
-.nle.picking .lane{opacity:.2}
-.nle.picking .lane.on{opacity:1}
-.chips{display:flex;flex-wrap:wrap;gap:8px;padding:16px 18px;border-top:1px solid var(--line)}
-.chip{font-family:var(--font);font-weight:600;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line2);color:var(--ink);background:transparent;padding:9px 14px;cursor:pointer;transition:border-color .2s,background .2s,color .2s}
-.chip:hover{border-color:var(--ink)}
-.chip[aria-pressed="true"]{background:var(--ink);color:#000;border-color:var(--ink)}
 
 /* Inscription */
 .reg-wrap{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:28px;align-items:start}
@@ -372,7 +361,6 @@ nav.links a:not(.btn)::after{background:var(--acc)}
 .more{color:var(--acc-hi)}
 .spec:hover .arr{background:var(--acc);border-color:var(--acc);color:#fff}
 .spec::before{background:linear-gradient(90deg,rgba(47,91,255,.18),transparent 70%)}
-.chip[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:#fff}
 .opt:has(input:checked){border-color:var(--acc);background:rgba(47,91,255,.12)}
 .opt:has(input:checked) .dot{background:var(--acc);border-color:var(--acc)}
 .stepper span.on{border-color:var(--acc)}
@@ -384,6 +372,19 @@ input:focus,textarea:focus,select:focus{border-bottom-color:var(--acc)}
 a.mail{border-bottom:1px solid var(--acc);padding-bottom:1px;text-transform:none;letter-spacing:0;overflow-wrap:anywhere}
 a.mail:hover{color:var(--acc-hi)}
 
+.parc{list-style:none;margin:0 0 50px;padding:0;display:grid;grid-template-columns:1fr 1fr 1.6fr;border:1px solid var(--line2);background:rgba(0,0,0,.55)}
+.pc{position:relative;padding:28px 28px 30px;border-left:1px solid var(--line2)}
+.pc:first-child{border-left:0}
+.pc:not(:last-child)::after{content:"";position:absolute;top:36px;right:-7px;width:12px;height:12px;border-top:1px solid var(--ink);border-right:1px solid var(--ink);background:#050505;transform:rotate(45deg);z-index:1}
+.pc-n{display:block;font-size:.72rem;font-weight:700;letter-spacing:.14em;color:var(--acc-hi);margin-bottom:18px}
+.pc h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.3rem,2vw,1.7rem);line-height:1;margin:0 0 12px}
+.pc p{margin:0;color:var(--soft);font-size:.95rem;max-width:34ch}
+.pc-list{margin-top:22px;border-top:1px solid var(--line)}
+.pc-list a{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-weight:600;font-size:.95rem;color:var(--ink);text-decoration:none;transition:color .2s,padding .2s}
+.pc-list a span{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);white-space:nowrap;transition:color .2s}
+.pc-list a:hover,.pc-list a.on{color:var(--acc-hi);padding-left:8px}
+.pc-list a:hover span,.pc-list a.on span{color:var(--acc-hi)}
+@media (max-width:980px){.parc{grid-template-columns:1fr}.pc{border-left:0;border-top:1px solid var(--line2)}.pc:first-child{border-top:0}.pc:not(:last-child)::after{top:auto;bottom:-7px;right:auto;left:34px;transform:rotate(135deg)}}
 @media (max-width:1100px){
   .nodes{grid-template-columns:repeat(2,minmax(0,1fr));gap:44px 44px;padding-bottom:30px}
   .nodes .node:nth-child(2) .wire{display:none}
@@ -779,10 +780,13 @@ a.mail:hover{color:var(--acc-hi)}
       <h2 class="xw">L'avenir de la post-production</h2>
       <p>Formation destinée aux professionnels en activité et aux jeunes diplômés. Elle associe un socle commun consacré aux outils génératifs et aux techniques émergentes à une pratique encadrée dans une spécialité, sur les productions de Downtown Studio.</p>
     </div></div>
-    <div class="nle panel" id="nle" style="margin-bottom:50px">
-      <div class="nle-scroll"><svg id="nleSvg" viewBox="0 50 1200 470" role="img" aria-label="Schéma du parcours : inscription avec choix de spécialité, socle commun suivi par tous les participants, puis cinq spécialités dont chaque participant suit une seule."></svg></div>
-      <div class="chips" id="chips"></div>
-    </div>
+    <ol class="parc" id="parc" aria-label="Déroulement de la formation">
+      <li class="pc"><span class="pc-n">01</span><h3>Inscription</h3><p>Vous choisissez votre spécialité et indiquez votre niveau.</p></li>
+      <li class="pc"><span class="pc-n">02</span><h3>Socle commun</h3><p>Cours et ateliers suivis par l'ensemble du groupe.</p></li>
+      <li class="pc pc-wide"><span class="pc-n">03</span><h3>Spécialité</h3><p>Une seule, choisie à l'inscription, auprès d'un professionnel de Downtown Studio.</p>
+        <div class="pc-list" id="pcList"></div>
+      </li>
+    </ol>
     <div class="split">
       <div class="prose">
         <p><b>Objectifs.</b> À l'issue de la formation, les participants comprennent le fonctionnement des intelligences artificielles génératives et leur place dans la chaîne de post-production. Ils savent les intégrer à leur métier en respectant les exigences de qualité et de livraison d'une production professionnelle. Ils maîtrisent l'organisation du travail en studio et ont conduit une recherche documentée sur une question de leur métier.</p>
@@ -1178,37 +1182,13 @@ function tcUpdate(){
 }
 window.addEventListener('scroll',tcUpdate,{passive:true});window.addEventListener('resize',tcUpdate);
 
-/* ---------- Schéma du parcours (fiche) ---------- */
-var svg=document.getElementById('nleSvg');
-var XREG=150,XTC0=360,XSPLIT=700,XEND=1170,YTC=120,Y0=230,DY=58;
-function buildNLE(){
-  svg.innerHTML='';
-  function trk(y,label,c){var t=el('text',{x:20,y:y+5,fill:c||'#808080','font-size':'12'},svg);t.textContent=label}
-  trk(80,'INSCRIPTION');trk(YTC,'TOUS','#F4F4F1');
-  el('rect',{x:XREG,y:62,width:XTC0-XREG-14,height:36,fill:'none',stroke:'rgba(255,255,255,.45)','stroke-dasharray':'5 5'},svg);
-  var t1=el('text',{x:XREG+14,y:85,fill:'#F4F4F1','font-size':'12'},svg);t1.textContent='CHOIX DE LA SPÉCIALITÉ';
-  el('rect',{x:XTC0,y:YTC-24,width:XSPLIT-XTC0,height:48,fill:'#F4F4F1'},svg);
-  var t2=el('text',{x:XTC0+18,y:YTC+8,fill:'#000','font-size':'22',class:'big'},svg);t2.textContent='SOCLE COMMUN';
-  SPECS.forEach(function(s,i){
-    var y=Y0+i*DY,gl=el('g',{class:'lane','data-id':s.id,style:'cursor:pointer'},svg);
-    trk(y,'S.0'+(i+1)+' '+s.short.toUpperCase());
-    el('path',{d:'M'+(XSPLIT-6)+' '+YTC+' C '+(XSPLIT+70)+' '+YTC+', '+(XSPLIT+40)+' '+y+', '+(XSPLIT+120)+' '+y,fill:'none',stroke:'#F4F4F1','stroke-width':'1.5','stroke-dasharray':'2 6','stroke-linecap':'round'},gl);
-    el('rect',{class:'lr',x:XSPLIT+120,y:y-21,width:XEND-XSPLIT-120,height:42,fill:'rgba(255,255,255,.06)',stroke:'rgba(255,255,255,.6)','stroke-width':'1'},gl);
-    var tt=el('text',{class:'big lt',x:XSPLIT+138,y:y+6,fill:'#F4F4F1','font-size':'17'},gl);tt.textContent=s.name.toUpperCase();
-    gl.addEventListener('click',function(){setPick(picked===s.id?null:s.id)});
-  });
-}
-buildNLE();
-var chips=document.getElementById('chips');
-chips.innerHTML=SPECS.map(function(s){return '<button type="button" class="chip" data-id="'+s.id+'" aria-pressed="false">'+s.name+'</button>'}).join('');
-chips.addEventListener('click',function(e){var b=e.target.closest('.chip');if(b)setPick(picked===b.dataset.id?null:b.dataset.id)});
+/* ---------- Parcours (fiche) ---------- */
+document.getElementById('pcList').innerHTML=SPECS.map(function(s){return '<a href="#inscription" data-go="'+s.id+'">'+s.name+'<span>S\'inscrire →</span></a>'}).join('');
 
 function setPick(id){
   picked=id;
   if(id)setProg('ava');
-  document.getElementById('nle').classList.toggle('picking',!!id);
-  svg.querySelectorAll('.lane').forEach(function(l){var on=l.getAttribute('data-id')===id;l.classList.toggle('on',on);l.querySelector('.lr').setAttribute('fill',on?'#2F5BFF':'rgba(255,255,255,.06)');l.querySelector('.lr').setAttribute('stroke',on?'#2F5BFF':'rgba(255,255,255,.6)');l.querySelector('.lt').setAttribute('fill','#F4F4F1')});
-  chips.querySelectorAll('.chip').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.id===id))});
+  document.querySelectorAll('#pcList a').forEach(function(a){a.classList.toggle('on',a.dataset.go===id)});
   document.querySelectorAll('input[name=spec]').forEach(function(r){r.checked=(r.value===id)});
   renderMini();
 }
@@ -1410,7 +1390,7 @@ function initGL(){
   window.addEventListener('resize',resize);
 
   var rotX=0,rotY=0,tX=0,tY=0,drag=null,mxp=0,myp=0;
-  function interactive(t){return t.closest&&t.closest('a,button,input,select,textarea,label,summary,.nle,form,.opt,.panel,.nodes')}
+  function interactive(t){return t.closest&&t.closest('a,button,input,select,textarea,label,summary,form,.opt,.panel,.nodes')}
   window.addEventListener('pointerdown',function(e){if(interactive(e.target))return;drag={x:e.clientX,y:e.clientY,rx:tY,ry:tX}});
   window.addEventListener('pointermove',function(e){
     mxp=e.clientX/window.innerWidth-.5;myp=e.clientY/window.innerHeight-.5;
