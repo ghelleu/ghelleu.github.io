@@ -841,13 +841,6 @@ a.mail:hover{color:var(--acc-hi)}
     </div>
   </div></section>
 
-  <section class="sec gut" id="contact"><div class="max">
-    <div class="sec-head"><span class="lab">Contact</span><div><h2 class="xw">Contact</h2><p>Pour une question sur un programme, une inscription ou un partenariat, écrivez à l'association.</p></div></div>
-    <div class="partners p4">
-      <div><span class="lab dim">E-mail</span><strong style="font-size:clamp(1rem,4.4vw,1.6rem);font-variation-settings:'wdth' 100"><a class="mail" href="mailto:info@progressgeneve.ch">info@progressgeneve.ch</a></strong></div>
-      <div><span class="lab dim">Adresse</span><p style="color:var(--ink);font-size:1.05rem">Association Progress<br>c/o Downtown Studio<br>10 rue des Vieux-Grenadiers<br>1205 Genève</p></div>
-    </div>
-  </div></section>
 </div>
 
 <!-- ===================== INSCRIPTION ===================== -->
@@ -943,7 +936,7 @@ a.mail:hover{color:var(--acc-hi)}
   <div style="display:grid;gap:16px;align-content:start"><span class="logo"><img src="img/logo-progress.png" alt="PROGRESS" style="filter:invert(1)"></span><p>Association genevoise à but non lucratif de formation aux métiers de l'audiovisuel.</p></div>
   <nav><span class="lab">La formation</span><a href="#avenir">Présentation</a><a href="#questions">Questions fréquentes</a><a href="#inscription">Inscription</a></nav>
   <nav><span class="lab">Le projet</span><a href="#echange">L'approche</a><a href="#cycle">La méthode</a><a href="#organisation">L'organisation</a><a href="#progress">L'association</a></nav>
-  <div style="display:grid;gap:8px;align-content:start"><span class="lab">Contact</span><a class="mail" href="mailto:info@progressgeneve.ch">info@progressgeneve.ch</a><p>c/o Downtown Studio<br>10 rue des Vieux-Grenadiers<br>1205 Genève</p></div>
+  <div id="contact" style="display:grid;gap:8px;align-content:start"><span class="lab">Contact</span><a class="mail" href="mailto:info@progressgeneve.ch">info@progressgeneve.ch</a><p>c/o Downtown Studio<br>10 rue des Vieux-Grenadiers<br>1205 Genève</p></div>
 </div></footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -1175,7 +1168,7 @@ overlay.addEventListener('click',function(e){if(e.target.closest('a'))closeMenu(
 function route(){
   var h=(location.hash||'#accueil').slice(1);
   var target=null;
-  if(VIEWS.indexOf(h)<0){target=document.getElementById(h);var v=target&&target.closest('[data-view]');h=v?v.dataset.view:'accueil'}
+  if(VIEWS.indexOf(h)<0){target=document.getElementById(h);var v=target&&target.closest('[data-view]');h=v?v.dataset.view:(target?current:'accueil')}
   var changed=h!==current;current=h;
   document.querySelectorAll('[data-view]').forEach(function(v){v.hidden=v.dataset.view!==h});
   document.querySelectorAll('nav.links a').forEach(function(a){if(a.getAttribute('href')==='#'+h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
