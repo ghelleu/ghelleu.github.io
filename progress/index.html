@@ -86,7 +86,7 @@ main{position:relative;z-index:3;overflow-x:clip}
 /* Hero */
 .hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding-block:130px 90px;pointer-events:none;position:relative}
 .hero a,.hero button{pointer-events:auto}
-.hero-title{font-size:clamp(2.6rem,12.4vw,15rem)}
+.hero-title{font-size:clamp(2.2rem,7.6vw,9.4rem);line-height:.9;max-width:12ch}
 .hero-sub{font-variation-settings:"wdth" 118;font-weight:800;text-transform:uppercase;font-size:clamp(1.25rem,2.6vw,2.2rem);line-height:1.05;margin:20px 0 0;max-width:28ch}
 .hero-foot{margin-top:34px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:30px;align-items:end;border-top:1px solid var(--line2);padding-top:26px}
 .hero-foot p{max-width:60ch;font-size:1.12rem;color:var(--soft);margin:0}
@@ -129,9 +129,9 @@ main{position:relative;z-index:3;overflow-x:clip}
 .chart svg{display:block;width:100%;height:auto;overflow:visible}
 .chart text{font-family:var(--font);font-weight:600;letter-spacing:.12em}
 .rel-dot{transition:r .25s,opacity .4s}
-.rel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(10,auto);grid-auto-flow:column;border-top:1px solid var(--line)}
-.rel div{display:grid;grid-template-columns:70px 92px minmax(0,1fr);gap:10px;padding:9px 18px;border-bottom:1px solid var(--line);font-size:.86rem;color:var(--dim);transition:color .3s,background .3s;cursor:default}
-.rel div:nth-child(-n+10){border-right:1px solid var(--line)}
+.rel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(6,auto);grid-auto-flow:column;border-top:1px solid var(--line)}
+.rel div{display:grid;grid-template-columns:70px 84px minmax(0,1fr);gap:10px;padding:9px 18px;border-bottom:1px solid var(--line);font-size:.86rem;color:var(--dim);transition:color .3s,background .3s;cursor:default}
+.rel div:nth-child(-n+6){border-right:1px solid var(--line)}
 .rel div span:nth-child(2){font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding-top:3px}
 .rel div.on{color:var(--ink)}
 .rel div.hl{background:rgba(255,255,255,.08)}
@@ -217,6 +217,8 @@ main{position:relative;z-index:3;overflow-x:clip}
 .spec:hover .arr{background:var(--ink);color:#000;transform:rotate(-45deg)}
 
 /* Publics, Lift, lieu */
+.duo.d3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.duo .k{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acc-hi)}
 .duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
 .duo article{background:rgba(0,0,0,.86);padding:clamp(26px,4vw,48px);display:grid;gap:16px;align-content:start}
 .duo h3{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;font-size:clamp(1.4rem,2.6vw,2.2rem);line-height:1;margin:0}
@@ -396,7 +398,8 @@ a.mail:hover{color:var(--acc-hi)}
   .chgrid,.sec-head{grid-template-columns:1fr}
   .ch-no{font-size:3.6rem}
   .lede,.issues,.progs,.modules,.partners.p4,.stats,.duo,.people,.partners,.timeline-h,.rel,.give{grid-template-columns:1fr}
-  .rel{grid-template-rows:none;grid-auto-flow:row}.rel div:nth-child(-n+10){border-right:0}
+  .duo.d3{grid-template-columns:1fr}
+  .rel{grid-template-rows:none;grid-auto-flow:row}.rel div:nth-child(-n+6){border-right:0}
   .give div+div{border-left:0;border-top:1px solid var(--line)}
   .flow{grid-template-columns:1fr}
   .flow .who:last-child{text-align:left}
@@ -446,7 +449,7 @@ a.mail:hover{color:var(--acc-hi)}
     <a class="logo" href="#accueil" aria-label="Progress, accueil"><img src="img/logo-progress.png" alt="PROGRESS"></a>
     <nav class="links" aria-label="Navigation principale">
       <a href="#accueil">Le projet</a>
-      <a href="#programme">Programmes</a>
+      <a href="#programme">La formation</a>
       <a href="#progress">L'association</a>
       <a href="#contact">Contact</a>
       <a href="#inscription" class="btn">S'inscrire <span aria-hidden="true">→</span></a>
@@ -463,7 +466,7 @@ a.mail:hover{color:var(--acc-hi)}
 <div class="overlay gut" id="overlay" hidden>
   <button class="menu-btn close" id="menuClose" type="button" style="display:inline-flex">Fermer</button>
   <a href="#accueil">Le projet</a>
-  <a href="#programme">Programmes</a>
+  <a href="#programme">La formation</a>
   <a href="#progress">L'association</a>
   <a href="#contact">Contact</a>
   <a href="#inscription">S'inscrire</a>
@@ -482,14 +485,13 @@ a.mail:hover{color:var(--acc-hi)}
       <span>État <b id="hudState">image</b></span>
     </div>
     <div class="max" style="width:100%">
-      <span class="lab dim">Downtown Studio · Genève</span>
-      <h1 class="xw hero-title" style="margin-top:14px">Progress</h1>
-      <p class="hero-sub">Formation à l'intelligence artificielle appliquée à la post-production</p>
+      <span class="lab dim">Formation · Downtown Studio · Genève</span>
+      <h1 class="xw hero-title" style="margin-top:14px">L'avenir de la post-production</h1>
+      <p class="hero-sub">Production assistée par l'intelligence artificielle, en studio</p>
       <div class="hero-foot">
-        <p>Chaque participant est associé à un professionnel du studio, qui lui transmet son métier. De son côté, le participant suit les nouveaux outils d'IA, les teste et étudie avec son mentor ceux qui peuvent entrer dans la chaîne de production.</p>
+        <p>Vous pratiquez votre spécialité auprès d'un professionnel de Downtown Studio, sur les productions du studio. Vous y explorez les outils d'IA générative et agentique qui arrivent dans la chaîne de post-production, vous les éprouvez sur des cas réels et vous apprenez à les intégrer à votre méthode de travail.</p>
         <div class="actions">
-          <a class="btn" href="#contexte">Le projet <span aria-hidden="true">↓</span></a>
-          <a class="btn line" href="#programme">Programmes <span aria-hidden="true">→</span></a>
+          <a class="btn" href="#inscription">S'inscrire <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
@@ -503,21 +505,21 @@ a.mail:hover{color:var(--acc-hi)}
       <div class="chgrid" data-rv>
         <div><span class="ch-no">01</span><span class="lab ch-tag">Le contexte</span></div>
         <div>
-          <h2 class="xw ch-title">L'IA générative transforme la post-production</h2>
+          <h2 class="xw ch-title">L'IA entre dans les logiciels de post-production</h2>
           <div class="ruler"></div>
           <div class="lede">
-            <p>Depuis 2022, des outils capables de générer des images, des vidéos, des voix et de la musique sont accessibles au public. Ils prennent en charge des tâches confiées jusqu'ici à des techniciens spécialisés : transcription et sélection des rushes, sous-titrage, nettoyage de plans, extension de décors, création de voix et de bruitages.</p>
-            <p>Les logiciels de référence de la profession intègrent à leur tour ces fonctions. Les métiers de la post-production se recomposent et les compétences attendues à chaque poste évoluent avec eux. <strong>Les sorties se succèdent presque chaque semaine</strong>, et un professionnel en production n'a pas le temps de toutes les suivre.</p>
+            <p>Les outils d'IA générative ont ouvert la fabrication d'images, de sons et de séquences à un public qui n'y avait jusqu'ici pas accès. Ces fonctions sont désormais intégrées aux logiciels de référence de la profession, de Premiere Pro à DaVinci Resolve et Flame, au cœur des chaînes de travail établies.</p>
+            <p>Depuis la fin de 2024, le Model Context Protocol (MCP) permet à des agents d'IA de piloter directement des logiciels existants, comme Blender, Unreal Engine ou DaVinci Resolve. <strong>Ces évolutions se succèdent si vite qu'il devient difficile d'en suivre l'état.</strong> Chaque session de la formation porte sur les outils parus dans les mois qui la précèdent.</p>
           </div>
         </div>
       </div>
 
       <div class="panel block lit" data-rv>
-        <div class="ph"><span><b>Sorties</b> · outils génératifs</span><span id="relCount">2022 → 2025</span></div>
-        <div class="chart"><svg id="relSvg" viewBox="0 0 1000 200" role="img" aria-label="Frise chronologique des sorties d'outils génératifs, d'août 2022 à septembre 2025, réparties entre image, vidéo et audio."></svg></div>
+        <div class="ph"><span><b>Intégrations</b> · logiciels professionnels</span><span id="relCount">2023 → 2025</span></div>
+        <div class="chart"><svg id="relSvg" viewBox="0 0 1000 200" role="img" aria-label="Frise chronologique des intégrations de l'IA dans les logiciels professionnels de post-production, de mai 2023 à décembre 2025, réparties entre VFX, montage, son et agents."></svg></div>
         <div class="rel" id="relList"></div>
       </div>
-      <p class="cap">Sélection de sorties publiques d'outils génératifs, d'août 2022 à septembre 2025. Chaque point correspond à un outil ou à une version majeure.</p>
+      <p class="cap">Sélection d'intégrations de l'intelligence artificielle dans les logiciels professionnels de post-production, de mai 2023 à décembre 2025.</p>
     </div>
   </section>
 
@@ -527,11 +529,11 @@ a.mail:hover{color:var(--acc-hi)}
       <div class="chgrid" data-rv>
         <div><span class="ch-no">02</span><span class="lab ch-tag">Le postulat</span></div>
         <div>
-          <h2 class="xw ch-title">Connaître ces outils pour en décider</h2>
+          <h2 class="xw ch-title">Explorer avant de prendre position</h2>
           <div class="ruler"></div>
           <div class="lede">
-            <p>L'arrivée de l'IA générative dans le cinéma suscite des positions tranchées sur l'emploi, le droit d'auteur et la valeur du travail créatif. Ces questions sont légitimes, et la formation les aborde.</p>
-            <p>Progress considère qu'elles ne peuvent être tranchées sans une connaissance précise de ce que ces outils produisent et de leurs effets sur le travail. L'association fait de cette exploration un travail à part entière, mené dans un studio en activité et sur des cas réels.</p>
+            <p>L'arrivée de l'intelligence artificielle dans la création cinématographique soulève des questions de fond sur l'emploi, le droit d'auteur et la valeur du travail créatif. La formation les traite comme des objets d'étude à part entière.</p>
+            <p>Ces débats appellent une connaissance précise de ce que les outils produisent et de leurs effets sur les pratiques professionnelles. La formation fonde cette connaissance sur l'expérimentation, conduite dans un studio en activité et sur des cas réels.</p>
           </div>
         </div>
       </div>
@@ -544,7 +546,7 @@ a.mail:hover{color:var(--acc-hi)}
       <div class="chgrid" data-rv>
         <div><span class="ch-no">03</span><span class="lab ch-tag">Les enjeux</span></div>
         <div>
-          <h2 class="xw ch-title">Ce qui se joue pour la filière</h2>
+          <h2 class="xw ch-title">Ce qui se joue pour votre métier</h2>
           <div class="ruler"></div>
         </div>
       </div>
@@ -552,19 +554,19 @@ a.mail:hover{color:var(--acc-hi)}
         <section class="lit">
           <h3>Enjeux</h3>
           <ol>
-            <li data-p="E.">Les professionnels en activité doivent intégrer ces outils sans interrompre leur travail, alors que les rythmes de production se sont accélérés.</li>
-            <li data-p="E.">Les jeunes diplômés arrivent sur le marché sans expérience de production, et les studios disposent de moins de temps pour les intégrer.</li>
-            <li data-p="E.">La Suisse romande ne dispose pas d'un cadre de formation actualisé pour les techniciens de post-production.</li>
-            <li data-p="E.">Les connaissances sur ces outils restent dispersées et sont rarement vérifiées en conditions de production.</li>
+            <li data-p="E.">Les studios relèvent sans cesse leurs exigences de rendu et de délai. Rester informé des outils récents conditionne la performance d'un technicien.</li>
+            <li data-p="E.">Les métiers de la post-production se transforment. Un jeune professionnel doit se préparer aux pratiques qui s'imposeront dans les prochaines années.</li>
+            <li data-p="E.">Les solutions d'IA sont encore rarement insérées dans les chaînes de travail professionnelles. Leur usage en production reste à construire.</li>
+            <li data-p="E.">Les outils évoluent plus vite que les programmes de formation établis.</li>
           </ol>
         </section>
         <section class="lit">
           <h3>Objectifs</h3>
           <ol>
-            <li data-p="O.">Former aux outils génératifs dans les conditions réelles d'un studio.</li>
-            <li data-p="O.">Tenir à jour les compétences des équipes en place.</li>
-            <li data-p="O.">Donner aux jeunes diplômés une première expérience de production.</li>
-            <li data-p="O.">Documenter et publier les résultats des essais, au bénéfice de l'ensemble du secteur.</li>
+            <li data-p="O.">Maîtriser la production assistée par l'IA, générative et agentique, dans les conditions réelles d'un studio.</li>
+            <li data-p="O.">Confronter vos explorations aux exigences d'une production professionnelle, avec l'accompagnement d'experts.</li>
+            <li data-p="O.">Intégrer les évolutions techniques à la pratique de votre métier, au fil de leur parution.</li>
+            <li data-p="O.">Documenter vos essais selon une méthode de recherche et les publier.</li>
           </ol>
         </section>
       </div>
@@ -577,44 +579,44 @@ a.mail:hover{color:var(--acc-hi)}
       <div class="chgrid" data-rv>
         <div><span class="ch-no">04</span><span class="lab ch-tag">L'approche</span></div>
         <div>
-          <h2 class="xw ch-title">Un échange d'expertise</h2>
+          <h2 class="xw ch-title">Apprendre auprès d'un professionnel</h2>
           <div class="ruler"></div>
           <div class="lede">
-            <p>Le professionnel du studio maîtrise un métier, ses méthodes et ses logiciels. Son activité de production lui laisse peu de temps pour suivre les sorties d'outils. Le participant consacre une part importante de sa formation à cette veille.</p>
-            <p>Chacun apporte à l'autre ce qui lui manque. <strong>Le professionnel transmet les bases du métier. Le participant rapporte les outils récents</strong> et ce qu'il en a appris en les testant.</p>
+            <p>Vous êtes associé à un professionnel de Downtown Studio dans votre spécialité. Il vous transmet ses méthodes, ses logiciels et les exigences d'une production.</p>
+            <p>En parallèle, vous suivez les outils d'IA qui concernent votre métier et vous les testez. <strong>Vous en discutez avec votre mentor pour déterminer lesquels peuvent entrer dans une chaîne de production</strong>, et de quelle manière.</p>
           </div>
         </div>
       </div>
       <div class="panel block lit" data-rv>
         <div class="flow">
-          <div class="who"><span class="lab dim">Mentor</span><strong>Professionnel du studio</strong><span>Monteur, mixeur, étalonneur ou graphiste VFX de Downtown Studio</span></div>
-          <div class="fmid"><span class="fl" id="flTop">Métier →</span><svg id="flowSvg" aria-hidden="true"></svg><span class="fl" id="flBot">← Veille et essais</span></div>
-          <div class="who"><span class="lab dim">Participant</span><strong>Professionnel ou jeune diplômé</strong><span>Inscrit dans la spécialité correspondante</span></div>
+          <div class="who"><span class="lab dim">Votre mentor</span><strong>Professionnel de Downtown Studio</strong><span>Monteur, mixeur, étalonneur ou graphiste VFX en activité</span></div>
+          <div class="fmid"><span class="fl" id="flTop">Méthode et exigences →</span><svg id="flowSvg" aria-hidden="true"></svg><span class="fl" id="flBot">← Essais et résultats</span></div>
+          <div class="who"><span class="lab dim">Vous</span><strong>Professionnel ou jeune diplômé</strong><span>Inscrit dans la spécialité correspondante</span></div>
         </div>
         <div class="give">
-          <div><span class="lab dim">Transmis par le mentor</span><ul><li>Méthodes de travail</li><li>Logiciels de la spécialité</li><li>Organisation d'un studio</li><li>Exigences de livraison</li></ul></div>
-          <div><span class="lab dim">Rapporté par le participant</span><ul><li>Sorties récentes</li><li>Essais sur des cas réels</li><li>Résultats documentés</li><li>Limites constatées</li></ul></div>
+          <div><span class="lab dim">Ce que vous apprenez de votre mentor</span><ul><li>Méthodes de travail</li><li>Logiciels de la spécialité</li><li>Organisation d'un studio</li><li>Exigences de livraison</li></ul></div>
+          <div><span class="lab dim">Ce que vous développez</span><ul><li>Veille sur les outils récents</li><li>Essais sur des cas réels</li><li>Documentation de vos résultats</li><li>Regard critique sur les limites des outils</li></ul></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- 05 -->
-  <section class="sec gut" id="cycle" data-ch="Le cycle">
+  <section class="sec gut" id="cycle" data-ch="La méthode">
     <div class="max">
       <div class="chgrid" data-rv>
-        <div><span class="ch-no">05</span><span class="lab ch-tag">Le cycle</span></div>
+        <div><span class="ch-no">05</span><span class="lab ch-tag">La méthode</span></div>
         <div>
-          <h2 class="xw ch-title">Le cycle de travail</h2>
+          <h2 class="xw ch-title">Une méthode de travail</h2>
           <div class="ruler"></div>
-          <div class="lede one"><p>La spécialité suit un cycle qui se répète pendant toute la formation. Chaque nouvelle sortie d'outil relance la boucle.</p></div>
+          <div class="lede one"><p>Votre spécialité suit un cycle qui se répète pendant toute la formation. Chaque nouvelle sortie d'outil vous ramène à l'étape de veille, et vous apprenez ainsi à intégrer les dernières évolutions techniques à votre métier.</p></div>
         </div>
       </div>
       <div class="nodes block" id="nodes" data-rv>
-        <article class="node"><div class="nh"><span>01</span><span>Mentor</span></div><div class="nb"><h3>Apprendre le métier</h3><p>Le participant apprend auprès de son mentor les méthodes et les logiciels de sa spécialité, sur les productions du studio.</p></div><span class="port o"></span><span class="wire"><i></i></span></article>
-        <article class="node"><div class="nh"><span>02</span><span>Participant</span></div><div class="nb"><h3>Faire la veille</h3><p>Il suit les sorties d'outils d'IA susceptibles de s'insérer dans le flux de travail de son métier.</p></div><span class="port i"></span><span class="port o"></span><span class="wire"><i></i></span></article>
-        <article class="node"><div class="nh"><span>03</span><span>Participant</span></div><div class="nb"><h3>Tester</h3><p>Il éprouve l'outil retenu sur un cas réel et documente la qualité obtenue, le temps gagné ou perdu et les limites rencontrées.</p></div><span class="port i"></span><span class="port o"></span><span class="wire"><i></i></span></article>
-        <article class="node"><div class="nh"><span>04</span><span>Mentor et participant</span></div><div class="nb"><h3>Valider</h3><p>Il présente ses essais à son mentor. Ensemble, ils décident si l'outil peut entrer dans le flux de travail du studio et à quelles conditions.</p></div><span class="port i"></span></article>
+        <article class="node"><div class="nh"><span>01</span><span>Avec votre mentor</span></div><div class="nb"><h3>Apprendre le métier</h3><p>Vous pratiquez les méthodes et les logiciels de votre spécialité sur les productions du studio.</p></div><span class="port o"></span><span class="wire"><i></i></span></article>
+        <article class="node"><div class="nh"><span>02</span><span>Vous</span></div><div class="nb"><h3>Suivre les évolutions</h3><p>Vous repérez les outils d'IA susceptibles de s'insérer dans le flux de travail de votre métier.</p></div><span class="port i"></span><span class="port o"></span><span class="wire"><i></i></span></article>
+        <article class="node"><div class="nh"><span>03</span><span>Vous</span></div><div class="nb"><h3>Tester</h3><p>Vous éprouvez l'outil sur un cas réel et mesurez la qualité obtenue, le temps nécessaire et les limites rencontrées.</p></div><span class="port i"></span><span class="port o"></span><span class="wire"><i></i></span></article>
+        <article class="node"><div class="nh"><span>04</span><span>Avec votre mentor</span></div><div class="nb"><h3>Intégrer</h3><p>Vous présentez vos essais à votre mentor et déterminez ensemble comment intégrer l'outil au flux de travail du studio.</p></div><span class="port i"></span></article>
         <div class="loop" id="loop"><span>Nouvelle sortie · retour à la veille</span></div>
       </div>
     </div>
@@ -626,122 +628,85 @@ a.mail:hover{color:var(--acc-hi)}
       <div class="chgrid" data-rv>
         <div><span class="ch-no">06</span><span class="lab ch-tag">La recherche</span></div>
         <div>
-          <h2 class="xw ch-title">Une recherche publiée</h2>
+          <h2 class="xw ch-title">Une recherche encadrée et publiée</h2>
           <div class="ruler"></div>
           <div class="lede">
-            <p>Les essais des participants sont suivis par des chercheurs, qui en garantissent la méthode.</p>
-            <p>Les résultats sont publiés afin que l'ensemble du secteur en bénéficie, au-delà des participants et du studio.</p>
+            <p>Vos essais suivent une méthode de recherche. Des chercheurs vous accompagnent dans l'élaboration du protocole et dans la rédaction de vos résultats.</p>
+            <p>La publication de ces résultats donne une trace reconnue de votre travail et contribue à la connaissance du secteur.</p>
           </div>
         </div>
       </div>
       <div class="panel block lit" data-rv>
         <div class="ph"><span><b>Pipeline</b> · d'un essai à sa publication</span><span id="logState">en attente</span></div>
         <div class="log" id="log">
-          <div><span class="n">01</span><span class="k">Essai</span><span class="v">Test d'un outil sur un cas réel, dans la spécialité</span><span class="s">OK</span></div>
-          <div><span class="n">02</span><span class="k">Validation</span><span class="v">Avis du mentor sur l'intégration au flux de travail</span><span class="s">OK</span></div>
-          <div><span class="n">03</span><span class="k">Documentation</span><span class="v">Protocole, résultats et limites rédigés par le participant</span><span class="s">OK</span></div>
-          <div><span class="n">04</span><span class="k">Relecture</span><span class="v">Suivi méthodologique par des chercheurs</span><span class="s">OK</span></div>
-          <div><span class="n">05</span><span class="k">Publication</span><span class="v">Diffusion des résultats à l'ensemble du secteur</span><span class="s">OK</span></div>
+          <div><span class="n">01</span><span class="k">Essai</span><span class="v">Test d'un outil sur un cas réel, dans votre spécialité</span><span class="s">OK</span></div>
+          <div><span class="n">02</span><span class="k">Validation</span><span class="v">Échange avec votre mentor sur l'intégration au flux de travail</span><span class="s">OK</span></div>
+          <div><span class="n">03</span><span class="k">Documentation</span><span class="v">Rédaction du protocole, des résultats et des limites</span><span class="s">OK</span></div>
+          <div><span class="n">04</span><span class="k">Relecture</span><span class="v">Accompagnement méthodologique par des chercheurs</span><span class="s">OK</span></div>
+          <div><span class="n">05</span><span class="k">Publication</span><span class="v">Diffusion de vos résultats</span><span class="s">OK</span></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- 07 -->
-  <section class="sec gut" id="programmes" data-ch="Programmes">
+  <section class="sec gut" id="organisation" data-ch="L'organisation">
     <div class="max">
       <div class="chgrid" data-rv>
-        <div><span class="ch-no">07</span><span class="lab ch-tag">Programmes</span></div>
-        <div><h2 class="xw ch-title">Deux programmes</h2><div class="ruler"></div></div>
-      </div>
-      <div class="progs block" data-rv>
-        <a class="prog lit" href="#avenir">
-          <span class="lab dim">Formation longue</span>
-          <h3>L'avenir de la post-production</h3>
-          <p>Le programme décrit sur cette page. Un socle commun consacré aux outils génératifs, puis une spécialité pratiquée auprès d'un professionnel de Downtown Studio, sur les productions du studio.</p>
-          <div class="meta"><div><span>Format</span><span>Socle commun et spécialité</span></div><div><span>Calendrier</span><span>Communiqué à l'ouverture des inscriptions</span></div></div>
-          <span class="more">Voir la fiche →</span>
-        </a>
-        <a class="prog lit" href="#progress-ai">
-          <span class="lab dim">Formation courte</span>
-          <h3>Progress AI : IA et création cinéma</h3>
-          <p>Trois modules de cinq jours consacrés à la production audiovisuelle assistée par l'IA générative, de la préparation visuelle d'un film à l'hybridation entre prises de vues réelles et plans générés.</p>
-          <div class="meta"><div><span>Format</span><span>3 modules de 5 jours, 6 à 8 participants</span></div><div><span>Calendrier</span><span>Décembre 2026</span></div><div><span>Tarif</span><span>300 CHF (module 1), 500 CHF (modules 2 et 3)</span></div><div><span>Soutien</span><span>FFPC</span></div></div>
-          <span class="more">Voir la fiche →</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 08 -->
-  <section class="sec gut" id="specialites" data-ch="Spécialités">
-    <div class="max">
-      <div class="chgrid" data-rv>
-        <div><span class="ch-no">08</span><span class="lab ch-tag">Spécialités</span></div>
+        <div><span class="ch-no">07</span><span class="lab ch-tag">L'organisation</span></div>
         <div>
-          <h2 class="xw ch-title">Cinq postes de travail</h2>
+          <h2 class="xw ch-title">Organisation de la formation</h2>
           <div class="ruler"></div>
-          <div class="lede one"><p>Chaque spécialité correspond à un poste de travail de Downtown Studio. Les équipements acquis par l'association avec le soutien de la Fondation Wilsdorf y sont intégrés.</p></div>
+          <div class="lede one"><p>La formation associe un tronc commun, suivi par l'ensemble du groupe, à une spécialité pratiquée auprès d'un professionnel de Downtown Studio. La recherche accompagne les deux tout au long du parcours.</p></div>
         </div>
       </div>
+      <div class="duo d3 block" data-rv>
+        <article class="lit"><span class="k">Tronc commun</span><h3>Cours et ateliers</h3><p>Cours théoriques et ateliers d'expérimentation sur les outils génératifs et agentiques, les techniques émergentes, les règles de travail d'un studio et les questions juridiques et éthiques.</p></article>
+        <article class="lit"><span class="k">Spécialité</span><h3>Pratique en studio</h3><p>Pratique de votre métier auprès d'un professionnel de Downtown Studio, sur les productions du studio, dans un groupe de niveau comparable au vôtre.</p></article>
+        <article class="lit"><span class="k">Recherche</span><h3>Veille et essais</h3><p>Veille sur les outils de votre métier, essais sur des cas réels et documentation de vos résultats, avec l'accompagnement de chercheurs.</p></article>
+      </div>
+      <h3 class="lab" style="margin:70px 0 18px">Cinq spécialités</h3>
+      <p class="note" style="margin:0 0 24px">Chaque spécialité correspond à un poste de travail de Downtown Studio. Les équipements acquis par l'association avec le soutien de la Fondation Wilsdorf y sont intégrés.</p>
       <div class="specs block" id="specList" data-rv></div>
     </div>
   </section>
 
-  <!-- 09 -->
+  <!-- 08 -->
   <section class="sec gut" id="publics" data-ch="Publics">
     <div class="max">
       <div class="chgrid" data-rv>
-        <div><span class="ch-no">09</span><span class="lab ch-tag">Publics</span></div>
-        <div><h2 class="xw ch-title">À qui s'adresse la formation</h2><div class="ruler"></div></div>
+        <div><span class="ch-no">08</span><span class="lab ch-tag">Publics</span></div>
+        <div>
+          <h2 class="xw ch-title">À qui s'adresse la formation</h2>
+          <div class="ruler"></div>
+          <div class="lede one"><p>La formation porte sur des techniques dont une partie n'est pas encore disponible sur le marché. Elle s'adresse aux personnes qui ont le goût de l'exploration et veulent se placer à la pointe de leur métier.</p></div>
+        </div>
       </div>
       <div class="duo block" data-rv>
         <article class="lit">
           <h3>Professionnels en activité</h3>
-          <p>Monteurs, mixeurs, étalonneurs et graphistes VFX ont appris leur métier avant l'apparition de ces outils. Leur expérience reste l'atout principal pour juger de leur usage. La formation leur permet de les pratiquer et de les évaluer avec leur niveau d'exigence.</p>
+          <p>Monteurs, mixeurs, étalonneurs et graphistes VFX, votre expérience reste le meilleur critère pour juger de ces outils. La formation vous permet de les pratiquer et de les évaluer avec votre niveau d'exigence.</p>
         </article>
         <article class="lit">
           <h3>Jeunes diplômés</h3>
-          <p>Issus pour la plupart de bachelors de cinéma généralistes, ils entrent sur le marché sans expérience de production. La spécialité les place sur des projets réels, avec leurs contraintes de budget et de délai, au sein de l'équipe qui les fabrique.</p>
+          <p>Vous entrez dans des métiers en transformation. La spécialité vous place sur des projets réels, avec leurs contraintes de budget et de délai, au sein de l'équipe qui les fabrique.</p>
         </article>
       </div>
       <p class="note">La formation est ouverte aux personnes en reconversion qui justifient d'une pratique du secteur audiovisuel. Aucune compétence préalable en intelligence artificielle n'est requise.</p>
     </div>
   </section>
 
-  <!-- 10 -->
-  <section class="sec gut" id="lift" data-ch="Le précédent">
-    <div class="max">
-      <div class="chgrid" data-rv>
-        <div><span class="ch-no">10</span><span class="lab ch-tag">Le précédent</span></div>
-        <div>
-          <h2 class="xw ch-title">Lift, un principe éprouvé</h2>
-          <div class="ruler"></div>
-          <div class="lede">
-            <p>Lift, programme conduit par Progress et Downtown Studio avec le soutien de la FFPC, place de jeunes diplômés sur des productions réelles en tant que professionnels juniors. Ils sont encadrés par des experts en activité et disposent du double du temps habituellement accordé à un professionnel confirmé.</p>
-            <p>Une première session a formé quatre diplômés de la HEAD et de l'ECAL, en dix jours intensifs, à la fonction de recorder de l'auditorium Atmos. Douze jeunes professionnels ont ensuite travaillé au montage son, au mixage et à l'étalonnage de deux séries : Winter Palace, de Pierre Monnard, coproduite par Netflix, et Rennaissance, de Dylan Taher et Léo Wadimoff, coproduite par la RTS.</p>
-          </div>
-        </div>
-      </div>
-      <div class="stats block" data-rv>
-        <div class="lit"><b data-count="4">4</b><span>recorders formés pour l'auditorium Atmos</span></div>
-        <div class="lit"><b data-count="12">12</b><span>jeunes professionnels sur deux séries en production</span></div>
-        <div class="lit"><b>2&times;</b><span>le temps habituellement accordé à un professionnel confirmé</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 11 -->
+  <!-- 09 -->
   <section class="sec gut" id="lieu" data-ch="Le lieu">
     <div class="max">
       <div class="chgrid" data-rv>
-        <div><span class="ch-no">11</span><span class="lab ch-tag">Le lieu</span></div>
+        <div><span class="ch-no">09</span><span class="lab ch-tag">Le lieu</span></div>
         <div>
           <h2 class="xw ch-title">Downtown Studio</h2>
           <div class="ruler"></div>
           <div class="lede">
             <p>Downtown Studio est un centre d'expertise dédié aux industries audiovisuelles, lancé en octobre 2022 par Freestudios au 10 rue des Vieux-Grenadiers à Genève. Le projet a reçu l'approbation du Département de l'économie et de l'emploi. Ses équipes collaborent avec des producteurs indépendants depuis près de vingt ans.</p>
-            <p>Le socle commun se tient dans la salle de cours de Progress. La pratique se déroule dans les espaces de production du studio.</p>
+            <p>Le tronc commun se tient dans la salle de cours de Progress. La pratique se déroule dans les espaces de production du studio.</p>
           </div>
         </div>
       </div>
@@ -771,18 +736,18 @@ a.mail:hover{color:var(--acc-hi)}
 <!-- ===================== PROGRAMMES ===================== -->
 <div class="view" data-view="programme" hidden>
   <section class="page-hero gut"><div class="max">
-    <span class="lab dim">Programmes</span>
-    <h1 class="xw" style="margin-top:20px">Programmes</h1>
+    <span class="lab dim">La formation</span>
+    <h1 class="xw" style="margin-top:20px">La formation</h1>
   </div></section>
 
   <section class="sec gut" id="avenir" style="padding-top:20px"><div class="max">
-    <div class="sec-head"><span class="lab">Formation longue</span><div>
+    <div class="sec-head"><span class="lab">Présentation</span><div>
       <h2 class="xw">L'avenir de la post-production</h2>
-      <p>Formation destinée aux professionnels en activité et aux jeunes diplômés. Elle associe un socle commun consacré aux outils génératifs et aux techniques émergentes à une pratique encadrée dans une spécialité, sur les productions de Downtown Studio.</p>
+      <p>Formation destinée aux professionnels en activité et aux jeunes diplômés. Elle associe un tronc commun consacré à la production assistée par l'IA, générative et agentique, et aux techniques émergentes à une pratique encadrée dans une spécialité, sur les productions de Downtown Studio.</p>
     </div></div>
     <ol class="parc" id="parc" aria-label="Déroulement de la formation">
       <li class="pc"><span class="pc-n">01</span><h3>Inscription</h3><p>Vous choisissez votre spécialité et indiquez votre niveau.</p></li>
-      <li class="pc"><span class="pc-n">02</span><h3>Socle commun</h3><p>Cours et ateliers suivis par l'ensemble du groupe.</p></li>
+      <li class="pc"><span class="pc-n">02</span><h3>Tronc commun</h3><p>Cours et ateliers suivis par l'ensemble du groupe.</p></li>
       <li class="pc pc-wide"><span class="pc-n">03</span><h3>Spécialité</h3><p>Une seule, choisie à l'inscription, auprès d'un professionnel de Downtown Studio.</p>
         <div class="pc-list" id="pcList"></div>
       </li>
@@ -790,9 +755,9 @@ a.mail:hover{color:var(--acc-hi)}
     <div class="split">
       <div class="prose">
         <p><b>Objectifs.</b> À l'issue de la formation, les participants comprennent le fonctionnement des intelligences artificielles génératives et leur place dans la chaîne de post-production. Ils savent les intégrer à leur métier en respectant les exigences de qualité et de livraison d'une production professionnelle. Ils maîtrisent l'organisation du travail en studio et ont conduit une recherche documentée sur une question de leur métier.</p>
-        <p><b>Le socle commun.</b> Il alterne cours théoriques et ateliers d'expérimentation. Il traite des outils de génération d'images, de vidéos, de voix et de musique, de ce que chacun produit et de la place qu'il peut occuper dans la chaîne de fabrication. Il aborde les techniques émergentes pour lesquelles aucune formation établie n'existe encore, de la réalité étendue au rendu en temps réel. Il transmet les règles de travail d'un studio, de la préparation des médias aux exigences de livraison des diffuseurs et des plateformes. Il examine enfin les questions juridiques et éthiques liées à ces outils : statut des contenus générés, droit d'auteur, mention au générique et rémunération du travail utilisé.</p>
+        <p><b>Le tronc commun.</b> Il alterne cours théoriques et ateliers d'expérimentation. Il traite des outils de génération d'images, de vidéos, de voix et de musique et des agents capables de piloter les logiciels de production, de ce que chacun produit et de la place qu'il peut occuper dans la chaîne de fabrication. Il aborde les techniques émergentes pour lesquelles aucune formation établie n'existe encore, de la réalité étendue au rendu en temps réel. Il transmet les règles de travail d'un studio, de la préparation des médias aux exigences de livraison des diffuseurs et des plateformes. Il examine enfin les questions juridiques et éthiques liées à ces outils : statut des contenus générés, droit d'auteur, mention au générique et rémunération du travail utilisé.</p>
         <p><b>La spécialité.</b> Chaque participant rejoint un professionnel de Downtown Studio dans la spécialité choisie à l'inscription, sur les productions en cours. Les participants sont répartis par niveau, afin que l'encadrement corresponde à leur expérience.</p>
-        <p><b>La veille et les essais.</b> Pendant la spécialité, le participant suit les sorties d'outils qui concernent son métier, les teste sur des cas réels et présente ses résultats à son mentor. Ces essais sont documentés, suivis par des chercheurs et publiés.</p>
+        <p><b>La veille et les essais.</b> Pendant la spécialité, vous suivez les sorties d'outils qui concernent votre métier, vous les testez sur des cas réels et vous présentez vos résultats à votre mentor. Ces essais sont documentés avec l'accompagnement de chercheurs, puis publiés.</p>
       </div>
       <div class="sheet panel">
         <span class="lab dim">Informations pratiques</span>
@@ -804,37 +769,7 @@ a.mail:hover{color:var(--acc-hi)}
         <div class="row info"><span>Financement</span><span>la FFPC soutient les formations de Progress pour les participants domiciliés dans le canton de Genève</span></div>
         <div class="row info"><span>Attestation</span><span>Communiqué à l'ouverture des inscriptions</span></div>
         <div class="row info"><span>Admission</span><span>connaissance du secteur audiovisuel et autonomie de travail, sans compétence préalable en intelligence artificielle</span></div>
-        <div style="padding-top:16px"><a class="btn" href="#inscription" data-prog="ava">S'inscrire <span aria-hidden="true">→</span></a></div>
-      </div>
-    </div>
-  </div></section>
-
-  <section class="sec gut" id="progress-ai"><div class="max">
-    <div class="sec-head"><span class="lab">Formation courte</span><div>
-      <h2 class="xw">Progress AI : IA et création cinéma</h2>
-      <p>Programme de formation continue en trois modules autonomes de cinq jours, consacré à la production audiovisuelle assistée par l'intelligence artificielle générative. Chaque module peut être suivi séparément. Ensemble, ils couvrent la fabrication complète d'un film, de la préparation visuelle à la finalisation. Un scénario commun, écrit par Dirty Bacon Productions, sert de support aux exercices.</p>
-    </div></div>
-    <div class="modules">
-      <article><span class="lab dim">Module 1</span><h3>Fondations visuelles</h3><p>Le module introduit les outils de génération d'images et de vidéos et la grammaire du prompt cinématographique : cadrage, focale, lumière, références esthétiques et direction artistique. Les participants passent du scénario au découpage, construisent la cohérence visuelle des personnages, des costumes et des décors, et réalisent une bible visuelle de production.</p></article>
-      <article><span class="lab dim">Module 2</span><h3>Production complète</h3><p>À partir de la bible du premier module, les participants produisent un court métrage de une à trois minutes entièrement généré. Le module couvre le choix des modèles vidéo selon la nature des plans, la continuité entre les plans, la création de la bande sonore, puis le montage et l'étalonnage sur DaVinci Resolve. Un sound designer et un monteur interviennent pendant deux journées.</p></article>
-      <article><span class="lab dim">Module 3</span><h3>Hybridation entre réel et génération</h3><p>Le module associe prises de vues réelles et plans générés. Il commence par une journée de tournage dans le studio de Downtown Studio, encadrée par un directeur de la photographie et un comédien professionnel. Il aborde ensuite le matching colorimétrique, le compositing, les extensions de décor et l'intégration d'un acteur réel dans un environnement généré. Les participants documentent leur méthode dans un guide de pipeline.</p></article>
-    </div>
-    <div class="split">
-      <div class="prose">
-        <p><b>Public.</b> Professionnels et semi-professionnels de l'audiovisuel et de la création numérique : réalisateurs, assistants à la réalisation, directeurs artistiques, chefs opérateurs, monteurs, artistes VFX, ingénieurs du son, producteurs et coordinateurs de production. Le premier module ne demande aucune connaissance préalable en intelligence artificielle. Les deux suivants restent accessibles aux candidats qui pratiquent déjà ces outils.</p>
-        <p><b>Évaluation.</b> Chaque module se conclut par l'évaluation du livrable devant un jury de professionnels du cinéma et de spécialistes de l'intelligence artificielle.</p>
-      </div>
-      <div class="sheet panel">
-        <span class="lab dim">Informations pratiques</span>
-        <div class="row info"><span>Durée</span><span>trois modules de cinq jours consécutifs, 30 périodes de 60 minutes par module</span></div>
-        <div class="row info"><span>Effectif</span><span>6 à 8 participants par module</span></div>
-        <div class="row info"><span>Lieu</span><span>Downtown Studio, 10 rue des Vieux-Grenadiers, Genève (salle de cours et studio de tournage)</span></div>
-        <div class="row info"><span>Calendrier</span><span>décembre 2026</span></div>
-        <div class="row info"><span>Tarif</span><span>module 1 : 300 CHF<br>modules 2 et 3 : 500 CHF chacun</span></div>
-        <div class="row info"><span>Financement</span><span>programme soutenu par la Fondation genevoise pour la formation professionnelle et continue (FFPC)</span></div>
-        <div class="row info"><span>Attestation</span><span>attestation cantonale</span></div>
-        <div class="row info"><span>Partenaires</span><span>Downtown Studio, Dirty Bacon Productions</span></div>
-        <div style="padding-top:16px"><a class="btn" href="#inscription" data-prog="pai">S'inscrire <span aria-hidden="true">→</span></a></div>
+        <div style="padding-top:16px"><a class="btn" href="#inscription">S'inscrire <span aria-hidden="true">→</span></a></div>
       </div>
     </div>
   </div></section>
@@ -842,12 +777,12 @@ a.mail:hover{color:var(--acc-hi)}
   <section class="sec gut" id="questions"><div class="max">
     <div class="sec-head"><span class="lab">Questions</span><div><h2 class="xw">Questions fréquentes</h2></div></div>
     <div class="faq">
-      <details open><summary>Je pratique mon métier depuis de nombreuses années. Le socle commun me concerne-t-il ?</summary><p>Oui. Il porte sur des outils et des techniques apparus récemment, que les professionnels expérimentés découvrent au même moment que les jeunes diplômés. Votre expérience reste l'atout principal pour juger de leur usage, et la spécialité vous place auprès d'un professionnel et de participants de niveau comparable.</p></details>
+      <details open><summary>Je pratique mon métier depuis de nombreuses années. Le tronc commun me concerne-t-il ?</summary><p>Oui. Il porte sur des outils et des techniques apparus récemment, que les professionnels expérimentés découvrent au même moment que les jeunes diplômés. Votre expérience reste l'atout principal pour juger de leur usage, et la spécialité vous place auprès d'un professionnel et de participants de niveau comparable.</p></details>
       <details><summary>Faut-il déjà connaître les outils d'intelligence artificielle ?</summary><p>Non. Aucune compétence préalable en intelligence artificielle n'est demandée. Une connaissance du secteur audiovisuel et une autonomie de travail sont attendues.</p></details>
       <details><summary>Qui encadre la pratique ?</summary><p>Des professionnels de Downtown Studio en activité dans chacune des spécialités.</p></details>
       <details><summary>Travaillerai-je sur des productions réelles ?</summary><p>La spécialité se déroule sur les productions accueillies par le studio et son réseau. Les conditions de participation, notamment la mention au générique et la confidentialité, sont précisées avant le début de la spécialité.</p></details>
-      <details><summary>Les formations sont-elles financées ?</summary><p>La Fondation genevoise pour la formation professionnelle et continue (FFPC) soutient les formations de Progress pour les participants domiciliés dans le canton de Genève, ce qui permet de maintenir des tarifs accessibles. Les conditions propres à chaque programme figurent sur sa fiche.</p></details>
-      <details><summary>Quelle attestation est délivrée ?</summary><p>Progress AI donne lieu à une attestation cantonale. Pour L'avenir de la post-production, les modalités d'attestation sont communiquées à l'ouverture des inscriptions.</p></details>
+      <details><summary>Les formations sont-elles financées ?</summary><p>La Fondation genevoise pour la formation professionnelle et continue (FFPC) soutient les formations de Progress pour les participants domiciliés dans le canton de Genève, ce qui permet de maintenir des tarifs accessibles.</p></details>
+      <details><summary>Quelle attestation est délivrée ?</summary><p>Les modalités d'attestation sont communiquées à l'ouverture des inscriptions.</p></details>
       <details><summary>Où se déroulent les formations ?</summary><p>À Downtown Studio, 10 rue des Vieux-Grenadiers, à Genève.</p></details>
     </div>
   </div></section>
@@ -881,7 +816,7 @@ a.mail:hover{color:var(--acc-hi)}
       <div><span class="yr">2023</span><p>Création de l'association Progress au sein de Downtown Studio. Première session de Lift : formation de recorders pour l'auditorium Atmos.</p></div>
       <div><span class="yr">2024</span><p>Ouverture de la salle de cours équipée grâce à la Fondation Wilsdorf. Lancement du catalogue de cours avec des partenaires de formation. Douze jeunes professionnels travaillent sur les séries Winter Palace et Rennaissance.</p></div>
       <div><span class="yr">2025</span><p>Étude de faisabilité sur le modèle de formation. Le 11 décembre, une assemblée générale extraordinaire élit un nouveau comité.</p></div>
-      <div><span class="yr">2026</span><p>Progress recentre ses programmes sur l'apprentissage en production. Lancement de Progress AI, soutenu par la FFPC, en décembre.</p></div>
+      <div><span class="yr">2026</span><p>Progress recentre ses programmes sur l'apprentissage en production.</p></div>
     </div>
   </div></section>
 
@@ -896,11 +831,10 @@ a.mail:hover{color:var(--acc-hi)}
 
   <section class="sec gut"><div class="max">
     <div class="sec-head"><span class="lab">Partenaires</span><div><h2 class="xw">Partenaires</h2></div></div>
-    <div class="partners p4">
+    <div class="partners">
       <div><strong>Downtown Studio</strong><p>Hébergement de l'association, postes de travail, encadrement et productions sur lesquelles se déroule la pratique.</p></div>
       <div><strong>Fondation genevoise pour la formation professionnelle et continue (FFPC)</strong><p>Soutien des formations de Progress pour les participants domiciliés dans le canton de Genève.</p></div>
       <div><strong>Fondation Wilsdorf</strong><p>Financement de la salle de cours et des équipements de l'association.</p></div>
-      <div><strong>Dirty Bacon Productions</strong><p>Conception pédagogique et scénario commun du programme Progress AI.</p></div>
     </div>
   </div></section>
 
@@ -918,13 +852,13 @@ a.mail:hover{color:var(--acc-hi)}
   <section class="page-hero gut" style="padding-bottom:40px"><div class="max">
     <span class="lab dim">Inscription</span>
     <h1 class="xw" style="margin-top:20px">Inscription</h1>
-    <p>L'inscription se fait par programme. Pour L'avenir de la post-production, elle couvre le socle commun et la spécialité choisie. Pour Progress AI, chaque module fait l'objet d'une inscription distincte. L'association examine votre demande, puis vous confirme votre place et les modalités de paiement.</p>
+    <p>L'inscription couvre le tronc commun et la spécialité choisie. L'association examine votre demande, puis vous confirme votre place et les modalités de paiement.</p>
   </div></section>
 
   <section class="gut" style="padding-bottom:140px"><div class="max reg-wrap">
     <div>
       <form class="reg" id="regForm" novalidate>
-        <div class="stepper" id="stepper"><span>Vous</span><span>Programme</span><span>Spécialité ou module</span><span>Niveau</span><span>Envoi</span></div>
+        <div class="stepper" id="stepper"><span>Vous</span><span>Spécialité</span><span>Niveau</span><span>Envoi</span></div>
 
         <fieldset data-step="1">
           <legend>Vos coordonnées</legend>
@@ -948,24 +882,11 @@ a.mail:hover{color:var(--acc-hi)}
         </fieldset>
 
         <fieldset data-step="2" hidden>
-          <legend>Votre programme</legend>
-          <div class="opts" id="progOpts">
-            <label class="opt"><input type="radio" name="prog" value="ava"><span class="dot"></span><strong>L'avenir de la post-production</strong><small>Socle commun et spécialité choisie.</small></label>
-            <label class="opt"><input type="radio" name="prog" value="pai"><span class="dot"></span><strong>Progress AI : IA et création cinéma</strong><small>Trois modules de cinq jours, décembre 2026. De 300 à 500 CHF par module.</small></label>
-          </div>
+          <legend id="step3Title">Votre spécialité</legend>
+          <div class="opts" id="specOpts"></div>
         </fieldset>
 
         <fieldset data-step="3" hidden>
-          <legend id="step3Title">Votre spécialité</legend>
-          <div class="opts" id="specOpts"></div>
-          <div class="opts" id="modOpts" hidden>
-            <label class="opt"><input type="checkbox" name="mod" value="Module 1 : Fondations visuelles"><span class="dot"></span><strong>Module 1 : Fondations visuelles</strong><small>300 CHF. Aucune connaissance préalable en intelligence artificielle n'est demandée.</small></label>
-            <label class="opt"><input type="checkbox" name="mod" value="Module 2 : Production complète"><span class="dot"></span><strong>Module 2 : Production complète</strong><small>500 CHF. Court métrage entièrement généré, à partir de la bible du premier module.</small></label>
-            <label class="opt"><input type="checkbox" name="mod" value="Module 3 : Hybridation entre réel et génération"><span class="dot"></span><strong>Module 3 : Hybridation entre réel et génération</strong><small>500 CHF. Prises de vues réelles et plans générés.</small></label>
-          </div>
-        </fieldset>
-
-        <fieldset data-step="4" hidden>
           <legend>Votre niveau</legend>
           <div class="opts" id="lvlOpts">
             <label class="opt"><input type="radio" name="lvl" value="Découverte"><span class="dot"></span><strong>Découverte</strong><small>Vous n'avez jamais exercé ce métier.</small></label>
@@ -975,10 +896,10 @@ a.mail:hover{color:var(--acc-hi)}
           <div class="field"><label for="f-motiv">Vos attentes (facultatif)</label><textarea id="f-motiv"></textarea></div>
         </fieldset>
 
-        <fieldset data-step="5" hidden>
+        <fieldset data-step="4" hidden>
           <legend>Envoi</legend>
           <div id="finalRecap" class="prose" style="font-size:1.02rem"></div>
-          <label class="opt"><input type="checkbox" id="f-ok"><span class="dot"></span><strong>J'ai pris connaissance de l'organisation du programme</strong><small>L'association examine ma demande et me confirme ma place ainsi que les modalités de paiement.</small></label>
+          <label class="opt"><input type="checkbox" id="f-ok"><span class="dot"></span><strong>J'ai pris connaissance de l'organisation de la formation</strong><small>L'association examine ma demande et me confirme ma place ainsi que les modalités de paiement.</small></label>
         </fieldset>
 
         <div class="err" id="err" role="alert"></div>
@@ -1017,8 +938,8 @@ a.mail:hover{color:var(--acc-hi)}
 
 <footer class="site"><div class="in gut max">
   <div style="display:grid;gap:16px;align-content:start"><span class="logo"><img src="img/logo-progress.png" alt="PROGRESS" style="filter:invert(1)"></span><p>Association genevoise à but non lucratif de formation aux métiers de l'audiovisuel.</p></div>
-  <nav><span class="lab">Programmes</span><a href="#avenir">L'avenir de la post-production</a><a href="#progress-ai">Progress AI</a><a href="#inscription">Inscription</a></nav>
-  <nav><span class="lab">Le projet</span><a href="#echange">L'approche</a><a href="#cycle">Le cycle de travail</a><a href="#questions">Questions fréquentes</a><a href="#progress">L'association</a></nav>
+  <nav><span class="lab">La formation</span><a href="#avenir">Présentation</a><a href="#questions">Questions fréquentes</a><a href="#inscription">Inscription</a></nav>
+  <nav><span class="lab">Le projet</span><a href="#echange">L'approche</a><a href="#cycle">La méthode</a><a href="#organisation">L'organisation</a><a href="#progress">L'association</a></nav>
   <div style="display:grid;gap:8px;align-content:start"><span class="lab">Contact</span><a class="mail" href="mailto:info@progressgeneve.ch">info@progressgeneve.ch</a><p>c/o Downtown Studio<br>10 rue des Vieux-Grenadiers<br>1205 Genève</p></div>
 </div></footer>
 
@@ -1041,27 +962,19 @@ var SPECS=[
 ];
 /* Sorties publiques d'outils génératifs (mois de sortie) */
 var REL=[
-  ["2022-08","img","Stable Diffusion"],
-  ["2022-09","aud","Whisper (transcription)"],
-  ["2023-01","aud","ElevenLabs (voix)"],
-  ["2023-02","vid","Runway Gen-1"],
-  ["2023-03","img","Midjourney v5"],
-  ["2023-03","img","Adobe Firefly"],
-  ["2024-02","vid","Sora (annonce)"],
-  ["2024-03","aud","Suno v3 (musique)"],
-  ["2024-06","vid","Kling"],
-  ["2024-06","vid","Luma Dream Machine"],
-  ["2024-06","vid","Runway Gen-3 Alpha"],
-  ["2024-08","img","Flux"],
-  ["2024-12","vid","Sora (accès public)"],
-  ["2024-12","vid","Veo 2"],
-  ["2025-03","vid","Runway Gen-4"],
-  ["2025-04","vid","Premiere Pro, extension générative"],
-  ["2025-05","vid","Veo 3 (vidéo et son)"],
-  ["2025-08","img","Gemini 2.5 Flash Image"],
-  ["2025-09","vid","Sora 2"]
+  ["2023-05","vfx","Photoshop, remplissage génératif (bêta)"],
+  ["2024-05","vfx","Autodesk rachète Wonder Dynamics"],
+  ["2024-08","vfx","Flame 2025.1, ML Timewarp"],
+  ["2024-10","edit","Premiere Pro, Generative Extend (bêta)"],
+  ["2024-10","vfx","Runway Act-One"],
+  ["2024-11","agt","Model Context Protocol (Anthropic)"],
+  ["2025-04","edit","Premiere Pro, Generative Extend en 4K"],
+  ["2025-04","edit","DaVinci Resolve 20, IntelliScript"],
+  ["2025-04","aud","DaVinci Resolve 20, AI Audio Assistant"],
+  ["2025-07","vfx","Runway Aleph"],
+  ["2025-12","agt","MCP confié à l'Agentic AI Foundation"]
 ];
-var LANES={img:["Image",0],vid:["Vidéo",1],aud:["Audio",2]};
+var LANES={vfx:["VFX",0],edit:["Montage",1],aud:["Son",2],agt:["Agents",3]};
 var picked=null,prog=null;
 
 /* ---------- Spécialités ---------- */
@@ -1079,11 +992,11 @@ function buildRel(){
   var narrow=window.innerWidth<640;XL=narrow?56:90;XR=narrow?512:985;relSvg.setAttribute('viewBox','0 0 '+(narrow?520:1000)+' 200');
   for(var y=2023;y<=2025;y++){var x=mx(y+'-01')-((XR-XL)/43)*.5;el('line',{x1:x,x2:x,y1:12,y2:176,stroke:'rgba(255,255,255,.14)'},relSvg);var t=el('text',{x:x+6,y:194,fill:'#808080','font-size':'11'},relSvg);t.textContent=y}
   el('line',{x1:XL,x2:XL,y1:12,y2:176,stroke:'rgba(255,255,255,.14)'},relSvg);var t0=el('text',{x:XL+6,y:194,fill:'#808080','font-size':'11'},relSvg);t0.textContent='2022';
-  Object.keys(LANES).forEach(function(k){var yy=36+LANES[k][1]*56;el('line',{x1:XL,x2:XR,y1:yy,y2:yy,stroke:'rgba(255,255,255,.2)','stroke-dasharray':'1 5'},relSvg);var t=el('text',{x:0,y:yy+4,fill:'#F4F4F1','font-size':'11'},relSvg);t.textContent=LANES[k][0].toUpperCase()});
+  Object.keys(LANES).forEach(function(k){var yy=28+LANES[k][1]*42;el('line',{x1:XL,x2:XR,y1:yy,y2:yy,stroke:'rgba(255,255,255,.2)','stroke-dasharray':'1 5'},relSvg);var t=el('text',{x:0,y:yy+4,fill:'#F4F4F1','font-size':'11'},relSvg);t.textContent=LANES[k][0].toUpperCase()});
   var seen={},cnt={};REL.forEach(function(r){cnt[r[0]+r[1]]=(cnt[r[0]+r[1]]||0)+1});
   REL.forEach(function(r,i){
     var key=r[0]+r[1];seen[key]=(seen[key]||0)+1;
-    var yy=36+LANES[r[1]][1]*56+(seen[key]-1-(cnt[key]-1)/2)*13;
+    var yy=28+LANES[r[1]][1]*42+(seen[key]-1-(cnt[key]-1)/2)*13;
     var c=el('circle',{cx:mx(r[0]),cy:yy,r:5,fill:'#F4F4F1',class:'rel-dot','data-i':i,opacity:reduce?1:0},relSvg);
   });
   el('line',{id:'relHead',x1:XL,x2:XL,y1:6,y2:180,stroke:'#2F5BFF','stroke-width':'2',opacity:0,style:'filter:drop-shadow(0 0 6px #2F5BFF)'},relSvg);
@@ -1192,14 +1105,7 @@ function setPick(id){
   document.querySelectorAll('input[name=spec]').forEach(function(r){r.checked=(r.value===id)});
   renderMini();
 }
-function setProg(p){
-  prog=p;
-  document.querySelectorAll('input[name=prog]').forEach(function(r){r.checked=(r.value===p)});
-  document.getElementById('specOpts').hidden=(p==='pai');
-  document.getElementById('modOpts').hidden=(p!=='pai');
-  document.getElementById('step3Title').textContent=(p==='pai')?'Vos modules':'Votre spécialité';
-  renderMini();
-}
+function setProg(){prog='ava';renderMini()}
 document.addEventListener('click',function(e){var a=e.target.closest('[data-prog]');if(a)setProg(a.dataset.prog)});
 
 /* ---------- Formulaire ---------- */
@@ -1207,29 +1113,21 @@ document.getElementById('specOpts').innerHTML=SPECS.map(function(s){
   return '<label class="opt"><input type="radio" name="spec" value="'+s.id+'"><span class="dot"></span><strong>'+s.name+'</strong><small>'+s.where+'</small></label>';
 }).join('');
 document.getElementById('specOpts').addEventListener('change',function(e){if(e.target.name==='spec')setPick(e.target.value)});
-document.getElementById('progOpts').addEventListener('change',function(e){if(e.target.name==='prog')setProg(e.target.value)});
-document.getElementById('modOpts').addEventListener('change',renderMini);
 document.getElementById('lvlOpts').addEventListener('change',renderMini);
 function lvl(){var r=document.querySelector('input[name=lvl]:checked');return r?r.value:null}
 function mods(){return [].slice.call(document.querySelectorAll('input[name=mod]:checked')).map(function(c){return c.value})}
 function total(){return mods().reduce(function(t,m){return t+(m.indexOf('Module 1')===0?300:500)},0)}
 function renderMini(){
   var h;
-  if(prog==='pai'){
-    var m=mods();
-    h='<div class="b tc">Progress AI : IA et création cinéma</div>';
-    h+=m.length?m.map(function(x){return '<div class="b sp">'+x+'</div>'}).join('')+'<div class="b empty" style="border-style:solid;color:var(--ink)">Total : '+total()+' CHF</div>':'<div class="b empty">Modules à choisir</div>';
-  }else if(prog==='ava'){
+  {
     var s=SPECS.find(function(x){return x.id===picked});
-    h='<div class="b tc">Socle commun · ensemble du groupe</div>';
+    h='<div class="b tc">Tronc commun · ensemble du groupe</div>';
     h+='<svg width="40" height="22" viewBox="0 0 40 22" aria-hidden="true"><path d="M2 0 C2 14, 30 6, 30 22" fill="none" stroke="'+(s?'#F4F4F1':'#555')+'" stroke-width="1.5" stroke-dasharray="2 4"/></svg>';
     h+=s?'<div class="b sp"><b>'+s.name+'</b>'+(lvl()?'<br>Niveau : '+lvl():'')+'</div>':'<div class="b empty">Spécialité à choisir</div>';
-  }else{
-    h='<div class="b empty">Programme à choisir</div>';
   }
   document.getElementById('miniPath').innerHTML=h;
 }
-var LAST=5,step=1,form=document.getElementById('regForm'),err=document.getElementById('err');
+var LAST=4,step=1,form=document.getElementById('regForm'),err=document.getElementById('err');
 function showStep(){
   form.querySelectorAll('fieldset').forEach(function(f){f.hidden=Number(f.dataset.step)!==step});
   document.querySelectorAll('#stepper span').forEach(function(sp,i){sp.className=(i+1===step?'on':(i+1<step?'past':''))});
@@ -1238,8 +1136,7 @@ function showStep(){
   err.textContent='';
   if(step===LAST){
     var n='<b>'+esc(document.getElementById('f-nom').value)+'</b>',t;
-    if(prog==='pai'){t='<p>'+n+', votre demande porte sur Progress AI : IA et création cinéma.</p><p>Modules demandés : '+mods().join(', ')+'. Niveau déclaré : '+lvl()+'.</p><p>Montant : <b>'+total()+' CHF</b>.</p>'}
-    else{var s=SPECS.find(function(x){return x.id===picked});t='<p>'+n+', votre demande porte sur L\'avenir de la post-production.</p><p>Socle commun avec l\'ensemble du groupe, puis spécialité <b>'+s.name+'</b>. Niveau déclaré : '+lvl()+'.</p>'}
+    {var s=SPECS.find(function(x){return x.id===picked});t='<p>'+n+', votre demande porte sur L\'avenir de la post-production.</p><p>Tronc commun avec l\'ensemble du groupe, puis spécialité <b>'+s.name+'</b>. Niveau déclaré : '+lvl()+'.</p>'}
     document.getElementById('finalRecap').innerHTML=t;
   }
 }
@@ -1250,10 +1147,8 @@ function valid(){
     if(!/^\S+@\S+\.\S+$/.test(m)){err.textContent='Indiquez une adresse e-mail valide, par exemple nom@domaine.ch.';return false}
     if(!st){err.textContent='Sélectionnez votre situation.';return false}
     if(!ca){err.textContent='Indiquez votre canton de domicile.';return false}}
-  if(step===2&&!prog){err.textContent='Choisissez un programme pour continuer.';return false}
-  if(step===3&&prog==='ava'&&!picked){err.textContent='Choisissez une spécialité pour continuer.';return false}
-  if(step===3&&prog==='pai'&&!mods().length){err.textContent='Choisissez au moins un module pour continuer.';return false}
-  if(step===4&&!lvl()){err.textContent='Indiquez votre niveau pour continuer.';return false}
+  if(step===2&&!picked){err.textContent='Choisissez une spécialité pour continuer.';return false}
+  if(step===3&&!lvl()){err.textContent='Indiquez votre niveau pour continuer.';return false}
   if(step===LAST&&!document.getElementById('f-ok').checked){err.textContent='Cochez la case pour confirmer votre demande.';return false}
   return true;
 }
