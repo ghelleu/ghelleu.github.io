@@ -1245,7 +1245,9 @@ function initGL(){
         ' gl_PointSize=uBase*mix(1.0,0.55,m)*(uDist/-mv.z);',
         ' gl_Position=projectionMatrix*mv;',
         ' float l=dot(aCol,vec3(0.2126,0.7152,0.0722));',
-        ' vCol=vec3(mix(l,pow(l,0.8)*1.25,m));',
+        ' vec3 deep=vec3(0.03,0.07,0.36),acc=vec3(0.18,0.36,1.0),hi=vec3(0.86,0.91,1.0);',
+        ' vec3 g=mix(mix(deep,acc,smoothstep(0.0,0.5,l)),hi,smoothstep(0.5,1.0,l));',
+        ' vCol=g*mix(0.3+0.85*l,0.35+1.05*pow(l,0.8),m);',
         ' vA=mix(1.0,0.9,m)*(1.0-uVec*0.78);',
         '}'].join('\n'),
       fragmentShader:[
