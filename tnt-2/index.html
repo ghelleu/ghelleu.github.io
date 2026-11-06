@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Setup TNT × Downtown</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
+<style>
+/* Layout : en-tête + vues, plan technique à gauche (internet en haut, LAN Downtown en bas), fiche à droite (vue ou élément cliqué). Thème unique noir, charte Downtown Studio. */
+:root{
+  --bg:#000000; --ink:#FFFFFF; --soft:#C8C8C8; --dim:#8A8A8A; --mute:#5A5A5A;
+  --line:rgba(255,255,255,.14); --line2:rgba(255,255,255,.4);
+  --red:#E6483A; --ice:#BFC9D6;
+  --font:"Archivo","Helvetica Neue",Arial,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px;max-width:1800px;margin:0 auto;display:flex;flex-direction:column;gap:10px;min-height:100%}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 24px;border-bottom:1px solid var(--line2);padding-bottom:10px}
+.idt{display:flex;align-items:center;gap:18px}
+.brand{display:flex;flex-direction:column;align-items:flex-start}
+.brand span{display:inline-block;background:var(--ink);color:var(--bg);font-size:9px;font-weight:600;letter-spacing:.04em;padding:2px 4px;line-height:1.1}
+.brand span+span{margin-left:34px;margin-top:2px}
+.eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
+h1{margin:2px 0 0;font-weight:900;font-variation-settings:"wdth" 125;text-transform:uppercase;font-size:22px;line-height:1}
+nav.views{display:flex;flex-wrap:wrap;gap:6px}
+nav.views button{appearance:none;background:transparent;border:1px solid var(--line2);color:var(--ink);font:inherit;font-size:10.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:8px 11px;cursor:pointer}
+nav.views button span{color:var(--dim);margin-right:6px}
+nav.views button:hover{border-color:var(--ink)}
+nav.views button[aria-current="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+nav.views button[aria-current="true"] span{color:var(--red)}
+button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
+main{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:20px;align-items:start}
+@media (max-width:1100px){main{grid-template-columns:minmax(0,1fr)}}
+.stage{min-width:0;overflow-x:auto}
+.stage svg{display:block;width:100%;height:auto;max-height:calc(100vh - 110px);min-width:880px}
+.panel{min-width:0;border-left:1px solid var(--line2);padding-left:20px;max-height:calc(100vh - 110px);overflow-y:auto}
+@media (max-width:1100px){.panel{border-left:0;padding-left:0;border-top:1px solid var(--line2);padding-top:14px;max-height:none}}
+.panel .k{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.panel h2{font-weight:900;font-variation-settings:"wdth" 125;text-transform:uppercase;font-size:21px;line-height:1.05;margin:0 0 8px}
+.panel p{margin:0 0 12px;color:var(--soft);font-size:14px}
+.panel h3{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px;font-weight:600}
+.kv{display:grid;grid-template-columns:minmax(110px,38%) minmax(0,1fr);border-top:1px solid var(--line)}
+.kv div{padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;min-width:0;overflow-wrap:anywhere}
+.kv div:nth-child(odd){color:var(--dim);padding-right:10px}
+.list{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.list li{padding:6px 0 6px 16px;border-bottom:1px solid var(--line);font-size:13px;position:relative;color:var(--ink)}
+.list li::before{content:"";position:absolute;left:2px;top:13px;width:6px;height:1px;background:var(--dim)}
+.list li.warn::before{background:var(--red);height:6px;width:6px;top:11px;border-radius:50%}
+.tag{display:inline-block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line2);padding:1px 6px;margin-right:6px;vertical-align:1px}
+.tag.poc{border-color:var(--ice);color:var(--ice)} .tag.prop{border-style:dashed} .tag.conc{border-color:var(--red);color:var(--red);border-style:dashed} .tag.chk{border-color:var(--red);color:var(--red)} .tag.exc{color:var(--dim)}
+.legend{display:flex;flex-direction:column;gap:5px;margin-top:6px}
+.legend span{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--soft)}
+.src{font-size:11px;color:var(--dim);margin-top:14px;border-top:1px solid var(--line);padding-top:8px}
+.back{appearance:none;background:transparent;border:1px solid var(--line2);color:var(--ink);font:inherit;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:6px 10px;cursor:pointer;margin-bottom:12px}
+code{font-family:inherit;font-size:12.5px;background:#151515;padding:0 4px;overflow-wrap:anywhere}
+.anim-in{animation:fadeup .35s ease both}
+@keyframes fadeup{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+/* ——— plan ——— */
+svg text{font-family:var(--font)}
+.zone{fill:none;stroke:var(--line2);stroke-width:1}
+.zonel{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;fill:var(--soft)}
+.frame{fill:none;stroke:var(--line2);stroke-width:1;stroke-dasharray:3 4}
+.framel{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;fill:var(--dim)}
+.cap{font-size:9.5px;letter-spacing:.06em;fill:var(--dim)}
+.nd{cursor:pointer;transition:opacity .35s}
+.nd .box{fill:var(--bg);stroke:var(--ink);stroke-width:1.1;transition:stroke .25s,stroke-width .25s}
+.nd.prop .box{stroke-dasharray:4 3}
+.nd.conc .box{stroke:var(--red);stroke-dasharray:4 3}
+.nd.poc .box{stroke:var(--ice)}
+.nd.exc{opacity:.45}
+.nd .t{font-size:12px;font-weight:800;font-variation-settings:"wdth" 82;text-transform:uppercase;letter-spacing:.02em;fill:var(--ink)}
+.nd .l{font-size:10.5px;font-variation-settings:"wdth" 88;fill:var(--soft)}
+.nd .st{font-size:8.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.nd.chip .t{font-size:10.5px}
+.nd.chip .l{font-size:9.5px}
+.nd:hover .box{stroke-width:2.2}
+.nd.sel .box{stroke:var(--red);stroke-width:2.6;stroke-dasharray:none}
+.nd.dim{opacity:.18}
+.nd.hl .box{stroke-width:2}
+svg[data-view="ferme"] .nd.r-vid .box{stroke:var(--red);stroke-width:2}
+svg[data-view="ferme"] .nd.r-img .box{stroke:var(--ink);stroke-width:2}
+svg[data-view="ferme"] .nd.r-app .box{stroke:var(--ice);stroke-width:2;stroke-dasharray:4 3}
+.ed{fill:none;stroke-linejoin:round;stroke-linecap:round;transition:opacity .35s}
+.ed.off{opacity:0}
+.eth{stroke:var(--ink);stroke-width:1.5}
+.ssh{stroke:var(--ice);stroke-width:1.6;stroke-dasharray:5 3}
+.api{stroke:var(--ice);stroke-width:1.6}
+.job{stroke:var(--ink);stroke-width:1.6;stroke-dasharray:7 4}
+.smb{stroke:var(--dim);stroke-width:1.6;stroke-dasharray:2 3}
+.mcp{stroke:var(--red);stroke-width:2}
+.web{stroke:var(--soft);stroke-width:1.3;stroke-dasharray:1 4}
+.elbl{font-size:9.5px;font-weight:600;letter-spacing:.04em;fill:var(--ink);paint-order:stroke;stroke:var(--bg);stroke-width:4px;stroke-linejoin:round;transition:opacity .35s}
+.elbl.off{opacity:0}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="idt">
+      <div class="brand" aria-label="Downtown Studio"><span>DOWNTOWN</span><span>STUDIO</span></div>
+      <div><div class="eyebrow">TNT × Downtown Studio · Plan technique du setup</div><h1>Setup de production</h1></div>
+    </div>
+    <nav class="views" id="views" aria-label="Vues"></nav>
+  </div>
+  <main>
+    <div class="stage"><svg id="plan" viewBox="0 0 1104 834" data-view="ensemble" role="img" aria-label="Plan technique : services internet, pare-feu, réseau local Downtown Studio, postes, ferme de rendu, NAS, services, agents et liaisons"></svg></div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </main>
+</div>
+
+<script>
+(function(){
+const NS='http://www.w3.org/2000/svg';
+const svg=document.getElementById('plan');
+const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;};
+const tx=(p,x,y,s,c,anc)=>{const t=el('text',{x,y,class:c},p);if(anc)t.setAttribute('text-anchor',anc);t.textContent=s;return t;};
+
+/* ---------- zones ---------- */
+const Z=el('g',{},svg);
+el('rect',{x:1,y:1,width:1102,height:146,class:'zone'},Z);tx(Z,10,15,'Internet · services hors studio','zonel');
+el('rect',{x:1,y:196,width:1102,height:636,class:'zone'},Z);tx(Z,10,212,'Downtown Studio · réseau local','zonel');
+el('rect',{x:4,y:218,width:262,height:186,class:'frame'},Z);
+el('rect',{x:272,y:346,width:574,height:268,class:'frame'},Z);tx(Z,840,360,'Ferme de rendu · 21 stations connectées','framel','end');
+tx(Z,292,606,'392 cœurs · 2,2 To de RAM · 336 Go de VRAM · ~1,1 PFLOPS FP32 · occupation 3 à 5,5 %','cap');
+
+/* ---------- nœuds ---------- */
+const N={},EG=el('g',{},svg),LG=el('g',{},svg),NG=el('g',{},svg);svg.appendChild(LG);
+const STL={poc:'POC',prop:'proposé',conc:'concept',exc:'exclue',chk:'à vérifier'};
+function node(id,x,y,w,h,t,lines,o={}){
+  const g=el('g',{class:'nd'+(o.st?' '+o.st:'')+(o.chip?' chip':'')+(o.role?' r-'+o.role:''),'data-id':id,tabindex:0,role:'button','aria-label':t},NG);
+  el('rect',{x,y,width:w,height:h,class:'box'},g);
+  const ch=!!o.chip;tx(g,x+(ch?6:9),y+(ch?14:16),t,'t');
+  (lines||[]).forEach((l,i)=>tx(g,x+(ch?6:9),y+(ch?26:31)+i*(ch?11:13),l,'l'));
+  if(o.st&&!ch){const s=tx(g,x+w-6,y+h-6,STL[o.st],'st','end');s.setAttribute('fill',o.st==='poc'?'#BFC9D6':(o.st==='conc'||o.st==='chk')?'#E6483A':'#8A8A8A');}
+  if(o.st==='chk'&&ch){el('circle',{cx:x+w-6,cy:y+6,r:3,fill:'#E6483A'},g);}
+  if(o.cells){const cw=(w-18)/o.cells.length;o.cells.forEach((c,k)=>{const cx=x+9+k*cw;el('rect',{x:cx,y:y+38,width:cw-6,height:h-46,fill:'none',stroke:'rgba(255,255,255,.25)'},g);
+    tx(g,cx+7,y+54,c[0],'l').setAttribute('font-weight','700');c.slice(1).forEach((s,j)=>tx(g,cx+7,y+68+j*12,s,'l'));});}
+  N[id]={g,x,y,w,h,t,info:o.info,st:o.st};
+  g.addEventListener('click',()=>showNode(id));g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();showNode(id);}});
+  return N[id];
+}
+// internet
+const CX=[8,164,320,476,632,788,944];
+node('hf',CX[0],22,150,102,'Hugging Face',['Téléchargement des modèles','93,8 Go en 48 min','vers RF-C2, le 30.10'],{info:[['Usage','Téléchargement direct des poids vers C:\\AI_Models\\ de RF-C2'],['Volume','12 fichiers, 93,8 Go en 48 min'],['Contrôle','Tailles et SHA256 vérifiés, manifeste SHA256SUMS.txt'],['Licences','Apache 2.0 pour tous les modèles retenus']]});
+node('gpu',CX[1],22,150,102,'GPU loué',['RTX 5090 · RunPod','0,69 à 1,19 $/h','ou LeaderGPU (UE)','LoRA vidéo, finition'],{st:'prop',info:[['Pourquoi','Aucune carte disponible au-delà de 16 Go hors RF-C9'],['Besoins','Entraînement des LoRA vidéo (24 Go min.), finition pleine précision'],['Tarifs relevés','RTX 5090 0,69 à 1,19 $/h, H100 2,69 à 3,99 $/h (RunPod)'],['Option','Prêt ponctuel de RF-C9, sans gêner Dadaland']]});
+node('llm',CX[2],22,150,102,'Modèles hébergés',['Claude, ChatGPT','contexte envoyé par','les agents'],{info:[['Usage','Modèles qui font tourner les agents (Claude Code et autres)'],['Règle','Aucune image de plan explicite envoyée : métadonnées seulement'],['Règle','Aucun secret dans les prompts, identifiants en fichiers d’environnement']]});
+node('api',CX[3],22,150,102,'Services en ligne',['fal.ai, LTX','World Labs','Hedra, Sync.so'],{st:'prop',info:[['World Labs','Lieux 3D (Marble, Atlas) : des lieux, jamais de visages'],['Lip sync','Hedra ou Sync.so, ou InfiniteTalk en local'],['API vidéo','fal.ai, LTX : options chiffrées en annexe du deck'],['Règle','Les visages sont générés uniquement sur nos machines']]});
+node('supa',CX[4],22,150,102,'Supabase',['Données Deadline (relevé)','Registre IA (proposé)','export PDF'],{info:[['En place','Tâches Deadline terminées du 01.08 au 30.10.2026'],['Proposé','Registre de production IA : modèle, version, licence, LoRA, seed, prompt, machine, opérateur, interventions humaines'],['Rempli par','Le Shot Runner, une ligne par génération'],['Sortie','Export PDF pour festivals et assurance']]});
+node('hqc',CX[5],22,150,102,'Dada HQ · cloud',['Supabase, Cloudflare R2','MCP distant OAuth, Yjs','fiche de validation'],{st:'conc',info:[['Statut','Concept du 31.10.2026, rien n’est construit'],['Comptes et données','Supabase, projet séparé de Dadaland'],['Aperçus','Cloudflare R2'],['Fiche et validations','Lien signé par personne, journal signé par le serveur'],['Agents web','MCP distant avec OAuth (Claude, ChatGPT)'],['Canvas','Yjs : positions et notes, jamais les fichiers'],['Rendu','File d’attente, chaque machine vient chercher son travail']]});
+node('ddl',CX[6],22,150,102,'Dadaland',['Génération en ligne','essais, décors,','plans sans visage'],{info:[['Usage TNT','Essais, décors, plans sans visage'],['Lien DTS','RF-C9 (RTX 5090, Linux) fait tourner un ComfyUI dédié à la collaboration dadaland.ai'],['Option','Techniques exécutées sur crédits']]});
+node('fw',380,158,340,30,'Pare-feu',['accès internet'],{info:[['Rôle','Sortie internet du studio'],['Règle','Kitsu et ComfyUI jamais exposés sur internet']]});
+N.fw.g.querySelectorAll('.l')[0].setAttribute('x',560);N.fw.g.querySelectorAll('.l')[0].setAttribute('y',178);
+node('wg',760,158,170,30,'VPN',[],{info:[['Usage','Télétravail'],['Règle','Accès Kitsu et ComfyUI par VPN uniquement']]});
+// réseau
+node('core',380,222,340,36,'Cœur réseau',['2 commutateurs · lien de pair 400 Gb/s'],{info:[['Équipement','2 commutateurs de cœur, lien de pair 400 Gb/s'],['Charge mesurée','moins de 8 Gb/s au p99 sur 30 jours'],['Conclusion','Le cœur n’est pas un goulot, même avec 20 stations qui chargent des modèles'],['Température max.','27,6 °C dans la salle du cœur sur 30 jours']]});
+N.core.g.querySelectorAll('.l')[0].setAttribute('x',520);N.core.g.querySelectorAll('.l')[0].setAttribute('y',16+222);
+node('ssol',300,292,220,36,'Switch A',['stack de 3'],{info:[['Équipement','Stack de 3 commutateurs'],['Uplink','400 Gb/s vers le cœur, 7,9 Gb/s entrant au p99'],['Ports MultiGE','jusqu’à 10 Gb/s, une carte réseau par station suffirait pour passer en 10 Gb/s'],['Raccorde','RF-C2, C3, C4, C7 · RF-C9 · RF-A/B · Progress B11-2, B11-6 · serveur Deadline']]});
+N.ssol.g.querySelectorAll('.l')[0].setAttribute('x',432);N.ssol.g.querySelectorAll('.l')[0].setAttribute('y',308);
+node('a2',560,292,160,36,'Switch B',[''],{info:[['Équipement','Commutateur d’accès'],['Uplink','200 Gb/s vers le cœur, 3,1 Gb/s entrant au p99'],['Raccorde','RF-C8 · Progress B11-7, B11-8, VFX1, VFX4, B11-9']]});
+N.a2.g.querySelectorAll('.l')[0].setAttribute('x',680);N.a2.g.querySelectorAll('.l')[0].setAttribute('y',308);
+node('oth',740,292,110,36,'Autres switchs',[],{info:[['Équipement','Switchs reliés au cœur en 200 Gb/s'],['Raccordés','source manquante']]});
+// poste de pilotage
+node('jp',8,222,254,40,'Poste de pilotage · JP',['pilotage de la ferme'],{info:[['Utilisateur','Jean-Pascal'],['Rôle','Pilotage de l’installation et des tests, accès à ComfyUI et aux RF par clé'],['Accès','Réservé au réseau local et au VPN']]});
+node('agent',16,270,238,56,'Agent principal',['Claude Code, Hermes ou autre harness','compte dédié aux droits limités'],{st:'prop',info:[['Rôle','Opérations en masse et corrections rapides, à côté des interfaces humaines'],['Interfaces','Kitsu (gazu), Deadline (Web Service ou deadlinecommand), ComfyUI (API, journaux), Resolve (API ou MCP 21.1), Blender (MCP), Supabase, SSH'],['Skills','Un skill par outil : Kitsu TNT, Shot Runner, Deadline…'],['Règles','Validations humaines · lecture d’abord, écriture après accord · actions tracées']]});
+node('sa1',16,334,76,64,'Sous-agent',['local','Claude Code,','Codex'],{st:'prop',chip:true,info:[['Données','Restent sur le poste'],['Coût','Gratuit (Dada HQ)'],['Usage','Tâches parallèles du même agent']]});
+node('sa2',97,334,76,64,'Modèle',['local','open source','plans D'],{st:'prop',chip:true,info:[['Données','Restent sur le poste'],['Usage','Analyse d’images des plans explicites, tri, description'],['Règle','Obligatoire dès qu’une image de plan D doit être lue']]});
+node('sa3',178,334,76,64,'Agent tiers',['distant','pointeurs,','proxies'],{st:'conc',chip:true,info:[['Données','Sortent du studio : pointeurs et proxies seulement'],['Garde-fous','Jeton limité à la tâche, plafond de crédits, relecture avant fusion'],['Formule','Abonnement Dada HQ (concept)']]});
+// postes
+node('postes',8,416,254,120,'Postes de création',['DaVinci Resolve · MCP Resolve 21.1','Blender · serveur MCP installé','Nuke, Fusion · Pro Tools','Krita AI Diffusion · OpenRV','matériel des postes : source manquante'],{info:[['Resolve','Animatique, montage, conformation, étalonnage (DWG, entrée Rec.709)'],['Blender','Layout, passes EXR 720p, serveur MCP déjà installé sur le poste'],['Nuke, Fusion','Compositing (Nuke pour recettes C et F)'],['Pro Tools','Montage son, mixage, AAF depuis Resolve, stems vers Resolve'],['Krita AI Diffusion','Retouche des images clés'],['OpenRV','Revue précise des séquences EXR (option)'],['Matériel','source manquante']]});
+node('bl',8,546,124,40,'Baselight',['option'],{st:'prop',info:[['Usage','Étalonnage final, conformation par EDL/AAF et séquences d’images'],['Décision','Resolve ou Baselight : à trancher']]});
+node('atm',138,546,124,40,'Auditorium',['Dolby Atmos'],{info:[['Salle','Auditorium C02, Dolby Atmos'],['Usage','Mixage']]});
+node('hql',8,600,254,96,'Dada HQ · local',['Surveillance launchd, fichiers .dadalink','index SQLite, git caché','aperçus Quick Look, ffmpeg, OIIO','MCP local, page projet React'],{st:'conc',info:[['Statut','Concept du 31.10.2026, rien n’est construit'],['Plateforme','Mac d’abord, Windows plus tard'],['Surveillance','Chaque sauvegarde devient une version (launchd, événements de fichiers, relevé sur disques réseau)'],['Pointeurs','.dadalink : empreinte sha256, taille, emplacements, aperçus'],['Aperçus','Quick Look, ffmpeg, Blender sans interface, OpenImageIO'],['Agents','MCP local (Claude Code, Codex, Claude Desktop)'],['Point ouvert','Les RF de la ferme sont sous Windows']]});
+// ferme
+const CH=70,CG=4;
+function chip(id,x,y,t,l,o){return node(id,x,y,CH,34,t,[l],Object.assign({chip:true},o));}
+const capS=[['RF-C · 5 Gb/s · génération vidéo',376],['Exclues de TNT',422],['RF-A · 2,5 Gb/s · images clés, upscale, voix',468],['RF-B · 2,5 Gb/s',514],['Progress · 10 Gb/s · appoint de nuit, selon accord',560]];
+capS.forEach(([s,y])=>tx(Z,292,y-3,s,'cap'));
+[['RF-C · 5 Gb/s',376],['Progress · 10 Gb/s',422],['Progress · 2,5 Gb/s',514]].forEach(([s,y])=>tx(Z,620,y-3,s,'cap'));
+const sx=k=>292+k*(CH+CG), ax=k=>620+k*(CH+CG);
+const RFC=(n,ip,extra)=>[['Rôle',n],['CPU','Ryzen 9 9950X3D, 16 cœurs / 32 threads'],['RAM','128 Go'],['GPU','RTX 5080, 16 Go, Blackwell (NVFP4)'],['Réseau','5 Gb/s']].concat(ip?[['Adresse',ip]]:[]).concat(extra||[]);
+chip('c2',sx(0),376,'RF-C2','5080 · maître',{st:'poc',role:'vid',info:RFC('Maître du POC, génération vidéo',null,[['ComfyUI','v0.41.0 portable'],['Voir','Vue « ComfyUI sur une RF »']])});
+chip('c3',sx(1),376,'RF-C3','5080 · worker',{st:'chk',role:'vid',info:RFC('Worker du POC, génération vidéo',null,[['À faire','Client Deadline à mettre à jour']])});
+chip('c4',sx(2),376,'RF-C4','5080 · worker',{st:'poc',role:'vid',info:RFC('Worker du POC, génération vidéo',null,[])});
+chip('c5',sx(3),376,'RF-C5','5080',{st:'chk',role:'vid',info:RFC('Génération vidéo',null,[['À vérifier','Raccordement réseau']])});
+chip('c7',sx(0),422,'RF-C7','pile ODS',{st:'exc',info:RFC('Exclue tant qu’elle porte la pile Docker ODS',null,[['Occupation','llama-server garde 15 Go de VRAM quand il tourne']])});
+chip('c9',sx(1),422,'RF-C9','5090 · Linux',{st:'exc',info:[['Rôle','ComfyUI dédié à la collaboration dadaland.ai'],['GPU','RTX 5090, 32 Go'],['CPU','Ryzen 9 9950X3D'],['RAM','128 Go'],['Réseau','10 Gb/s'],['OS','Linux'],['Option','Prêt ponctuel pour entraîner des LoRA']]});
+const RFAB=(n,os)=>[['Rôle','Images clés, upscale, voix, lots d’images'],['CPU','Ryzen 9 7950X, 16 cœurs / 32 threads'],['RAM','128 Go'],['GPU','RTX 4080, 16 Go, Ada (FP8, GGUF)'],['Réseau','2,5 Gb/s'],['Disque','SSD de 932 Go : vérifier la place pour 100 à 150 Go de modèles']];
+['A1','A2','A3','A4'].forEach((n,k)=>chip('rf'+n,sx(k),468,'RF-'+n,'4080',{role:'img',info:RFAB(n,n==='A4'?'23H2':'22H2')}));
+['B1','B2','B3','B4'].forEach((n,k)=>chip('rf'+n,sx(k),514,'RF-'+n,'4080',{role:'img',info:RFAB(n,n==='B1'?'22H2':'23H2')}));
+const PRG=(r)=>[['Rôle','Salle de cours Progress, appoint de nuit et de week-end selon accord'],['CPU','i9-14900KF, 24 cœurs / 32 threads'],['RAM','64 Go'],['GPU','RTX 4080 SUPER, 16 Go'],['Réseau',r]];
+[['B11-2',0],['B11-6',1]].forEach(([n,k])=>chip('p'+n,sx(k),560,n,'4080 S',{role:'app',info:PRG('10 Gb/s')}));
+chip('c8',ax(0),376,'RF-C8','5080',{role:'vid',info:RFC('Génération vidéo',null,[])});
+[['B11-7',0],['B11-8',1],['VFX1',2]].forEach(([n,k])=>chip('p'+n,ax(k),422,n,'4080 S',{role:'app',info:PRG('10 Gb/s')}));
+chip('pVFX4',ax(0),468,'VFX4','4080 S',{role:'app',info:PRG('10 Gb/s')});
+chip('pB11-9',ax(0),514,'B11-9','4080 S',{role:'app',info:PRG('2,5 Gb/s')});
+// NAS
+node('nas',272,636,574,100,'NAS',['partage du projet TNT'],{cells:[['Racine du projet','lecture seule','par conception'],['Modèles IA','copie maîtresse','12 fichiers, SHA256 OK'],['Dossier de travail','écriture pour','le compte ComfyUI']],info:[['Droits','Groupe projet : modification sur les sous-dossiers, racine en lecture seule'],['Modèles','Copie maîtresse copiée en 23 min depuis RF-C2, source des copies vers C3 et C4'],['Règle','Pas de chargement direct depuis le NAS : robocopy vers le NVMe de chaque RF'],['Arborescence proposée','00_admin, 01_edit, 02_assets, 03_shots, 04_audio, 05_recipes, 06_deliveries'],['Liaison réseau','source manquante']]});
+// services
+node('dl',866,346,226,72,'Serveur Deadline',['Deadline 10 · file de rendu','lien 1 Gb/s','groupe POC · groupe TNT proposé'],{info:[['Logiciel','Deadline 10'],['POC','Groupe limité à C2, C3, C4, pool dédié, plugin ComfyUI pour Deadline'],['Proposé','Groupe TNT et pool à priorité basse, la production passe devant'],['Accès agent','Web Service ou ligne de commande Deadline']]});
+node('kitsu',866,428,226,62,'Kitsu',['suivi des plans et revues','Docker · accès VPN · API gazu'],{st:'prop',info:[['Décision','Retenu par Jean-Pascal le 30.10.2026'],['Éditeur','CGWire, open source AGPL'],['Installation','Conteneurs Docker, environ une demi-journée'],['Accès','VPN uniquement, jamais exposé sur internet'],['API','Python gazu et REST'],['Hébergement','source manquante'],['Revues explicites','Projet à accès restreint']]});
+node('tools',866,500,226,118,'Outils à créer',['Shot Runner (Python)','Recettes ComfyUI (dépôt Git)','Fiche plan shot.json','Conformateur Resolve','Contrôle couleur (numpy, OpenCV)','Registre IA'],{st:'prop',info:[['Shot Runner','Lit la fiche plan, remplit le graphe de la recette, envoie à Distributed (jour) ou Deadline (nuit), range la sortie, publie la vignette dans Kitsu, écrit au registre'],['Recettes','5 à 6 graphes au format API, nœuds IN_frames, IN_lora, IN_seed'],['Fiche plan','Champs Kitsu exportés en JSON dans le dossier du plan'],['Conformateur','Dernière version approuvée dans la timeline (API Resolve ou MCP 21.1)'],['Contrôle couleur','Écrêtage, dérive, scintillement à chaque sortie'],['Forme','Petits scripts en ligne de commande, sorties JSON']]});
+node('n8n',866,626,226,46,'n8n',['alertes → Google Chat, mail'],{st:'prop',info:[['Entrées','Événements Deadline, outil de suivi'],['Sorties','Google Chat ou mail : fin des lots de nuit, plans à valider, avancement']]});
+
+node('sup',866,680,226,84,'Supervision',['Action1 · inventaire, scripts','Prometheus, Grafana','Metabase · tableau Deadline','Beszel'],{info:[['Action1','Inventaire matériel, déploiement des scripts'],['Prometheus, Grafana','Réseau, températures'],['Metabase','Tableau de bord Deadline'],['Beszel','Remonte peut-être la charge GPU : à vérifier'],['Non mesuré','Charge et VRAM réelles des GPU']]});
+
+/* ---------- liaisons ---------- */
+function rounded(p,r=6){let d=`M${p[0][0]},${p[0][1]}`;for(let i=1;i<p.length-1;i++){const [x0,y0]=p[i-1],[x1,y1]=p[i],[x2,y2]=p[i+1];const d1=Math.hypot(x1-x0,y1-y0),d2=Math.hypot(x2-x1,y2-y1);if(!d1||!d2)continue;const rr=Math.min(r,d1/2,d2/2);
+  d+=`L${x1-(x1-x0)/d1*rr},${y1-(y1-y0)/d1*rr}Q${x1},${y1} ${x1+(x2-x1)/d2*rr},${y1+(y2-y1)/d2*rr}`;}const e=p[p.length-1];return d+`L${e[0]},${e[1]}`;}
+const E=[];
+function ed(id,type,pts,views,lbl){const p=el('path',{d:rounded(pts),class:'ed '+type},EG);let t=null;
+  if(lbl){t=tx(LG,lbl[1],lbl[2],lbl[0],'elbl',lbl[3]||'start');}
+  E.push({id,type,p,t,views:views.split(' ')});}
+const V='ensemble reseau ferme';
+// ethernet
+ed('fw-core','eth',[[550,188],[550,222]],'ensemble reseau comfy agents',['uplinks 60 Gb/s',556,208]);
+ed('core-ssol','eth',[[450,258],[450,275],[410,275],[410,292]],V+' comfy',['400 Gb/s',456,272]);
+ed('core-a2','eth',[[640,258],[640,292]],V,['200 Gb/s',646,280]);
+ed('core-oth','eth',[[720,240],[795,240],[795,292]],'ensemble reseau',['200 Gb/s',730,236]);
+ed('jp-core','eth',[[262,242],[380,242]],'ensemble reseau comfy agents',['poste',274,236]);
+ed('ssol-trunk','eth',[[310,328],[310,337],[284,337],[284,577]],V+' comfy');
+[393,439,485,531,577].forEach((y,k)=>ed('ss'+k,'eth',[[284,y],[292,y]],V+' comfy'));
+ed('a2-trunk','eth',[[640,328],[640,337],[612,337],[612,531]],V);
+[393,439,485,531].forEach((y,k)=>ed('as'+k,'eth',[[612,y],[620,y]],V));
+ed('ssol-dl','eth',[[510,328],[510,341],[858,341],[858,382],[866,382]],V,['1 Gb/s',800,338]);
+// internet via pare-feu
+const WT={hf:392,gpu:430,llm:470,api:510,supa:590,hqc:650,ddl:700};
+const WV={hf:'comfy',gpu:'ferme',llm:'agents',api:'agents',supa:'suivi',hqc:'dadahq',ddl:'ferme dadahq'};
+Object.entries(WT).forEach(([id,x])=>{const n=N[id];ed('w-'+id,'web',[[n.x+n.w/2,124],[n.x+n.w/2,140],[x,140],[x,158]],'reseau '+WV[id]);});
+// SSH et API ComfyUI depuis le poste
+ed('jp-rf','ssh',[[254,298],[268,298],[268,393],[292,393]],'reseau comfy agents',['accès ComfyUI',140,0]);
+E[E.length-1].t.remove();E[E.length-1].t=tx(LG,270,410,'SSH · ComfyUI','elbl');
+ed('dist','api',[[327,376],[327,367],[475,367],[475,376]],'comfy ferme',['Distributed',336,364]);
+ed('dist3','api',[[401,367],[401,376]],'comfy ferme');
+// fichiers
+ed('rf-nas','smb',[[584,393],[600,393],[600,636]],'comfy suivi',['SMB · robocopy vers NVMe',604,620]);
+ed('postes-nas','smb',[[262,476],[268,476],[268,700],[272,700]],'suivi dadahq',['SMB',240,716]);
+E[E.length-1].t.setAttribute('x',230);
+ed('hql-nas','smb',[[262,660],[272,660]],'dadahq',['pointeurs',226,654]);
+// rendu et génération
+ed('dl-ferme','job',[[866,400],[846,400]],'ferme suivi',['jobs Deadline',852,412,'start']);
+E[E.length-1].t.setAttribute('x',760);E[E.length-1].t.setAttribute('y',414);
+ed('tools-ferme','job',[[866,560],[846,560]],'suivi',['jour : Distributed · nuit : Deadline',840,574,'end']);
+ed('tools-dl','job',[[866,512],[858,512],[858,410],[866,410]],'suivi');
+ed('kitsu-tools','api',[[979,490],[979,500]],'suivi');
+ed('nas-tools','smb',[[846,700],[856,700],[856,606],[866,606]],'suivi',['versions approuvées',740,730]);
+ed('tools-supa','web',[[1092,590],[1099,590],[1099,140],[707,140],[707,124]],'suivi',['registre IA',1040,136]);
+// agents et MCP
+ed('ag-bus','mcp',[[254,284],[270,284],[270,343],[860,343],[860,600],[866,600]],'agents');
+ed('ag-dl','mcp',[[860,392],[866,392]],'agents');
+ed('ag-kitsu','mcp',[[860,459],[866,459]],'agents');
+ed('ag-postes','mcp',[[16,300],[6,300],[6,470],[8,470]],'agents dadahq',['MCP',10,484]);
+ed('ag-hql','mcp',[[6,470],[6,650],[8,650]],'dadahq',['MCP local',10,664]);
+ed('ag-sa1','mcp',[[54,326],[54,334]],'agents');ed('ag-sa2','mcp',[[135,326],[135,334]],'agents');ed('ag-sa3','mcp',[[216,326],[216,334]],'agents dadahq');
+ed('ag-c2lbl','mcp',[[270,343],[270,343]],'agents');
+// ajout : légende de bus agent
+E.push({id:'aglbl',type:'mcp',p:el('path',{d:'M0 0',class:'ed'},EG),t:tx(LG,420,355,'vers Deadline, Kitsu, outils : Web Service · gazu · CLI','elbl'),views:['agents']});
+
+/* ---------- vues ---------- */
+const LEG={eth:['Ethernet, débit du lien','#fff',''],ssh:['SSH','#BFC9D6','5 3'],api:['API HTTP (ComfyUI, gazu)','#BFC9D6',''],job:['Travaux de rendu et de génération','#fff','7 4'],smb:['Fichiers (SMB)','#8A8A8A','2 3'],mcp:['Agent : MCP ou API','#E6483A',''],web:['Internet, via le pare-feu','#C8C8C8','1 4']};
+const legend=types=>`<h3>Liaisons</h3><div class="legend">${types.map(t=>`<span><svg width="34" height="8"><line x1="1" y1="4" x2="33" y2="4" stroke="${LEG[t][1]}" stroke-width="${t==='mcp'?2:1.6}" stroke-dasharray="${LEG[t][2]}" stroke-linecap="round"/></svg>${LEG[t][0]}</span>`).join('')}</div>`;
+const STATUS=`<h3>Statuts</h3><div class="legend"><span><span class="tag">en place</span>existe chez Downtown</span><span><span class="tag poc">POC</span>installé et testé les 29 et 30.10</span><span><span class="tag prop">proposé</span>dans le workflow du 30.10, non installé</span><span><span class="tag conc">concept</span>Dada HQ, rien n’est construit</span><span><span class="tag chk">à vérifier</span>point ouvert dans les relevés</span></div>`;
+const kv=rows=>`<div class="kv">${rows.map(([a,b])=>`<div>${a}</div><div>${b}</div>`).join('')}</div>`;
+const ul=(items)=>`<ul class="list">${items.map(i=>typeof i==='string'?`<li>${i}</li>`:`<li class="warn">${i[0]}</li>`).join('')}</ul>`;
+const FERME=['c2','c3','c4','c5','c7','c9','rfA1','rfA2','rfA3','rfA4','rfB1','rfB2','rfB3','rfB4','pB11-2','pB11-6','c8','pB11-7','pB11-8','pVFX1','pVFX4','pB11-9'];
+const VIEWS=[
+ {id:'ensemble',tab:'Ensemble',k:'Vue d’ensemble',title:'Le setup en un plan',hi:null,
+  body:`<p>En haut, les services sur internet. En bas, le réseau local de Downtown : le poste de pilotage et les postes de création à gauche, le cœur réseau et la ferme au centre, le NAS en bas, les serveurs et les outils projet à droite. Cliquer sur un élément ouvre sa fiche.</p>${STATUS}${legend(['eth'])}`},
+ {id:'reseau',tab:'Réseau',k:'Réseau',title:'Réseau et accès',hi:['fw','wg','core','ssol','a2','oth','jp','dl','hf','gpu','llm','api','supa','hqc','ddl'],
+  body:`<p>Le cœur et les liaisons montantes sont larges. Le goulot est la carte réseau de chaque station.</p>${kv([['Cœur','2 commutateurs, lien de pair 400 Gb/s'],['Switch A → cœur','400 Gb/s, 7,9 Gb/s au p99'],['Switch B → cœur','200 Gb/s, 3,1 Gb/s au p99'],['Stations','RF-A/B 2,5 Gb/s · RF-C 5 Gb/s · Progress 10 Gb/s · C9 10 Gb/s'],['Serveur Deadline','1 Gb/s'],['Modèle de 20 Go','~35 s en 5 Gb/s, ~70 s en 2,5 Gb/s']])}
+  <h3>Accès aux RF</h3>${kv([['Administration','SSH par clé, mot de passe désactivé'],['ComfyUI','Ouvert au réseau local seulement, jamais exposé sur internet'],['Télétravail','Par VPN']])}${legend(['eth','ssh','web'])}`},
+ {id:'ferme',tab:'Ferme',k:'Calcul',title:'Ferme de rendu',hi:FERME.concat(['dl','ssol','a2','core','gpu','ddl']),
+  body:`<p>La ferme est presque vide : 3 à 5,5 % d’occupation moyenne depuis août, aucune tâche ne se termine entre 21 h et 5 h UTC. Chaque génération est limitée à 16 Go de VRAM, la mémoire ne s’additionne pas entre machines.</p>
+  <h3>Répartition proposée</h3>${kv([['<span class="tag" style="border-color:#E6483A;color:#E6483A">vidéo</span>','RF-C2, C3, C4, C5, C8 · Wan, NVFP4/FP8'],['<span class="tag">image</span>','RF-A1 à A4, RF-B1 à B4 · images clés, upscale, voix'],['<span class="tag poc">appoint</span>','Progress, nuit et week-end selon accord'],['<span class="tag exc">exclues</span>','RF-C7 (pile ODS), RF-C9 (Dadaland)']])}
+  <h3>Capacité</h3>${kv([['Par nuit','13 GPU × 10 h ≈ 130 h GPU'],['Itération TNT','110 à 190 h GPU, soit 1 à 2 nuits'],['Règle','Distributed le jour sur peu de stations, Deadline la nuit sur toute la ferme'],['Deadline','Groupe TNT, pool à priorité basse'],['Au-delà de 16 Go','GPU loué : LoRA vidéo, finition pleine précision']])}
+  <h3>Hors service au 30.10</h3>${ul(['ProgressB11-0, B11-4, PC32, PC33 déconnectées'])}${legend(['eth','job','api'])}`},
+ {id:'comfy',tab:'ComfyUI',k:'Installation de référence',title:'ComfyUI sur une RF',hi:['c2','c3','c4','nas','hf','jp','fw','core','ssol'],
+  body:`<p>Installée et testée sur RF-C2 les 29 et 30.10.2026, à cloner sur C3 et C4. Rien ne tourne en permanence.</p>${kv([['Dossier','<code>C:\\ComfyUI\\</code> portable NVIDIA'],['Versions','ComfyUI v0.41.0 · Python 3.13.14 · PyTorch 2.14.0+cu130'],['Modèles','<code>C:\\AI_Models\\</code>, déclaré dans extra_model_paths.yaml'],['Lancement','Tâche planifiée, à la demande'],['Compte','Compte de service dédié, membre du groupe projet'],['Pare-feu','Réseau local seulement'],['Démarrage','15 s, 1309 nœuds, 14,6 Go de VRAM libres']])}
+  <h3>Custom nodes figés</h3>${kv([['ComfyUI-Distributed','fef70b7d9407'],['Deadline-Plugin','db9c87d546da (v1.1.0)'],['ComfyUI-GGUF','6ea2651e7df6'],['VideoHelperSuite','4d907bee61e9'],['KJNodes','f20bdd5337ac']])}
+  <h3>Modèles · 93,8 Go, Apache 2.0</h3>${kv([['Vidéo rapide','wan2.2_ti2v_5B_fp16'],['Image → vidéo','Wan2.2-I2V-A14B Q5_K_M'],['Vidéo guidée','Wan2.2-VACE-Fun-A14B Q4_K_M'],['Images clés','z_image_turbo, z_image (bf16)'],['Encodeurs, VAE','umt5_xxl fp8, qwen_3_4b fp8, VAE Wan']])}
+  <h3>Points ouverts</h3>${ul([['RF-C3 : client Deadline à mettre à jour'],['Triton pour Windows : utile ou non'],'Étape 5 du POC : test Deadline et libération de la VRAM'])}${legend(['ssh','api','smb','web'])}`},
+ {id:'agents',tab:'Agents · MCP',k:'Pilotage',title:'Agents et MCP',hi:['agent','sa1','sa2','sa3','jp','postes','kitsu','dl','tools','c2','c3','c4','llm','api','fw','core'],
+  body:`<p>Un agent complète les interfaces humaines pour les opérations en masse et les corrections rapides. Il tourne sur le poste de pilotage et parle aux outils par leurs API.</p>
+  <h3>Interfaces</h3>${kv([['Kitsu','API gazu · structure du film, playlists, corrections en masse'],['Deadline','Web Service ou deadlinecommand · relance après incident'],['ComfyUI','API, journaux · diagnostic'],['Resolve','API ou serveur MCP de Resolve 21.1 · conformation'],['Blender','Serveur MCP, déjà installé sur le poste · layout'],['Supabase','Export du registre IA'],['RF','SSH par clé']])}
+  <h3>Sous-agents</h3>${kv([['Sous-agent local','Claude Code, Codex · données sur le poste'],['Modèle local','Open source · seul autorisé à lire les images des plans explicites'],['Agent tiers distant','Pointeurs et proxies seulement, jeton limité, plafond de crédits']])}
+  <h3>Règles</h3>${ul(['Les validations restent humaines : l’agent ne passe jamais un plan en « Approuvé »','Lecture d’abord, écriture après accord, liste des changements montrée avant','Compte dédié aux droits limités dans Kitsu et sur le NAS, chaque action tracée','Aucune image de plan explicite envoyée à un modèle en ligne','Aucun secret dans les prompts'])}${legend(['mcp','ssh','web'])}`},
+ {id:'suivi',tab:'Suivi · outils',k:'Chaîne d’un plan',title:'Suivi et outils projet',hi:['kitsu','tools','dl','n8n','supa','nas','postes','c2','c3','c4','c5','c8'],
+  body:`<p>Kitsu tient la base de plans. Le Shot Runner relie Kitsu, les recettes ComfyUI, la ferme et le registre. Une convention de nommage stricte remplace une plateforme de pipeline lourde.</p>
+  <h3>Shot Runner, pour chaque plan</h3>${ul(['Lit la fiche plan dans Kitsu (frames, recette, LoRA, seeds)','Remplit le graphe de la recette (dépôt Git)','Envoie à ComfyUI-Distributed le jour ou à Deadline la nuit','Range la sortie sur le NAS : <code>SQ030_SH0120_gen_v004</code>','Publie la vignette et la version dans Kitsu','Écrit une ligne au registre IA (Supabase)'])}
+  <h3>Ensuite</h3>${kv([['Contrôle couleur','À chaque sortie, signalement dans Kitsu au-delà du seuil'],['Conformateur','Dernière version approuvée de chaque plan dans la timeline Resolve'],['n8n','Fin des lots de nuit, plans à valider → Google Chat ou mail'],['Nommage','SQ030_SH0120_&lt;étape&gt;_v###, graphe JSON et fiche gardés par version']])}${legend(['api','job','smb','web'])}`},
+ {id:'dadahq',tab:'Dada HQ',k:'Concept · 31.10.2026',title:'Dada HQ',hi:['hql','hqc','agent','sa3','nas','postes','ddl'],
+  body:`<p>Le QG du projet : chaque fichier avec sa version, son aperçu et son origine, chaque validation liée à la version exacte. Les fichiers lourds restent sur le NAS, Dada HQ garde un pointeur. Concept, rien n’est construit.</p>
+  <h3>Sur chaque Mac</h3>${kv([['Surveillance','launchd, événements de fichiers, relevé sur disques réseau'],['Dossier projet','Pointeurs .dadalink, git caché, index SQLite'],['Aperçus','Quick Look, ffmpeg, Blender sans interface, OpenImageIO'],['Agents','MCP local, page projet React et XYFlow']])}
+  <h3>Hébergé, avec abonnement</h3>${kv([['Comptes, données','Supabase'],['Aperçus','Cloudflare R2'],['Validations','Fiche à lien signé, journal signé'],['Agents web','MCP distant avec OAuth'],['Canvas','Yjs'],['Rendu','File d’attente, les machines viennent chercher leur travail']])}
+  <h3>À arbitrer pour TNT</h3>${ul([['Dada HQ est conçu Mac d’abord, la ferme tourne sous Windows'],['Kitsu (décidé le 30.10) et Dada HQ se recouvrent sur les versions et les validations'],['Événements de fichiers sur un NAS : à tester']])}${legend(['mcp','smb','web'])}`},
+ {id:'ouvert',tab:'À régler',k:'Avant la production',title:'Points ouverts',hi:['c3','c5','dl','kitsu','postes','rfA1','rfA2','rfA3','rfA4','rfB1','rfB2','rfB3','rfB4','hql','oth','nas','sup'],
+  body:`<p>Ce que les relevés du 29 et du 30.10 laissent ouvert, avec ce qu’il manque dans les sources.</p>
+  <h3>Technique</h3>${ul([['RF-C3 : client Deadline à mettre à jour'],['RF-C5 : raccordement réseau à vérifier'],['Mises à jour système des RF-A/B à coupler à l’installation de ComfyUI'],['SSD de 932 Go sur RF-A/B : vérifier l’espace libre'],['Serveur Deadline à surveiller pendant les lots de nuit'],'Test Deadline du POC : libération de la VRAM','Accord Progress pour la nuit et le week-end','Charge GPU réelle non mesurée'])}
+  <h3>Décisions</h3>${ul(['Étalonnage final : Resolve ou Baselight','Compositing : Fusion et Nuke, ou Nuke partout','Convention sRGB ou Rec.709 gamma 2.4 pour les PNG','Taille de l’équipe et rôles','Rôle de Dada HQ à côté de Kitsu'])}
+  <h3>Source manquante</h3>${ul(['Matériel des postes de création','Hébergement de Kitsu','Liaison réseau du NAS','Équipements derrière les autres switchs'])}`}
+];
+const vnav=document.getElementById('views'),panel=document.getElementById('panel');
+VIEWS.forEach((v,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=`<span>${String(i+1).padStart(2,'0')}</span>${v.tab}`;b.onclick=()=>go(i);vnav.appendChild(b);});
+let cur=0,sel=null;
+function render(v){panel.innerHTML=`<div class="anim-in"><div class="k">${String(VIEWS.indexOf(v)+1).padStart(2,'0')} · ${v.k}</div><h2>${v.title}</h2>${v.body}<div class="src">Sources : analyse de l’infrastructure de la ferme (30.10.2026), plan POC ComfyUI (29-30.10.2026), workflow de production (30.10.2026), concept Dada HQ (31.10.2026), présentation TNT × Downtown (2.11.2026).</div></div>`;}
+function go(i,fromHash){i=Math.max(0,Math.min(VIEWS.length-1,i));cur=i;const v=VIEWS[i];
+  svg.setAttribute('data-view',v.id);
+  Object.entries(N).forEach(([id,n])=>{n.g.classList.toggle('dim',!!v.hi&&!v.hi.includes(id));n.g.classList.remove('sel');});
+  E.forEach(e=>{const on=e.views.includes(v.id);e.p.classList.toggle('off',!on);if(e.t)e.t.classList.toggle('off',!on||v.id==='ensemble');});
+  [...vnav.children].forEach((b,j)=>b.setAttribute('aria-current',j===i?'true':'false'));
+  sel=null;render(v);
+  if(!fromHash){try{history.replaceState(null,'','#'+v.id);}catch(e){}}
+}
+function showNode(id){const n=N[id];if(!n)return;sel=id;
+  Object.values(N).forEach(m=>m.g.classList.remove('sel'));n.g.classList.add('sel');
+  const st=n.st?`<span class="tag ${n.st}">${STL[n.st]}</span>`:'<span class="tag">en place</span>';
+  panel.innerHTML=`<div class="anim-in"><button type="button" class="back" id="back">← ${VIEWS[cur].tab}</button><div class="k">Fiche</div><h2>${n.t}</h2><p>${st}</p>${n.info?kv(n.info):'<p>source manquante</p>'}</div>`;
+  document.getElementById('back').onclick=()=>{n.g.classList.remove('sel');render(VIEWS[cur]);};
+}
+document.addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('.nd'))return;
+  if(e.key==='ArrowRight'){go(cur+1);e.preventDefault();} else if(e.key==='ArrowLeft'){go(cur-1);e.preventDefault();}
+  else if(e.key==='Escape'&&sel){render(VIEWS[cur]);Object.values(N).forEach(m=>m.g.classList.remove('sel'));sel=null;}
+  else if(e.key==='f'||e.key==='F'){try{if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(()=>{});else document.exitFullscreen().catch(()=>{});}catch(err){}}});
+const fromHash=()=>{const h=(location.hash||'').slice(1);const i=VIEWS.findIndex(v=>v.id===h);return i<0?0:i;};
+window.addEventListener('hashchange',()=>go(fromHash(),true));
+go(fromHash(),true);
+})();
+</script>
+</body>
+</html>
