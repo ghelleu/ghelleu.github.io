@@ -9,11 +9,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
 <style>
-/* Layout : en-tête + choix du parcours, deux cartes de circuit superposées en axonométrie, bandeau d'étape dessous. Thème unique noir, charte Downtown Studio. */
+/* Layout : en-tête + choix du parcours, plan à deux bandes (niveau IA en haut, Downtown Studio en bas), colonnes = phases, lignes = familles, bandeau d'étape dessous. Thème unique noir, charte Downtown Studio. */
 :root{
-  --bg:#000000; --ink:#FFFFFF; --soft:#C8C8C8; --dim:#8A8A8A; --faint:#3A3A3A;
+  --bg:#000000; --ink:#FFFFFF; --soft:#C8C8C8; --dim:#8A8A8A; --faint:#2A2A2A;
   --line:rgba(255,255,255,.14); --line2:rgba(255,255,255,.4);
-  --board0:#121212; --board1:#080808;
   --red:#E6483A; --ice:#BFC9D6;
   --font:"Archivo","Helvetica Neue",Arial,sans-serif;
   color-scheme:dark;
@@ -38,8 +37,8 @@ nav.parts button:hover{border-color:var(--ink)}
 nav.parts button[aria-current="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
 
-.stage{flex:1 1 auto;min-height:0;overflow-x:auto;display:flex;align-items:center}
-.stage svg{display:block;width:100%;height:auto;max-height:calc(100vh - 280px);min-height:300px;min-width:860px}
+.stage{flex:1 1 auto;min-height:0;overflow-x:auto;display:flex;align-items:center;justify-content:center}
+.stage svg{display:block;width:100%;height:auto;max-height:calc(100vh - 270px);min-height:320px;min-width:900px}
 
 .bar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px 28px;align-items:center;border-top:1px solid var(--line2);padding-top:14px}
 @media (max-width:900px){.bar{grid-template-columns:auto minmax(0,1fr)}.nav{grid-column:1/-1}}
@@ -48,10 +47,10 @@ button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
 .txt .k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
 .txt .k b{font-weight:600}
 .txt h2{font-weight:900;font-variation-settings:"wdth" 125;text-transform:uppercase;font-size:clamp(20px,2vw,28px);line-height:1;margin:0 0 6px}
-.txt p{margin:0;color:var(--soft);max-width:80ch}
+.txt p{margin:0;color:var(--soft);max-width:82ch}
 .spec{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
 .spec span{font-size:11.5px;letter-spacing:.04em;color:var(--ink);border:1px solid var(--line2);padding:3px 8px}
-.chip{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--red);color:var(--ink);padding:3px 9px 3px 7px}
+.chip{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--red)!important;padding:3px 9px 3px 7px!important}
 .chip svg{display:block;color:var(--red)}
 .nav{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
 .btns{display:flex;gap:10px}
@@ -67,66 +66,51 @@ button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
 .anim-in{animation:fadeup .45s ease both}
 @keyframes fadeup{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-/* ——— circuit ——— */
+/* ——— plan ——— */
 svg text{font-family:var(--font)}
-.board{stroke:var(--ink);stroke-width:1.2}
-.b0{fill:var(--board0)} .b1{fill:var(--board1);fill-opacity:.93}
-.bedge{fill:var(--ink);fill-opacity:.55}
-.fid{fill:none;stroke:var(--ink);stroke-width:1}
-.dots{fill:var(--ink);opacity:.16}
-.bus{fill:none;stroke:var(--faint);stroke-width:1.4}
-.stub{fill:none;stroke:var(--faint);stroke-width:1}
-.buslbl{font-size:10px;font-weight:600;letter-spacing:.14em;fill:var(--dim);text-transform:uppercase}
-.boardlbl{font-size:15px;font-weight:900;font-variation-settings:"wdth" 125;letter-spacing:.06em;fill:var(--ink);text-transform:uppercase}
-.boardsub{font-size:10px;letter-spacing:.14em;fill:var(--dim);text-transform:uppercase}
+.band{fill:none;stroke:var(--line2);stroke-width:1}
+.bandlbl{font-size:15px;font-weight:900;font-variation-settings:"wdth" 125;text-transform:uppercase;fill:var(--ink)}
+.bandsub{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;fill:var(--dim)}
+.colh{font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;fill:var(--soft)}
+.coln{font-size:10.5px;font-weight:600;letter-spacing:.1em;fill:var(--dim)}
+.colsep{stroke:var(--line);stroke-width:1}
+.rowl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;fill:var(--dim)}
+.rowsep{stroke:var(--line);stroke-width:1;stroke-dasharray:2 4}
 
-.cmp{transition:opacity .45s ease}
-.cmp .body{fill:var(--bg);stroke:var(--ink);stroke-width:1.1;transition:stroke .3s,stroke-width .3s}
-.cmp .pins{stroke:var(--ink);stroke-width:1.1;fill:none;transition:stroke .3s}
-.cmp .p1{fill:var(--ink)}
-.cmp .ttl{font-size:14.5px;font-weight:800;font-variation-settings:"wdth" 68;text-transform:uppercase;letter-spacing:.03em;fill:var(--ink);transition:fill .3s}
-.cmp .sub{font-size:12px;font-variation-settings:"wdth" 80;fill:var(--soft)}
-.cmp .gpu{fill:none;stroke:var(--ink);stroke-width:.9}
-.cmp .gpu.res{fill:var(--ink);fill-opacity:.35}
-.cmp .cell{fill:none;stroke:var(--line2);stroke-width:.8}
-.cmp .cellt{font-size:9.5px;font-weight:700;font-variation-settings:"wdth" 80;fill:var(--soft);text-transform:uppercase;letter-spacing:.03em}
-.cmp .cells{font-size:8.5px;fill:var(--dim)}
-.cmp.todo,.cmp.off{opacity:.2}
-.cmp.cur .body{stroke:var(--red);stroke-width:2.6}
-.cmp.cur .pins{stroke:var(--red)} .cmp.cur .p1{fill:var(--red)}
-.cmp.cur .ttl{fill:var(--red)}
-.cmp.ping .body{stroke:var(--red);stroke-width:1.8}
-.cmp.ping .ttl{fill:var(--red)}
-.floor{transition:opacity .5s ease}
-.decor{transition:opacity .5s ease}
-svg[data-part="trad"] #F1,svg[data-part="dts"] #F1{opacity:.14}
-svg[data-part="syn"] #F0,svg[data-part="hq"] #F0{opacity:.22}
-svg[data-part="trad"] .decor,svg[data-part="syn"] .decor,svg[data-part="hyb"] .decor{opacity:.45}
+.nd{transition:opacity .45s ease}
+.nd rect.box{fill:var(--bg);stroke:var(--line2);stroke-width:1.2;transition:stroke .3s,stroke-width .3s,fill .3s}
+.nd .t{font-size:13.5px;font-weight:800;font-variation-settings:"wdth" 82;text-transform:uppercase;letter-spacing:.02em;fill:var(--ink);transition:fill .3s}
+.nd .s{font-size:11.5px;font-variation-settings:"wdth" 88;fill:var(--dim)}
+.nd .gpu{fill:none;stroke:var(--soft);stroke-width:1}
+.nd .gpu.res{fill:var(--soft)}
+.nd .cell{fill:none;stroke:var(--line);stroke-width:1}
+.nd .ct{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;fill:var(--soft)}
+.nd .cs{font-size:9.5px;fill:var(--dim)}
+.frame{fill:none;stroke:var(--line2);stroke-width:1;stroke-dasharray:3 4}
+.framet{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;fill:var(--soft)}
+.nd.off{opacity:.18} .nd.todo{opacity:.3}
+.nd.on rect.box{stroke:var(--ink)}
+.nd.cur rect.box{stroke-width:2.6}
+.nd.ping rect.box{stroke:var(--red);stroke-dasharray:4 3}
+svg[data-route="trad"] .nd.cur rect.box{stroke:var(--ink);fill:#1A1A1A}
+svg[data-route="syn"] .nd.cur rect.box{stroke:var(--ice);fill:#121519}
+svg[data-route="hyb"] .nd.cur rect.box{stroke:var(--red);fill:#1E0B09}
+svg[data-route="hyb"] .nd.cur .t{fill:var(--red)}
+svg[data-route="syn"] .nd.cur .t{fill:var(--ice)}
 
-.route-g{transition:opacity .4s}
-svg[data-part="intro"] .route-g,svg[data-part="dts"] .route-g,svg[data-part="hq"] .route-g,svg[data-part="trad"] .r-syn,svg[data-part="trad"] .r-hyb,svg[data-part="syn"] .r-trad,svg[data-part="syn"] .r-hyb,svg[data-part="hyb"] .r-trad,svg[data-part="hyb"] .r-syn{opacity:0}
-.ghost{fill:none;stroke-width:1.6;stroke-dasharray:2 6;stroke-linecap:round;opacity:.55}
-.r-trad .ghost{stroke:var(--ink)} .r-syn .ghost{stroke:var(--ice)} .r-hyb .ghost{stroke:var(--red)}
-.prog-path{fill:none;stroke-linejoin:round;stroke-linecap:round;transition:stroke-dashoffset .9s cubic-bezier(.45,.1,.3,1)}
-.r-trad .prog-path{stroke:var(--ink);stroke-width:3.2}
-.r-syn .prog-path{stroke:var(--ice);stroke-width:3.2}
-.r-hyb .prog-path{stroke:var(--red);stroke-width:3.6}
-.via{fill:var(--bg);stroke:var(--red);stroke-width:1.6}
-.bdg{transition:opacity .35s ease,transform .35s ease;transform-box:fill-box;transform-origin:center}
-.bdg.todo{opacity:0;transform:scale(.4)}
-.bdg .pad{stroke-width:2}
-.r-trad .pad{fill:var(--bg);stroke:var(--ink)} .r-trad .bdg text{fill:var(--ink)}
-.r-syn .pad{fill:var(--bg);stroke:var(--ice)} .r-syn .bdg text{fill:var(--ice)}
-.r-hyb .pad{fill:var(--bg);stroke:var(--red)} .r-hyb .bdg text{fill:var(--ink)}
+.edge{fill:none;stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round;transition:opacity .35s}
+.e-trad{stroke:var(--ink)} .e-syn{stroke:var(--ice)} .e-hyb{stroke:var(--red);stroke-width:2.8}
+.edge.res{stroke-dasharray:3 5;stroke-width:1.6}
+.edge.hide{opacity:0}
+.edge.draw{animation:draw .9s cubic-bezier(.45,.1,.3,1) both}
+@keyframes draw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
+.bdg{transition:opacity .3s,transform .3s;transform-box:fill-box;transform-origin:center}
+.bdg.hide{opacity:0;transform:scale(.5)}
+.bdg circle{stroke:var(--bg);stroke-width:2}
+.b-trad circle{fill:var(--ink)} .b-trad text{fill:var(--bg)}
+.b-syn circle{fill:var(--ice)} .b-syn text{fill:var(--bg)}
+.b-hyb circle{fill:var(--red)} .b-hyb text{fill:var(--ink)}
 .bdg text{font-size:11px;font-weight:800}
-.bdg.cur .pad{r:13}
-.r-trad .bdg.cur .pad{fill:var(--ink)} .r-trad .bdg.cur text{fill:var(--bg)}
-.r-syn .bdg.cur .pad{fill:var(--ice)} .r-syn .bdg.cur text{fill:var(--bg)}
-.r-hyb .bdg.cur .pad{fill:var(--red)}
-.halo{fill:none;stroke:var(--red);stroke-width:1.6;opacity:0;transform-box:fill-box;transform-origin:center}
-.bdg.cur .halo{animation:pulse 1.6s ease-out infinite}
-@keyframes pulse{0%{transform:scale(.7);opacity:.9}100%{transform:scale(1.8);opacity:0}}
-svg[data-part="all"] .r-trad .bdg,svg[data-part="all"] .r-syn .bdg{opacity:0}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -144,7 +128,7 @@ svg[data-part="all"] .r-trad .bdg,svg[data-part="all"] .r-syn .bdg{opacity:0}
   </div>
 
   <div class="stage">
-    <svg id="axo" data-part="intro" role="img" aria-label="Deux cartes de circuit superposées : l'architecture Downtown Studio au niveau 0, les briques IA et Dada HQ au niveau 1, et les trois parcours qui les traversent"></svg>
+    <svg id="plan" viewBox="0 0 1400 640" data-route="none" role="img" aria-label="Plan à deux niveaux : briques IA en haut, Downtown Studio en bas, organisés par phase et par famille, avec les trois parcours de fabrication"></svg>
   </div>
 
   <section class="bar">
@@ -161,192 +145,230 @@ svg[data-part="all"] .r-trad .bdg,svg[data-part="all"] .r-syn .bdg{opacity:0}
 <script>
 (function(){
 const NS='http://www.w3.org/2000/svg';
-const svg=document.getElementById('axo');
-const U=100, H=2.35, PITCH=1.3, CW=1.02;
-const C=i=>0.3+i*PITCH, CX=i=>C(i)+CW/2;
-const W=C(8)+CW+0.3, D=3.05, T=0.06;
-const BK0=0.28, BK1=1.08, BUS=1.27, FR0=1.47, FR1=2.08;   // rangées
-const LT=2.42, LH=2.7, LS=2.5;                             // pistes : traditionnel, hybride, synthétique
-const EX=[0.99*U,0.13*U], EY=[-0.36*U,0.40*U];
-const P=(x,y,z)=>[x*EX[0]+y*EY[0], x*EX[1]+y*EY[1]-z*U];
-const pts=a=>a.map(p=>p.map(v=>v.toFixed(1)).join(',')).join(' ');
-const el=(tag,attrs,parent)=>{const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;};
-const quad=(x0,y0,x1,y1,z)=>[P(x0,y0,z),P(x1,y0,z),P(x1,y1,z),P(x0,y1,z)];
-const M=(x,y,z)=>{const o=P(x,y,z);return `matrix(${EX[0]/U},${EX[1]/U},${EY[0]/U},${EY[1]/U},${o[0].toFixed(1)},${o[1].toFixed(1)})`;};
-const seg=(a,b)=>`M${a.join(',')}L${b.join(',')}`;
-const txt=(g,x,y,z,s,cls,dx=0,dy=0)=>{const t=el('text',{transform:M(x,y,z),x:dx,y:dy,class:cls},g);t.textContent=s;return t;};
+const svg=document.getElementById('plan');
+const el=(tag,a,p)=>{const e=document.createElementNS(NS,tag);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;};
+const tx=(p,x,y,s,cls,anchor)=>{const t=el('text',{x,y,class:cls},p);if(anchor)t.setAttribute('text-anchor',anchor);t.textContent=s;return t;};
 
-/* ---------- composants ---------- */
-const CMP={};
-function comp(g,id,x0,y0,x1,y1,z,ttl,sub,o={}){
-  const cg=el('g',{class:'cmp','data-id':id},g);
-  el('polygon',{points:pts(quad(x0,y0,x1,y1,z)),class:'body'},cg);
-  // broches sur les deux grands côtés
-  const n=o.pins??Math.max(3,Math.round((x1-x0)/0.17));let d='';
-  for(let k=0;k<n;k++){const x=x0+(k+0.5)*(x1-x0)/n;d+=seg(P(x,y0,z),P(x,y0-0.06,z))+seg(P(x,y1,z),P(x,y1+0.06,z));}
-  el('path',{d,class:'pins'},cg);
-  const p1=P(x0+0.07,y0+0.08,z);el('circle',{cx:p1[0],cy:p1[1],r:2,class:'p1'},cg);
-  txt(cg,x0+0.12,y0,z,ttl,'ttl',0,23);
-  if(sub)(Array.isArray(sub)?sub:[sub]).forEach((s,i)=>txt(cg,x0+0.12,y0,z,s,'sub',0,39+i*14));
-  if(o.gpu){const n=o.gpu,sz=0.075,gap=0.035;for(let k=0;k<n;k++){const gx=x0+0.12+k*(sz+gap),gy=y1-0.18;
-    el('polygon',{points:pts(quad(gx,gy,gx+sz,gy+sz*1.3,z)),class:'gpu'+(o.res?' res':'')},cg);}}
-  if(o.cells){const cw=(x1-x0-0.24)/o.cells.length;o.cells.forEach((c,k)=>{const cx0=x0+0.12+k*cw,cy0=y0+0.42,cy1=y1-0.1;
-    el('polygon',{points:pts(quad(cx0+0.02,cy0,cx0+cw-0.02,cy1,z)),class:'cell'},cg);
-    txt(cg,cx0+0.07,cy0,z,c[0],'cellt',0,14);txt(cg,cx0+0.07,cy0,z,c[1],'cells',0,26);});}
-  CMP[id]=cg;return cg;
+/* ---------- grille : colonnes = phases, lignes = familles ---------- */
+const COL={c0:[160,140],c1:[330,150],c2a:[510,150],c2b:[680,150],c3:[860,150],c4:[1040,150],c5:[1220,150]};
+const ROW={p:[50,52],d:[112,40],i:[162,44],j:[216,44],s:[272,44], I:[360,44],J:[414,44],S:[468,44],K:[530,80]};
+const PH=[['Écriture',160,300],['Matière',330,480],['Fabrication',510,830],['Assemblage',860,1010],['Finition',1040,1190],['Livraison',1220,1370]];
+
+// fond : bandes, colonnes, lignes
+const bg=el('g',{},svg);
+PH.forEach(([n,a,b],k)=>{tx(bg,a,22,String(k+1).padStart(2,'0'),'coln');tx(bg,a+24,22,n,'colh');});
+[315,495,845,1025,1205].forEach(x=>el('line',{x1:x,y1:32,x2:x,y2:622,class:'colsep'},bg));
+el('rect',{x:8,y:40,width:1384,height:286,class:'band'},bg);
+el('rect',{x:8,y:350,width:1384,height:272,class:'band'},bg);
+tx(bg,20,64,'Niv. 1','bandlbl');tx(bg,20,80,'Briques IA','bandsub');
+tx(bg,20,374,'Niv. 0','bandlbl');tx(bg,20,390,'Downtown Studio','bandsub');
+[['Pilotage','p'],['Génération directe','d'],['Image','i'],['Son','s'],['Image','I'],['Son','S'],['Socle technique','K']].forEach(([n,r])=>{const [y,h]=ROW[r];if(r==='p'||r==='I'){}tx(bg,20,(r==='p'||r==='I')?y+h-2:y+h/2+4,n,'rowl');});
+[[262,'i'],[322,'s']].forEach(()=>{});
+[[156],[266],[518]].forEach(([y])=>el('line',{x1:150,y1:y,x2:1380,y2:y,class:'rowsep'},bg));
+el('line',{x1:150,y1:108,x2:1380,y2:108,class:'rowsep'},bg);
+
+/* ---------- nœuds ---------- */
+const N={};
+function node(id,col,row,t,s,o={}){
+  let [x,w]=COL[col];let [y,h]=ROW[row];
+  if(o.x!==undefined){x=o.x;w=o.w;} if(o.h)h=o.h; if(o.y!==undefined)y=o.y;
+  const g=el('g',{class:'nd','data-id':id},svg);
+  el('rect',{x,y,width:w,height:h,class:'box'},g);
+  tx(g,x+10,y+18,t,'t');
+  if(s)(Array.isArray(s)?s:[s]).forEach((l,i)=>tx(g,x+10,y+33+i*13,l,'s'));
+  if(o.gpu){for(let k=0;k<o.gpu;k++)el('rect',{x:x+10+k*9,y:y+h-16,width:6,height:8,class:'gpu'+(o.res?' res':'')},g);}
+  if(o.cells){const cx0=x+120,cw=(w-128)/o.cells.length;o.cells.forEach((c,k)=>{const cx=cx0+k*cw;el('rect',{x:cx,y:y+6,width:cw-6,height:h-12,class:'cell'},g);tx(g,cx+8,y+22,c[0],'ct');tx(g,cx+8,y+36,c[1],'cs');});}
+  N[id]={g,x,y,w,h};return N[id];
 }
-function board(g,z,cls,name,sub){
-  el('polygon',{points:pts(quad(0,0,W,D,z)),class:'board '+cls},g);
-  el('polygon',{points:pts([P(0,D,z),P(W,D,z),P(W,D,z-T),P(0,D,z-T)]),class:'bedge'},g);
-  el('polygon',{points:pts([P(W,0,z),P(W,D,z),P(W,D,z-T),P(W,0,z-T)]),class:'bedge'},g);
-  // trame de points
-  let d='';for(let x=0.15;x<W;x+=0.25)for(let y=0.15;y<D;y+=0.25){const p=P(x,y,z);d+=`M${(p[0]-.6).toFixed(1)},${p[1].toFixed(1)}h1.2`;}
-  el('path',{d,class:'dots',stroke:'#fff','stroke-width':1.2},g);
-  [[0.12,0.12],[W-0.12,0.12],[W-0.12,D-0.12],[0.12,D-0.12]].forEach(([x,y])=>{const p=P(x,y,z);el('circle',{cx:p[0],cy:p[1],r:4,class:'fid'},g);el('circle',{cx:p[0],cy:p[1],r:1.3,fill:'#fff'},g);});
-}
-function busAndStubs(g,z,label,front,back,laneTo){
-  const dg=el('g',{class:'decor'},g);
-  el('path',{d:seg(P(0.3,BUS,z),P(W-0.3,BUS,z)),class:'bus'},dg);
-  txt(dg,0.32,BUS,z,label,'buslbl',0,-4);
-  front.forEach(i=>{el('path',{d:seg(P(CX(i),FR0-0.06,z),P(CX(i),BUS,z)),class:'stub'},dg);el('path',{d:seg(P(CX(i),FR1+0.06,z),P(CX(i),laneTo,z)),class:'stub'},dg);});
-  back.forEach(x=>el('path',{d:seg(P(x,BK1+0.06,z),P(x,BUS,z)),class:'stub'},dg));
-}
+// niveau 1
+node('agents','c0','p','Agents',['Claude Code, Codex,','ChatGPT, Claude']);
+node('hq','c1','p','Dada HQ',['source de vérité','du film'],{x:330,w:680,cells:[['Versions','rien n’est écrasé'],['Validations','sur la version exacte'],['Règles','lues par les agents'],['Registre IA','modèles et choix'],['Pointeurs','vers la ferme']]});
+node('skills','c4','p','Skills',['workflows versionnés']);
+node('prompt','c0','d','Prompt','');
+node('t2v','c2a','d','Text-to-video','');
+node('export','c5','d','Export','');
+node('perso','c1','i','Personnages','LoRA, jeu d’acteur');
+node('keyf','c2a','i','Images clés','ComfyUI');
+node('vid','c2b','i','Vidéo guidée','Wan 2.2 VACE');
+node('fin','c3','i','Finition IA','visages, upscale');
+node('ctrl','c4','i','Contrôle','couleur automatique');
+node('lieux','c1','j','Lieux 3D','World Labs');
+node('musiq','c1','s','Musique IA','avec Mirwais');
+node('voix','c2b','s','Voix IA','timbre, lip sync');
+// niveau 0
+node('dec','c0','I','Découpage','~150 plans');
+node('tour','c1','I','Tournage','plateau');
+node('mont','c2a','I','Montage','Resolve');
+node('lay','c2b','I','Layout 3D','Blender');
+node('comp','c3','I','Compositing','Nuke, Fusion');
+node('etal','c4','I','Étalonnage','Resolve, Baselight');
+node('livr','c5','I','Livrables',['ProRes 4444','DCP 2K','version web'],{h:152});
+node('arch','c1','J','Archives','images existantes');
+node('ren','c2b','J','Rendu','Deadline');
+node('vrec','c1','S','Voix enregistrées','voix témoins');
+node('mson','c3','S','Montage son','Pro Tools');
+node('mix','c4','S','Mixage','Pro Tools');
+// socle technique
+node('plat','c1','K','Plateau et salles',['tournage, montage,','étalonnage'],{y:540,h:66});
+node('nas','c2a','K','NAS',['stockage','des plans'],{y:540,h:66,w:150});
+el('rect',{x:672,y:526,width:346,height:88,class:'frame'},svg);tx(svg,680,522,'Ferme de rendu · 21 GPU','framet');
+node('rfab','c2b','K','RF-A/B','8 × 4080',{x:680,w:78,y:540,h:66,gpu:8});
+node('rfc','c2b','K','RF-C','6 × 5080',{x:764,w:78,y:540,h:66,gpu:6});
+node('prog','c3','K','Progress','7 × 4080 S',{x:848,w:78,y:540,h:66,gpu:7});
+node('c9','c3','K','RF-C9','5090 · Dada',{x:932,w:78,y:540,h:66,gpu:1,res:true});
+node('dl','c4','K','Deadline','file de rendu',{y:540,h:66});
+node('atm','c5','K','Auditorium','Dolby Atmos',{y:540,h:66});
 
-const root=el('g',{},svg);
-/* niveau 0 · Downtown Studio */
-const F0=el('g',{id:'F0',class:'floor'},root);
-board(F0,0,'b0');
-busAndStubs(F0,0,'Réseau DTS · cœur 400 Gb/s',[0,1,2,3,4,5,6,7,8],[CX(0)+0.6,CX(2),CX(3),CX(4),CX(5),CX(6),CX(7),CX(8)],LH);
-comp(F0,'plat',C(0),BK0,C(1)+CW,BK1,0,'Plateau et salles',['tournage, montage, étalonnage']);
-comp(F0,'nas',C(2),BK0,C(2)+CW,BK1,0,'NAS',['stockage des plans']);
-comp(F0,'rfab',C(3),BK0,C(3)+CW,BK1,0,'RF-A/B',['8 × RTX 4080'],{gpu:8});
-comp(F0,'rfc',C(4),BK0,C(4)+CW,BK1,0,'RF-C',['6 × RTX 5080'],{gpu:6});
-comp(F0,'prog',C(5),BK0,C(5)+CW,BK1,0,'Progress',['7 × RTX 4080 S'],{gpu:7});
-comp(F0,'c9',C(6),BK0,C(6)+CW,BK1,0,'RF-C9',['RTX 5090 · Dadaland'],{gpu:1,res:true});
-comp(F0,'dl',C(7),BK0,C(7)+CW,BK1,0,'Deadline',['file de rendu']);
-comp(F0,'atm',C(8),BK0,C(8)+CW,BK1,0,'Auditorium',['Dolby Atmos']);
-const G0=[['Découpage','~150 plans'],['Tournage','plateau, archives'],['Montage','Resolve'],['Layout 3D','Blender'],['Rendu','Deadline'],['Compositing','Nuke, Fusion'],['Étalonnage','Resolve, Baselight'],['Son','Pro Tools'],['Livrables','ProRes, DCP 2K']];
-G0.forEach((c,i)=>comp(F0,'g'+i,C(i),FR0,C(i)+CW,FR1,0,c[0],c[1]));
-txt(F0,0.3,0,0,'Niv. 0 · Downtown Studio','boardlbl',0,-10);
-const RT=el('g',{class:'route-g r-trad'},root);
+/* ---------- liaisons ---------- */
+const R=(id)=>{const n=N[id];return [n.x+n.w,n.y+n.h/2];};
+const L=(id)=>{const n=N[id];return [n.x,n.y+n.h/2];};
+const Tp=(id,dx)=>{const n=N[id];return [n.x+(dx??n.w/2),n.y];};
+const Bt=(id,dx)=>{const n=N[id];return [n.x+(dx??n.w/2),n.y+n.h];};
+const Ly=(id,y)=>[N[id].x,y], Ry=(id,y)=>[N[id].x+N[id].w,y];
+function rounded(p,r=7){let d=`M${p[0][0]},${p[0][1]}`;for(let i=1;i<p.length-1;i++){const [x0,y0]=p[i-1],[x1,y1]=p[i],[x2,y2]=p[i+1];
+  const d1=Math.hypot(x1-x0,y1-y0),d2=Math.hypot(x2-x1,y2-y1),rr=Math.min(r,d1/2,d2/2);
+  const a=[x1-(x1-x0)/d1*rr,y1-(y1-y0)/d1*rr],b=[x1+(x2-x1)/d2*rr,y1+(y2-y1)/d2*rr];d+=`L${a[0]},${a[1]}Q${x1},${y1} ${b[0]},${b[1]}`;}
+  const e=p[p.length-1];return d+`L${e[0]},${e[1]}`;}
+const EG=el('g',{},svg); svg.insertBefore(EG,svg.querySelector('.nd')); // liaisons sous les nœuds
+['trad','syn','hyb'].forEach(c=>{const m=el('marker',{id:'a-'+c,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:7,markerHeight:7,orient:'auto-start-reverse'},svg);
+  el('path',{d:'M0,1L9,5L0,9z',fill:c==='trad'?'#fff':c==='syn'?'#BFC9D6':'#E6483A'},m);});
+const E=[];
+function edge(route,step,pts,o={}){const p=el('path',{d:rounded(pts),class:`edge e-${route}${o.res?' res':''} hide`,'marker-end':o.res?'':`url(#a-${route})`},EG);
+  const L0=p.getTotalLength?p.getTotalLength():400;p.style.setProperty('--len',L0);if(!o.res)p.style.strokeDasharray=L0;E.push({route,step,p,res:!!o.res});}
 
-/* niveau 1 · briques IA */
-const F1=el('g',{id:'F1',class:'floor'},root);
-board(F1,H,'b1');
-busAndStubs(F1,H,'Bus Dada HQ · versions et pointeurs',[0,1,2,3,4,5,6,7,8],[CX(0)+0.6,CX(2)+0.5,CX(4),CX(6)-0.3,CX(7),CX(8)],LS+0.35);
-comp(F1,'agents',C(0),BK0,C(1)+CW,BK1,H,'Agents',['Claude Code, Codex, ChatGPT, Claude','préparent, lancent, enregistrent']);
-comp(F1,'hq',C(2),BK0,C(6)+CW,BK1,H,'Dada HQ',null,{cells:[['Versions','rien n’est écrasé'],['Validations','sur la version exacte'],['Règles','lues par chaque agent'],['Registre IA','modèles, choix humains'],['Pointeurs','vers la ferme']]});
-comp(F1,'skills',C(7),BK0,C(7)+CW,BK1,H,'Skills',['workflows versionnés']);
-comp(F1,'music',C(8),BK0,C(8)+CW,BK1,H,'Musique IA',['avec Mirwais']);
-const G1=[['Prompt','texte libre'],['Assets IA','LoRA, lieux 3D'],['Text-to-video','un prompt, un plan'],['Images clés','ComfyUI'],['Vidéo guidée','Wan 2.2 VACE'],['Finition IA','visages, upscale'],['Contrôle','couleur auto'],['Voix IA','timbre, lip sync'],['Export','vidéo finale']];
-G1.forEach((c,i)=>comp(F1,'u'+i,C(i),FR0,C(i)+CW,FR1,H,c[0],c[1]));
-txt(F1,0.3,0,H,'Niv. 1 · Briques IA','boardlbl',0,-10);
-const RS=el('g',{class:'route-g r-syn'},root);
-const RH=el('g',{class:'route-g r-hyb'},root);
-
-/* ---------- parcours ---------- */
-function route(g,points,stopIdx,vias){
-  const sp=points.map(p=>P(...p));
-  const d='M'+sp.map(p=>p.map(v=>v.toFixed(1)).join(',')).join('L');
-  el('path',{d,class:'ghost'},g);
-  const pp=el('path',{d,class:'prog-path'},g);
-  (vias||[]).forEach(i=>{const q=sp[i];el('circle',{cx:q[0],cy:q[1],r:4.5,class:'via'},g);});
-  const cum=[0];for(let i=1;i<sp.length;i++)cum.push(cum[i-1]+Math.hypot(sp[i][0]-sp[i-1][0],sp[i][1]-sp[i-1][1]));
-  const L=cum[cum.length-1];pp.style.strokeDasharray=L;pp.style.strokeDashoffset=L;
-  const badges=stopIdx.map((pi,k)=>{const q=sp[pi];const b=el('g',{class:'bdg todo'},g);
-    el('circle',{cx:q[0],cy:q[1],r:15,class:'halo'},b);
-    el('circle',{cx:q[0],cy:q[1],r:10.5,class:'pad'},b);const t=el('text',{x:q[0],y:q[1]+4,'text-anchor':'middle'},b);t.textContent=k+1;return b;});
-  return {pp,L,len:stopIdx.map(i=>cum[i]),badges};
-}
-const R1=route(RT,G0.map((_,i)=>[CX(i),LT,0]),G0.map((_,i)=>i));
-const R2=route(RS,[[CX(0),LS,H],[CX(2),LS,H],[CX(8),LS,H]],[0,1,2]);
-const o=0.17;
-const hp=[
- [CX(0),LH,0],
- [CX(1)-o,LH,0],[CX(1)-o,LH,H],[CX(1),LH,H],[CX(1)+o,LH,H],[CX(1)+o,LH,0],
- [CX(2),LH,0],[CX(3),LH,0],[CX(3)+0.001,LH,H],[CX(4),LH,H],[CX(5),LH,H],[CX(5)+0.001,LH,0],
- [CX(6),LH,0],
- [CX(7)-o,LH,0],[CX(7)-o,LH,H],[CX(7),LH,H],[CX(7)+o,LH,H],[CX(7)+o,LH,0],
- [CX(8),LH,0]];
-const R3=route(RH,hp,[0,3,6,7,8,9,10,11,12,15,17,18],[1,2,4,5,13,14,16,17]);
-
-const xmin=P(0,D,0)[0]-20, xmax=P(W,0,0)[0]+20, ymin=P(0,0,H)[1]-34, ymax=P(W,D,0)[1]+T*U+18;
-svg.setAttribute('viewBox',`${xmin.toFixed(0)} ${ymin.toFixed(0)} ${(xmax-xmin).toFixed(0)} ${(ymax-ymin).toFixed(0)}`);
+// 1 · traditionnel
+edge('trad',2,[R('dec'),L('tour')]);
+edge('trad',2,[R('dec'),[315,382],[315,436],L('arch')]);
+edge('trad',2,[R('dec'),[315,382],[315,490],L('vrec')]);
+edge('trad',3,[R('tour'),L('mont')]);
+edge('trad',3,[R('arch'),[495,436],[495,382],L('mont')]);
+edge('trad',4,[R('mont'),L('lay')]);
+edge('trad',5,[Bt('lay'),Tp('ren')]);
+edge('trad',5,[Bt('ren',110),[790,540]],{res:true});
+edge('trad',6,[R('ren'),[845,436],[845,382],L('comp')]);
+edge('trad',7,[R('comp'),L('etal')]);
+edge('trad',7,[R('vrec'),L('mson')]);
+edge('trad',7,[Bt('mont',75),[585,490]]);
+edge('trad',7,[R('mson'),L('mix')]);
+edge('trad',8,[R('etal'),Ly('livr',382)]);
+edge('trad',8,[R('mix'),Ly('livr',490)]);
+// 2 · synthétique
+edge('syn',2,[R('prompt'),L('t2v')]);
+edge('syn',3,[R('t2v'),L('export')]);
+// 3 · hybride
+edge('hyb',2,[Tp('dec',70),[230,184],L('perso')]);
+edge('hyb',2,[[230,240],L('lieux')]);
+edge('hyb',2,[Bt('dec',70),[230,490],L('vrec')]);
+edge('hyb',3,[R('musiq'),[492,294],[492,382],L('mont')]);
+edge('hyb',4,[R('mont'),L('lay')]);
+edge('hyb',4,[R('lieux'),[838,238],[838,342],[815,342],Tp('lay',135)]);
+edge('hyb',5,[Tp('lay',20),[700,338],[600,338],Bt('keyf',90)]);
+edge('hyb',5,[R('perso'),L('keyf')]);
+edge('hyb',6,[R('keyf'),L('vid')]);
+edge('hyb',6,[Tp('vid',75),[755,154],[585,154],Tp('keyf',75)],{res:true});
+edge('hyb',7,[R('vid'),L('fin')]);
+edge('hyb',7,[R('fin'),L('ctrl')]);
+edge('hyb',8,[Bt('fin'),Tp('comp')]);
+edge('hyb',9,[R('comp'),L('etal')]);
+edge('hyb',9,[Bt('ctrl'),Tp('etal')]);
+edge('hyb',10,[R('vrec'),[503,490],[503,294],L('voix')]);
+edge('hyb',10,[R('voix'),[852,294],[852,490],L('mson')]);
+edge('hyb',10,[R('mson'),L('mix')]);
+edge('hyb',11,[R('etal'),Ly('livr',382)]);
+edge('hyb',11,[R('mix'),Ly('livr',490)]);
 
 /* ---------- étapes ---------- */
 const V='<svg width="10" height="20" viewBox="0 0 20 48" fill="currentColor"><circle cx="10" cy="5.5" r="4.2"/><path d="M5 11.5h10l1.6 16.5H3.4z"/><path d="M6.2 28h3.4l-.4 19H6.5zM10.4 28h3.4l-.3 19h-2.7z"/></svg>';
 const PARTS={intro:{name:'Architecture',color:'#FFFFFF'},trad:{name:'Traditionnel',color:'#FFFFFF',n:1},syn:{name:'Synthétique',color:'#BFC9D6',n:2},hyb:{name:'Hybride',color:'#E6483A',n:3},all:{name:'Les trois',color:'#FFFFFF'}};
-const grpOf=p=>(p==='dts'||p==='hq')?'intro':p;
+const N1=['agents','hq','skills','prompt','t2v','export','perso','keyf','vid','fin','ctrl','lieux','musiq','voix'];
+const SOCLE=['plat','nas','rfab','rfc','prog','c9','dl','atm'];
+const N0=Object.keys(N).filter(k=>!N1.includes(k));
+const FERME=['rfab','rfc','prog','c9'];
 const S=[
- {part:'intro',title:'Deux niveaux de production',text:'En bas, l’architecture de Downtown Studio : les métiers, l’équipe et le matériel. En haut, les briques IA et Dada HQ. On suit ensuite trois façons de fabriquer le même film.'},
- {part:'dts',hi:['plat','nas','rfab','rfc','prog','c9','dl','atm'],title:'Niveau 0 · l’architecture DTS',text:'La ferme de rendu compte 21 stations GPU connectées. Elle tourne en moyenne à 3 à 5,5 % de sa capacité et ne calcule rien la nuit.',spec:['392 cœurs CPU','2,2 To de RAM','~1,1 PFLOPS FP32','RF-A/B · 8 × RTX 4080','RF-C · 6 × RTX 5080','Progress · 7 × RTX 4080 SUPER','RF-C9 · RTX 5090, réservée Dadaland','Cœur réseau 400 Gb/s']},
- {part:'hq',hi:['agents','hq','skills'],title:'Niveau 1 · Dada HQ',text:'La source de vérité du film. Chaque sauvegarde devient une version et rien n’est écrasé. Chaque validation est liée à la version exacte. Les fichiers lourds restent sur la ferme, Dada HQ garde des pointeurs. Les agents travaillent entre Blender, Resolve et ComfyUI, et n’approuvent jamais.',spec:['Versions · aperçu et origine','Validations · chaîne de relecteurs','Client · valide par un lien','Skills et workflows versionnés','Registre IA']},
- {part:'trad',k:0,blk:'g0',title:'Découpage',text:'Le scénario est découpé plan par plan.',spec:['~150 plans','10 minutes']},
- {part:'trad',k:1,blk:'g1',also:['plat'],title:'Tournage',text:'Les images sont tournées sur le plateau, ou cherchées dans les archives.',spec:['Plateau Downtown Studio']},
- {part:'trad',k:2,blk:'g2',also:['plat','nas'],title:'Montage',text:'Le film se monte dans Resolve. La réalisation choisit les prises et le rythme.',spec:['DaVinci Resolve']},
- {part:'trad',k:3,blk:'g3',title:'Layout 3D',text:'Décors, caméra et animation sont construits dans Blender.',spec:['Blender']},
- {part:'trad',k:4,blk:'g4',also:['rfab','rfc','prog','dl'],title:'Rendu',text:'Les plans 3D sont calculés sur la ferme, en file d’attente Deadline.',spec:['21 stations GPU','Deadline']},
- {part:'trad',k:5,blk:'g5',title:'Compositing',text:'Les couches sont assemblées dans Nuke ou Fusion.',spec:['Nuke','Fusion']},
- {part:'trad',k:6,blk:'g6',also:['plat'],title:'Étalonnage',text:'La couleur du film se règle dans Resolve ou sur Baselight.',spec:['Resolve','Baselight']},
- {part:'trad',k:7,blk:'g7',also:['atm'],title:'Son',text:'Voix, musique et mixage dans Pro Tools.',spec:['Pro Tools','Auditorium Dolby Atmos']},
- {part:'trad',k:8,blk:'g8',title:'Livrables',text:'Le master et les copies pour les festivals. Chaque étape est un métier de l’équipe.',spec:['ProRes 4444','DCP 2K','Version web']},
- {part:'syn',k:0,blk:'u0',title:'Prompt',text:'Chaque plan est décrit en texte.'},
- {part:'syn',k:1,blk:'u2',title:'Text-to-video',text:'Un modèle génère la vidéo du plan directement à partir de ce texte.'},
- {part:'syn',k:2,blk:'u8',title:'Export',text:'Le film sort en trois étapes. La plupart des briques restent inutilisées, et la réalisation n’a aucun point où reprendre la main.'},
- {part:'hyb',k:0,blk:'g0',also:['skills'],title:'Découpage',text:'On part du découpage, comme dans le parcours traditionnel. Chaque plan reçoit une recette selon son type.',spec:['~150 plans','5 à 6 recettes']},
- {part:'hyb',k:1,blk:'u1',up:1,also:['hq'],title:'Assets IA',text:'On monte fabriquer les personnages, les lieux en 3D et, si besoin, le jeu d’un acteur reporté sur le personnage.',spec:['LoRA personnages, sur une RTX 5090 louée','Lieux 3D · World Labs','Jeu d’acteur · Wan-Animate','Voix avec accord écrit'],v:'Direction artistique'},
- {part:'hyb',k:2,blk:'g2',down:1,also:['hq'],title:'Montage',text:'L’animatique fixe la durée de chaque plan. Le montage reste le maître jusqu’à la fin.',spec:['Animatique Resolve','Voix témoins','Musique'],v:'Réalisation'},
- {part:'hyb',k:3,blk:'g3',also:['dl','rfab','rfc'],title:'Layout 3D',text:'Blender pose la caméra et rend les passes qui guideront l’IA.',spec:['Passes EXR 720p via Deadline','Profondeur, contours, pose'],v:'Réalisation'},
- {part:'hyb',k:4,blk:'u3',up:1,also:['hq'],title:'Images clés',text:'Les passes guident l’image clé. Elle fixe le look et le visage du plan.',spec:['ComfyUI','Z-Image, Qwen-Image','ControlNet sur les passes','1 à 3 images par plan'],v:'Réalisation et DA'},
- {part:'hyb',k:5,blk:'u4',also:['rfab','rfc','prog','dl','hq'],title:'Vidéo guidée',text:'La génération tourne de nuit sur la ferme de Downtown.',spec:['Wan 2.2 VACE · 720p','4 à 10 prises par plan','~130 h GPU par nuit','Visages générés en local'],v:'Réalisation · prise retenue'},
- {part:'hyb',k:6,blk:'u5',also:['u6'],title:'Finition IA',text:'La prise retenue est relancée en pleine précision, puis contrôlée.',spec:['RTX 5090 louée','Visages, upscale SeedVR2','Contrôle couleur automatique']},
- {part:'hyb',k:7,blk:'g5',down:1,also:['nas'],title:'Compositing',text:'Le plan redescend dans la post-production classique.',spec:['Séquences PNG 16 bits','Nuke ou Fusion']},
- {part:'hyb',k:8,blk:'g6',also:['plat'],title:'Étalonnage',text:'Le look est posé depuis l’image clé. L’étalonnage raccorde les plans et pousse le contraste final.',spec:['Conformation automatique','DaVinci Wide Gamut','Resolve ou Baselight']},
- {part:'hyb',k:9,blk:'u7',up:1,title:'Voix IA',text:'Les voix témoins prennent le timbre du personnage, puis le lip sync.',spec:['Conversion de timbre en local','Chatterbox, RVC','Lip sync des dialogues']},
- {part:'hyb',k:10,blk:'g7',down:1,also:['atm','music'],title:'Son',text:'Le mixage revient dans Pro Tools, avec la musique supervisée par Mirwais.',spec:['Pro Tools','Stems vers Resolve']},
- {part:'hyb',k:11,blk:'g8',also:['hq'],title:'Livrables',text:'Les deux montages du palindrome. Dada HQ garde chaque version et chaque validation.',spec:['ProRes 4444','DCP 2K','Mention IA au générique'],v:'Validation finale'},
- {part:'all',title:'Trois parcours',text:'Le parcours hybride garde les métiers et le matériel de Downtown Studio. Il monte chercher une brique IA là où elle facilite la fabrication, et Dada HQ garde la trace de chaque passage.'}
-];
-const ROUTES={trad:{R:R1,stops:S.filter(s=>s.part==='trad').map(s=>s.blk)},syn:{R:R2,stops:S.filter(s=>s.part==='syn').map(s=>s.blk)},hyb:{R:R3,stops:S.filter(s=>s.part==='hyb').map(s=>s.blk)}};
+ {part:'intro',title:'Deux niveaux, rangés par phase et par famille',text:'En bas, Downtown Studio : les métiers, l’équipe et le matériel. En haut, les briques IA. Les colonnes suivent les phases de fabrication, les lignes regroupent les familles : pilotage, image, son, socle technique.'},
+ {part:'intro',hi:N0,title:'Niveau 0 · Downtown Studio',text:'Les métiers de la post-production et le socle technique. La ferme compte 21 stations GPU connectées. Elle tourne en moyenne à 3 à 5,5 % de sa capacité et ne calcule rien la nuit.',spec:['392 cœurs CPU','2,2 To de RAM','~1,1 PFLOPS FP32','RF-A/B · 8 × RTX 4080','RF-C · 6 × RTX 5080','Progress · 7 × RTX 4080 SUPER','RF-C9 · RTX 5090, réservée Dadaland','Cœur réseau 400 Gb/s']},
+ {part:'intro',hi:['agents','hq','skills'],title:'Niveau 1 · Dada HQ',text:'La source de vérité du film. Chaque sauvegarde devient une version et rien n’est écrasé. Chaque validation est liée à la version exacte. Les fichiers lourds restent sur la ferme, Dada HQ garde des pointeurs. Les agents travaillent entre Blender, Resolve et ComfyUI, et n’approuvent jamais.',spec:['Versions · aperçu et origine','Validations · chaîne de relecteurs','Client · valide par un lien','Skills et workflows versionnés','Registre IA']},
 
-const partsNav=document.getElementById('parts'), prog=document.getElementById('prog');
-const firstOf=p=>S.findIndex(s=>grpOf(s.part)===p);
+ {part:'trad',k:1,nodes:['dec'],title:'Découpage',text:'Le scénario est découpé plan par plan.',spec:['~150 plans','10 minutes']},
+ {part:'trad',k:2,nodes:['tour','arch','vrec'],also:['plat'],title:'Tournage, archives, voix',text:'La matière arrive en parallèle : les images tournées sur le plateau, les archives et les voix enregistrées.',spec:['Plateau Downtown Studio']},
+ {part:'trad',k:3,nodes:['mont'],also:['nas'],title:'Montage',text:'Toute la matière converge dans Resolve. La réalisation choisit les prises et le rythme.',spec:['DaVinci Resolve']},
+ {part:'trad',k:4,nodes:['lay'],title:'Layout 3D',text:'Les plans en 3D sont construits dans Blender : décors, caméra, animation.',spec:['Blender']},
+ {part:'trad',k:5,nodes:['ren'],also:FERME.concat('dl'),title:'Rendu',text:'Les plans 3D sont calculés sur la ferme, en file Deadline.',spec:['21 stations GPU','Deadline']},
+ {part:'trad',k:6,nodes:['comp'],title:'Compositing',text:'Les rendus et les images tournées sont assemblés dans Nuke ou Fusion.',spec:['Nuke','Fusion']},
+ {part:'trad',k:7,nodes:['etal','mson','mix'],also:['atm'],title:'Étalonnage et son',text:'Deux chantiers en parallèle : la couleur dans Resolve ou sur Baselight, le son dans Pro Tools à partir du montage.',spec:['Resolve ou Baselight','Pro Tools','Auditorium Dolby Atmos']},
+ {part:'trad',k:8,nodes:['livr'],title:'Livrables',text:'L’image et le son se rejoignent dans le master. Chaque étape est un métier de l’équipe.',spec:['ProRes 4444','DCP 2K','Version web']},
+
+ {part:'syn',k:1,nodes:['prompt'],title:'Prompt',text:'Chaque plan est décrit en texte.'},
+ {part:'syn',k:2,nodes:['t2v'],title:'Text-to-video',text:'Un modèle génère la vidéo du plan directement à partir de ce texte.'},
+ {part:'syn',k:3,nodes:['export'],title:'Export',text:'Le film sort en trois étapes, sur une seule ligne. Aucune autre brique n’est utilisée, et la réalisation n’a aucun point où reprendre la main.'},
+
+ {part:'hyb',k:1,nodes:['dec'],also:['skills'],title:'Découpage',text:'On part du découpage, comme dans le parcours traditionnel. Chaque plan reçoit une recette selon son type.',spec:['~150 plans','5 à 6 recettes']},
+ {part:'hyb',k:2,nodes:['perso','lieux','vrec'],also:['hq'],up:1,title:'Personnages, lieux, voix témoins',text:'Trois chantiers partent en même temps. Au niveau IA, les personnages et les lieux. Au niveau 0, l’équipe enregistre les voix témoins.',spec:['LoRA sur une RTX 5090 louée','Lieux 3D · World Labs','Jeu d’acteur · Wan-Animate','Voix avec accord écrit'],v:'Direction artistique'},
+ {part:'hyb',k:3,nodes:['musiq','mont'],down:1,title:'Animatique',text:'La musique, supervisée par Mirwais, rythme le montage avant toute génération. L’animatique fixe la durée de chaque plan.',spec:['Resolve','Musique IA'],v:'Réalisation'},
+ {part:'hyb',k:4,nodes:['lay'],also:['dl'],title:'Layout 3D',text:'Blender reprend les lieux 3D, pose la caméra suivant l’animatique et rend les passes.',spec:['Passes EXR 720p via Deadline','Profondeur, contours, pose'],v:'Réalisation'},
+ {part:'hyb',k:5,nodes:['keyf'],also:['hq'],up:1,title:'Images clés',text:'Les passes et les personnages convergent dans l’image clé. Elle fixe le look et le visage du plan.',spec:['ComfyUI','Z-Image, Qwen-Image','1 à 3 images par plan'],v:'Réalisation et DA'},
+ {part:'hyb',k:6,nodes:['vid'],also:FERME.concat('dl','mont','hq'),title:'Vidéo guidée',text:'La génération tourne de nuit sur la ferme de Downtown. Une prise refusée repart à l’image clé ; la prise retenue remplace la précédente dans le montage.',spec:['Wan 2.2 VACE · 720p','4 à 10 prises par plan','~130 h GPU par nuit','Visages générés en local'],v:'Réalisation · prise retenue'},
+ {part:'hyb',k:7,nodes:['fin','ctrl'],title:'Finition et contrôle',text:'La prise retenue est relancée en pleine précision. Chaque sortie passe un contrôle couleur automatique.',spec:['RTX 5090 louée','Upscale SeedVR2','Écrêtage, dérive, scintillement']},
+ {part:'hyb',k:8,nodes:['comp'],also:['nas'],down:1,title:'Compositing',text:'Le plan redescend dans la post-production de Downtown.',spec:['Séquences PNG 16 bits','Nuke ou Fusion']},
+ {part:'hyb',k:9,nodes:['etal'],down:1,title:'Étalonnage',text:'Le look est posé depuis l’image clé et vérifié à chaque sortie. L’étalonnage raccorde les plans et pousse le contraste final.',spec:['DaVinci Wide Gamut','Resolve ou Baselight']},
+ {part:'hyb',k:10,nodes:['voix','mson','mix'],also:['atm'],up:1,title:'Voix et son',text:'En parallèle de l’image, les voix témoins prennent le timbre du personnage au niveau IA, puis rejoignent le montage son et le mixage.',spec:['Conversion de timbre en local','Chatterbox, RVC','Lip sync des dialogues','Pro Tools']},
+ {part:'hyb',k:11,nodes:['livr'],also:['hq'],title:'Livrables',text:'Image et son se rejoignent. Les deux montages du palindrome. Dada HQ garde chaque version et chaque validation.',spec:['ProRes 4444','DCP 2K','Mention IA au générique'],v:'Validation finale'},
+
+ {part:'all',title:'Trois parcours',text:'Le synthétique tient sur une ligne. Le parcours hybride garde les métiers et le matériel de Downtown Studio, ouvre des chantiers en parallèle et monte chercher une brique IA là où elle facilite la fabrication.'}
+];
+const ROUTES={};['trad','syn','hyb'].forEach(r=>{ROUTES[r]=S.filter(s=>s.part===r);});
+// pastilles numérotées par parcours
+const BG={trad:el('g',{},svg),syn:el('g',{},svg),hyb:el('g',{},svg)};
+const BD=[];
+Object.entries(ROUTES).forEach(([r,steps])=>steps.forEach(s=>s.nodes.forEach(id=>{const n=N[id];const g=el('g',{class:`bdg b-${r} hide`},BG[r]);
+  el('circle',{cx:n.x+n.w-2,cy:n.y+2,r:10},g);const t=el('text',{x:n.x+n.w-2,y:n.y+6,'text-anchor':'middle'},g);t.textContent=s.k;BD.push({r,k:s.k,g});})));
+
+const partsNav=document.getElementById('parts'),prog=document.getElementById('prog');
+const grpOf=p=>p;
+const firstOf=p=>S.findIndex(s=>s.part===p);
 ['intro','trad','syn','hyb','all'].forEach(p=>{const b=document.createElement('button');b.type='button';b.dataset.part=p;
-  b.innerHTML=(PARTS[p].n?`<i style="background:${PARTS[p].color}"></i>`:'')+`<span>${PARTS[p].n?PARTS[p].n+' · ':''}${PARTS[p].name}</span>`;
-  b.onclick=()=>go(firstOf(p));partsNav.appendChild(b);});
-let grp=null,last=null;S.forEach((s,i)=>{const g=grpOf(s.part);if(g!==last){grp=document.createElement('div');grp.className='grp';prog.appendChild(grp);last=g;}
+  b.innerHTML=(PARTS[p].n?`<i style="background:${PARTS[p].color}"></i>`:'')+`<span>${PARTS[p].n?PARTS[p].n+' · ':''}${PARTS[p].name}</span>`;b.onclick=()=>go(firstOf(p));partsNav.appendChild(b);});
+let grp=null,last=null;S.forEach((s,i)=>{if(s.part!==last){grp=document.createElement('div');grp.className='grp';prog.appendChild(grp);last=s.part;}
   const sp=document.createElement('span');sp.title=`${i+1}`;sp.onclick=()=>go(i);grp.appendChild(sp);});
 const segs=[...prog.querySelectorAll('span')];
 
 let cur=0;
-function setRoute(name,k){const {R}=ROUTES[name];const full=k==='full';
-  const len=full?R.L:(k<0?0:R.len[k]);R.pp.style.strokeDashoffset=(R.L-len).toFixed(1);
-  R.badges.forEach((b,i)=>{b.classList.toggle('todo',!full&&i>k);b.classList.toggle('cur',!full&&i===k);});}
 function go(i,fromHash){
-  i=Math.max(0,Math.min(S.length-1,i));cur=i;const s=S[i];
-  svg.setAttribute('data-part',s.part);
-  ['trad','syn','hyb'].forEach(n=>{if(s.part==='all')setRoute(n,'full');else if(s.part===n)setRoute(n,s.k);else setRoute(n,-1);});
-  Object.entries(CMP).forEach(([id,g])=>{g.classList.remove('todo','off','cur','ping');
-    if(s.part==='intro'||s.part==='all')return;
-    if(s.hi){if(!s.hi.includes(id))g.classList.add('off');return;}
-    const st=ROUTES[s.part].stops;
-    if(id===s.blk){g.classList.add('cur');return;}
-    if((s.also||[]).includes(id)){g.classList.add('ping');return;}
-    if(st.indexOf(id)<0){g.classList.add('off');return;}
-    if(!st.slice(0,s.k+1).includes(id))g.classList.add('todo');
+  i=Math.max(0,Math.min(S.length-1,i));const prev=cur;cur=i;const s=S[i];
+  const route=s.part in ROUTES?s.part:(s.part==='all'?'all':'none');
+  svg.setAttribute('data-route',route);
+  // liaisons
+  E.forEach(e=>{const p=e.p;p.classList.remove('draw');
+    let show=false,anim=false;
+    if(route==='all')show=true;
+    else if(route===e.route){show=e.step<=s.k;anim=e.step===s.k&&!e.res;}
+    p.classList.toggle('hide',!show);
+    if(show&&!e.res){if(anim){void p.getBoundingClientRect();p.classList.add('draw');}else p.style.strokeDashoffset=0;}
   });
-  const P0=PARTS[grpOf(s.part)], big=document.getElementById('big');
-  if(s.k!==undefined){big.textContent=s.k+1;big.style.background=P0.color;big.style.color='#000';big.style.border='0';}
-  else{big.textContent=s.part==='all'?'∑':s.part==='dts'?'N0':s.part==='hq'?'N1':'·';big.style.background='transparent';big.style.color='#fff';big.style.border='1px solid rgba(255,255,255,.4)';big.style.fontSize=s.part==='dts'||s.part==='hq'?'18px':'26px';}
-  if(s.k!==undefined)big.style.fontSize='26px';
-  const tot=s.part in ROUTES?ROUTES[s.part].stops.length:0;
-  const kicker=s.part in ROUTES?`Parcours ${P0.n} · <b style="color:${P0.color}">${P0.name}</b> · étape ${s.k+1} / ${tot}`:(s.part==='all'?'Vue d’ensemble':'Architecture');
-  const dir=s.up?' · <b style="color:#E6483A">↑ vers le niveau IA</b>':s.down?' · <b style="color:#E6483A">↓ retour au niveau 0</b>':'';
-  const legend=s.part==='all'?`<div style="display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:10px;font-size:13px">${['trad','syn','hyb'].map(n=>`<span style="display:inline-flex;align-items:center;gap:8px"><i style="display:inline-block;width:26px;height:4px;border-radius:2px;background:${PARTS[n].color}"></i>${PARTS[n].n} · ${PARTS[n].name}</span>`).join('')}</div>`:'';
+  // nœuds
+  const seen=new Set(),now=new Set(s.nodes||[]),inRoute=new Set();
+  if(route in ROUTES){ROUTES[route].forEach(st=>{st.nodes.forEach(n=>{inRoute.add(n);if(st.k<=s.k)seen.add(n);});});}
+  Object.entries(N).forEach(([id,n])=>{const c=n.g.classList;c.remove('off','todo','on','cur','ping');
+    if(route==='none'){if(s.hi&&!s.hi.includes(id))c.add('off');else if(s.hi)c.add('on');return;}
+    if(route==='all'){c.add('on');return;}
+    if(now.has(id))c.add('cur','on');
+    else if((s.also||[]).includes(id))c.add('ping');
+    else if(seen.has(id))c.add('on');
+    else if(inRoute.has(id))c.add('todo');
+    else c.add('off');});
+  BD.forEach(b=>b.g.classList.toggle('hide',!(route===b.r&&b.k<=s.k)&&!(route==='all'&&b.r==='hyb')));
+  // bandeau
+  const P0=PARTS[s.part],big=document.getElementById('big');
+  if(s.k!==undefined){big.textContent=s.k;big.style.background=P0.color;big.style.color='#000';big.style.border='0';}
+  else{big.textContent=s.part==='all'?'∑':String(i);big.style.background='transparent';big.style.color='#fff';big.style.border='1px solid rgba(255,255,255,.4)';}
+  const tot=route in ROUTES?ROUTES[route].length:0;
+  const kicker=route in ROUTES?`Parcours ${P0.n} · <b style="color:${P0.color}">${P0.name}</b> · étape ${s.k} / ${tot}`:(s.part==='all'?'Vue d’ensemble':'Architecture');
+  const dir=s.up?' · <b style="color:#E6483A">↑ niveau IA</b>':s.down?' · <b style="color:#E6483A">↓ niveau 0</b>':'';
+  const legend=s.part==='all'?`<div style="display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:10px;font-size:13px">${['trad','syn','hyb'].map(n=>`<span style="display:inline-flex;align-items:center;gap:8px"><i style="display:inline-block;width:26px;height:3px;border-radius:2px;background:${PARTS[n].color}"></i>${PARTS[n].n} · ${PARTS[n].name}</span>`).join('')}</div>`:'';
   const spec=(s.spec||s.v)?`<div class="spec">${s.v?`<span class="chip">${V}Valide : ${s.v}</span>`:''}${(s.spec||[]).map(x=>`<span>${x}</span>`).join('')}</div>`:'';
   document.getElementById('txt').innerHTML=`<div class="anim-in"><div class="k">${kicker}${dir}</div><h2>${s.title}</h2><p>${s.text}</p>${spec}${legend}</div>`;
   document.getElementById('counter').innerHTML=`<b>${String(i+1).padStart(2,'0')}</b> / ${S.length}`;
-  [...partsNav.children].forEach(b=>b.setAttribute('aria-current',b.dataset.part===grpOf(s.part)?'true':'false'));
+  [...partsNav.children].forEach(b=>b.setAttribute('aria-current',b.dataset.part===s.part?'true':'false'));
   segs.forEach((sp,j)=>{sp.classList.toggle('on',j<=i);sp.classList.toggle('cur',j===i);});
   document.getElementById('prev').disabled=i===0;document.getElementById('next').disabled=i===S.length-1;
   if(!fromHash){try{history.replaceState(null,'','#'+(i+1));}catch(e){}}
