@@ -127,7 +127,7 @@ const tx=(p,x,y,s,c,anc)=>{const t=el('text',{x,y,class:c},p);if(anc)t.setAttrib
 /* ---------- zones ---------- */
 const Z=el('g',{},svg);
 el('rect',{x:1,y:1,width:1102,height:146,class:'zone'},Z);tx(Z,10,15,'Internet · services hors studio','zonel');
-el('rect',{x:1,y:196,width:1102,height:636,class:'zone'},Z);tx(Z,10,212,'Downtown Studio · réseau local','zonel');
+el('rect',{x:1,y:196,width:1102,height:636,class:'zone'},Z);tx(Z,10,212,'Downtown Studio · réseau local 172.16.0.0/16','zonel');
 el('rect',{x:4,y:218,width:262,height:186,class:'frame'},Z);
 el('rect',{x:272,y:346,width:574,height:268,class:'frame'},Z);tx(Z,840,360,'Ferme de rendu · 21 stations connectées','framel','end');
 tx(Z,292,606,'392 cœurs · 2,2 To de RAM · 336 Go de VRAM · ~1,1 PFLOPS FP32 · occupation 3 à 5,5 %','cap');
@@ -157,19 +157,19 @@ node('api',CX[3],22,150,102,'Services en ligne',['fal.ai, LTX','World Labs','Hed
 node('supa',CX[4],22,150,102,'Supabase',['Données Deadline (relevé)','Registre IA (proposé)','export PDF'],{info:[['En place','Tâches Deadline terminées du 01.08 au 30.10.2026'],['Proposé','Registre de production IA : modèle, version, licence, LoRA, seed, prompt, machine, opérateur, interventions humaines'],['Rempli par','Le Shot Runner, une ligne par génération'],['Sortie','Export PDF pour festivals et assurance']]});
 node('hqc',CX[5],22,150,102,'Dada HQ · cloud',['Supabase, Cloudflare R2','MCP distant OAuth, Yjs','fiche de validation'],{st:'conc',info:[['Statut','Concept du 31.10.2026, rien n’est construit'],['Comptes et données','Supabase, projet séparé de Dadaland'],['Aperçus','Cloudflare R2'],['Fiche et validations','Lien signé par personne, journal signé par le serveur'],['Agents web','MCP distant avec OAuth (Claude, ChatGPT)'],['Canvas','Yjs : positions et notes, jamais les fichiers'],['Rendu','File d’attente, chaque machine vient chercher son travail']]});
 node('ddl',CX[6],22,150,102,'Dadaland',['Génération en ligne','essais, décors,','plans sans visage'],{info:[['Usage TNT','Essais, décors, plans sans visage'],['Lien DTS','RF-C9 (RTX 5090, Linux) fait tourner un ComfyUI dédié à la collaboration dadaland.ai'],['Option','Techniques exécutées sur crédits']]});
-node('fw',380,158,340,30,'Pare-feu',['accès internet'],{info:[['Rôle','Sortie internet du studio'],['Règle','Kitsu et ComfyUI jamais exposés sur internet']]});
+node('fw',380,158,340,30,'Pare-feu USG6625F',['uplinks 60 Gb/s'],{info:[['Modèle','Huawei USG6625F'],['Uplinks','60 Gb/s'],['Règle','Kitsu et ComfyUI jamais exposés sur internet']]});
 N.fw.g.querySelectorAll('.l')[0].setAttribute('x',560);N.fw.g.querySelectorAll('.l')[0].setAttribute('y',178);
-node('wg',760,158,170,30,'VPN',[],{info:[['Usage','Télétravail'],['Règle','Accès Kitsu et ComfyUI par VPN uniquement']]});
+node('wg',760,158,170,30,'WireGuard',[],{st:'chk',info:[['Usage','Télétravail'],['À faire','Ajouter son sous-réseau à la règle SSH DTS-SSH-In'],['Règle','Accès Kitsu et ComfyUI par VPN uniquement']]});
 // réseau
-node('core',380,222,340,36,'Cœur réseau',['2 commutateurs · lien de pair 400 Gb/s'],{info:[['Équipement','2 commutateurs de cœur, lien de pair 400 Gb/s'],['Charge mesurée','moins de 8 Gb/s au p99 sur 30 jours'],['Conclusion','Le cœur n’est pas un goulot, même avec 20 stations qui chargent des modèles'],['Température max.','27,6 °C dans la salle du cœur sur 30 jours']]});
+node('core',380,222,340,36,'Cœur réseau',['2 × CE8850 · lien de pair 400 Gb/s'],{info:[['Équipement','2 × Huawei CE8850, lien de pair 400 Gb/s'],['Charge mesurée','moins de 8 Gb/s au p99 sur 30 jours'],['Conclusion','Le cœur n’est pas un goulot, même avec 20 stations qui chargent des modèles'],['Température max.','27,6 °C dans la salle du cœur sur 30 jours']]});
 N.core.g.querySelectorAll('.l')[0].setAttribute('x',520);N.core.g.querySelectorAll('.l')[0].setAttribute('y',16+222);
-node('ssol',300,292,220,36,'Switch A',['stack de 3'],{info:[['Équipement','Stack de 3 commutateurs'],['Uplink','400 Gb/s vers le cœur, 7,9 Gb/s entrant au p99'],['Ports MultiGE','jusqu’à 10 Gb/s, une carte réseau par station suffirait pour passer en 10 Gb/s'],['Raccorde','RF-C2, C3, C4, C7 · RF-C9 · RF-A/B · Progress B11-2, B11-6 · serveur Deadline']]});
+node('ssol',300,292,220,36,'Switch DTS-SSol',['stack 3 × S5732'],{info:[['Équipement','Stack de 3 × Huawei S5732'],['Uplink','400 Gb/s vers le cœur, 7,9 Gb/s entrant au p99'],['Ports MultiGE','jusqu’à 10 Gb/s, une carte réseau par station suffirait pour passer en 10 Gb/s'],['Raccorde','RF-C2, C3, C4, C7 · RF-C9 · RF-A/B · Progress B11-2, B11-6 · srv-deadline']]});
 N.ssol.g.querySelectorAll('.l')[0].setAttribute('x',432);N.ssol.g.querySelectorAll('.l')[0].setAttribute('y',308);
-node('a2',560,292,160,36,'Switch B',[''],{info:[['Équipement','Commutateur d’accès'],['Uplink','200 Gb/s vers le cœur, 3,1 Gb/s entrant au p99'],['Raccorde','RF-C8 · Progress B11-7, B11-8, VFX1, VFX4, B11-9']]});
+node('a2',560,292,160,36,'Switch DTS-A2',['S5732'],{info:[['Équipement','Huawei S5732'],['Uplink','200 Gb/s vers le cœur, 3,1 Gb/s entrant au p99'],['Raccorde','RF-C8 · Progress B11-7, B11-8, VFX1, VFX4, B11-9']]});
 N.a2.g.querySelectorAll('.l')[0].setAttribute('x',680);N.a2.g.querySelectorAll('.l')[0].setAttribute('y',308);
-node('oth',740,292,110,36,'Autres switchs',[],{info:[['Équipement','Switchs reliés au cœur en 200 Gb/s'],['Raccordés','source manquante']]});
+node('oth',740,292,110,36,'DTS-B1, B2, C2',[],{info:[['Équipement','Switchs reliés au cœur en 200 Gb/s'],['Raccordés','source manquante']]});
 // poste de pilotage
-node('jp',8,222,254,40,'Poste de pilotage · JP',['pilotage de la ferme'],{info:[['Utilisateur','Jean-Pascal'],['Rôle','Pilotage de l’installation et des tests, accès à ComfyUI et aux RF par clé'],['Accès','Réservé au réseau local et au VPN']]});
+node('jp',8,222,254,40,'Poste de pilotage · JP',['192.168.34.50 · sous-réseau 192.168.34.0/24'],{info:[['Utilisateur','Jean-Pascal (DTS\\jpgaiffas)'],['Adresse','192.168.34.50'],['Clé SSH','id_ed25519_rf_ferme, mot de passe désactivé sur les RF'],['Rôle','Pilotage de l’installation et des tests, accès ComfyUI 8188 et SSH 22 vers les RF'],['Autre clé présente','olivier@MacBook-Pro-IT.local, conservée sur les RF']]});
 node('agent',16,270,238,56,'Agent principal',['Claude Code, Hermes ou autre harness','compte dédié aux droits limités'],{st:'prop',info:[['Rôle','Opérations en masse et corrections rapides, à côté des interfaces humaines'],['Interfaces','Kitsu (gazu), Deadline (Web Service ou deadlinecommand), ComfyUI (API, journaux), Resolve (API ou MCP 21.1), Blender (MCP), Supabase, SSH'],['Skills','Un skill par outil : Kitsu TNT, Shot Runner, Deadline…'],['Règles','Validations humaines · lecture d’abord, écriture après accord · actions tracées']]});
 node('sa1',16,334,76,64,'Sous-agent',['local','Claude Code,','Codex'],{st:'prop',chip:true,info:[['Données','Restent sur le poste'],['Coût','Gratuit (Dada HQ)'],['Usage','Tâches parallèles du même agent']]});
 node('sa2',97,334,76,64,'Modèle',['local','open source','plans D'],{st:'prop',chip:true,info:[['Données','Restent sur le poste'],['Usage','Analyse d’images des plans explicites, tri, description'],['Règle','Obligatoire dès qu’une image de plan D doit être lue']]});
@@ -187,13 +187,13 @@ capS.forEach(([s,y])=>tx(Z,292,y-3,s,'cap'));
 [['RF-C · 5 Gb/s',376],['Progress · 10 Gb/s',422],['Progress · 2,5 Gb/s',514]].forEach(([s,y])=>tx(Z,620,y-3,s,'cap'));
 const sx=k=>292+k*(CH+CG), ax=k=>620+k*(CH+CG);
 const RFC=(n,ip,extra)=>[['Rôle',n],['CPU','Ryzen 9 9950X3D, 16 cœurs / 32 threads'],['RAM','128 Go'],['GPU','RTX 5080, 16 Go, Blackwell (NVFP4)'],['Réseau','5 Gb/s']].concat(ip?[['Adresse',ip]]:[]).concat(extra||[]);
-chip('c2',sx(0),376,'RF-C2','5080 · maître',{st:'poc',role:'vid',info:RFC('Maître du POC, génération vidéo',null,[['ComfyUI','v0.41.0 portable'],['Voir','Vue « ComfyUI sur une RF »']])});
-chip('c3',sx(1),376,'RF-C3','5080 · worker',{st:'chk',role:'vid',info:RFC('Worker du POC, génération vidéo',null,[['À faire','Client Deadline à mettre à jour']])});
-chip('c4',sx(2),376,'RF-C4','5080 · worker',{st:'poc',role:'vid',info:RFC('Worker du POC, génération vidéo',null,[])});
-chip('c5',sx(3),376,'RF-C5','5080',{st:'chk',role:'vid',info:RFC('Génération vidéo',null,[['À vérifier','Raccordement réseau']])});
+chip('c2',sx(0),376,'RF-C2','5080 · maître',{st:'poc',role:'vid',info:RFC('Maître du POC, génération vidéo','172.16.2.155',[['OS','Windows 11 24H2, driver 617.42'],['ComfyUI','v0.41.0 portable, C:\\ComfyUI\\'],['Voir','Vue « ComfyUI sur une RF »']])});
+chip('c3',sx(1),376,'RF-C3','5080 · worker',{st:'chk',role:'vid',info:RFC('Worker du POC, génération vidéo','172.16.2.172',[['OS','Windows 11 24H2'],['À faire','Deadline Client 10.2.1.1 à passer en 10.4.2.3']])});
+chip('c4',sx(2),376,'RF-C4','5080 · worker',{st:'poc',role:'vid',info:RFC('Worker du POC, génération vidéo','172.16.2.169',[['OS','Windows 11 24H2']])});
+chip('c5',sx(3),376,'RF-C5','5080',{st:'chk',role:'vid',info:RFC('Génération vidéo','192.168.100.92',[['À vérifier','Adresse hors du réseau de la ferme, absente des tables MAC']])});
 chip('c7',sx(0),422,'RF-C7','pile ODS',{st:'exc',info:RFC('Exclue tant qu’elle porte la pile Docker ODS',null,[['Occupation','llama-server garde 15 Go de VRAM quand il tourne']])});
-chip('c9',sx(1),422,'RF-C9','5090 · Linux',{st:'exc',info:[['Rôle','ComfyUI dédié à la collaboration dadaland.ai'],['GPU','RTX 5090, 32 Go'],['CPU','Ryzen 9 9950X3D'],['RAM','128 Go'],['Réseau','10 Gb/s'],['OS','Linux'],['Option','Prêt ponctuel pour entraîner des LoRA']]});
-const RFAB=(n,os)=>[['Rôle','Images clés, upscale, voix, lots d’images'],['CPU','Ryzen 9 7950X, 16 cœurs / 32 threads'],['RAM','128 Go'],['GPU','RTX 4080, 16 Go, Ada (FP8, GGUF)'],['Réseau','2,5 Gb/s'],['Disque','SSD de 932 Go : vérifier la place pour 100 à 150 Go de modèles']];
+chip('c9',sx(1),422,'RF-C9','5090 · Linux',{st:'exc',info:[['Rôle','ComfyUI dédié à la collaboration dadaland.ai'],['GPU','RTX 5090, 32 Go'],['CPU','Ryzen 9 9950X3D'],['RAM','128 Go'],['Réseau','10 Gb/s'],['OS','Linux, hors Action1 depuis le 15.06'],['Option','Prêt ponctuel pour entraîner des LoRA']]});
+const RFAB=(n,os)=>[['Rôle','Images clés, upscale, voix, lots d’images'],['CPU','Ryzen 9 7950X, 16 cœurs / 32 threads'],['RAM','128 Go'],['GPU','RTX 4080, 16 Go, Ada (FP8, GGUF)'],['Réseau','2,5 Gb/s'],['OS','Windows 11 '+os],['Disque','SSD de 932 Go : vérifier la place pour 100 à 150 Go de modèles']];
 ['A1','A2','A3','A4'].forEach((n,k)=>chip('rf'+n,sx(k),468,'RF-'+n,'4080',{role:'img',info:RFAB(n,n==='A4'?'23H2':'22H2')}));
 ['B1','B2','B3','B4'].forEach((n,k)=>chip('rf'+n,sx(k),514,'RF-'+n,'4080',{role:'img',info:RFAB(n,n==='B1'?'22H2':'23H2')}));
 const PRG=(r)=>[['Rôle','Salle de cours Progress, appoint de nuit et de week-end selon accord'],['CPU','i9-14900KF, 24 cœurs / 32 threads'],['RAM','64 Go'],['GPU','RTX 4080 SUPER, 16 Go'],['Réseau',r]];
@@ -203,14 +203,14 @@ chip('c8',ax(0),376,'RF-C8','5080',{role:'vid',info:RFC('Génération vidéo',nu
 chip('pVFX4',ax(0),468,'VFX4','4080 S',{role:'app',info:PRG('10 Gb/s')});
 chip('pB11-9',ax(0),514,'B11-9','4080 S',{role:'app',info:PRG('2,5 Gb/s')});
 // NAS
-node('nas',272,636,574,100,'NAS',['partage du projet TNT'],{cells:[['Racine du projet','lecture seule','par conception'],['Modèles IA','copie maîtresse','12 fichiers, SHA256 OK'],['Dossier de travail','écriture pour','le compte ComfyUI']],info:[['Droits','Groupe projet : modification sur les sous-dossiers, racine en lecture seule'],['Modèles','Copie maîtresse copiée en 23 min depuis RF-C2, source des copies vers C3 et C4'],['Règle','Pas de chargement direct depuis le NAS : robocopy vers le NVMe de chaque RF'],['Arborescence proposée','00_admin, 01_edit, 02_assets, 03_shots, 04_audio, 05_recipes, 06_deliveries'],['Liaison réseau','source manquante']]});
+node('nas',272,636,574,100,'NAS · oceanstor',['\\\\oceanstor\\Inter\\dts\\26-0054-DTS_TNT'],{cells:[['Racine du projet','lecture seule','par conception'],['3_DEVELOPPEMENT\\AI_Models','copie maîtresse','12 fichiers, SHA256 OK'],['4_WIP_VFX','écriture OK pour','DTS\\tnt-comfyui']],info:[['Partage','\\\\oceanstor\\Inter\\dts\\26-0054-DTS_TNT'],['Droits','Groupe 26-0054-DTS_TNT : Modification sur les sous-dossiers, racine en lecture seule'],['Modèles','3_DEVELOPPEMENT\\AI_Models, copié en 23 min depuis RF-C2, source des copies vers C3 et C4'],['Règle','Pas de chargement direct depuis le NAS : robocopy vers le NVMe de chaque RF'],['Arborescence proposée','00_admin, 01_edit, 02_assets, 03_shots, 04_audio, 05_recipes, 06_deliveries'],['Liaison réseau','source manquante']]});
 // services
-node('dl',866,346,226,72,'Serveur Deadline',['Deadline 10 · file de rendu','lien 1 Gb/s','groupe POC · groupe TNT proposé'],{info:[['Logiciel','Deadline 10'],['POC','Groupe limité à C2, C3, C4, pool dédié, plugin ComfyUI pour Deadline'],['Proposé','Groupe TNT et pool à priorité basse, la production passe devant'],['Accès agent','Web Service ou ligne de commande Deadline']]});
+node('dl',866,346,226,72,'srv-deadline',['Deadline 10.4 · MongoDB 103 Go','i7-4820K (2013) · 1 Gb/s','groupe comfyui-poc · tnt-ai proposé'],{st:'chk',info:[['Logiciel','Deadline 10.4 (clients 10.4.2.3), en maintenance depuis le 07.11.2025'],['Machine','i7-4820K de 2013, GTX 10xx, 32 Go de RAM, lien 1 Gb/s'],['Base','MongoDB de 103 Go'],['Worker','Compte DTS\\deadline'],['POC','Groupe comfyui-poc limité à C2, C3, C4, pool dédié, plugin doubletwisted'],['Proposé','Groupe tnt-ai et pool à priorité basse'],['Accès agent','Web Service ou deadlinecommand'],['Risque','Serveur unique et vieillissant au centre des lots de nuit']]});
 node('kitsu',866,428,226,62,'Kitsu',['suivi des plans et revues','Docker · accès VPN · API gazu'],{st:'prop',info:[['Décision','Retenu par Jean-Pascal le 30.10.2026'],['Éditeur','CGWire, open source AGPL'],['Installation','Conteneurs Docker, environ une demi-journée'],['Accès','VPN uniquement, jamais exposé sur internet'],['API','Python gazu et REST'],['Hébergement','source manquante'],['Revues explicites','Projet à accès restreint']]});
 node('tools',866,500,226,118,'Outils à créer',['Shot Runner (Python)','Recettes ComfyUI (dépôt Git)','Fiche plan shot.json','Conformateur Resolve','Contrôle couleur (numpy, OpenCV)','Registre IA'],{st:'prop',info:[['Shot Runner','Lit la fiche plan, remplit le graphe de la recette, envoie à Distributed (jour) ou Deadline (nuit), range la sortie, publie la vignette dans Kitsu, écrit au registre'],['Recettes','5 à 6 graphes au format API, nœuds IN_frames, IN_lora, IN_seed'],['Fiche plan','Champs Kitsu exportés en JSON dans le dossier du plan'],['Conformateur','Dernière version approuvée dans la timeline (API Resolve ou MCP 21.1)'],['Contrôle couleur','Écrêtage, dérive, scintillement à chaque sortie'],['Forme','Petits scripts en ligne de commande, sorties JSON']]});
 node('n8n',866,626,226,46,'n8n',['alertes → Google Chat, mail'],{st:'prop',info:[['Entrées','Événements Deadline, outil de suivi'],['Sorties','Google Chat ou mail : fin des lots de nuit, plans à valider, avancement']]});
 
-node('sup',866,680,226,84,'Supervision',['Action1 · inventaire, scripts','Prometheus, Grafana','Metabase · tableau Deadline','Beszel'],{info:[['Action1','Inventaire matériel, déploiement des scripts'],['Prometheus, Grafana','Réseau, températures'],['Metabase','Tableau de bord Deadline'],['Beszel','Remonte peut-être la charge GPU : à vérifier'],['Non mesuré','Charge et VRAM réelles des GPU']]});
+node('sup',866,680,226,84,'Supervision',['Action1 · inventaire, scripts','Prometheus, Grafana · 172.16.2.53','Metabase · tableau Deadline','Beszel · 172.16.14.6:8090'],{info:[['Action1','Inventaire matériel, déploiement des scripts (OpenSSH, mises à jour)'],['Prometheus, Grafana','172.16.2.53 : SNMP des switchs, baux DHCP, températures'],['Metabase','Tableau de bord Deadline'],['Beszel','172.16.14.6:8090, remonte peut-être la charge GPU : à vérifier'],['Non mesuré','Charge et VRAM réelles des GPU']]});
 
 /* ---------- liaisons ---------- */
 function rounded(p,r=6){let d=`M${p[0][0]},${p[0][1]}`;for(let i=1;i<p.length-1;i++){const [x0,y0]=p[i-1],[x1,y1]=p[i],[x2,y2]=p[i+1];const d1=Math.hypot(x1-x0,y1-y0),d2=Math.hypot(x2-x1,y2-y1);if(!d1||!d2)continue;const rr=Math.min(r,d1/2,d2/2);
@@ -225,7 +225,7 @@ ed('fw-core','eth',[[550,188],[550,222]],'ensemble reseau comfy agents',['uplink
 ed('core-ssol','eth',[[450,258],[450,275],[410,275],[410,292]],V+' comfy',['400 Gb/s',456,272]);
 ed('core-a2','eth',[[640,258],[640,292]],V,['200 Gb/s',646,280]);
 ed('core-oth','eth',[[720,240],[795,240],[795,292]],'ensemble reseau',['200 Gb/s',730,236]);
-ed('jp-core','eth',[[262,242],[380,242]],'ensemble reseau comfy agents',['poste',274,236]);
+ed('jp-core','eth',[[262,242],[380,242]],'ensemble reseau comfy agents',['192.168.34.0/24',274,236]);
 ed('ssol-trunk','eth',[[310,328],[310,337],[284,337],[284,577]],V+' comfy');
 [393,439,485,531,577].forEach((y,k)=>ed('ss'+k,'eth',[[284,y],[292,y]],V+' comfy'));
 ed('a2-trunk','eth',[[640,328],[640,337],[612,337],[612,531]],V);
@@ -236,9 +236,9 @@ const WT={hf:392,gpu:430,llm:470,api:510,supa:590,hqc:650,ddl:700};
 const WV={hf:'comfy',gpu:'ferme',llm:'agents',api:'agents',supa:'suivi',hqc:'dadahq',ddl:'ferme dadahq'};
 Object.entries(WT).forEach(([id,x])=>{const n=N[id];ed('w-'+id,'web',[[n.x+n.w/2,124],[n.x+n.w/2,140],[x,140],[x,158]],'reseau '+WV[id]);});
 // SSH et API ComfyUI depuis le poste
-ed('jp-rf','ssh',[[254,298],[268,298],[268,393],[292,393]],'reseau comfy agents',['accès ComfyUI',140,0]);
-E[E.length-1].t.remove();E[E.length-1].t=tx(LG,270,410,'SSH · ComfyUI','elbl');
-ed('dist','api',[[327,376],[327,367],[475,367],[475,376]],'comfy ferme',['Distributed',336,364]);
+ed('jp-rf','ssh',[[254,298],[268,298],[268,393],[292,393]],'reseau comfy agents',['SSH 22 · ComfyUI 8188',140,0]);
+E[E.length-1].t.remove();E[E.length-1].t=tx(LG,270,410,'SSH 22 · ComfyUI 8188','elbl');
+ed('dist','api',[[327,376],[327,367],[475,367],[475,376]],'comfy ferme',['Distributed · 8188',336,364]);
 ed('dist3','api',[[401,367],[401,376]],'comfy ferme');
 // fichiers
 ed('rf-nas','smb',[[584,393],[600,393],[600,636]],'comfy suivi',['SMB · robocopy vers NVMe',604,620]);
@@ -246,7 +246,7 @@ ed('postes-nas','smb',[[262,476],[268,476],[268,700],[272,700]],'suivi dadahq',[
 E[E.length-1].t.setAttribute('x',230);
 ed('hql-nas','smb',[[262,660],[272,660]],'dadahq',['pointeurs',226,654]);
 // rendu et génération
-ed('dl-ferme','job',[[866,400],[846,400]],'ferme suivi',['jobs Deadline',852,412,'start']);
+ed('dl-ferme','job',[[866,400],[846,400]],'ferme suivi',['jobs · DTS\\deadline',852,412,'start']);
 E[E.length-1].t.setAttribute('x',760);E[E.length-1].t.setAttribute('y',414);
 ed('tools-ferme','job',[[866,560],[846,560]],'suivi',['jour : Distributed · nuit : Deadline',840,574,'end']);
 ed('tools-dl','job',[[866,512],[858,512],[858,410],[866,410]],'suivi');
@@ -262,7 +262,7 @@ ed('ag-hql','mcp',[[6,470],[6,650],[8,650]],'dadahq',['MCP local',10,664]);
 ed('ag-sa1','mcp',[[54,326],[54,334]],'agents');ed('ag-sa2','mcp',[[135,326],[135,334]],'agents');ed('ag-sa3','mcp',[[216,326],[216,334]],'agents dadahq');
 ed('ag-c2lbl','mcp',[[270,343],[270,343]],'agents');
 // ajout : légende de bus agent
-E.push({id:'aglbl',type:'mcp',p:el('path',{d:'M0 0',class:'ed'},EG),t:tx(LG,420,355,'vers Deadline, Kitsu, outils : Web Service · gazu · CLI','elbl'),views:['agents']});
+E.push({id:'aglbl',type:'mcp',p:el('path',{d:'M0 0',class:'ed'},EG),t:tx(LG,420,355,'vers srv-deadline, Kitsu, outils : Web Service · gazu · CLI','elbl'),views:['agents']});
 
 /* ---------- vues ---------- */
 const LEG={eth:['Ethernet, débit du lien','#fff',''],ssh:['SSH','#BFC9D6','5 3'],api:['API HTTP (ComfyUI, gazu)','#BFC9D6',''],job:['Travaux de rendu et de génération','#fff','7 4'],smb:['Fichiers (SMB)','#8A8A8A','2 3'],mcp:['Agent : MCP ou API','#E6483A',''],web:['Internet, via le pare-feu','#C8C8C8','1 4']};
@@ -275,21 +275,21 @@ const VIEWS=[
  {id:'ensemble',tab:'Ensemble',k:'Vue d’ensemble',title:'Le setup en un plan',hi:null,
   body:`<p>En haut, les services sur internet. En bas, le réseau local de Downtown : le poste de pilotage et les postes de création à gauche, le cœur réseau et la ferme au centre, le NAS en bas, les serveurs et les outils projet à droite. Cliquer sur un élément ouvre sa fiche.</p>${STATUS}${legend(['eth'])}`},
  {id:'reseau',tab:'Réseau',k:'Réseau',title:'Réseau et accès',hi:['fw','wg','core','ssol','a2','oth','jp','dl','hf','gpu','llm','api','supa','hqc','ddl'],
-  body:`<p>Le cœur et les liaisons montantes sont larges. Le goulot est la carte réseau de chaque station.</p>${kv([['Cœur','2 commutateurs, lien de pair 400 Gb/s'],['Switch A → cœur','400 Gb/s, 7,9 Gb/s au p99'],['Switch B → cœur','200 Gb/s, 3,1 Gb/s au p99'],['Stations','RF-A/B 2,5 Gb/s · RF-C 5 Gb/s · Progress 10 Gb/s · C9 10 Gb/s'],['Serveur Deadline','1 Gb/s'],['Modèle de 20 Go','~35 s en 5 Gb/s, ~70 s en 2,5 Gb/s']])}
-  <h3>Accès aux RF</h3>${kv([['Administration','SSH par clé, mot de passe désactivé'],['ComfyUI','Ouvert au réseau local seulement, jamais exposé sur internet'],['Télétravail','Par VPN']])}${legend(['eth','ssh','web'])}`},
+  body:`<p>Le cœur et les liaisons montantes sont larges. Le goulot est la carte réseau de chaque station.</p>${kv([['Cœur','2 × CE8850, lien de pair 400 Gb/s'],['DTS-SSol → cœur','400 Gb/s, 7,9 Gb/s au p99'],['DTS-A2 → cœur','200 Gb/s, 3,1 Gb/s au p99'],['Stations','RF-A/B 2,5 Gb/s · RF-C 5 Gb/s · Progress 10 Gb/s · C9 10 Gb/s'],['srv-deadline','1 Gb/s'],['Modèle de 20 Go','~35 s en 5 Gb/s, ~70 s en 2,5 Gb/s'],['Sous-réseaux autorisés','172.16.0.0/16 et 192.168.34.0/24']])}
+  <h3>Règles de pare-feu sur les RF</h3>${kv([['DTS-SSH-In','TCP 22, OpenSSH, shell PowerShell, clé uniquement'],['DTS-ComfyUI-In','TCP 8188 à 8199'],['ComfyUI','Aucune authentification : jamais exposé hors LAN'],['Télétravail','Sous-réseau WireGuard à ajouter']])}${legend(['eth','ssh','web'])}`},
  {id:'ferme',tab:'Ferme',k:'Calcul',title:'Ferme de rendu',hi:FERME.concat(['dl','ssol','a2','core','gpu','ddl']),
   body:`<p>La ferme est presque vide : 3 à 5,5 % d’occupation moyenne depuis août, aucune tâche ne se termine entre 21 h et 5 h UTC. Chaque génération est limitée à 16 Go de VRAM, la mémoire ne s’additionne pas entre machines.</p>
   <h3>Répartition proposée</h3>${kv([['<span class="tag" style="border-color:#E6483A;color:#E6483A">vidéo</span>','RF-C2, C3, C4, C5, C8 · Wan, NVFP4/FP8'],['<span class="tag">image</span>','RF-A1 à A4, RF-B1 à B4 · images clés, upscale, voix'],['<span class="tag poc">appoint</span>','Progress, nuit et week-end selon accord'],['<span class="tag exc">exclues</span>','RF-C7 (pile ODS), RF-C9 (Dadaland)']])}
-  <h3>Capacité</h3>${kv([['Par nuit','13 GPU × 10 h ≈ 130 h GPU'],['Itération TNT','110 à 190 h GPU, soit 1 à 2 nuits'],['Règle','Distributed le jour sur peu de stations, Deadline la nuit sur toute la ferme'],['Deadline','Groupe TNT, pool à priorité basse'],['Au-delà de 16 Go','GPU loué : LoRA vidéo, finition pleine précision']])}
+  <h3>Capacité</h3>${kv([['Par nuit','13 GPU × 10 h ≈ 130 h GPU'],['Itération TNT','110 à 190 h GPU, soit 1 à 2 nuits'],['Règle','Distributed le jour sur peu de stations, Deadline la nuit sur toute la ferme'],['Deadline','Groupe tnt-ai, pool à priorité basse'],['Au-delà de 16 Go','GPU loué : LoRA vidéo, finition pleine précision']])}
   <h3>Hors service au 30.10</h3>${ul(['ProgressB11-0, B11-4, PC32, PC33 déconnectées'])}${legend(['eth','job','api'])}`},
  {id:'comfy',tab:'ComfyUI',k:'Installation de référence',title:'ComfyUI sur une RF',hi:['c2','c3','c4','nas','hf','jp','fw','core','ssol'],
-  body:`<p>Installée et testée sur RF-C2 les 29 et 30.10.2026, à cloner sur C3 et C4. Rien ne tourne en permanence.</p>${kv([['Dossier','<code>C:\\ComfyUI\\</code> portable NVIDIA'],['Versions','ComfyUI v0.41.0 · Python 3.13.14 · PyTorch 2.14.0+cu130'],['Modèles','<code>C:\\AI_Models\\</code>, déclaré dans extra_model_paths.yaml'],['Lancement','Tâche planifiée, à la demande'],['Compte','Compte de service dédié, membre du groupe projet'],['Pare-feu','Réseau local seulement'],['Démarrage','15 s, 1309 nœuds, 14,6 Go de VRAM libres']])}
+  body:`<p>Installée et testée sur RF-C2 les 29 et 30.10.2026, à cloner sur C3 et C4. Rien ne tourne en permanence.</p>${kv([['Dossier','<code>C:\\ComfyUI\\</code> portable NVIDIA'],['Versions','ComfyUI v0.41.0 · Python 3.13.14 · PyTorch 2.14.0+cu130'],['Modèles','<code>C:\\AI_Models\\</code>, déclaré dans extra_model_paths.yaml'],['Lancement','Tâche planifiée <code>\\DTS\\ComfyUI-POC</code>, à la demande, écoute 0.0.0.0:8188'],['Compte','<code>DTS\\tnt-comfyui</code>, groupe 26-0054-DTS_TNT'],['Pare-feu','DTS-ComfyUI-In, TCP 8188-8199'],['Démarrage','15 s, 1309 nœuds, 14,6 Go de VRAM libres']])}
   <h3>Custom nodes figés</h3>${kv([['ComfyUI-Distributed','fef70b7d9407'],['Deadline-Plugin','db9c87d546da (v1.1.0)'],['ComfyUI-GGUF','6ea2651e7df6'],['VideoHelperSuite','4d907bee61e9'],['KJNodes','f20bdd5337ac']])}
   <h3>Modèles · 93,8 Go, Apache 2.0</h3>${kv([['Vidéo rapide','wan2.2_ti2v_5B_fp16'],['Image → vidéo','Wan2.2-I2V-A14B Q5_K_M'],['Vidéo guidée','Wan2.2-VACE-Fun-A14B Q4_K_M'],['Images clés','z_image_turbo, z_image (bf16)'],['Encodeurs, VAE','umt5_xxl fp8, qwen_3_4b fp8, VAE Wan']])}
-  <h3>Points ouverts</h3>${ul([['RF-C3 : client Deadline à mettre à jour'],['Triton pour Windows : utile ou non'],'Étape 5 du POC : test Deadline et libération de la VRAM'])}${legend(['ssh','api','smb','web'])}`},
+  <h3>Points ouverts</h3>${ul([['Mot de passe de tnt-comfyui : cocher « n’expire jamais »'],['RF-C3 : Deadline Client 10.2.1.1 à mettre à jour'],['Triton pour Windows : utile ou non'],'Étape 5 du POC : test Deadline et libération de la VRAM'])}${legend(['ssh','api','smb','web'])}`},
  {id:'agents',tab:'Agents · MCP',k:'Pilotage',title:'Agents et MCP',hi:['agent','sa1','sa2','sa3','jp','postes','kitsu','dl','tools','c2','c3','c4','llm','api','fw','core'],
   body:`<p>Un agent complète les interfaces humaines pour les opérations en masse et les corrections rapides. Il tourne sur le poste de pilotage et parle aux outils par leurs API.</p>
-  <h3>Interfaces</h3>${kv([['Kitsu','API gazu · structure du film, playlists, corrections en masse'],['Deadline','Web Service ou deadlinecommand · relance après incident'],['ComfyUI','API, journaux · diagnostic'],['Resolve','API ou serveur MCP de Resolve 21.1 · conformation'],['Blender','Serveur MCP, déjà installé sur le poste · layout'],['Supabase','Export du registre IA'],['RF','SSH par clé']])}
+  <h3>Interfaces</h3>${kv([['Kitsu','API gazu · structure du film, playlists, corrections en masse'],['Deadline','Web Service ou deadlinecommand · relance après incident'],['ComfyUI','API 8188, journaux · diagnostic'],['Resolve','API ou serveur MCP de Resolve 21.1 · conformation'],['Blender','Serveur MCP, déjà installé sur le poste · layout'],['Supabase','Export du registre IA'],['RF','SSH, clé dédiée']])}
   <h3>Sous-agents</h3>${kv([['Sous-agent local','Claude Code, Codex · données sur le poste'],['Modèle local','Open source · seul autorisé à lire les images des plans explicites'],['Agent tiers distant','Pointeurs et proxies seulement, jeton limité, plafond de crédits']])}
   <h3>Règles</h3>${ul(['Les validations restent humaines : l’agent ne passe jamais un plan en « Approuvé »','Lecture d’abord, écriture après accord, liste des changements montrée avant','Compte dédié aux droits limités dans Kitsu et sur le NAS, chaque action tracée','Aucune image de plan explicite envoyée à un modèle en ligne','Aucun secret dans les prompts'])}${legend(['mcp','ssh','web'])}`},
  {id:'suivi',tab:'Suivi · outils',k:'Chaîne d’un plan',title:'Suivi et outils projet',hi:['kitsu','tools','dl','n8n','supa','nas','postes','c2','c3','c4','c5','c8'],
@@ -299,13 +299,13 @@ const VIEWS=[
  {id:'dadahq',tab:'Dada HQ',k:'Concept · 31.10.2026',title:'Dada HQ',hi:['hql','hqc','agent','sa3','nas','postes','ddl'],
   body:`<p>Le QG du projet : chaque fichier avec sa version, son aperçu et son origine, chaque validation liée à la version exacte. Les fichiers lourds restent sur le NAS, Dada HQ garde un pointeur. Concept, rien n’est construit.</p>
   <h3>Sur chaque Mac</h3>${kv([['Surveillance','launchd, événements de fichiers, relevé sur disques réseau'],['Dossier projet','Pointeurs .dadalink, git caché, index SQLite'],['Aperçus','Quick Look, ffmpeg, Blender sans interface, OpenImageIO'],['Agents','MCP local, page projet React et XYFlow']])}
-  <h3>Hébergé, avec abonnement</h3>${kv([['Comptes, données','Supabase'],['Aperçus','Cloudflare R2'],['Validations','Fiche à lien signé, journal signé'],['Agents web','MCP distant avec OAuth'],['Canvas','Yjs'],['Rendu','File d’attente, les machines viennent chercher leur travail']])}
-  <h3>À arbitrer pour TNT</h3>${ul([['Dada HQ est conçu Mac d’abord, la ferme tourne sous Windows'],['Kitsu (décidé le 30.10) et Dada HQ se recouvrent sur les versions et les validations'],['Événements de fichiers sur un NAS : à tester']])}${legend(['mcp','smb','web'])}`},
- {id:'ouvert',tab:'À régler',k:'Avant la production',title:'Points ouverts',hi:['c3','c5','dl','kitsu','postes','rfA1','rfA2','rfA3','rfA4','rfB1','rfB2','rfB3','rfB4','hql','oth','nas','sup'],
+  <h3>Hébergé, avec abonnement</h3>${kv([['Comptes, données','Supabase'],['Aperçus','Cloudflare R2'],['Validations','Fiche à lien signé, journal signé'],['Agents web','MCP distant avec OAuth'],['Canvas','Yjs'],['Rendu','File d’attente, les machines viennent chercher leur travail : aucun port ouvert, pas de VPN']])}
+  <h3>À arbitrer pour TNT</h3>${ul([['Dada HQ est conçu Mac d’abord, la ferme DTS tourne sous Windows'],['Kitsu (décidé le 30.10) et Dada HQ se recouvrent sur les versions et les validations'],['Événements de fichiers sur un NAS : à tester']])}${legend(['mcp','smb','web'])}`},
+ {id:'ouvert',tab:'À régler',k:'Avant la production',title:'Points ouverts',hi:['c3','c5','wg','dl','kitsu','postes','rfA1','rfA2','rfA3','rfA4','rfB1','rfB2','rfB3','rfB4','hql','oth','nas','sup'],
   body:`<p>Ce que les relevés du 29 et du 30.10 laissent ouvert, avec ce qu’il manque dans les sources.</p>
-  <h3>Technique</h3>${ul([['RF-C3 : client Deadline à mettre à jour'],['RF-C5 : raccordement réseau à vérifier'],['Mises à jour système des RF-A/B à coupler à l’installation de ComfyUI'],['SSD de 932 Go sur RF-A/B : vérifier l’espace libre'],['Serveur Deadline à surveiller pendant les lots de nuit'],'Test Deadline du POC : libération de la VRAM','Accord Progress pour la nuit et le week-end','Charge GPU réelle non mesurée'])}
+  <h3>Technique</h3>${ul([['RF-C3 : Deadline Client 10.2.1.1 → 10.4.2.3'],['RF-C5 : adresse 192.168.100.92 hors réseau ferme'],['DTS\\tnt-comfyui : mot de passe qui expire'],['Windows 11 22H2 et 23H2 sur RF-A/B : passer en 25H2 via Action1'],['SSD de 932 Go sur RF-A/B : vérifier l’espace libre'],['srv-deadline : machine de 2013, lien 1 Gb/s'],'Sous-réseau WireGuard à ajouter à la règle SSH','Test Deadline du POC : libération de la VRAM','Accord Progress pour la nuit et le week-end','Charge GPU réelle non mesurée (Beszel à vérifier)'])}
   <h3>Décisions</h3>${ul(['Étalonnage final : Resolve ou Baselight','Compositing : Fusion et Nuke, ou Nuke partout','Convention sRGB ou Rec.709 gamma 2.4 pour les PNG','Taille de l’équipe et rôles','Rôle de Dada HQ à côté de Kitsu'])}
-  <h3>Source manquante</h3>${ul(['Matériel des postes de création','Hébergement de Kitsu','Liaison réseau du NAS','Équipements derrière les autres switchs'])}`}
+  <h3>Source manquante</h3>${ul(['Matériel des postes de création','Hébergement de Kitsu','Liaison réseau du NAS','Équipements derrière DTS-B1, B2, C2'])}`}
 ];
 const vnav=document.getElementById('views'),panel=document.getElementById('panel');
 VIEWS.forEach((v,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=`<span>${String(i+1).padStart(2,'0')}</span>${v.tab}`;b.onclick=()=>go(i);vnav.appendChild(b);});
