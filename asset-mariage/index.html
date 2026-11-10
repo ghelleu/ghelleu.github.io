@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Bestiaire des menus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout : planche de tri, filtres collés en haut, vignettes en colonnes étroites au format de la carte 10×21 */
+:root{
+  --bg:#ebe8e3; --surface:#f8f7f4; --fg:#231b1b; --muted:#6e6461; --line:#d6d0c8;
+  --accent:#560002; --accent-fg:#ffffff; --star:#a8741a;
+  --display:"IM Fell English", "Iowan Old Style", Georgia, serif;
+  --body:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#151011; --surface:#211a1b; --fg:#efe7e3; --muted:#a6989a; --line:#3a2f30;
+  --accent:#c9686d; --accent-fg:#1a0b0c; --star:#e0b14f; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#151011; --surface:#211a1b; --fg:#efe7e3; --muted:#a6989a; --line:#3a2f30;
+  --accent:#c9686d; --accent-fg:#1a0b0c; --star:#e0b14f; color-scheme:dark }
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14px;line-height:1.45}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));max-width:1500px;margin:0 auto}
+header.top{padding-block:28px 14px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;justify-content:space-between}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(28px,4vw,40px);margin:0;line-height:1.05;text-wrap:balance}
+.lede{color:var(--muted);margin:6px 0 0;max-width:62ch}
+.count{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar .wrap{padding-block:10px;display:flex;flex-direction:column;gap:8px}
+.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.row .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);width:92px;flex:none}
+.chip{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;padding:5px 12px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.chip:hover{border-color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.chip small{opacity:.7;font-variant-numeric:tabular-nums}
+.chip:focus-visible,.card button:focus-visible,.lb button:focus-visible,.lb a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+main{padding-block:8px 60px}
+section.serie{padding-block:22px 6px}
+section.serie h2{font-family:var(--display);font-weight:400;font-size:24px;margin:0;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+section.serie h2 .code{font-family:var(--body);font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--accent)}
+section.serie p{color:var(--muted);margin:2px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px 14px}
+.card{display:flex;flex-direction:column;gap:6px;min-width:0}
+.card .thumb{all:unset;cursor:zoom-in;display:block;aspect-ratio:266/559;border-radius:3px;overflow:hidden;background:var(--line)}
+.card .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
+.card .thumb:hover img{transform:scale(1.025)}
+.card .thumb:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.meta{display:flex;gap:6px;align-items:flex-start;justify-content:space-between}
+.meta .t{min-width:0}
+.meta .num{font-size:11px;font-weight:600;letter-spacing:.05em;color:var(--accent);font-variant-numeric:tabular-nums}
+.meta .n{font-size:13px;line-height:1.3}
+.meta .d{font-size:12px;color:var(--muted)}
+.fav{all:unset;cursor:pointer;font-size:18px;line-height:1;color:var(--line);padding:2px 2px 4px}
+.fav[aria-pressed="true"]{color:var(--star)}
+.fav:hover{color:var(--star)}
+.empty{color:var(--muted);padding:40px 0}
+.lb{position:fixed;inset:0;z-index:20;background:color-mix(in srgb,var(--bg) 94%,transparent);display:grid;grid-template-columns:auto 1fr auto;grid-template-rows:1fr auto;align-items:center;gap:10px;
+  padding:calc(12px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+.lb figure{margin:0;grid-column:2;grid-row:1;display:flex;justify-content:center;align-items:center;min-height:0;height:100%}
+.lb figure img{max-height:calc(100vh - 150px);max-width:100%;width:auto;border-radius:3px}
+.lb .nav{all:unset;cursor:pointer;font-size:30px;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:var(--surface);border:1px solid var(--line)}
+.lb .prev{grid-column:1;grid-row:1}.lb .next{grid-column:3;grid-row:1}
+.lb .cap{grid-column:1 / -1;grid-row:2;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:center;text-align:center}
+.lb .cap .n{font-family:var(--display);font-size:20px}
+.lb .cap .d{color:var(--muted)}
+.lb .act{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.lb a.chip{text-decoration:none}
+.lb .close{position:absolute;top:calc(10px + env(safe-area-inset-top,0px));right:max(10px,env(safe-area-inset-right,0px))}
+footer{color:var(--muted);font-size:12px;padding-block:0 40px}
+@media (max-width:520px){.row .lbl{width:100%}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lb{grid-template-columns:1fr}.lb .prev,.lb .next{display:none}.lb figure{grid-column:1}}
+@media (prefers-reduced-motion:reduce){.card .thumb img{transition:none}}
+body{margin:0}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-end}
+.status{color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+
+<header class="wrap top">
+  <div>
+    <h1>Bestiaire des menus</h1>
+    <p class="lede">Menus du dîner, carton 10 × 21 cm bordeaux. Le saumon en dorure blanche, l'agneau en dorure argent par-dessus. Toutes les propositions générées sur Dadaland, série par série.</p>
+  </div>
+  <div class="tools"><span class="count" id="count"></span><button class="chip" id="zipBtn" type="button">Télécharger la sélection en HD (zip)</button><span class="status" id="zipStatus"></span></div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="row" id="rowSerie"><span class="lbl">Série</span></div>
+    <div class="row" id="rowComp" hidden><span class="lbl">Composition</span></div>
+    <div class="row" id="rowDen" hidden><span class="lbl">Densité</span></div>
+  </div>
+</div>
+
+<main class="wrap" id="main"></main>
+<footer class="wrap">Vignettes d'aperçu. Les fichiers HD téléchargés portent le nom affiché (série, numéro, nom). Le zip prend les propositions visibles avec le filtre en cours. Les favoris restent dans ce navigateur.</footer>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Aperçu">
+  <button class="nav prev" id="lbPrev" aria-label="Précédente">‹</button>
+  <figure><img id="lbImg" alt=""></figure>
+  <button class="nav next" id="lbNext" aria-label="Suivante">›</button>
+  <div class="cap">
+    <div><div class="n" id="lbName"></div><div class="d" id="lbDesc"></div></div>
+    <div class="act">
+      <button class="chip" id="lbFav" aria-pressed="false">☆ Favori</button>
+      <button class="chip" id="lbDl" type="button">Télécharger en HD</button>
+      <a class="chip" id="lbHd" target="_blank" rel="noopener">Ouvrir en HD ↗</a>
+      <button class="chip" id="lbCopy">Copier le nom</button>
+    </div>
+  </div>
+  <button class="nav close" id="lbClose" aria-label="Fermer">×</button>
+</div>
+
+<script id="data" type="application/json">{"items": [{"i": 0, "s": "V1", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/ecbac8f7-db23-46b6-8284-fb24084ebbb0/output.jpg", "t": "thumbs/00.jpg", "n": "Superposition décalée", "num": "01", "file": "menu_V1_01_Superposition-decalee", "ext": "jpg"}, {"i": 1, "s": "V1", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/ac569530-6b7e-4e83-b579-b306a4b581c9/output.jpg", "t": "thumbs/01.jpg", "n": "Le géant", "num": "02", "file": "menu_V1_02_Le-geant", "ext": "jpg"}, {"i": 2, "s": "V1", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/bbeb38a3-eb85-46ac-9538-2bf59355ea71/output.jpg", "t": "thumbs/02.jpg", "n": "Chimère soudée", "num": "03", "file": "menu_V1_03_Chimere-soudee", "ext": "jpg"}, {"i": 3, "s": "V1", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/387f724d-e2b0-4972-9135-666f719a2816/output.jpg", "t": "thumbs/03.jpg", "n": "Tête-bêche", "num": "04", "file": "menu_V1_04_Tete-beche", "ext": "jpg"}, {"i": 4, "s": "V1", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/89a06c85-dc6f-426f-8220-ba9855492814/output.jpg", "t": "thumbs/04.jpg", "n": "Contour ajouré", "num": "05", "file": "menu_V1_05_Contour-ajoure", "ext": "jpg"}, {"i": 5, "s": "V1", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/3cd71f3f-c834-458c-8502-8c263aadaea7/output.jpg", "t": "thumbs/05.jpg", "n": "Banc", "num": "06", "file": "menu_V1_06_Banc", "ext": "jpg"}, {"i": 6, "s": "V1", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/7a6a9924-c94d-4421-8569-74f91feb8a4e/output.jpg", "t": "thumbs/06.jpg", "n": "Héraldique", "num": "07", "file": "menu_V1_07_Heraldique", "ext": "jpg"}, {"i": 7, "s": "V1", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/1f193d01-47ba-42d0-a72b-9160cbba4d1f/output.jpg", "t": "thumbs/07.jpg", "n": "Découpage", "num": "08", "file": "menu_V1_08_Decoupage", "ext": "jpg"}, {"i": 8, "s": "V1", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/1c022d9e-0d06-4ba8-9a10-bfa994b4db76/output.jpg", "t": "thumbs/08.jpg", "n": "Enroulement", "num": "09", "file": "menu_V1_09_Enroulement", "ext": "jpg"}, {"i": 9, "s": "V1", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/45134575-a735-43ce-a8b2-725c0405329f/output.jpg", "t": "thumbs/09.jpg", "n": "Hors-champ", "num": "10", "file": "menu_V1_10_Hors-champ", "ext": "jpg"}, {"i": 10, "s": "V2", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/d3e584f0-8a23-4461-88ea-1ab08b52bbd5/output.jpg", "t": "thumbs/10.jpg", "n": "Pinceau gestuel", "num": "01", "file": "menu_V2_01_Pinceau-gestuel", "ext": "jpg"}, {"i": 11, "s": "V2", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/44187944-949e-4dd8-a3d9-fe369989de11/output.jpg", "t": "thumbs/11.jpg", "n": "Bauhaus", "num": "02", "file": "menu_V2_02_Bauhaus", "ext": "jpg"}, {"i": 12, "s": "V2", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/d4581ec5-6768-49a9-8a34-b4e409101c83/output.jpg", "t": "thumbs/12.jpg", "n": "Lanières tranchées", "num": "03", "file": "menu_V2_03_Lanieres-tranchees", "ext": "jpg"}, {"i": 13, "s": "V2", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/d75a9e77-320e-4853-b858-eb6e06947c42/output.jpg", "t": "thumbs/13.jpg", "n": "Ligne continue", "num": "04", "file": "menu_V2_04_Ligne-continue", "ext": "jpg"}, {"i": 14, "s": "V2", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/28c9d970-2641-498e-a748-fbe63681011b/output.jpg", "t": "thumbs/14.jpg", "n": "Bois gravé", "num": "05", "file": "menu_V2_05_Bois-grave", "ext": "jpg"}, {"i": 15, "s": "V2", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/60ed0eb9-35a2-4092-a067-53798a428553/output.jpg", "t": "thumbs/15.jpg", "n": "Op art", "num": "06", "file": "menu_V2_06_Op-art", "ext": "jpg"}, {"i": 16, "s": "V2", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/a8c1a31a-3937-465e-be1e-4eaede205b12/output.jpg", "t": "thumbs/16.jpg", "n": "Entrelacs", "num": "07", "file": "menu_V2_07_Entrelacs", "ext": "jpg"}, {"i": 17, "s": "V2", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/f7206a77-e9ab-406e-80ed-7da2980d374e/output.jpg", "t": "thumbs/17.jpg", "n": "Figure et fond", "num": "08", "file": "menu_V2_08_Figure-et-fond", "ext": "jpg"}, {"i": 18, "s": "V2", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/967f5d3d-1c73-4578-8504-1f5302b3ef40/output.jpg", "t": "thumbs/18.jpg", "n": "Arête", "num": "09", "file": "menu_V2_09_Arete", "ext": "jpg"}, {"i": 19, "s": "V2", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/f146e2a4-81b8-4c42-a879-3be2deb1cc7b/output.jpg", "t": "thumbs/19.jpg", "n": "Kamon", "num": "10", "file": "menu_V2_10_Kamon", "ext": "jpg"}, {"i": 20, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/018a5288-bc39-42b4-9d13-d2521055b0fe/output.png", "t": "thumbs/20.jpg", "n": "Lutte", "num": "01", "file": "menu_V3_01_Lutte", "ext": "png"}, {"i": 21, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/84a8a5ce-8c2e-40e7-a1af-6af89f6b14d4/output.png", "t": "thumbs/21.jpg", "n": "Cadre", "num": "02", "file": "menu_V3_02_Cadre", "ext": "png"}, {"i": 22, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/6341de40-4d0b-4183-9403-54b3459d8873/output.png", "t": "thumbs/22.jpg", "n": "Étreinte", "num": "03", "file": "menu_V3_03_Etreinte", "ext": "png"}, {"i": 23, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/7cae1cea-b8b5-4e13-a673-6c78543bfb0f/output.png", "t": "thumbs/23.jpg", "n": "Morsure", "num": "04", "file": "menu_V3_04_Morsure", "ext": "png"}, {"i": 24, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/1b9f0375-8347-4d08-94ec-373f39f648b9/output.png", "t": "thumbs/24.jpg", "n": "Surimpression", "num": "05", "file": "menu_V3_05_Surimpression", "ext": "png"}, {"i": 25, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/14223f9e-c3ce-413b-a623-86473ede822b/output.png", "t": "thumbs/25.jpg", "n": "Repérage décalé", "num": "06", "file": "menu_V3_06_Reperage-decale", "ext": "png"}, {"i": 26, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/c226a711-276e-45b3-9e9c-ee3dd0eb0474/output.png", "t": "thumbs/26.jpg", "n": "Riso", "num": "07", "file": "menu_V3_07_Riso", "ext": "png"}, {"i": 27, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/5f463449-2972-475a-a17d-c38df20cf7a7/output.png", "t": "thumbs/27.jpg", "n": "Gravure", "num": "08", "file": "menu_V3_08_Gravure", "ext": "png"}, {"i": 28, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/ac8cca21-9098-46b4-b1d1-4009e31f50ae/output.png", "t": "thumbs/28.jpg", "n": "S en rotation", "num": "09", "file": "menu_V3_09_S-en-rotation", "ext": "png"}, {"i": 29, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/2bdbd174-62f8-4531-a9eb-93f8a0e04a3a/output.png", "t": "thumbs/29.jpg", "n": "Carte à jouer", "num": "10", "file": "menu_V3_10_Carte-a-jouer", "ext": "png"}, {"i": 30, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/39789d40-81a1-46c4-941c-17f10ed1b282/output.png", "t": "thumbs/30.jpg", "n": "Queue", "num": "11", "file": "menu_V3_11_Queue", "ext": "png"}, {"i": 31, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/761f504e-5b43-4bb1-8198-023462d9d7ec/output.png", "t": "thumbs/31.jpg", "n": "Faune", "num": "12", "file": "menu_V3_12_Faune", "ext": "png"}, {"i": 32, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/6731b0c7-bafa-44cc-bd81-c6cd87df6dab/output.png", "t": "thumbs/32.jpg", "n": "Ronde", "num": "13", "file": "menu_V3_13_Ronde", "ext": "png"}, {"i": 33, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/77ca54b6-8bb2-48a0-af79-725012485099/output.png", "t": "thumbs/33.jpg", "n": "Dragon", "num": "14", "file": "menu_V3_14_Dragon", "ext": "png"}, {"i": 34, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/d4eb32ca-d2e4-4744-9c78-965b7abb6f23/output.png", "t": "thumbs/34.jpg", "n": "Anguleux", "num": "15", "file": "menu_V3_15_Anguleux", "ext": "png"}, {"i": 35, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/61e379dc-5f1c-426a-bbc0-0aa6b8ea6d47/output.png", "t": "thumbs/35.jpg", "n": "Contorsion", "num": "16", "file": "menu_V3_16_Contorsion", "ext": "png"}, {"i": 36, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/ba394f70-096d-450e-87f2-f95ce1a4adf9/output.png", "t": "thumbs/36.jpg", "n": "Cadre poisson", "num": "17", "file": "menu_V3_17_Cadre-poisson", "ext": "png"}, {"i": 37, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/822f2d44-0c93-4553-a931-6f4b7872833b/output.png", "t": "thumbs/37.jpg", "n": "Éclat", "num": "18", "file": "menu_V3_18_Eclat", "ext": "png"}, {"i": 38, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/6a5b4877-450e-443e-9ed6-c167dcf512a2/output.png", "t": "thumbs/38.jpg", "n": "Constellation", "num": "19", "file": "menu_V3_19_Constellation", "ext": "png"}, {"i": 39, "s": "V3", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/af43bf6c-e57f-4b33-953d-a87b384132d2/output.png", "t": "thumbs/39.jpg", "n": "Miroir", "num": "20", "file": "menu_V3_20_Miroir", "ext": "png"}, {"i": 40, "s": "V4", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/4a86b907-f7c5-49e2-acde-0d3f890a7c27/output.jpg", "t": "thumbs/40.jpg", "n": "Nœud", "num": "01", "file": "menu_V4_01_Nud", "ext": "jpg"}, {"i": 41, "s": "V4", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/50bd18ad-25d5-45fa-b451-af62d806a1e2/output.jpg", "t": "thumbs/41.jpg", "n": "Cadre", "num": "02", "file": "menu_V4_02_Cadre", "ext": "jpg"}, {"i": 42, "s": "V4", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/38703d58-8b73-4452-8fb8-2e847c316f1a/output.jpg", "t": "thumbs/42.jpg", "n": "Surimpression", "num": "05", "file": "menu_V4_05_Surimpression", "ext": "jpg"}, {"i": 43, "s": "V4", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/5f2d283e-7c32-4fd5-b274-8662622d0b85/output.jpg", "t": "thumbs/43.jpg", "n": "S en rotation", "num": "09", "file": "menu_V4_09_S-en-rotation", "ext": "jpg"}, {"i": 44, "s": "V4", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/df92d483-5301-4834-ac5c-4069b446aadf/output.jpg", "t": "thumbs/44.jpg", "n": "Queue", "num": "11", "file": "menu_V4_11_Queue", "ext": "jpg"}, {"i": 45, "s": "V4", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/a3626649-7bfc-4049-9b7e-48d6bf1720c7/output.jpg", "t": "thumbs/45.jpg", "n": "Faune", "num": "12", "file": "menu_V4_12_Faune", "ext": "jpg"}, {"i": 46, "s": "V4", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/0fa88d45-3cc7-4ff3-93ba-81f6a7d7f570/output.jpg", "t": "thumbs/46.jpg", "n": "Contorsion", "num": "16", "file": "menu_V4_16_Contorsion", "ext": "jpg"}, {"i": 47, "s": "V5", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/d36e5f7f-c552-4a5c-b8eb-0b4602f02a24/output.png", "t": "thumbs/47.jpg", "n": "Lutte", "num": "01", "file": "menu_V5_01_Lutte", "ext": "png"}, {"i": 48, "s": "V5", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/e30f1418-9acf-4cbf-bef9-9f60041f1857/output.png", "t": "thumbs/48.jpg", "n": "Cadre", "num": "02", "file": "menu_V5_02_Cadre", "ext": "png"}, {"i": 49, "s": "V5", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/63ad6030-6db4-4fa9-9227-41b762e30723/output.png", "t": "thumbs/49.jpg", "n": "Surimpression", "num": "05", "file": "menu_V5_05_Surimpression", "ext": "png"}, {"i": 50, "s": "V5", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/0cca031c-7492-4245-9979-0a63404c3b4b/output.png", "t": "thumbs/50.jpg", "n": "S en rotation", "num": "09", "file": "menu_V5_09_S-en-rotation", "ext": "png"}, {"i": 51, "s": "V5", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/1f26f2eb-2b28-4ecc-8018-d59d8062dc14/output.png", "t": "thumbs/51.jpg", "n": "Queue", "num": "11", "file": "menu_V5_11_Queue", "ext": "png"}, {"i": 52, "s": "V5", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/c0767a53-6f86-4518-8216-989bd84bddee/output.png", "t": "thumbs/52.jpg", "n": "Ronde", "num": "13", "file": "menu_V5_13_Ronde", "ext": "png"}, {"i": 53, "s": "V5", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/bf7f386b-20a1-4620-b899-5da7a0c3f1d7/output.png", "t": "thumbs/53.jpg", "n": "Contorsion", "num": "16", "file": "menu_V5_16_Contorsion", "ext": "png"}, {"i": 54, "s": "V6", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/d43feb20-5a70-4321-a74e-a20114b31c76/output.png", "t": "thumbs/54.jpg", "n": "Nœud · S", "num": "A1 d1", "fam": "Nœud", "c": "A1", "d": "d1", "dl": "dense", "file": "menu_V6_A1_d1_Nud", "ext": "png"}, {"i": 55, "s": "V6", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/f7f0584d-df3b-4f85-8a40-7151eb08e1ee/output.png", "t": "thumbs/55.jpg", "n": "Nœud · S", "num": "A1 d2", "fam": "Nœud", "c": "A1", "d": "d2", "dl": "équilibré", "file": "menu_V6_A1_d2_Nud", "ext": "png"}, {"i": 56, "s": "V6", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/c38cb14a-1998-4ecd-9cec-3f5171cc27ab/output.png", "t": "thumbs/56.jpg", "n": "Nœud · S", "num": "A1 d3", "fam": "Nœud", "c": "A1", "d": "d3", "dl": "aéré", "file": "menu_V6_A1_d3_Nud", "ext": "png"}, {"i": 57, "s": "V6", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/a57282db-9ddd-47b5-afad-c0884d7d7ea7/output.png", "t": "thumbs/57.jpg", "n": "Nœud · anneau", "num": "A2 d1", "fam": "Nœud", "c": "A2", "d": "d1", "dl": "dense", "file": "menu_V6_A2_d1_Nud", "ext": "png"}, {"i": 58, "s": "V6", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/73eea4aa-ed08-46f5-b03d-6f57d200ced1/output.png", "t": "thumbs/58.jpg", "n": "Nœud · anneau", "num": "A2 d2", "fam": "Nœud", "c": "A2", "d": "d2", "dl": "équilibré", "file": "menu_V6_A2_d2_Nud", "ext": "png"}, {"i": 59, "s": "V6", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/677584c8-db3f-4cbe-b6a6-6440334813c2/output.png", "t": "thumbs/59.jpg", "n": "Nœud · anneau", "num": "A2 d3", "fam": "Nœud", "c": "A2", "d": "d3", "dl": "aéré", "file": "menu_V6_A2_d3_Nud", "ext": "png"}, {"i": 60, "s": "V6", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/e4e40c7a-fa94-4b1c-9244-78239b5ebb96/output.png", "t": "thumbs/60.jpg", "n": "Nœud · spirale", "num": "A3 d1", "fam": "Nœud", "c": "A3", "d": "d1", "dl": "dense", "file": "menu_V6_A3_d1_Nud", "ext": "png"}, {"i": 61, "s": "V6", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/d151defa-d641-4690-82a9-053444404819/output.png", "t": "thumbs/61.jpg", "n": "Nœud · spirale", "num": "A3 d2", "fam": "Nœud", "c": "A3", "d": "d2", "dl": "équilibré", "file": "menu_V6_A3_d2_Nud", "ext": "png"}, {"i": 62, "s": "V6", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/75fc5f4f-ec36-4db2-b983-d30fc5aa5100/output.png", "t": "thumbs/62.jpg", "n": "Nœud · spirale", "num": "A3 d3", "fam": "Nœud", "c": "A3", "d": "d3", "dl": "aéré", "file": "menu_V6_A3_d3_Nud", "ext": "png"}, {"i": 63, "s": "V6", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/6097101b-06d0-4bae-98b0-c410fed37556/output.png", "t": "thumbs/63.jpg", "n": "Ronde · dispersion", "num": "B1 d1", "fam": "Ronde", "c": "B1", "d": "d1", "dl": "dense", "file": "menu_V6_B1_d1_Ronde", "ext": "png"}, {"i": 64, "s": "V6", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/71804536-9236-45d8-b1ff-3910b9730126/output.png", "t": "thumbs/64.jpg", "n": "Ronde · dispersion", "num": "B1 d2", "fam": "Ronde", "c": "B1", "d": "d2", "dl": "équilibré", "file": "menu_V6_B1_d2_Ronde", "ext": "png"}, {"i": 65, "s": "V6", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/5c11d7f7-c6e5-4fa5-bf04-99130d7fbc20/output.png", "t": "thumbs/65.jpg", "n": "Ronde · dispersion", "num": "B1 d3", "fam": "Ronde", "c": "B1", "d": "d3", "dl": "aéré", "file": "menu_V6_B1_d3_Ronde", "ext": "png"}, {"i": 66, "s": "V6", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/5f1f6fe0-7d8f-47a9-8913-768149bfa153/output.png", "t": "thumbs/66.jpg", "n": "Ronde · diagonale", "num": "B2 d1", "fam": "Ronde", "c": "B2", "d": "d1", "dl": "dense", "file": "menu_V6_B2_d1_Ronde", "ext": "png"}, {"i": 67, "s": "V6", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/1d10abe0-5731-446f-bdc1-efbcb2160fed/output.png", "t": "thumbs/67.jpg", "n": "Ronde · diagonale", "num": "B2 d2", "fam": "Ronde", "c": "B2", "d": "d2", "dl": "équilibré", "file": "menu_V6_B2_d2_Ronde", "ext": "png"}, {"i": 68, "s": "V6", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/c5bb6127-22c7-449a-b283-95f6d7fd9a13/output.png", "t": "thumbs/68.jpg", "n": "Ronde · diagonale", "num": "B2 d3", "fam": "Ronde", "c": "B2", "d": "d3", "dl": "aéré", "file": "menu_V6_B2_d3_Ronde", "ext": "png"}, {"i": 69, "s": "V6", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/852a00b2-9420-4400-8713-d1b13d42eefe/output.png", "t": "thumbs/69.jpg", "n": "Ronde · ovale", "num": "B3 d1", "fam": "Ronde", "c": "B3", "d": "d1", "dl": "dense", "file": "menu_V6_B3_d1_Ronde", "ext": "png"}, {"i": 70, "s": "V6", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/a6f7fd0c-c61b-484e-8909-36960aad3d67/output.png", "t": "thumbs/70.jpg", "n": "Ronde · ovale", "num": "B3 d2", "fam": "Ronde", "c": "B3", "d": "d2", "dl": "équilibré", "file": "menu_V6_B3_d2_Ronde", "ext": "png"}, {"i": 71, "s": "V6", "url": "https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/a43969bd-df0c-4ebd-8ea7-363cbcd5bac2/output.png", "t": "thumbs/71.jpg", "n": "Ronde · ovale", "num": "B3 d3", "fam": "Ronde", "c": "B3", "d": "d3", "dl": "aéré", "file": "menu_V6_B3_d3_Ronde", "ext": "png"}], "series": [{"code": "V1", "title": "Premières pistes", "sub": "Nano Banana 2 · 10 compositions, dessin simple"}, {"code": "V2", "title": "Dix styles", "sub": "Nano Banana 2 · un langage graphique par piste"}, {"code": "V3", "title": "Tests d'après les refs", "sub": "Tes 20 générations · GPT Image 2.6 Sunburst"}, {"code": "V4", "title": "Visages neutres, régénérés", "sub": "Nano Banana 2 · version jugée trop molle"}, {"code": "V5", "title": "Visages retouchés", "sub": "Retouche des V3 · seuls les visages changent"}, {"code": "V6", "title": "Enluminure", "sub": "GPT Image 2.6 Flare · 2 compositions × 3 variantes × 3 densités"}]}</script>
+<script>
+const DATA=JSON.parse(document.getElementById('data').textContent);
+const ITEMS=DATA.items, SERIES=DATA.series;
+const $=s=>document.querySelector(s);
+let favs=new Set();
+try{favs=new Set(JSON.parse(localStorage.getItem('menus-favs')||'[]'))}catch(e){}
+const saveFavs=()=>{try{localStorage.setItem('menus-favs',JSON.stringify([...favs]))}catch(e){}};
+const st={serie:'all',comp:'all',den:'all'};
+try{Object.assign(st,JSON.parse(localStorage.getItem('menus-filters')||'{}'))}catch(e){}
+const saveSt=()=>{try{localStorage.setItem('menus-filters',JSON.stringify(st))}catch(e){}};
+
+function chip(label,count,pressed,on){const b=document.createElement('button');b.className='chip';b.type='button';b.setAttribute('aria-pressed',pressed);b.innerHTML=label+(count!=null?` <small>${count}</small>`:'');b.onclick=on;return b}
+function buildBars(){
+  const rs=$('#rowSerie');rs.querySelectorAll('.chip').forEach(c=>c.remove());
+  rs.append(chip('Toutes',ITEMS.length,st.serie==='all',()=>{st.serie='all';render()}));
+  SERIES.forEach(s=>rs.append(chip(s.code+' · '+s.title,ITEMS.filter(i=>i.s===s.code).length,st.serie===s.code,()=>{st.serie=s.code;render()})));
+  rs.append(chip('★ Favoris',favs.size,st.serie==='fav',()=>{st.serie='fav';render()}));
+  const showV6=st.serie==='V6';
+  const rc=$('#rowComp'),rd=$('#rowDen');rc.hidden=rd.hidden=!showV6;
+  rc.querySelectorAll('.chip').forEach(c=>c.remove());rd.querySelectorAll('.chip').forEach(c=>c.remove());
+  if(showV6){
+    const v6=ITEMS.filter(i=>i.s==='V6');
+    rc.append(chip('Toutes',null,st.comp==='all',()=>{st.comp='all';render()}));
+    [...new Set(v6.map(i=>i.c))].forEach(c=>rc.append(chip(c+' · '+v6.find(i=>i.c===c).n,null,st.comp===c,()=>{st.comp=c;render()})));
+    rd.append(chip('Toutes',null,st.den==='all',()=>{st.den='all';render()}));
+    [['d1','dense'],['d2','équilibré'],['d3','aéré']].forEach(([d,l])=>rd.append(chip(d+' · '+l,null,st.den===d,()=>{st.den=d;render()})));
+  }
+}
+function visible(){
+  return ITEMS.filter(i=>{
+    if(st.serie==='fav')return favs.has(i.i);
+    if(st.serie!=='all'&&i.s!==st.serie)return false;
+    if(st.serie==='V6'){if(st.comp!=='all'&&i.c!==st.comp)return false;if(st.den!=='all'&&i.d!==st.den)return false}
+    return true});
+}
+let current=[];
+function card(it,idx){
+  const el=document.createElement('article');el.className='card';
+  const desc=it.dl?it.dl:'';
+  el.innerHTML=`<button class="thumb" type="button" aria-label="Agrandir ${it.s} ${it.num} ${it.n}"><img loading="lazy" src="${it.t}" alt="${it.s} ${it.num} · ${it.n}"></button>
+  <div class="meta"><div class="t"><div class="num">${it.s} · ${it.num}</div><div class="n">${it.n}</div>${desc?`<div class="d">${desc}</div>`:''}</div>
+  <button class="fav" type="button" aria-pressed="${favs.has(it.i)}" aria-label="Favori">${favs.has(it.i)?'★':'☆'}</button></div>`;
+  el.querySelector('.thumb').onclick=()=>openLb(idx);
+  el.querySelector('.fav').onclick=e=>{toggleFav(it.i);const b=e.currentTarget;b.setAttribute('aria-pressed',favs.has(it.i));b.textContent=favs.has(it.i)?'★':'☆';buildBars();if(st.serie==='fav')render()};
+  return el;
+}
+function toggleFav(i){favs.has(i)?favs.delete(i):favs.add(i);saveFavs()}
+function render(){
+  if(st.serie!=='V6'){st.comp='all';st.den='all'}
+  saveSt();buildBars();
+  current=visible();
+  const m=$('#main');m.innerHTML='';
+  $('#count').textContent=current.length+' proposition'+(current.length>1?'s':'');
+  if(!current.length){m.innerHTML='<p class="empty">'+(st.serie==='fav'?'Aucun favori pour l\'instant. Clique sur ☆ sous une vignette pour la garder ici.':'Aucune proposition pour ce filtre.')+'</p>';return}
+  const groups=st.serie==='fav'?[{code:null,title:'Favoris',sub:'Ta sélection'}]:SERIES.filter(s=>current.some(i=>i.s===s.code));
+  groups.forEach(g=>{
+    const list=current.filter(i=>g.code===null||i.s===g.code);
+    const sec=document.createElement('section');sec.className='serie';
+    sec.innerHTML=`<h2>${g.code?`<span class="code">${g.code}</span>`:''}${g.title}</h2><p>${g.sub}</p>`;
+    const grid=document.createElement('div');grid.className='grid';
+    list.forEach(it=>grid.append(card(it,current.indexOf(it))));
+    sec.append(grid);m.append(sec);
+  });
+}
+let lbIdx=0;
+function openLb(i){lbIdx=i;fillLb();$('#lb').hidden=false;document.body.style.overflow='hidden';$('#lbClose').focus()}
+function closeLb(){$('#lb').hidden=true;document.body.style.overflow=''}
+function fillLb(){
+  const it=current[lbIdx];
+  $('#lbImg').src=it.t;$('#lbImg').alt=it.s+' '+it.num+' · '+it.n;
+  $('#lbName').textContent=it.s+' · '+it.num+' · '+it.n;
+  $('#lbDesc').textContent=(it.dl?('Densité '+it.dl+' · '):'')+(lbIdx+1)+' / '+current.length;
+  $('#lbHd').href=it.url;
+  const f=favs.has(it.i);$('#lbFav').setAttribute('aria-pressed',f);$('#lbFav').textContent=(f?'★':'☆')+' Favori';
+  $('#lbCopy').textContent='Copier le nom';
+}
+$('#lbPrev').onclick=()=>{lbIdx=(lbIdx-1+current.length)%current.length;fillLb()};
+$('#lbNext').onclick=()=>{lbIdx=(lbIdx+1)%current.length;fillLb()};
+$('#lbClose').onclick=()=>{closeLb();render()};
+$('#lb').addEventListener('click',e=>{if(e.target.id==='lb'){closeLb();render()}});
+$('#lbFav').onclick=()=>{toggleFav(current[lbIdx].i);fillLb()};
+$('#lbCopy').onclick=()=>{const it=current[lbIdx];navigator.clipboard.writeText(it.file).then(()=>{$('#lbCopy').textContent='Copié : '+it.file}).catch(()=>{$('#lbCopy').textContent=it.file})};
+document.addEventListener('keydown',e=>{if($('#lb').hidden)return;if(e.key==='Escape'){closeLb();render()}if(e.key==='ArrowLeft')$('#lbPrev').click();if(e.key==='ArrowRight')$('#lbNext').click()});
+
+async function getBlob(it){const r=await fetch(it.url,{mode:'cors'});if(!r.ok)throw new Error(r.status);return r.blob()}
+function saveBlob(blob,name){const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}
+$('#lbDl').onclick=async()=>{const it=current[lbIdx];const b=$('#lbDl');b.textContent='Téléchargement…';
+  try{saveBlob(await getBlob(it),it.file+'.'+it.ext);b.textContent='Téléchargé'}catch(e){b.textContent='Échec, utilise « Ouvrir en HD »'}};
+$('#zipBtn').onclick=async()=>{
+  const list=current.slice();if(!list.length)return;
+  const btn=$('#zipBtn'),stt=$('#zipStatus');btn.disabled=true;
+  if(typeof JSZip==='undefined'){stt.textContent='Bibliothèque zip non chargée, recharge la page.';btn.disabled=false;return}
+  const zip=new JSZip();let n=0,fail=0;
+  for(const it of list){stt.textContent=`${n}/${list.length} fichiers…`;
+    try{zip.file(`${it.s}/${it.file}.${it.ext}`,await getBlob(it))}catch(e){fail++}
+    n++}
+  stt.textContent='Création du zip…';
+  const label=st.serie==='all'?'tout':st.serie==='fav'?'favoris':st.serie+(st.comp!=='all'?'_'+st.comp:'')+(st.den!=='all'?'_'+st.den:'');
+  const blob=await zip.generateAsync({type:'blob',compression:'STORE'});
+  saveBlob(blob,`menus_mariage_HD_${label}.zip`);
+  stt.textContent=`${list.length-fail} fichiers HD`+(fail?`, ${fail} en échec`:'');btn.disabled=false};
+render();
+</script>
+</body>
+</html>
