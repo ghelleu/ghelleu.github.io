@@ -35,6 +35,12 @@ h1 a{color:inherit;text-decoration:none}
 .chip:hover{border-color:var(--muted)}
 .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
 .chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.spc{display:flex;align-items:center;gap:6px}
+.spc .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.spc button{all:unset;cursor:pointer;width:26px;height:26px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);background:var(--surface);font-size:15px;line-height:1}
+.spc button:hover{border-color:var(--muted)}
+.spc input{width:120px;accent-color:var(--accent)}
+.spc output{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:34px}
 .status{color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums;margin-left:auto}
 .stage{position:relative;min-height:0}
 canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab;background:var(--map)}
@@ -76,6 +82,7 @@ canvas.drag{cursor:grabbing}
     <h1><a href="../">Bestiaire</a> · carte</h1>
     <div class="grp" id="gSec"><span class="lbl">Montrer</span></div>
     <div class="grp" id="gLay"><span class="lbl">Ranger par</span></div>
+    <div class="spc"><span class="lbl" id="spcl">Espacement</span><button id="sless" type="button" aria-label="Rapprocher">−</button><input id="spc" type="range" min="0.5" max="3" step="0.1" aria-labelledby="spcl"><button id="smore" type="button" aria-label="Espacer">+</button><output id="spco"></output></div>
     <span class="status" id="status"></span>
   </header>
   <div class="stage" id="stage">
@@ -108,9 +115,9 @@ const LAYOUTS=[
   {k:'ser',t:'Série',d:'<b>Série</b> · une ligne par série, dans l\'ordre de la page.'}
 ];
 const SECS=[{k:'all',t:'Tout'},{k:'menus',t:'Menus'},{k:'panneaux',t:'Panneaux'}];
-const st={sec:'all',lay:'sim',sel:null};
+const st={sec:'all',lay:'sim',sel:null,gap:1.4};
 try{Object.assign(st,JSON.parse(localStorage.getItem('carte-st')||'{}'));st.sel=null}catch(e){}
-const save=()=>{try{localStorage.setItem('carte-st',JSON.stringify({sec:st.sec,lay:st.lay}))}catch(e){}};
+const save=()=>{try{localStorage.setItem('carte-st',JSON.stringify({sec:st.sec,lay:st.lay,gap:st.gap}))}catch(e){}};
 
 // ---------- data ----------
 const html=await (await fetch('../')).text();
@@ -166,6 +173,16 @@ function relax(list,key,iter){const P=list.map(n=>n.pos[key]);const R=TW*0.62;
       for(let dx=-1;dx<=1;dx++)for(let dy=-1;dy<=1;dy++){const c=grid.get((gx+dx)+','+(gy+dy));if(!c)continue;
         for(const j of c){if(j<=i)continue;const q=P[j];let vx=q[0]-p[0],vy=q[1]-p[1];let dd=Math.hypot(vx,vy);
           if(dd<R*2){if(dd<0.01){vx=Math.random()-.5;vy=Math.random()-.5;dd=0.5}const push=(R*2-dd)/2/dd;p[0]-=vx*push;p[1]-=vy*push;q[0]+=vx*push;q[1]+=vy*push}}}})}}
+function relaxBox(list,key,iter,k){const P=list.map(n=>n.pos[key]);const HW=TW/2*k;const HH=list.map(n=>TW/n.ar/2*k);const cell=Math.max(HW,...HH)*2.2;
+  for(let it=0;it<iter;it++){const grid=new Map();let hit=0;
+    P.forEach((p,i)=>{const kk=Math.floor(p[0]/cell)+','+Math.floor(p[1]/cell);(grid.get(kk)||grid.set(kk,[]).get(kk)).push(i)});
+    P.forEach((p,i)=>{const gx=Math.floor(p[0]/cell),gy=Math.floor(p[1]/cell);
+      for(let dx=-1;dx<=1;dx++)for(let dy=-1;dy<=1;dy++){const c=grid.get((gx+dx)+','+(gy+dy));if(!c)continue;
+        for(const j of c){if(j<=i)continue;const q=P[j];let vx=q[0]-p[0],vy=q[1]-p[1];
+          const ox=HW*2-Math.abs(vx),oy=HH[i]+HH[j]-Math.abs(vy);if(ox<=0||oy<=0)continue;hit++;
+          if(Math.abs(vx)<1e-3&&Math.abs(vy)<1e-3){vx=Math.random()-.5;vy=Math.random()-.5}
+          if(ox*TW/(HH[i]+HH[j])<oy){const m=ox/2*Math.sign(vx||1);p[0]-=m;q[0]+=m}else{const m=oy/2*Math.sign(vy||1);p[1]-=m;q[1]+=m}}}});
+    if(!hit)break}}
 function norm(list,key,span){const xs=list.map(n=>n.pos[key][0]),ys=list.map(n=>n.pos[key][1]);
   const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
   list.forEach(n=>{const p=n.pos[key];p[0]=(p[0]-x0)/((x1-x0)||1)*span;p[1]=(p[1]-y0)/((y1-y0)||1)*span})}
@@ -176,18 +193,23 @@ async function computeSim(){
   await new Promise(r=>setTimeout(r,30));
   const um=new UMAP.UMAP({nComponents:2,nNeighbors:12,minDist:0.25,spread:1.2,random:seeded(7)});
   const emb=await um.fitAsync(OK.map(n=>n.vec),()=>{});
-  OK.forEach((n,i)=>n.pos.sim=[emb[i][0],emb[i][1]]);norm(OK,'sim',span);relax(OK,'sim',40);
+  OK.forEach((n,i)=>n.pos.sim=[emb[i][0],emb[i][1]]);norm(OK,'sim',span);OK.forEach(n=>n.raw.sim=n.pos.sim.slice());
 }
 function computeCol(){OK.forEach(n=>{const f=n.f;const a=f.hue*Math.PI/180;const r=Math.min(1,f.sat*3.2);
-  const rr=(0.12+0.88*r)*span*0.5;n.pos.col=[span/2+Math.cos(a)*rr,span/2-Math.sin(a)*rr]});relax(OK,'col',50)}
+  const rr=(0.12+0.88*r)*span*0.5;n.raw.col=[span/2+Math.cos(a)*rr,span/2-Math.sin(a)*rr]})}
 function computeDen(){const es=OK.map(n=>n.f.E).sort((a,b)=>a-b),ls=OK.map(n=>n.f.L).sort((a,b)=>a-b);
   const rank=(arr,v)=>{let lo=0,hi=arr.length;while(lo<hi){const mid=(lo+hi)>>1;if(arr[mid]<v)lo=mid+1;else hi=mid}return lo/arr.length};
-  OK.forEach(n=>n.pos.den=[rank(es,n.f.E)*span*1.3,(1-rank(ls,n.f.L))*span]);relax(OK,'den',40)}
-function computeSer(){const rows={};OK.forEach(n=>{(rows[n.it.s]=rows[n.it.s]||[]).push(n)});
+  OK.forEach(n=>n.raw.den=[rank(es,n.f.E)*span*1.3,(1-rank(ls,n.f.L))*span])}
+function computeSer(g){const rows={};OK.forEach(n=>{(rows[n.it.s]=rows[n.it.s]||[]).push(n)});
   const order=DATA.series.map(s=>s.code).filter(c=>rows[c]);
-  order.forEach((c,r)=>rows[c].forEach((n,i)=>{const col=i%30,sub=Math.floor(i/30);n.pos.ser=[col*TW*1.08,0]}));
-  let y=0;order.forEach(c=>{const L=rows[c];const lines=Math.ceil(L.length/30);L.forEach((n,i)=>{n.pos.ser[1]=y+Math.floor(i/30)*TW*1.45});y+=lines*TW*1.45+TW*0.9;SER[c].rowY=L[0].pos.ser[1]})}
-await computeSim();computeCol();computeDen();computeSer();
+  let y=0;order.forEach(c=>{const L=rows[c];const rh=Math.max(...L.map(n=>TW/n.ar));const sx=TW*(0.08+g),sy=rh*(0.08+g);const lines=Math.ceil(L.length/30);
+    L.forEach((n,i)=>{n.pos.ser=[(i%30)*sx,y+Math.floor(i/30)*sy]});SER[c].rowY=y;SER[c].rowH=rh;y+=(lines-1)*sy+rh+TW*0.9})}
+// spacing: g < 1 tightens (overlap allowed), g > 1 spreads; collision boxes keep a 6 % margin
+function applyLayout(key){const g=st.gap;
+  if(key==='ser'){computeSer(g);return}
+  const c=span/2;OK.forEach(n=>{const r=n.raw[key];n.pos[key]=[c+(r[0]-c)*g,c+(r[1]-c)*g]});relaxBox(OK,key,80,Math.min(1,g)*1.06)}
+OK.forEach(n=>{n.raw={};n.pos={}});
+await computeSim();computeCol();computeDen();LAYOUTS.forEach(l=>applyLayout(l.k));
 $('#loading').hidden=true;
 
 // ---------- view ----------
@@ -212,8 +234,8 @@ function draw(){
   ctx.translate(view.x,view.y);ctx.scale(view.s,view.s);
   const vis=visible(),sel=st.sel;
   if(st.lay==='ser'){ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--muted');ctx.font=`${11}px Inter, sans-serif`;
-    DATA.series.forEach(s=>{if(s.rowY==null)return;if(st.sec!=='all'&&s.sec!==st.sec)return;ctx.fillText(s.code+' · '+s.title,-TW*0.5,s.rowY-TW*0.82)})}
-  if(st.lay==='col'){ctx.strokeStyle=css.getPropertyValue('--line');ctx.lineWidth=1/view.s;ctx.beginPath();ctx.arc(span/2,span/2,span*0.5,0,Math.PI*2);ctx.stroke()}
+    DATA.series.forEach(s=>{if(s.rowY==null)return;if(st.sec!=='all'&&s.sec!==st.sec)return;ctx.fillText(s.code+' · '+s.title,-TW*0.5,s.rowY-s.rowH/2-TW*0.25)})}
+  if(st.lay==='col'){ctx.strokeStyle=css.getPropertyValue('--line');ctx.lineWidth=1/view.s;ctx.beginPath();ctx.arc(span/2,span/2,span*0.5*st.gap,0,Math.PI*2);ctx.stroke()}
   if(sel){ctx.strokeStyle=css.getPropertyValue('--link');ctx.lineWidth=2/view.s;sel.nb.forEach(b=>{if(!vis.includes(b))return;ctx.beginPath();ctx.moveTo(sel.x,sel.y);ctx.lineTo(b.x,b.y);ctx.stroke()})}
   const dim=sel?new Set([sel,...sel.nb]):null;
   for(const n of vis){const w=TW,h=TW/n.ar;ctx.globalAlpha=dim&&!dim.has(n)?0.25:1;
@@ -272,9 +294,15 @@ function bar(){
   SECS.forEach(s=>gs.append(chip(s.t+' '+OK.filter(n=>s.k==='all'||n.sec===s.k).length,()=>{st.sec=s.k;save();bar();fit(true)},st.sec===s.k)));
   const gl=$('#gLay');gl.querySelectorAll('.chip').forEach(c=>c.remove());
   LAYOUTS.forEach(l=>gl.append(chip(l.t,()=>{st.lay=l.k;save();setTargets();bar();setTimeout(()=>fit(true),40)},st.lay===l.k)));
-  $('#legend').innerHTML=LAYOUTS.find(l=>l.k===st.lay).d+'<br>Clique une vignette pour voir ses voisines, glisse pour te déplacer, molette ou pincement pour zoomer.';
+  $('#legend').innerHTML=LAYOUTS.find(l=>l.k===st.lay).d+'<br>Clique une vignette pour voir ses voisines, glisse pour te déplacer, molette ou pincement pour zoomer. Le curseur Espacement aère ou resserre les vignettes.';
   $('#status').textContent=`${visible().length} vignettes`;
 }
+const spc=$('#spc'),spo=$('#spco');let spT=null;
+function setGap(v,refit){st.gap=Math.round(Math.max(0.5,Math.min(3,v))*10)/10;spc.value=st.gap;spo.value=spo.textContent='× '+st.gap.toFixed(1).replace('.',',');save();
+  clearTimeout(spT);spT=setTimeout(()=>{LAYOUTS.forEach(l=>applyLayout(l.k));setTargets();if(refit)fit(true)},60)}
+spc.addEventListener('input',()=>setGap(+spc.value,false));spc.addEventListener('change',()=>fit(true));
+$('#sless').onclick=()=>setGap(st.gap-0.2,true);$('#smore').onclick=()=>setGap(st.gap+0.2,true);
+spc.value=st.gap;spo.textContent='× '+st.gap.toFixed(1).replace('.',',');
 setTargets();bar();fit(false);
 })().catch(e=>{document.getElementById('ltxt').textContent='Erreur : '+e.message;console.error(e)});
 </script>
