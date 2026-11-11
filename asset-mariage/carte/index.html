@@ -46,7 +46,7 @@ canvas.drag{cursor:grabbing}
 .zoom{position:absolute;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:6px;z-index:2}
 .zoom button{all:unset;cursor:pointer;width:36px;height:36px;display:grid;place-items:center;border-radius:50%;background:var(--surface);border:1px solid var(--line);font-size:18px}
 .panel{position:absolute;top:12px;right:max(12px,env(safe-area-inset-right,0px));width:300px;max-height:calc(100% - 24px);overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;z-index:2;display:flex;flex-direction:column;gap:10px}
-.panel img.big{width:100%;border-radius:4px;display:block;background:var(--line)}
+.panel img.big{width:100%;max-height:42vh;object-fit:contain;border-radius:4px;display:block;background:var(--map)}
 .panel .n{font-family:var(--display);font-size:20px;line-height:1.15}
 .panel .s{font-size:12px;color:var(--muted)}
 .panel .feat{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:12px;color:var(--muted)}
@@ -150,7 +150,7 @@ function load(nd){return new Promise(res=>{const i=new Image();i.crossOrigin='an
   i.onerror=()=>{loaded++;res()};i.src=thumb(nd.it.url,160)})}
 const queue=N.slice();await Promise.all(Array.from({length:12},async()=>{while(queue.length){await load(queue.shift())}}));
 try{localStorage.setItem(CACHE_KEY,JSON.stringify(cache))}catch(e){}
-const OK=N.filter(n=>n.img&&n.f);
+const OK=N.filter(n=>n.img&&n.f);{const es=OK.map(n=>n.f.E).sort((a,b)=>a-b);OK.forEach(n=>{n.eRank=es.indexOf(n.f.E)/(es.length-1||1)})}
 OK.forEach(n=>{const f=n.f;n.vec=[...f.hist.map(v=>v*2.2),...f.grey.map(v=>v*1.2),f.L*1.6,f.S*1.4,Math.min(1,f.E*4)*1.8]});
 
 // ---------- neighbours ----------
@@ -253,12 +253,12 @@ $('#zout').onclick=()=>{const r=cv.getBoundingClientRect();zoomAt(r.width/2,r.he
 $('#zfit').onclick=()=>fit(true);
 function centerOn(n){const r=cv.getBoundingClientRect();const s=Math.max(view.s,2.2);tweenView({s,x:r.width/2-n.tx*s,y:r.height/2-n.ty*s})}
 function pct(v){return Math.round(v*100)+' %'}
-const HUE=['rouge','orangé','jaune','jaune-vert','vert','vert d\'eau','cyan','bleu ciel','bleu','violet','magenta','rose'];
+const HUE=['rouge','orangé','jaune','vert-jaune','vert','vert d\'eau','cyan','bleu ciel','bleu','violet','rose','rouge'];
 function select(n){st.sel=n;const p=$('#panel');if(!n){p.hidden=true;return}p.hidden=false;
   $('#pimg').src=thumb(n.it.url,600);$('#pimg').alt=n.it.n;$('#pname').textContent=n.it.n;
   $('#pser').textContent=`${n.it.s} · ${n.it.num} · ${(n.ser||{}).title||''}`;
   const f=n.f;const top=f.hist.indexOf(Math.max(...f.hist));
-  $('#pfeat').innerHTML=`<span>Teinte dominante</span><span>${f.sat>0.02?HUE[top]:'neutre'}</span><span>Saturation</span><span>${pct(Math.min(1,f.sat*3))}</span><span>Lumière</span><span>${pct(f.L)}</span><span>Densité du dessin</span><span>${pct(Math.min(1,f.E*4))}</span>`;
+  $('#pfeat').innerHTML=`<span>Teinte dominante</span><span>${f.sat>0.02?HUE[top]:'neutre'}</span><span>Saturation</span><span>${pct(Math.min(1,f.sat*3))}</span><span>Lumière</span><span>${pct(f.L)}</span><span>Densité du dessin</span><span>${pct(n.eRank)}</span>`;
   $('#phd').href=n.it.url;
   const nb=$('#pnb');nb.innerHTML='';n.nb.forEach(b=>{const bt=document.createElement('button');bt.title=`${b.it.s} · ${b.it.n}`;
     bt.innerHTML=`<img alt="${b.it.s} ${b.it.n}" src="${thumb(b.it.url,160)}">`;bt.onclick=()=>{select(b);centerOn(b)};nb.append(bt)})}
