@@ -372,7 +372,7 @@ function computeSem(g){const groups={};OK.forEach(n=>{(groups[n.it.tag]=groups[n
   const cw=TW*g,rowH=list=>Math.max(...list.map(n=>TW/n.ar))*g,lab=TW*0.9;
   const blocks=keys.map(k=>{const L=groups[k].slice().sort((a,b)=>a.ser.idx-b.ser.idx||a.ux-b.ux);const cols=Math.max(1,Math.ceil(Math.sqrt(L.length*1.6)));
     const rows=[];for(let i=0;i<L.length;i+=cols)rows.push(L.slice(i,i+cols));
-    const hs=rows.map(rowH);return{k,L,cols,rows,hs,iw:Math.min(cols,L.length)*cw,w:Math.max(Math.min(cols,L.length)*cw,k.length*TW*0.34+TW*0.8),h:hs.reduce((a,b)=>a+b,0)+lab}});
+    const hs=rows.map(rowH);return{k,L,cols,rows,hs,iw:Math.min(cols,L.length)*cw,w:Math.max(Math.min(cols,L.length)*cw,k.length*TW*0.5+TW*1.2),h:hs.reduce((a,b)=>a+b,0)+lab}});
   const area=blocks.reduce((a,b)=>a+(b.w+TW*1.5)*(b.h+TW*1.5),0),W=Math.max(Math.sqrt(area)*1.5,blocks[0]?blocks[0].w:0);
   let x=0,y=0,sh=0;ISL=[];
   blocks.forEach(b=>{if(x>0&&x+b.w>W){x=0;y+=sh+TW*1.5;sh=0}
