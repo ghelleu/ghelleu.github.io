@@ -220,6 +220,9 @@ body.isgrid .dock{padding:6px}
   body.isgrid .dock{left:50%;right:auto;transform:translateX(-50%)}
   .dock .grp{gap:10px}
 }
+.spaces{display:flex;gap:10px;font-size:13px;color:var(--soft);font-variation-settings:"opsz" 14;margin-top:4px}
+.spaces a{color:var(--soft);text-decoration:none}.spaces a:hover{color:var(--fg)}.spaces a[aria-current]{color:var(--fg);font-weight:650}
+@media (max-width:980px){.brand{flex-wrap:wrap;row-gap:4px}.brand .spaces{flex-basis:100%;margin-top:0}}
 </style>
 </head>
 <body>
@@ -227,7 +230,7 @@ body.isgrid .dock{padding:6px}
     <canvas id="cv"></canvas>
     <div class="gridv" id="grid" hidden></div>
     <div class="top">
-      <div class="brand glass"><h1>Media <i>Explorer</i></h1><span class="sl"><b id="status"></b> · <span id="ncoll"></span></span></div>
+      <div class="brand glass"><h1>Media <i>Explorer</i></h1><span class="sl"><b id="status"></b> · <span id="ncoll"></span></span><nav class="spaces" aria-label="Espaces"><a href="./" aria-current="page">Mariage</a><a href="head-ai/">HEAD · Architecture d'intérieur</a></nav></div>
       <div class="seg glass" id="gLay" role="group" aria-label="Organisation"></div>
       <div class="spacer"></div>
       <div class="pills glass" id="gSec" role="group" aria-label="Collections"></div>
