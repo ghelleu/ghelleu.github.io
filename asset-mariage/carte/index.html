@@ -63,6 +63,7 @@ canvas.drag{cursor:grabbing}
 .seg sup{font-size:11px;font-weight:600;line-height:1;top:0;padding:3px 6px;border-radius:999px;background:var(--glass-hi);color:inherit;opacity:.8}
 .seg button[aria-pressed="true"] sup{background:rgba(128,128,128,.18)}
 .spacer{flex:1}
+.seg:empty,.legend:empty{display:none}
 /* ---------- dock ---------- */
 .dock{position:absolute;z-index:3;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:14px;padding:8px 8px 8px 22px;border-radius:999px}
 .dock .lab{font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--soft);white-space:nowrap}
@@ -295,8 +296,9 @@ $('#loading').hidden=true;
 let view={x:0,y:0,s:1},anim=null;
 function visible(){return OK.filter(n=>st.sec==='all'||n.sec===st.sec)}
 function bounds(list){let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;list.forEach(n=>{const p=n.pos[st.lay];x0=Math.min(x0,p[0]-TW);y0=Math.min(y0,p[1]-TW);x1=Math.max(x1,p[0]+TW);y1=Math.max(y1,p[1]+TW)});return[x0,y0,x1,y1]}
-function fit(animate){const r=cv.getBoundingClientRect();const[x0,y0,x1,y1]=bounds(visible());const pad=40;
-  const s=Math.min((r.width-pad*2)/(x1-x0),(r.height-pad*2)/(y1-y0));const t={s,x:r.width/2-(x0+x1)/2*s,y:r.height/2-(y0+y1)/2*s};
+function fit(animate){const r=cv.getBoundingClientRect();const[x0,y0,x1,y1]=bounds(visible());const pad=36;
+  const top=Math.min(r.height*0.4,document.querySelector('.top').getBoundingClientRect().bottom+18),bot=Math.max(r.height*0.6,document.querySelector('.dock').getBoundingClientRect().top-18);
+  const s=Math.min((r.width-pad*2)/(x1-x0),(bot-top)/(y1-y0));const t={s,x:r.width/2-(x0+x1)/2*s,y:(top+bot)/2-(y0+y1)/2*s};
   if(animate)tweenView(t);else view=t}
 function tweenView(t){const f={...view},t0=performance.now();anim=()=>{const k=Math.min(1,(performance.now()-t0)/450),e=1-Math.pow(1-k,3);
   view={x:f.x+(t.x-f.x)*e,y:f.y+(t.y-f.y)*e,s:f.s+(t.s-f.s)*e};if(k>=1)anim=null};}
