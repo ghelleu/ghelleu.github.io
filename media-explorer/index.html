@@ -235,10 +235,10 @@ body.isgrid .dock{padding:6px}
     <div class="legend glass" id="legend"></div>
     <div class="dock glass">
       <div class="grp mapc">
-        <span class="lab" id="spcl">Espacement</span>
-        <button class="rb" id="sless" type="button" aria-label="Rapprocher"><svg viewBox="0 0 24 24"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg></button>
-        <div class="rng"><input id="spc" type="range" min="1" max="3" step="0.1" aria-labelledby="spcl"></div>
-        <button class="rb" id="smore" type="button" aria-label="Espacer"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+        <span class="lab" id="spcl">Attraction</span>
+        <button class="rb" id="sless" type="button" aria-label="Disperser"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+        <div class="rng"><input id="spc" type="range" min="0" max="100" step="1" aria-labelledby="spcl"></div>
+        <button class="rb" id="smore" type="button" aria-label="Resserrer"><svg viewBox="0 0 24 24"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg></button>
         <output class="val" id="spco"></output>
         <span class="sep"></span>
         <button class="rb" id="zout" type="button" aria-label="Dézoomer"><svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg></button>
@@ -278,17 +278,17 @@ const cv=$('#cv'),ctx=cv.getContext('2d');
 let DPR=Math.min(2,window.devicePixelRatio||1);
 const LAYOUTS=[
   {k:'sim',t:'Ressemblance',d:'<b>Ressemblance</b>Les images proches se ressemblent par la couleur, la lumière et la densité du dessin (projection UMAP).'},
-  {k:'sem',t:'Sujet',d:'<b>Sujet</b>Un îlot par personnage ou créature, retrouvé dans les prompts, les noms et les titres : tous les centaures ensemble, tous les faunes ensemble.'},
+  {k:'sem',t:'Sujet',d:'<b>Sujet</b>Un seul grand espace : les images d\'un même sujet s\'attirent, tous les centaures ensemble, tous les faunes ensemble. À l\'intérieur d\'un sujet, les plus ressemblantes se touchent.'},
   {k:'col',t:'Couleur',d:'<b>Couleur</b>Roue chromatique : l\'angle suit la teinte dominante, le centre réunit les images peu saturées.'},
   {k:'den',t:'Densité',d:'<b>Densité</b>De gauche à droite, du plus épuré au plus chargé ; de bas en haut, du plus sombre au plus clair.'},
   {k:'grid',t:'Séries',d:''}
 ];
-const st={cols:null,fav:false,lay:'sim',sel:null,gap:1.4};
+const st={cols:null,fav:false,lay:'sim',sel:null,att:45};
 try{const s=JSON.parse(localStorage.getItem('mx-st')||'{}');Object.assign(st,s);st.sel=null}catch(e){}
 if(!LAYOUTS.some(l=>l.k===st.lay))st.lay='sim';
 const H=location.hash.slice(1);if(LAYOUTS.some(l=>l.k===H))st.lay=H;if(H==='series')st.lay='grid';
-st.gap=Math.max(1,Math.min(3,+st.gap||1.4));
-const save=()=>{try{localStorage.setItem('mx-st',JSON.stringify({cols:st.cols,fav:st.fav,lay:st.lay,gap:st.gap}))}catch(e){}};
+st.att=Math.max(0,Math.min(100,Number.isFinite(+st.att)?+st.att:45));delete st.gap;
+const save=()=>{try{localStorage.setItem('mx-st',JSON.stringify({cols:st.cols,fav:st.fav,lay:st.lay,att:st.att}))}catch(e){}};
 let favs=new Set();try{favs=new Set(JSON.parse(localStorage.getItem('mx-favs')||'[]'))}catch(e){}
 const saveFavs=()=>{try{localStorage.setItem('mx-favs',JSON.stringify([...favs]))}catch(e){}};
 
@@ -338,77 +338,63 @@ OK.forEach(a=>{a.nb=OK.filter(b=>b!==a).map(b=>[dist(a.vec,b.vec),b]).sort((p,q)
 
 // ---------- layouts (world units, thumbnail width = TW) ----------
 const TW=40;
-// rectangle collision: k=1 means boxes may touch but never overlap
-function relaxBox(list,key,iter){const P=list.map(n=>n.pos[key]);const HW=TW/2;const HH=list.map(n=>TW/n.ar/2);const cell=Math.max(HW,...HH)*2.05;
+// soft collision between discs (organic packing, no grid): k=1 discs just touch, k<1 tolerates partial overlap, k=0 leaves the projection untouched
+function relax(list,key,k,iter){if(k<0.03)return;const P=list.map(n=>n.pos[key]);const R=list.map(n=>k*(TW*0.5+TW/n.ar*0.5)*0.5*1.04);const cell=Math.max(...R)*2;
   for(let it=0;it<iter;it++){const grid=new Map();let hit=0;
     P.forEach((p,i)=>{const kk=Math.floor(p[0]/cell)+','+Math.floor(p[1]/cell);(grid.get(kk)||grid.set(kk,[]).get(kk)).push(i)});
     P.forEach((p,i)=>{const gx=Math.floor(p[0]/cell),gy=Math.floor(p[1]/cell);
       for(let dx=-1;dx<=1;dx++)for(let dy=-1;dy<=1;dy++){const c=grid.get((gx+dx)+','+(gy+dy));if(!c)continue;
-        for(const j of c){if(j<=i)continue;const q=P[j];let vx=q[0]-p[0],vy=q[1]-p[1];
-          const ox=HW*2-Math.abs(vx),oy=HH[i]+HH[j]-Math.abs(vy);if(ox<=1e-6||oy<=1e-6)continue;hit++;
-          if(Math.abs(vx)<1e-3&&Math.abs(vy)<1e-3){vx=Math.random()-.5;vy=Math.random()-.5}
-          if(ox*TW/(HH[i]+HH[j])<oy){const m=(ox/2+1e-3)*Math.sign(vx||1);p[0]-=m;q[0]+=m}else{const m=(oy/2+1e-3)*Math.sign(vy||1);p[1]-=m;q[1]+=m}}}});
-    if(!hit)return 0}
-  return 1}
-// snap a scatter onto a grid of cells (pitch = thumbnail size × gap): neighbours stay neighbours, overlap is impossible
-function snapGrid(list,key,g){const ch=TW/0.665;const pw=TW*g,ph=ch*g;
-  const pts=list.map(n=>n.raw[key]);const xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]);
+        for(const j of c){if(j<=i)continue;const q=P[j];let vx=q[0]-p[0],vy=q[1]-p[1];let d=Math.hypot(vx,vy);const m=R[i]+R[j];if(d>=m)continue;hit++;
+          if(d<1e-3){const a=(i*2.399)%(Math.PI*2);vx=Math.cos(a);vy=Math.sin(a);d=1}
+          const f=(m-d)/d*0.5*0.7;p[0]-=vx*f;p[1]-=vy*f;q[0]+=vx*f;q[1]+=vy*f}}});
+    if(!hit)return}}
+function norm(list,key,span){const xs=list.map(n=>n.raw[key][0]),ys=list.map(n=>n.raw[key][1]);
   const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
-  const cellsNeeded=list.reduce((a,n)=>a+Math.ceil((TW/n.ar)/ch-0.001),0)*1.18;const asp=((x1-x0)||1)/((y1-y0)||1);
-  const cols=Math.max(4,Math.round(Math.sqrt(cellsNeeded*asp))),rows=Math.max(4,Math.ceil(cellsNeeded/cols));
-  const occ=new Set();const cx=(x0+x1)/2,cy=(y0+y1)/2;
-  const order=list.map((n,i)=>i).sort((a,b)=>Math.hypot(pts[a][0]-cx,pts[a][1]-cy)-Math.hypot(pts[b][0]-cx,pts[b][1]-cy));
-  for(const i of order){const n=list[i];const span=Math.max(1,Math.ceil((TW/n.ar)/ch-0.001));
-    const tx=(pts[i][0]-x0)/((x1-x0)||1)*(cols-1),ty=(pts[i][1]-y0)/((y1-y0)||1)*(rows-span);
-    const free=(c,r)=>{for(let k=0;k<span;k++)if(occ.has(c+','+(r+k)))return false;return true};
-    let best=null;const c0=Math.round(tx),r0=Math.round(ty);
-    for(let rad=0;rad<400&&!best;rad++){let bd=1e9;
-      for(let dc=-rad;dc<=rad;dc++)for(let dr=-rad;dr<=rad;dr++){if(Math.max(Math.abs(dc),Math.abs(dr))!==rad)continue;const c=c0+dc,r=r0+dr;
-        if(free(c,r)){const d=Math.hypot(c-tx,r-ty);if(d<bd){bd=d;best=[c,r]}}}}
-    for(let k=0;k<span;k++)occ.add(best[0]+','+(best[1]+k));
-    n.pos[key]=[best[0]*pw,best[1]*ph+(span*ph-ph)/2+(span>1?0:0)]}}
-function norm(list,key,span){const xs=list.map(n=>n.pos[key][0]),ys=list.map(n=>n.pos[key][1]);
-  const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
-  list.forEach(n=>{const p=n.pos[key];p[0]=(p[0]-x0)/((x1-x0)||1)*span;p[1]=(p[1]-y0)/((y1-y0)||1)*span})}
+  list.forEach(n=>{const p=n.raw[key];p[0]=(p[0]-x0)/((x1-x0)||1)*span;p[1]=(p[1]-y0)/((y1-y0)||1)*span})}
 function seeded(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 const span=Math.sqrt(OK.length)*TW*1.15;
-async function computeSim(){
-  $('#ltxt').innerHTML='<span>Calcul des rapprochements</span><span>100%</span>';$('#lbar').style.width='100%';
-  await new Promise(r=>setTimeout(r,30));
-  const um=new UMAP.UMAP({nComponents:2,nNeighbors:12,minDist:0.25,spread:1.2,random:seeded(7)});
-  const emb=await um.fitAsync(OK.map(n=>n.vec),()=>{});
-  OK.forEach((n,i)=>n.pos.sim=[emb[i][0],emb[i][1]]);norm(OK,'sim',span);OK.forEach(n=>{n.raw.sim=n.pos.sim.slice();n.ux=n.raw.sim[0]});
-}
+// embeddings are cached per browser: same images and subjects give the same map without recomputing
+const TAGS=[...new Set(OK.map(n=>n.it.tag).filter(t=>t&&t!=='Non identifié'))].sort();
+const EMB_KEY='mx-emb-v2';
+const sig=(()=>{let h=0;const str=OK.map(n=>n.it.url+'|'+(n.it.tag||'')).join('#');for(let i=0;i<str.length;i++)h=(h*31+str.charCodeAt(i))|0;return OK.length+':'+h})();
+let embc=null;try{const c=JSON.parse(localStorage.getItem(EMB_KEY)||'null');if(c&&c.sig===sig)embc=c}catch(e){}
+async function umap(vecs,labels,label){
+  $('#ltxt').innerHTML=`<span>${label}</span><span>100%</span>`;$('#lbar').style.width='100%';await new Promise(r=>setTimeout(r,30));
+  const um=new UMAP.UMAP({nComponents:2,nNeighbors:14,minDist:0.3,spread:1.3,random:seeded(7)});
+  if(labels)um.setSupervisedProjection(labels,{targetWeight:0.6});
+  const emb=await um.fitAsync(vecs,()=>{});return emb.map(p=>[Math.round(p[0]*1e4)/1e4,Math.round(p[1]*1e4)/1e4])}
+async function computeSim(){const e=embc?embc.sim:await umap(OK.map(n=>n.vec),null,'Calcul des rapprochements');
+  OK.forEach((n,i)=>n.raw.sim=e[i].slice());norm(OK,'sim',span);return e}
+// subject space: the visual features plus a strong subject component, so every centaur attracts every other centaur,
+// and inside a subject the images that look alike sit closest. Unidentified images keep only their visual pull.
+async function computeSem(){const W=3;
+  const vecs=OK.map(n=>{const oh=TAGS.map(t=>t===n.it.tag?W:0);return[...n.vec,...oh]});
+  const labels=OK.map(n=>{const k=TAGS.indexOf(n.it.tag);return k<0?-1:k});
+  const e=embc?embc.sem:await umap(vecs,labels,'Regroupement par sujet');
+  OK.forEach((n,i)=>n.raw.sem=e[i].slice());norm(OK,'sem',span);return e}
 function computeCol(){OK.forEach(n=>{const f=n.f;const a=f.hue*Math.PI/180;const r=Math.min(1,f.sat*3.2);
   const rr=(0.12+0.88*r)*span*0.5;n.raw.col=[span/2+Math.cos(a)*rr,span/2-Math.sin(a)*rr]})}
 function computeDen(){const es=OK.map(n=>n.f.E).sort((a,b)=>a-b),ls=OK.map(n=>n.f.L).sort((a,b)=>a-b);
   const rank=(arr,v)=>{let lo=0,hi=arr.length;while(lo<hi){const mid=(lo+hi)>>1;if(arr[mid]<v)lo=mid+1;else hi=mid}return lo/arr.length};
   OK.forEach(n=>n.raw.den=[rank(es,n.f.E)*span*1.3,(1-rank(ls,n.f.L))*span])}
-// semantic islands: one compact block per subject, packed in shelves; labels drawn above each block
-let ISL=[];
-function computeSem(g){const groups={};OK.forEach(n=>{(groups[n.it.tag]=groups[n.it.tag]||[]).push(n)});
-  const keys=Object.keys(groups).sort((a,b)=>(a==='Non identifié')-(b==='Non identifié')||groups[b].length-groups[a].length);
-  const cw=TW*g,rowH=list=>Math.max(...list.map(n=>TW/n.ar))*g,lab=TW*0.9;
-  const blocks=keys.map(k=>{const L=groups[k].slice().sort((a,b)=>a.ser.idx-b.ser.idx||a.ux-b.ux);const cols=Math.max(1,Math.ceil(Math.sqrt(L.length*1.6)));
-    const rows=[];for(let i=0;i<L.length;i+=cols)rows.push(L.slice(i,i+cols));
-    const hs=rows.map(rowH);return{k,L,cols,rows,hs,iw:Math.min(cols,L.length)*cw,w:Math.max(Math.min(cols,L.length)*cw,k.length*TW*0.5+TW*1.2),h:hs.reduce((a,b)=>a+b,0)+lab}});
-  const area=blocks.reduce((a,b)=>a+(b.w+TW*1.5)*(b.h+TW*1.5),0),W=Math.max(Math.sqrt(area)*1.5,blocks[0]?blocks[0].w:0);
-  let x=0,y=0,sh=0;ISL=[];
-  blocks.forEach(b=>{if(x>0&&x+b.w>W){x=0;y+=sh+TW*1.5;sh=0}
-    let yy=y+lab;b.rows.forEach((r,ri)=>{r.forEach((n,ci)=>{n.pos.sem=[x+ci*cw+cw/2,yy+b.hs[ri]/2]});yy+=b.hs[ri]});
-    ISL.push({k:b.k,n:b.L.length,x,y,w:b.iw,room:b.w+TW*1.5});x+=b.w+TW*1.5;sh=Math.max(sh,b.h)})}
-function applyLayout(key){const g=st.gap;
-  if(key==='sem'){computeSem(g);return}
-  if(key==='grid')return;
-  snapGrid(OK,key,g)}
-await computeSim();computeCol();computeDen();LAYOUTS.forEach(l=>applyLayout(l.k));
+// attraction a in [0,1]: 0 = images spread wide and never overlap, 1 = the raw projection pulled tight, overlaps allowed
+const scaleOf=a=>Math.exp(Math.log(3.6)*(1-a)+Math.log(0.32)*a);
+const tolOf=a=>Math.max(0,Math.min(1,1-a*1.15));
+const built={};
+function applyLayout(key){if(key==='grid')return;const a=st.att/100,S=scaleOf(a);
+  let cx=0,cy=0;OK.forEach(n=>{cx+=n.raw[key][0];cy+=n.raw[key][1]});cx/=OK.length;cy/=OK.length;
+  OK.forEach(n=>{const r=n.raw[key];n.pos[key]=[cx+(r[0]-cx)*S,cy+(r[1]-cy)*S]});
+  relax(OK,key,tolOf(a),90);built[key]=st.att}
+const ensure=key=>{if(key!=='grid'&&built[key]!==st.att)applyLayout(key)};
+{const s1=await computeSim();const s2=await computeSem();try{localStorage.setItem(EMB_KEY,JSON.stringify({sig,sim:s1,sem:s2}))}catch(e){}}
+computeCol();computeDen();['sim','sem','col','den'].forEach(applyLayout);
 OK.forEach(n=>{n.pos.grid=n.pos.sim});
 $('#loading').hidden=true;
 
 // ---------- view ----------
 let view={x:0,y:0,s:1},anim=null;
 const inColl=n=>st.cols.includes(n.sec)&&(!st.fav||favs.has(n.i));
-let VIS=[];function refreshVis(){VIS=OK.filter(inColl)}
+let VIS=[];function refreshVis(){VIS=OK.filter(inColl);anchDirty=true}
 function visible(){return VIS}
 function bounds(list){let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;list.forEach(n=>{const p=n.pos[st.lay];x0=Math.min(x0,p[0]-TW);y0=Math.min(y0,p[1]-TW*1.6);x1=Math.max(x1,p[0]+TW);y1=Math.max(y1,p[1]+TW)});return[x0,y0,x1,y1]}
 function fit(animate){if(st.lay==='grid'||!VIS.length)return;const r=cv.getBoundingClientRect();const[x0,y0,x1,y1]=bounds(VIS);const pad=36;
@@ -417,7 +403,7 @@ function fit(animate){if(st.lay==='grid'||!VIS.length)return;const r=cv.getBound
   if(animate)tweenView(t);else view=t}
 function tweenView(t){const f={...view},t0=performance.now();anim=()=>{const k=Math.min(1,(performance.now()-t0)/450),e=1-Math.pow(1-k,3);
   view={x:f.x+(t.x-f.x)*e,y:f.y+(t.y-f.y)*e,s:f.s+(t.s-f.s)*e};if(k>=1)anim=null};}
-function setTargets(){if(st.lay==='grid')return;OK.forEach(n=>{const p=n.pos[st.lay];n.tx=p[0];n.ty=p[1]})}
+function setTargets(){anchDirty=true;if(st.lay==='grid')return;OK.forEach(n=>{const p=n.pos[st.lay];n.tx=p[0];n.ty=p[1]})}
 OK.forEach(n=>{const p=n.pos[st.lay==='grid'?'sim':st.lay];n.x=n.tx=p[0];n.y=n.ty=p[1]});
 function resize(){const r=cv.getBoundingClientRect();DPR=Math.min(2,window.devicePixelRatio||1);cv.width=r.width*DPR;cv.height=r.height*DPR}
 window.addEventListener('resize',()=>{resize()});resize();
@@ -432,6 +418,19 @@ function pump(){while(inflight<6&&want.size){let bk=null,bv=-Infinity;for(const[
   im.onerror=()=>{inflight--;n.lod[lv]=n.lod[160];pump()};im.src=cdn(n.it.url,lv)}}
 
 let hover=null;const css=getComputedStyle(document.documentElement);
+// subject labels: each one sits on the medoid of its subject (the image closest to all the others of that subject)
+let ANCH=[],anchDirty=true;
+function anchors(){const by={};VIS.forEach(n=>{const t=n.it.tag;if(!t||t==='Non identifié')return;(by[t]=by[t]||[]).push(n)});
+  ANCH=Object.entries(by).filter(([t,L])=>L.length>=3).map(([t,L])=>{let bi=0,bd=Infinity;
+    L.forEach((a,i)=>{let d=0;for(const b of L)d+=Math.hypot(a.tx-b.tx,a.ty-b.ty);if(d<bd){bd=d;bi=i}});return{t,n:L.length,m:L[bi]}}).sort((a,b)=>b.n-a.n);anchDirty=false}
+function drawTags(){if(anchDirty)anchors();ctx.setTransform(DPR,0,0,DPR,0,0);const placed=[];const fs=13;
+  ctx.textBaseline='middle';const fg=css.getPropertyValue('--fg'),bg=css.getPropertyValue('--bg'),edge=css.getPropertyValue('--edge');
+  for(const a of ANCH){const sx=a.m.x*view.s+view.x,sy=(a.m.y-TW/a.m.ar/2)*view.s+view.y-16;
+    ctx.font=`650 ${fs}px 'Bricolage Grotesque', sans-serif`;const w1=ctx.measureText(a.t).width;ctx.font=`500 ${fs*0.85}px 'Bricolage Grotesque', sans-serif`;const w2=ctx.measureText(String(a.n)).width;
+    const W=w1+w2+28,Hh=26,x=sx-W/2,y=sy-Hh/2;if(placed.some(r=>x<r[2]&&x+W>r[0]&&y<r[3]&&y+Hh>r[1]))continue;placed.push([x-4,y-4,x+W+4,y+Hh+4]);
+    ctx.fillStyle=bg;ctx.strokeStyle=edge;ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(x,y,W,Hh,13);ctx.globalAlpha=.86;ctx.fill();ctx.globalAlpha=1;ctx.stroke();
+    ctx.fillStyle=fg;ctx.font=`650 ${fs}px 'Bricolage Grotesque', sans-serif`;ctx.fillText(a.t,x+11,sy+0.5);
+    ctx.globalAlpha=.55;ctx.font=`500 ${fs*0.85}px 'Bricolage Grotesque', sans-serif`;ctx.fillText(String(a.n),x+17+w1,sy+0.5);ctx.globalAlpha=1}}
 function draw(){
   if(anim)anim();
   if(st.lay!=='grid'){
@@ -439,10 +438,6 @@ function draw(){
   ctx.setTransform(DPR,0,0,DPR,0,0);ctx.clearRect(0,0,cv.width,cv.height);
   ctx.translate(view.x,view.y);ctx.scale(view.s,view.s);
   const vis=VIS,sel=st.sel;
-  if(st.lay==='sem'){ctx.fillStyle=css.getPropertyValue('--fg');ctx.textBaseline='alphabetic';
-    const fs=Math.max(TW*0.26,13/view.s);
-    ISL.forEach(b=>{if(!vis.some(n=>n.it.tag===b.k))return;ctx.font=`720 ${fs}px 'Bricolage Grotesque', sans-serif`;const w=ctx.measureText(b.k).width;if(w>b.room)return;ctx.fillText(b.k,b.x,b.y+TW*0.7);
-      ctx.font=`500 ${fs*0.75}px 'Bricolage Grotesque', sans-serif`;ctx.globalAlpha=.55;ctx.fillText(String(b.n),b.x+w+fs*0.45,b.y+TW*0.7);ctx.globalAlpha=1})}
     if(sel&&vis.includes(sel)){ctx.strokeStyle=css.getPropertyValue('--link');ctx.lineWidth=1/view.s;sel.nb.forEach(b=>{if(!vis.includes(b))return;ctx.beginPath();ctx.moveTo(sel.x,sel.y);ctx.lineTo(b.x,b.y);ctx.stroke()})}
   const dim=sel?new Set([sel,...sel.nb]):null;
   const vr=cv.getBoundingClientRect(),[vx0,vy0]=toWorld(-60,-60),[vx1,vy1]=toWorld(vr.width+60,vr.height+60);const rad=Math.min(TW*0.1,9/view.s);const round=TW*view.s>22;
@@ -459,6 +454,7 @@ function draw(){
   ctx.lineWidth=2.5/view.s;const o=4/view.s;
   [[hover,'--fg'],[sel,'--accent']].forEach(([n,c])=>{if(!n||!vis.includes(n))return;const col=css.getPropertyValue(c);ctx.strokeStyle=col;ctx.shadowColor=col;ctx.shadowBlur=18;const w=TW,h=TW/n.ar;
     ctx.beginPath();ctx.roundRect(n.x-w/2-o,n.y-h/2-o,w+2*o,h+2*o,rad+o);ctx.stroke();ctx.shadowBlur=0});
+  if(st.lay==='sem')drawTags();
   }
   requestAnimationFrame(draw);
 }
@@ -512,7 +508,7 @@ function favBtn(){const n=st.sel;if(!n)return;const on=favs.has(n.i);$('#pfav').
 function step(d){const L=ORDER();if(!st.sel||!L.length)return;let k=L.indexOf(st.sel);k=(k+d+L.length)%L.length;select(L[k]);if(st.lay!=='grid')centerOn(L[k])}
 $('#pclose').onclick=()=>select(null);$('#pcenter').onclick=()=>st.sel&&centerOn(st.sel);
 $('#pprev').onclick=()=>step(-1);$('#pnext').onclick=()=>step(1);
-$('#ptag').onclick=()=>{const t=st.sel&&st.sel.it.tag;if(!t)return;setLay('sem');setTimeout(()=>{const b=ISL.find(x=>x.k===t);if(b){const r=cv.getBoundingClientRect();const s=Math.max(1.2,Math.min(4,r.width*0.5/Math.max(b.w,TW*4)));tweenView({s,x:r.width*0.42-(b.x+b.w/2)*s,y:r.height*0.45-(b.y+TW*2)*s})}},80)};
+$('#ptag').onclick=()=>{const t=st.sel&&st.sel.it.tag;if(!t)return;setLay('sem');setTimeout(()=>{if(anchDirty)anchors();const a=ANCH.find(x=>x.t===t);if(a)centerOn(a.m)},80)};
 $('#pfav').onclick=()=>{const n=st.sel;if(!n)return;favs.has(n.i)?favs.delete(n.i):favs.add(n.i);saveFavs();favBtn();bar();if(st.lay==='grid')renderGrid(true)};
 $('#pcopy').onclick=()=>{const it=st.sel&&st.sel.it;if(!it)return;navigator.clipboard.writeText(it.file).then(()=>{$('#pcopy').textContent='Copié'}).catch(()=>{$('#pcopy').textContent=it.file})};
 async function getBlob(it){const r=await fetch(it.url,{mode:'cors'});if(!r.ok)throw new Error(r.status);return r.blob()}
@@ -558,7 +554,7 @@ function moveInd(seg,anim){const b=seg.querySelector('[aria-pressed="true"]'),i=
   i.style.width=b.offsetWidth+'px';i.style.transform=`translateX(${b.offsetLeft}px)`}
 window.addEventListener('resize',()=>moveInd($('#gLay')));document.fonts&&document.fonts.ready.then(()=>moveInd($('#gLay')));
 function setLay(k){st.lay=k;save();try{history.replaceState(null,'','#'+(k==='grid'?'series':k))}catch(e){}
-  document.body.classList.toggle('isgrid',k==='grid');$('#grid').hidden=k!=='grid';if(k==='grid')renderGrid();else{setTargets();setTimeout(()=>fit(true),40)}
+  document.body.classList.toggle('isgrid',k==='grid');$('#grid').hidden=k!=='grid';if(k==='grid')renderGrid();else{ensure(k);setTargets();setTimeout(()=>fit(true),40)}
   if(st.sel)$('#pcenter').hidden=k==='grid';bar()}
 function toggleColl(code){const on=st.cols.includes(code);if(on&&st.cols.length===1)return;st.cols=on?st.cols.filter(c=>c!==code):[...st.cols,code];save();refreshVis();bar();if(st.lay==='grid')renderGrid();else fit(true)}
 function bar(){
@@ -572,15 +568,15 @@ function bar(){
   $('#zipN').textContent=VIS.length;requestAnimationFrame(()=>moveInd(gl,false));
 }
 const spc=$('#spc'),spo=$('#spco');let spT=null;
-function showGap(){spo.innerHTML='<small>×</small>'+st.gap.toFixed(1).replace('.',',');spc.style.setProperty('--p',((st.gap-1)/2*100)+'%')}
-function setGap(v,refit){st.gap=Math.round(Math.max(1,Math.min(3,v))*10)/10;spc.value=st.gap;showGap();save();
-  clearTimeout(spT);spT=setTimeout(()=>{LAYOUTS.forEach(l=>applyLayout(l.k));setTargets();if(refit)fit(true)},60)}
-spc.addEventListener('input',()=>setGap(+spc.value,false));spc.addEventListener('change',()=>fit(true));
-$('#sless').onclick=()=>setGap(st.gap-0.2,true);$('#smore').onclick=()=>setGap(st.gap+0.2,true);
-spc.value=st.gap;showGap();
+function showAtt(){spo.innerHTML=st.att+'<small>%</small>';spc.style.setProperty('--p',st.att+'%')}
+function setAtt(v){st.att=Math.round(Math.max(0,Math.min(100,v)));spc.value=st.att;showAtt();save();
+  clearTimeout(spT);spT=setTimeout(()=>{if(st.lay!=='grid'){applyLayout(st.lay);setTargets()}},16)}
+spc.addEventListener('input',()=>setAtt(+spc.value));
+$('#sless').onclick=()=>setAtt(st.att-10);$('#smore').onclick=()=>setAtt(st.att+10);
+spc.value=st.att;showAtt();
 window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);const k=h==='series'?'grid':h;if(LAYOUTS.some(l=>l.k===k)&&k!==st.lay)setLay(k)});
 refreshVis();setLay(st.lay);if(st.lay!=='grid')fit(false);
-window.__mx={nodes:()=>VIS,lay:()=>st.lay,TW,setGap,setLay};
+window.__mx={nodes:()=>VIS,lay:()=>st.lay,TW,setAtt,setLay};
 })().catch(e=>{document.getElementById('ltxt').textContent='Erreur : '+e.message;console.error(e)});
 </script>
 </body>
