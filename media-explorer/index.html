@@ -154,7 +154,7 @@ canvas.drag{cursor:grabbing}
   <div class="stage" id="stage">
     <canvas id="cv"></canvas>
     <div class="top">
-      <div class="brand glass"><h1>Media <i>Explorer</i></h1><a href="../" title="Retour au bestiaire">Bestiaire du mariage · <b id="status"></b></a></div>
+      <div class="brand glass"><h1>Media <i>Explorer</i></h1><a href="../asset-mariage/" title="Retour au bestiaire">Bestiaire du mariage · <b id="status"></b></a></div>
       <div class="seg glass" id="gLay"></div>
       <div class="spacer"></div>
       <div class="seg glass" id="gSec"></div>
@@ -201,7 +201,7 @@ try{Object.assign(st,JSON.parse(localStorage.getItem('carte-st')||'{}'));st.sel=
 const save=()=>{try{localStorage.setItem('carte-st',JSON.stringify({sec:st.sec,lay:st.lay,gap:st.gap}))}catch(e){}};
 
 // ---------- data ----------
-const html=await (await fetch('../')).text();
+const html=await (await fetch('../asset-mariage/')).text();
 const m=html.match(/<script id="data" type="application\/json">([\s\S]*?)<\/script>/);
 const DATA=JSON.parse(m[1].replace(/<\\\//g,'</'));
 const SER={};DATA.series.forEach((s,i)=>SER[s.code]={...s,idx:i});
