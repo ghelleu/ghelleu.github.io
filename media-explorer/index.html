@@ -210,12 +210,14 @@ canvas.drag{cursor:grabbing}
 .navp button:hover{background:var(--knob);color:var(--knob-fg)}
 .navp svg{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
 body.isgrid canvas,body.isgrid .legend,body.isgrid .dock .mapc{display:none}
+body.isgrid .dock{padding:6px}
 @media (max-width:980px){
   .pills{max-width:100%;overflow-x:auto;scrollbar-width:none}
   .pills button{padding:9px 13px;font-size:14px}
   .gridv{padding-top:calc(206px + env(safe-area-inset-top,0px));padding-left:14px;padding-right:14px}
   .cards{--cw:110px;gap:8px}
-  .zipb span{display:none}
+  body:not(.isgrid) .zipb{display:none}
+  body.isgrid .dock{left:50%;right:auto;transform:translateX(-50%)}
   .dock .grp{gap:10px}
 }
 </style>
@@ -348,6 +350,23 @@ function relaxBox(list,key,iter){const P=list.map(n=>n.pos[key]);const HW=TW/2;c
           if(ox*TW/(HH[i]+HH[j])<oy){const m=(ox/2+1e-3)*Math.sign(vx||1);p[0]-=m;q[0]+=m}else{const m=(oy/2+1e-3)*Math.sign(vy||1);p[1]-=m;q[1]+=m}}}});
     if(!hit)return 0}
   return 1}
+// snap a scatter onto a grid of cells (pitch = thumbnail size × gap): neighbours stay neighbours, overlap is impossible
+function snapGrid(list,key,g){const ch=TW/0.75;const pw=TW*g,ph=ch*g;
+  const pts=list.map(n=>n.raw[key]);const xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]);
+  const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+  const cellsNeeded=list.reduce((a,n)=>a+Math.ceil((TW/n.ar)/ch-0.05),0)*1.18;const asp=((x1-x0)||1)/((y1-y0)||1);
+  const cols=Math.max(4,Math.round(Math.sqrt(cellsNeeded*asp))),rows=Math.max(4,Math.ceil(cellsNeeded/cols));
+  const occ=new Set();const cx=(x0+x1)/2,cy=(y0+y1)/2;
+  const order=list.map((n,i)=>i).sort((a,b)=>Math.hypot(pts[a][0]-cx,pts[a][1]-cy)-Math.hypot(pts[b][0]-cx,pts[b][1]-cy));
+  for(const i of order){const n=list[i];const span=Math.max(1,Math.ceil((TW/n.ar)/ch-0.05));
+    const tx=(pts[i][0]-x0)/((x1-x0)||1)*(cols-1),ty=(pts[i][1]-y0)/((y1-y0)||1)*(rows-span);
+    const free=(c,r)=>{for(let k=0;k<span;k++)if(occ.has(c+','+(r+k)))return false;return true};
+    let best=null;const c0=Math.round(tx),r0=Math.round(ty);
+    for(let rad=0;rad<400&&!best;rad++){let bd=1e9;
+      for(let dc=-rad;dc<=rad;dc++)for(let dr=-rad;dr<=rad;dr++){if(Math.max(Math.abs(dc),Math.abs(dr))!==rad)continue;const c=c0+dc,r=r0+dr;
+        if(free(c,r)){const d=Math.hypot(c-tx,r-ty);if(d<bd){bd=d;best=[c,r]}}}}
+    for(let k=0;k<span;k++)occ.add(best[0]+','+(best[1]+k));
+    n.pos[key]=[best[0]*pw,best[1]*ph+(span*ph-ph)/2+(span>1?0:0)]}}
 function norm(list,key,span){const xs=list.map(n=>n.pos[key][0]),ys=list.map(n=>n.pos[key][1]);
   const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
   list.forEach(n=>{const p=n.pos[key];p[0]=(p[0]-x0)/((x1-x0)||1)*span;p[1]=(p[1]-y0)/((y1-y0)||1)*span})}
@@ -377,11 +396,11 @@ function computeSem(g){const groups={};OK.forEach(n=>{(groups[n.it.tag]=groups[n
   let x=0,y=0,sh=0;ISL=[];
   blocks.forEach(b=>{if(x>0&&x+b.w>W){x=0;y+=sh+TW*1.5;sh=0}
     let yy=y+lab;b.rows.forEach((r,ri)=>{r.forEach((n,ci)=>{n.pos.sem=[x+ci*cw+cw/2,yy+b.hs[ri]/2]});yy+=b.hs[ri]});
-    ISL.push({k:b.k,n:b.L.length,x,y,w:b.iw});x+=b.w+TW*1.5;sh=Math.max(sh,b.h)})}
+    ISL.push({k:b.k,n:b.L.length,x,y,w:b.iw,room:b.w+TW*1.5});x+=b.w+TW*1.5;sh=Math.max(sh,b.h)})}
 function applyLayout(key){const g=st.gap;
   if(key==='sem'){computeSem(g);return}
   if(key==='grid')return;
-  const c=span/2;OK.forEach(n=>{const r=n.raw[key];n.pos[key]=[c+(r[0]-c)*g,c+(r[1]-c)*g]});relaxBox(OK,key,400)}
+  snapGrid(OK,key,g)}
 await computeSim();computeCol();computeDen();LAYOUTS.forEach(l=>applyLayout(l.k));
 OK.forEach(n=>{n.pos.grid=n.pos.sim});
 $('#loading').hidden=true;
@@ -407,7 +426,7 @@ window.addEventListener('resize',()=>{resize()});resize();
 const LV=[160,480,1000,2000];let inflight=0;const want=new Map();const big=[];
 function need(px){for(const l of LV)if(l>=px)return l;return LV[LV.length-1]}
 function best(n,lv){for(let k=LV.length-1;k>=0;k--){const l=LV[k];if(l<=lv&&n.lod[l])return n.lod[l]}return n.img}
-function pump(){while(inflight<6&&want.size){let bk=null,bv=-1;for(const[k,v]of want)if(v.p>bv){bv=v.p;bk=k}const{n,lv}=want.get(bk);want.delete(bk);
+function pump(){while(inflight<6&&want.size){let bk=null,bv=-Infinity;for(const[k,v]of want)if(v.p>bv){bv=v.p;bk=k}const{n,lv}=want.get(bk);want.delete(bk);
   if(n.lod[lv])continue;inflight++;const im=new Image();im.decoding='async';im.crossOrigin='anonymous';
   im.onload=()=>{inflight--;n.lod[lv]=im;if(lv>=1000){big.push([n,lv]);while(big.length>90){const[o,l]=big.shift();if(!o._vis)delete o.lod[l];else big.push([o,l])}}pump()};
   im.onerror=()=>{inflight--;n.lod[lv]=n.lod[160];pump()};im.src=cdn(n.it.url,lv)}}
@@ -422,10 +441,9 @@ function draw(){
   const vis=VIS,sel=st.sel;
   if(st.lay==='sem'){ctx.fillStyle=css.getPropertyValue('--fg');ctx.textBaseline='alphabetic';
     const fs=Math.max(TW*0.26,13/view.s);
-    ISL.forEach(b=>{if(!vis.some(n=>n.it.tag===b.k))return;ctx.font=`720 ${fs}px 'Bricolage Grotesque', sans-serif`;ctx.fillText(b.k,b.x,b.y+TW*0.7);
-      const w=ctx.measureText(b.k).width;ctx.font=`500 ${fs*0.75}px 'Bricolage Grotesque', sans-serif`;ctx.globalAlpha=.55;ctx.fillText(String(b.n),b.x+w+fs*0.45,b.y+TW*0.7);ctx.globalAlpha=1})}
-  if(st.lay==='col'){ctx.strokeStyle=css.getPropertyValue('--faint');ctx.lineWidth=1/view.s;ctx.setLineDash([4/view.s,6/view.s]);ctx.beginPath();ctx.arc(span/2,span/2,span*0.5*st.gap,0,Math.PI*2);ctx.stroke();ctx.setLineDash([])}
-  if(sel&&vis.includes(sel)){ctx.strokeStyle=css.getPropertyValue('--link');ctx.lineWidth=1/view.s;sel.nb.forEach(b=>{if(!vis.includes(b))return;ctx.beginPath();ctx.moveTo(sel.x,sel.y);ctx.lineTo(b.x,b.y);ctx.stroke()})}
+    ISL.forEach(b=>{if(!vis.some(n=>n.it.tag===b.k))return;ctx.font=`720 ${fs}px 'Bricolage Grotesque', sans-serif`;const w=ctx.measureText(b.k).width;if(w>b.room)return;ctx.fillText(b.k,b.x,b.y+TW*0.7);
+      ctx.font=`500 ${fs*0.75}px 'Bricolage Grotesque', sans-serif`;ctx.globalAlpha=.55;ctx.fillText(String(b.n),b.x+w+fs*0.45,b.y+TW*0.7);ctx.globalAlpha=1})}
+    if(sel&&vis.includes(sel)){ctx.strokeStyle=css.getPropertyValue('--link');ctx.lineWidth=1/view.s;sel.nb.forEach(b=>{if(!vis.includes(b))return;ctx.beginPath();ctx.moveTo(sel.x,sel.y);ctx.lineTo(b.x,b.y);ctx.stroke()})}
   const dim=sel?new Set([sel,...sel.nb]):null;
   const vr=cv.getBoundingClientRect(),[vx0,vy0]=toWorld(-60,-60),[vx1,vy1]=toWorld(vr.width+60,vr.height+60);const rad=Math.min(TW*0.1,9/view.s);const round=TW*view.s>22;
   const cx=(vx0+vx1)/2,cy=(vy0+vy1)/2;const px=TW*view.s*DPR,lv=need(px*1.05);
@@ -562,6 +580,7 @@ $('#sless').onclick=()=>setGap(st.gap-0.2,true);$('#smore').onclick=()=>setGap(s
 spc.value=st.gap;showGap();
 window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);const k=h==='series'?'grid':h;if(LAYOUTS.some(l=>l.k===k)&&k!==st.lay)setLay(k)});
 refreshVis();setLay(st.lay);if(st.lay!=='grid')fit(false);
+window.__mx={nodes:()=>VIS,lay:()=>st.lay,TW,setGap,setLay};
 })().catch(e=>{document.getElementById('ltxt').textContent='Erreur : '+e.message;console.error(e)});
 </script>
 </body>
