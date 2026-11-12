@@ -351,14 +351,14 @@ function relaxBox(list,key,iter){const P=list.map(n=>n.pos[key]);const HW=TW/2;c
     if(!hit)return 0}
   return 1}
 // snap a scatter onto a grid of cells (pitch = thumbnail size × gap): neighbours stay neighbours, overlap is impossible
-function snapGrid(list,key,g){const ch=TW/0.75;const pw=TW*g,ph=ch*g;
+function snapGrid(list,key,g){const ch=TW/0.665;const pw=TW*g,ph=ch*g;
   const pts=list.map(n=>n.raw[key]);const xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]);
   const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
-  const cellsNeeded=list.reduce((a,n)=>a+Math.ceil((TW/n.ar)/ch-0.05),0)*1.18;const asp=((x1-x0)||1)/((y1-y0)||1);
+  const cellsNeeded=list.reduce((a,n)=>a+Math.ceil((TW/n.ar)/ch-0.001),0)*1.18;const asp=((x1-x0)||1)/((y1-y0)||1);
   const cols=Math.max(4,Math.round(Math.sqrt(cellsNeeded*asp))),rows=Math.max(4,Math.ceil(cellsNeeded/cols));
   const occ=new Set();const cx=(x0+x1)/2,cy=(y0+y1)/2;
   const order=list.map((n,i)=>i).sort((a,b)=>Math.hypot(pts[a][0]-cx,pts[a][1]-cy)-Math.hypot(pts[b][0]-cx,pts[b][1]-cy));
-  for(const i of order){const n=list[i];const span=Math.max(1,Math.ceil((TW/n.ar)/ch-0.05));
+  for(const i of order){const n=list[i];const span=Math.max(1,Math.ceil((TW/n.ar)/ch-0.001));
     const tx=(pts[i][0]-x0)/((x1-x0)||1)*(cols-1),ty=(pts[i][1]-y0)/((y1-y0)||1)*(rows-span);
     const free=(c,r)=>{for(let k=0;k<span;k++)if(occ.has(c+','+(r+k)))return false;return true};
     let best=null;const c0=Math.round(tx),r0=Math.round(ty);
