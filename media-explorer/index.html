@@ -372,12 +372,12 @@ function computeSem(g){const groups={};OK.forEach(n=>{(groups[n.it.tag]=groups[n
   const cw=TW*g,rowH=list=>Math.max(...list.map(n=>TW/n.ar))*g,lab=TW*0.9;
   const blocks=keys.map(k=>{const L=groups[k].slice().sort((a,b)=>a.ser.idx-b.ser.idx||a.ux-b.ux);const cols=Math.max(1,Math.ceil(Math.sqrt(L.length*1.6)));
     const rows=[];for(let i=0;i<L.length;i+=cols)rows.push(L.slice(i,i+cols));
-    const hs=rows.map(rowH);return{k,L,cols,rows,hs,w:Math.min(cols,L.length)*cw,h:hs.reduce((a,b)=>a+b,0)+lab}});
+    const hs=rows.map(rowH);return{k,L,cols,rows,hs,iw:Math.min(cols,L.length)*cw,w:Math.max(Math.min(cols,L.length)*cw,k.length*TW*0.34+TW*0.8),h:hs.reduce((a,b)=>a+b,0)+lab}});
   const area=blocks.reduce((a,b)=>a+(b.w+TW*1.5)*(b.h+TW*1.5),0),W=Math.max(Math.sqrt(area)*1.5,blocks[0]?blocks[0].w:0);
   let x=0,y=0,sh=0;ISL=[];
   blocks.forEach(b=>{if(x>0&&x+b.w>W){x=0;y+=sh+TW*1.5;sh=0}
     let yy=y+lab;b.rows.forEach((r,ri)=>{r.forEach((n,ci)=>{n.pos.sem=[x+ci*cw+cw/2,yy+b.hs[ri]/2]});yy+=b.hs[ri]});
-    ISL.push({k:b.k,n:b.L.length,x,y,w:b.w});x+=b.w+TW*1.5;sh=Math.max(sh,b.h)})}
+    ISL.push({k:b.k,n:b.L.length,x,y,w:b.iw});x+=b.w+TW*1.5;sh=Math.max(sh,b.h)})}
 function applyLayout(key){const g=st.gap;
   if(key==='sem'){computeSem(g);return}
   if(key==='grid')return;
@@ -421,9 +421,9 @@ function draw(){
   ctx.translate(view.x,view.y);ctx.scale(view.s,view.s);
   const vis=VIS,sel=st.sel;
   if(st.lay==='sem'){ctx.fillStyle=css.getPropertyValue('--fg');ctx.textBaseline='alphabetic';
-    const fs=Math.max(11,Math.min(22,14/Math.sqrt(view.s)))/1;
-    ISL.forEach(b=>{if(!vis.some(n=>n.it.tag===b.k))return;ctx.font=`720 ${fs}px 'Bricolage Grotesque', sans-serif`;ctx.fillText(b.k,b.x,b.y+TW*0.62);
-      const w=ctx.measureText(b.k).width;ctx.font=`500 ${fs*0.75}px 'Bricolage Grotesque', sans-serif`;ctx.globalAlpha=.55;ctx.fillText(String(b.n),b.x+w+fs*0.45,b.y+TW*0.62);ctx.globalAlpha=1})}
+    const fs=Math.max(TW*0.26,13/view.s);
+    ISL.forEach(b=>{if(!vis.some(n=>n.it.tag===b.k))return;ctx.font=`720 ${fs}px 'Bricolage Grotesque', sans-serif`;ctx.fillText(b.k,b.x,b.y+TW*0.7);
+      const w=ctx.measureText(b.k).width;ctx.font=`500 ${fs*0.75}px 'Bricolage Grotesque', sans-serif`;ctx.globalAlpha=.55;ctx.fillText(String(b.n),b.x+w+fs*0.45,b.y+TW*0.7);ctx.globalAlpha=1})}
   if(st.lay==='col'){ctx.strokeStyle=css.getPropertyValue('--faint');ctx.lineWidth=1/view.s;ctx.setLineDash([4/view.s,6/view.s]);ctx.beginPath();ctx.arc(span/2,span/2,span*0.5*st.gap,0,Math.PI*2);ctx.stroke();ctx.setLineDash([])}
   if(sel&&vis.includes(sel)){ctx.strokeStyle=css.getPropertyValue('--link');ctx.lineWidth=1/view.s;sel.nb.forEach(b=>{if(!vis.includes(b))return;ctx.beginPath();ctx.moveTo(sel.x,sel.y);ctx.lineTo(b.x,b.y);ctx.stroke()})}
   const dim=sel?new Set([sel,...sel.nb]):null;
