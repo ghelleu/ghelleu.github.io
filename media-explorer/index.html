@@ -173,6 +173,7 @@ canvas.drag{cursor:grabbing}
 .coll>h2{margin:0 0 6px;font-size:clamp(44px,7vw,92px);font-weight:780;letter-spacing:-.06em;line-height:.9;font-variation-settings:"wdth" 78,"opsz" 96}
 .coll>h2 i{font-style:normal;font-weight:300}
 .coll>p{margin:0 0 34px;max-width:620px;color:var(--soft);font-size:15px}
+.coll>h2+.ser{margin-top:34px}
 .ser{margin:0 0 40px}
 .ser header{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:14px}
 .ser .code{padding:6px 11px;border-radius:999px;font-size:13px;font-weight:700;background:var(--glass-hi);border:1px solid var(--edge)}
@@ -298,7 +299,12 @@ const saveFavs=()=>{try{localStorage.setItem('mx-favs',JSON.stringify([...favs])
 // ---------- data ----------
 const DATA=await (await fetch('data.json',{cache:'no-cache'})).json();
 const SER={};DATA.series.forEach((s,i)=>SER[s.code]={...s,idx:i});
-const COLL={};DATA.sections.forEach(s=>COLL[s.code]=s);
+const COLL={};DATA.sections.forEach((s,i)=>COLL[s.code]={...s,idx:i});
+// ordre d'affichage : data.json est en ordre d'arrivée, on montre le plus récent en haut (série la plus récente d'abord, image la plus récente d'abord).
+// Une série marquée pin:'end' reste en bas de sa section, dans l'ordre de data.json.
+const SERORDER=ser=>{const top=ser.filter(s=>s.pin!=='end').reverse(),end=ser.filter(s=>s.pin==='end');return top.concat(end)};
+const SRANK={};SERORDER(DATA.series).forEach((s,r)=>SRANK[s.code]=r);
+const NEWEST=(a,b)=>((COLL[a.sec]||{}).idx-(COLL[b.sec]||{}).idx)||(SRANK[a.it.s]-SRANK[b.it.s])||(b.i-a.i);
 if(!Array.isArray(st.cols)||!st.cols.length)st.cols=DATA.sections.map(s=>s.code);
 const cdn=(u,w)=>u.replace('https://assets.hint3rland.com/','https://assets.hint3rland.com/cdn-cgi/image/width='+w+',quality='+(w>800?88:80)+',format=auto/');
 const thumb=(u,w)=>u.replace('https://assets.hint3rland.com/','https://assets.hint3rland.com/cdn-cgi/image/width='+w+',quality=80,format=jpeg/');
@@ -493,7 +499,7 @@ function centerOn(n){const r=cv.getBoundingClientRect();const s=Math.max(view.s,
 
 // ---------- panel ----------
 const HUE=['rouge','orangé','jaune','vert-jaune','vert','vert d\'eau','cyan','bleu ciel','bleu','violet','rose','rouge'];
-const ORDER=()=>st.lay==='grid'?GRIDORDER:VIS.slice().sort((a,b)=>a.ser.idx-b.ser.idx||a.i-b.i);
+const ORDER=()=>st.lay==='grid'?GRIDORDER:VIS.slice().sort(NEWEST);
 function select(n){st.sel=n;const p=$('#panel');if(!n){p.hidden=true;return}p.hidden=false;
   $('#pimg').src=thumb(n.it.url,1000);$('#pimg').alt=n.it.n;$('#pname').textContent=n.it.n;
   $('#pser').textContent=(n.ser||{}).title||'';$('#pcode').textContent=`${n.it.s} · ${n.it.num}`;
@@ -524,10 +530,10 @@ let GRIDORDER=[];
 function renderGrid(keepScroll){const g=$('#grid');const sc=g.scrollTop;g.innerHTML='';GRIDORDER=[];
   const vis=new Set(VIS);
   DATA.sections.filter(s=>st.cols.includes(s.code)).forEach(S=>{
-    const series=DATA.series.filter(s=>s.sec===S.code&&OK.some(n=>n.it.s===s.code&&vis.has(n)));if(!series.length)return;
+    const series=SERORDER(DATA.series.filter(s=>s.sec===S.code&&OK.some(n=>n.it.s===s.code&&vis.has(n))));if(!series.length)return;
     const c=document.createElement('section');c.className='coll';c.style.setProperty('--ratio',S.ratio);if(S.code==='menus')c.style.setProperty('--cw','120px');
-    const parts=S.title.split(' ');c.innerHTML=`<h2>${parts[0]} <i>${parts.slice(1).join(' ')}</i></h2><p>${S.lede||''}</p>`;
-    series.forEach(s=>{const L=OK.filter(n=>n.it.s===s.code&&vis.has(n));GRIDORDER.push(...L);
+    const parts=S.title.split(' ');c.innerHTML=`<h2>${parts[0]} <i>${parts.slice(1).join(' ')}</i></h2>${S.lede?`<p>${S.lede}</p>`:''}`;
+    series.forEach(s=>{const L=OK.filter(n=>n.it.s===s.code&&vis.has(n)).reverse();GRIDORDER.push(...L);
       const el=document.createElement('div');el.className='ser';
       el.innerHTML=`<header><span class="code">${s.code}</span><h3>${s.title}</h3><span class="sub">${s.sub||''} · ${L.length} images</span><button class="sdl" type="button">Télécharger la série</button></header><div class="cards"></div>`;
       el.querySelector('.sdl').onclick=e=>zipList(L,`${s.code}_${s.title}`,e.currentTarget);

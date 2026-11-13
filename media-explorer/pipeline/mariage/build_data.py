@@ -24,6 +24,6 @@ for k,i in enumerate(D['items']):
     i.pop('i',None)
 for s in D['sections']:
     s['title']={'menus':'Menus mariage','panneaux':'Panneaux mariage'}[s['code']]; s['project']='Mariage'
-D['sections'][1]['lede']="Les 8 grands panneaux muraux des chimères, 100 × 140 cm. Toutes les pistes générées sur Dadaland, dans l'ordre chronologique, des affiches en patois du 18 octobre à la série au style du menu. Les mises en situation dans l'orangerie sont à la fin."
+D['sections'][1].pop('lede',None)  # texte d'introduction des Panneaux retiré à la demande de Guillaume, 13 novembre 2026
 json.dump(D,open(__import__('os').environ.get('SITE_DIR',__import__('os').path.expanduser('~/ghelleu.github.io'))+'/media-explorer/data.json','w'),ensure_ascii=False,separators=(',',':'))
 print(c.most_common()); print([s['title'] for s in D['sections']], D['sections'][0].get('lede','')[:80])
