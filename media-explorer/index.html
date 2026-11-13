@@ -282,7 +282,7 @@ const cv=$('#cv'),ctx=cv.getContext('2d');
 let DPR=Math.min(2,window.devicePixelRatio||1);
 const LAYOUTS=[
   {k:'sim',t:'Ressemblance',d:'<b>Ressemblance</b>Les images proches se ressemblent par la couleur, la lumière et la densité du dessin (projection UMAP).'},
-  {k:'sem',t:'Sujet',d:'<b>Sujet</b>Un seul grand espace : les images d\'un même sujet s\'attirent, tous les centaures ensemble, tous les faunes ensemble. À l\'intérieur d\'un sujet, les plus ressemblantes se touchent.'},
+  {k:'sem',t:'Sujet',d:'<b>Sujet</b>Un seul grand espace : les images d\'un même personnage s\'attirent, tous les troubadours ensemble, tous les chevaliers ensemble. À l\'intérieur d\'un personnage, chaque créature forme son groupe (troubadour faune, troubadour bélier) et les images les plus ressemblantes se touchent.'},
   {k:'col',t:'Couleur',d:'<b>Couleur</b>Roue chromatique : l\'angle suit la teinte dominante, le centre réunit les images peu saturées.'},
   {k:'den',t:'Densité',d:'<b>Densité</b>De gauche à droite, du plus épuré au plus chargé ; de bas en haut, du plus sombre au plus clair.'},
   {k:'grid',t:'Séries',d:''}
@@ -363,9 +363,15 @@ function norm(list,key,span){const xs=list.map(n=>n.raw[key][0]),ys=list.map(n=>
 function seeded(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 const span=Math.sqrt(OK.length)*TW*1.15;
 // embeddings are cached per browser: same images and subjects give the same map without recomputing
-const TAGS=[...new Set(OK.map(n=>n.it.tag).filter(t=>t&&t!=='Non identifié'))].sort();
-const EMB_KEY='mx-emb-v2';
-const sig=(()=>{let h=0;const str=OK.map(n=>n.it.url+'|'+(n.it.tag||'')).join('#');for(let i=0;i<str.length;i++)h=(h*31+str.charCodeAt(i))|0;return OK.length+':'+h})();
+// sujet = personnage (champ perso, ex. Troubadour) et créature qui l'incarne (champ tag, ex. Faune ou Bélier).
+// Une image sans personnage (menus, panneaux non nommés) se range par sa créature seule.
+const NOID='Non identifié';
+const gk=n=>n.it.perso||(n.it.tag&&n.it.tag!==NOID?n.it.tag:null);
+const ck=n=>{const g=gk(n);return g?g+'|'+(n.it.tag||NOID):null};
+const GROUPS=[...new Set(OK.map(gk).filter(Boolean))].sort();
+const CREAS=[...new Set(OK.map(n=>n.it.tag).filter(t=>t&&t!==NOID))].sort();
+const EMB_KEY='mx-emb-v3';
+const sig=(()=>{let h=0;const str=OK.map(n=>n.it.url+'|'+(n.it.perso||'')+'|'+(n.it.tag||'')).join('#');for(let i=0;i<str.length;i++)h=(h*31+str.charCodeAt(i))|0;return OK.length+':'+h})();
 let embc=null;try{const c=JSON.parse(localStorage.getItem(EMB_KEY)||'null');if(c&&c.sig===sig)embc=c}catch(e){}
 async function umap(vecs,labels,label){
   $('#ltxt').innerHTML=`<span>${label}</span><span>100%</span>`;$('#lbar').style.width='100%';await new Promise(r=>setTimeout(r,30));
@@ -374,11 +380,12 @@ async function umap(vecs,labels,label){
   const emb=await um.fitAsync(vecs,()=>{});return emb.map(p=>[Math.round(p[0]*1e4)/1e4,Math.round(p[1]*1e4)/1e4])}
 async function computeSim(){const e=embc?embc.sim:await umap(OK.map(n=>n.vec),null,'Calcul des rapprochements');
   OK.forEach((n,i)=>n.raw.sim=e[i].slice());norm(OK,'sim',span);return e}
-// subject space: the visual features plus a strong subject component, so every centaur attracts every other centaur,
-// and inside a subject the images that look alike sit closest. Unidentified images keep only their visual pull.
+// subject space: the visual features plus a strong personnage component (every troubadour attracts every other troubadour),
+// a lighter créature component (troubadours faunes apart from troubadours béliers, and faunes of every role drawn together),
+// and inside a group the images that look alike sit closest. Unidentified images keep only their visual pull.
 async function computeSem(){const W=3;
-  const vecs=OK.map(n=>{const oh=TAGS.map(t=>t===n.it.tag?W:0);return[...n.vec,...oh]});
-  const labels=OK.map(n=>{const k=TAGS.indexOf(n.it.tag);return k<0?-1:k});
+  const vecs=OK.map(n=>{const g=gk(n),c=n.it.tag;return[...n.vec,...GROUPS.map(t=>t===g?W:0),...CREAS.map(t=>t===c?W*0.45:0)]});
+  const labels=OK.map(n=>GROUPS.indexOf(gk(n)));
   const e=embc?embc.sem:await umap(vecs,labels,'Regroupement par sujet');
   OK.forEach((n,i)=>n.raw.sem=e[i].slice());norm(OK,'sem',span);return e}
 function computeCol(){OK.forEach(n=>{const f=n.f;const a=f.hue*Math.PI/180;const r=Math.min(1,f.sat*3.2);
@@ -429,17 +436,24 @@ function pump(){while(inflight<6&&want.size){let bk=null,bv=-Infinity;for(const[
 let hover=null;const css=getComputedStyle(document.documentElement);
 // subject labels: each one sits on the medoid of its subject (the image closest to all the others of that subject)
 let ANCH=[],anchDirty=true;
-function anchors(){const by={};VIS.forEach(n=>{const t=n.it.tag;if(!t||t==='Non identifié')return;(by[t]=by[t]||[]).push(n)});
-  ANCH=Object.entries(by).filter(([t,L])=>L.length>=3).map(([t,L])=>{let bi=0,bd=Infinity;
-    L.forEach((a,i)=>{let d=0;for(const b of L)d+=Math.hypot(a.tx-b.tx,a.ty-b.ty);if(d<bd){bd=d;bi=i}});return{t,n:L.length,m:L[bi]}}).sort((a,b)=>b.n-a.n);anchDirty=false}
-function drawTags(){if(anchDirty)anchors();ctx.setTransform(DPR,0,0,DPR,0,0);const placed=[];const fs=13;
+// two levels: a label per personnage, then a smaller label per créature when a personnage takes several créatures
+function medoid(L){let bi=0,bd=Infinity;L.forEach((a,i)=>{let d=0;for(const b of L)d+=Math.hypot(a.tx-b.tx,a.ty-b.ty);if(d<bd){bd=d;bi=i}});return L[bi]}
+function anchors(){const by={},sub={};VIS.forEach(n=>{const g=gk(n);if(!g)return;(by[g]=by[g]||[]).push(n);const c=ck(n);(sub[c]=sub[c]||[]).push(n)});
+  const top=[],low=[];
+  Object.entries(by).forEach(([g,L])=>{if(L.length<3)return;
+    const cs=[...new Set(L.map(n=>n.it.tag||NOID))].filter(c=>c!==g);
+    const one=cs.length===1&&cs[0]!==NOID&&L.every(n=>n.it.tag===cs[0]);
+    top.push({k:g,t:one?g+' · '+cs[0]:g,n:L.length,m:medoid(L),lv:0});
+    if(!one)cs.forEach(c=>{const S=sub[g+'|'+c];if(c!==NOID&&S&&S.length>=3)low.push({k:g+'|'+c,t:g+' · '+c,n:S.length,m:medoid(S),lv:1})})});
+  ANCH=[...top.sort((a,b)=>b.n-a.n),...low.sort((a,b)=>b.n-a.n)];anchDirty=false}
+function drawTags(){if(anchDirty)anchors();ctx.setTransform(DPR,0,0,DPR,0,0);const placed=[];
   ctx.textBaseline='middle';const fg=css.getPropertyValue('--fg'),bg=css.getPropertyValue('--bg'),edge=css.getPropertyValue('--edge');
-  for(const a of ANCH){const sx=a.m.x*view.s+view.x,sy=(a.m.y-TW/a.m.ar/2)*view.s+view.y-16;
+  for(const a of ANCH){const fs=a.lv?11:13,sx=a.m.x*view.s+view.x,sy=(a.m.y-TW/a.m.ar/2)*view.s+view.y-(a.lv?10:16);
     ctx.font=`650 ${fs}px 'Bricolage Grotesque', sans-serif`;const w1=ctx.measureText(a.t).width;ctx.font=`500 ${fs*0.85}px 'Bricolage Grotesque', sans-serif`;const w2=ctx.measureText(String(a.n)).width;
-    const W=w1+w2+28,Hh=26,x=sx-W/2,y=sy-Hh/2;if(placed.some(r=>x<r[2]&&x+W>r[0]&&y<r[3]&&y+Hh>r[1]))continue;placed.push([x-4,y-4,x+W+4,y+Hh+4]);
-    ctx.fillStyle=bg;ctx.strokeStyle=edge;ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(x,y,W,Hh,13);ctx.globalAlpha=.86;ctx.fill();ctx.globalAlpha=1;ctx.stroke();
-    ctx.fillStyle=fg;ctx.font=`650 ${fs}px 'Bricolage Grotesque', sans-serif`;ctx.fillText(a.t,x+11,sy+0.5);
-    ctx.globalAlpha=.55;ctx.font=`500 ${fs*0.85}px 'Bricolage Grotesque', sans-serif`;ctx.fillText(String(a.n),x+17+w1,sy+0.5);ctx.globalAlpha=1}}
+    const W=w1+w2+(a.lv?22:28),Hh=a.lv?20:26,x=sx-W/2,y=sy-Hh/2;if(placed.some(r=>x<r[2]&&x+W>r[0]&&y<r[3]&&y+Hh>r[1]))continue;placed.push([x-4,y-4,x+W+4,y+Hh+4]);
+    ctx.fillStyle=bg;ctx.strokeStyle=edge;ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(x,y,W,Hh,Hh/2);ctx.globalAlpha=a.lv?.72:.86;ctx.fill();ctx.globalAlpha=1;if(!a.lv)ctx.stroke();
+    const p=a.lv?8:11;ctx.fillStyle=fg;ctx.globalAlpha=a.lv?.8:1;ctx.font=`${a.lv?560:650} ${fs}px 'Bricolage Grotesque', sans-serif`;ctx.fillText(a.t,x+p,sy+0.5);
+    ctx.globalAlpha=.55;ctx.font=`500 ${fs*0.85}px 'Bricolage Grotesque', sans-serif`;ctx.fillText(String(a.n),x+p+6+w1,sy+0.5);ctx.globalAlpha=1}}
 function draw(){
   if(anim)anim();
   if(st.lay!=='grid'){
@@ -503,7 +517,7 @@ const ORDER=()=>st.lay==='grid'?GRIDORDER:VIS.slice().sort(NEWEST);
 function select(n){st.sel=n;const p=$('#panel');if(!n){p.hidden=true;return}p.hidden=false;
   $('#pimg').src=thumb(n.it.url,1000);$('#pimg').alt=n.it.n;$('#pname').textContent=n.it.n;
   $('#pser').textContent=(n.ser||{}).title||'';$('#pcode').textContent=`${n.it.s} · ${n.it.num}`;
-  const same=OK.filter(m=>m.it.tag===n.it.tag).length;$('#ptag').innerHTML=`${n.it.tag} <small>${same}</small>`;
+  const g=gk(n),same=g?OK.filter(m=>gk(m)===g).length:OK.filter(m=>!gk(m)).length;$('#ptag').innerHTML=`${n.it.perso?n.it.perso+' · '+(n.it.tag||NOID):(n.it.tag||NOID)} <small>${same}</small>`;
   const f=n.f;const top=f.hist.indexOf(Math.max(...f.hist));
   const hueCol=f.sat>0.02?`hsl(${Math.round(f.hue)} ${Math.round(Math.min(1,f.sat*3)*80+15)}% 55%)`:'#999';
   const pp=v=>`${Math.round(v*100)}<small>%</small>`;
@@ -517,7 +531,7 @@ function favBtn(){const n=st.sel;if(!n)return;const on=favs.has(n.i);$('#pfav').
 function step(d){const L=ORDER();if(!st.sel||!L.length)return;let k=L.indexOf(st.sel);k=(k+d+L.length)%L.length;select(L[k]);if(st.lay!=='grid')centerOn(L[k])}
 $('#pclose').onclick=()=>select(null);$('#pcenter').onclick=()=>st.sel&&centerOn(st.sel);
 $('#pprev').onclick=()=>step(-1);$('#pnext').onclick=()=>step(1);
-$('#ptag').onclick=()=>{const t=st.sel&&st.sel.it.tag;if(!t)return;setLay('sem');setTimeout(()=>{if(anchDirty)anchors();const a=ANCH.find(x=>x.t===t);if(a)centerOn(a.m)},80)};
+$('#ptag').onclick=()=>{const n=st.sel;if(!n||!gk(n))return;setLay('sem');setTimeout(()=>{if(anchDirty)anchors();const a=ANCH.find(x=>x.k===ck(n))||ANCH.find(x=>x.k===gk(n));if(a)centerOn(a.m)},80)};
 $('#pfav').onclick=()=>{const n=st.sel;if(!n)return;favs.has(n.i)?favs.delete(n.i):favs.add(n.i);saveFavs();favBtn();bar();if(st.lay==='grid')renderGrid(true)};
 $('#pcopy').onclick=()=>{const it=st.sel&&st.sel.it;if(!it)return;navigator.clipboard.writeText(it.file).then(()=>{$('#pcopy').textContent='Copié'}).catch(()=>{$('#pcopy').textContent=it.file})};
 async function getBlob(it){const r=await fetch(it.url,{mode:'cors'});if(!r.ok)throw new Error(r.status);return r.blob()}
@@ -539,7 +553,7 @@ function renderGrid(keepScroll){const g=$('#grid');const sc=g.scrollTop;g.innerH
       el.querySelector('.sdl').onclick=e=>zipList(L,`${s.code}_${s.title}`,e.currentTarget);
       const cards=el.querySelector('.cards');
       L.forEach(n=>{const a=document.createElement('div');a.className='card';a.tabIndex=0;a.setAttribute('role','button');a.setAttribute('aria-label',`${n.it.s} ${n.it.num} ${n.it.n}`);
-        a.innerHTML=`<img loading="lazy" alt="" src="${thumb(n.it.url,420)}"><button class="fv glass" type="button" aria-label="Favori" aria-pressed="${favs.has(n.i)}"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.8l-5.2 2.8 1-5.8-4.3-4.1 5.9-.9z"/></svg></button><div class="cap glass"><b>${n.it.n}</b><span>${n.it.s} · ${n.it.num} · ${n.it.tag}</span></div>`;
+        a.innerHTML=`<img loading="lazy" alt="" src="${thumb(n.it.url,420)}"><button class="fv glass" type="button" aria-label="Favori" aria-pressed="${favs.has(n.i)}"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.8l-5.2 2.8 1-5.8-4.3-4.1 5.9-.9z"/></svg></button><div class="cap glass"><b>${n.it.n}</b><span>${n.it.s} · ${n.it.num} · ${n.it.perso?n.it.perso+' · ':''}${n.it.tag}</span></div>`;
         a.onclick=e=>{if(e.target.closest('.fv'))return;select(n)};a.onkeydown=e=>{if(e.key==='Enter')select(n)};
         a.querySelector('.fv').onclick=e=>{e.stopPropagation();favs.has(n.i)?favs.delete(n.i):favs.add(n.i);saveFavs();e.currentTarget.setAttribute('aria-pressed',favs.has(n.i));favBtn();bar()};
         cards.append(a)});
