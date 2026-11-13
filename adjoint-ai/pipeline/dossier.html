@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Guillaume Helleu · Exercice adjoint Architecture d'intérieur</title>
+<style>
+@font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-latin-400-normal.woff2);font-weight:400}
+@font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-latin-400-italic.woff2);font-weight:400;font-style:italic}
+@font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-latin-600-normal.woff2);font-weight:600}
+@font-face{font-family:PlexSerif;src:url(fonts/ibm-plex-serif-latin-400-normal.woff2);font-weight:400}
+@font-face{font-family:PlexSerif;src:url(fonts/ibm-plex-serif-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:PlexMono;src:url(fonts/ibm-plex-mono-latin-400-normal.woff2);font-weight:400}
+@font-face{font-family:PlexMono;src:url(fonts/ibm-plex-mono-latin-500-normal.woff2);font-weight:500}
+@page{size:A4;margin:15mm 16mm 15mm 16mm;
+  @bottom-left{content:"Guillaume Helleu · Candidature réf. 566 · Exercice de la 2e étape";font:7pt PlexMono;color:#6b6f78}
+  @bottom-right{content:counter(page) " / " counter(pages);font:7pt PlexMono;color:#6b6f78}}
+:root{--a:#1D3F9E;--ink:#16181d;--mute:#5d626c;--rule:#d5d9e2;--tint:#f2f4f9}
+*{box-sizing:border-box}
+html{font-family:Plex;font-size:8.6pt;line-height:1.38;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0}
+p{margin:0 0 4.5pt}
+.head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1.2pt solid var(--a);padding-bottom:5pt;margin-bottom:7pt}
+.name{font-family:PlexSerif;font-size:19pt;font-weight:500;letter-spacing:-.2pt;line-height:1}
+.meta{font-family:PlexMono;font-size:7pt;color:var(--mute);text-align:right;line-height:1.45}
+.intro{color:var(--mute);margin-bottom:6pt}
+h1{font-family:PlexSerif;font-weight:500;font-size:13pt;color:var(--a);margin:9pt 0 3pt;line-height:1.15}
+h1 .n{font-family:PlexMono;font-size:8pt;font-weight:500;display:block;color:var(--mute);letter-spacing:.4pt;margin-bottom:1pt}
+h2{font-size:9.4pt;font-weight:600;margin:7pt 0 3pt;color:var(--ink)}
+h2 .n{font-family:PlexMono;font-weight:500;color:var(--a);margin-right:5pt}
+table{width:100%;border-collapse:collapse;margin:2pt 0 5pt;font-size:7.7pt;line-height:1.32;page-break-inside:auto}
+tr{page-break-inside:avoid}
+th{font-family:PlexMono;font-weight:500;font-size:6.9pt;text-transform:uppercase;letter-spacing:.35pt;text-align:left;color:var(--a);border-bottom:.9pt solid var(--a);padding:2.5pt 4pt}
+td{vertical-align:top;border-bottom:.5pt solid var(--rule);padding:2.6pt 4pt}
+td.k{font-weight:600;white-space:nowrap;width:1%}
+td.k2{font-weight:600;width:16%}
+tbody tr:nth-child(even) td{background:var(--tint)}
+sup{font-family:PlexMono;font-size:5.6pt;color:var(--a);line-height:0;margin-left:.6pt}
+ul{margin:0 0 4pt;padding-left:11pt}
+li{margin-bottom:2.2pt}
+li::marker{color:var(--a)}
+.box{border-left:2pt solid var(--a);background:var(--tint);padding:4pt 7pt;margin:4pt 0 6pt}
+.box p:last-child{margin:0}
+.lead{font-weight:600}
+.mono{font-family:PlexMono;font-size:7.2pt}
+.st{font-family:PlexMono;font-size:6.6pt;padding:.5pt 3pt;border-radius:2pt;white-space:nowrap}
+.ok{background:#dfe9da;color:#2f5b22}.go{background:#dde4f6;color:var(--a)}.wa{background:#f6ead2;color:#7a4f00}.ko{background:#f5dcdc;color:#8a1f1f}
+.pb{page-break-before:always}
+.refs{font-size:7.2pt;line-height:1.36;color:#30343b}
+.refs ol{padding-left:14pt;margin:0}
+.refs li{margin-bottom:1.6pt}
+.refs a, a{color:var(--a);text-decoration:none}
+.url{font-family:PlexMono;font-size:6.6pt;color:var(--mute);word-break:break-all}
+.keep{page-break-inside:avoid}
+</style>
+</head>
+<body>
+
+<div class="head">
+  <div class="name">Guillaume Helleu</div>
+  <div class="meta">Adjoint au responsable du département Architecture d'intérieur<br>HEAD – Genève · réf. 566 · exercice de la 2e étape · 16 novembre 2026</div>
+</div>
+
+<p class="intro">Ce document répond aux deux questions dans l'ordre de l'énoncé. Les faits relatifs aux formations proviennent des pages publiques de la HEAD – Genève et de head-maia.ch, des plans d'études et descriptifs de modules 2026-2027, du calendrier académique 2026-2027 et des règlements en vigueur, consultés le 13 novembre 2026. Les appels numérotés renvoient aux références en annexe.</p>
+
+<h1><span class="n">QUESTION 1</span>Analyse d'un cursus et enjeux pédagogiques</h1>
+
+<h2><span class="n">1.1</span>L'organisation des études</h2>
+<p>Le département porte deux formations à plein temps avec une même équipe : un responsable, une adjointe et un secrétariat communs, et des assistants qui interviennent dans les deux programmes<sup>1,3</sup>.</p>
+<table>
+<thead><tr><th></th><th>Bachelor Architecture d'intérieur</th><th>Master Architecture d'intérieur (MAIA)</th></tr></thead>
+<tbody>
+<tr><td class="k">Titre et volume</td><td>Bachelor of Arts HES-SO, 6 semestres, 180 ECTS, enseigné en français<sup>1</sup></td><td>Master of Arts HES-SO, 4 semestres, 120 ECTS, enseigné en anglais, sous l'intitulé <i>Interior Ecologies</i><sup>3,7</sup></td></tr>
+<tr><td class="k">Progression</td><td>Année 1 : atelier, construction, représentation 2D/3D, PAO, histoire de la discipline. Année 2 : BIM, technologies et matériaux, design d'objets, énergie. Année 3 : réalités professionnelles, circularité, acoustique, puis diplôme<sup>1,2</sup></td><td>MAIA 1 <i>Glossaries</i> (corps, animaux, plantes dans l'intérieur), MAIA 2 <i>Assemblages</i> (numérique, circularité), MAIA 3 <i>Investigations</i> (pratiques curatoriales, mémoire écrit), MAIA 4 <i>Diploma</i><sup>4,7</sup></td></tr>
+<tr><td class="k">Colonne vertébrale</td><td>Un atelier de projet à 9 ECTS de S1 à S5, un module workshop à 3 ECTS à chaque semestre, des modules théoriques et techniques, 6 ECTS de modules transversaux interfilières en S3, S4 et S5<sup>2</sup></td><td>Un atelier de conception de S1 à S3 (9, 12 puis 12 ECTS), une formation à la recherche partagée avec le Master HES-SO en design, des séminaires et options du Joint Master of Architecture (Genève, Fribourg, Berthoud), des workshops<sup>3,4</sup></td></tr>
+<tr><td class="k">Fin d'études</td><td>Bachelor Thesis en S6 (18 ECTS), avec gestion durable, économie de projet et connaissances métiers<sup>2</sup></td><td>Master Thesis en S4 : volet théorique (9 ECTS) et volet pratique (21 ECTS)<sup>4</sup></td></tr>
+<tr><td class="k">Encadrement publié</td><td>12 enseignants, 15 intervenants, 7 assistants<sup>1</sup></td><td>5 enseignants, 8 intervenants et un studio, 5 assistants<sup>3</sup></td></tr>
+</tbody></table>
+<p>L'année suit le calendrier de l'école : semestre d'automne du 14 septembre 2026 aux jurys du 18 au 22 janvier 2027, semestre de printemps du 22 février aux jurys du 14 au 23 juin 2027, résultats à remettre le 22 janvier et le 23 juin à 17h, deux périodes de remédiation et des fermetures de bâtiments à Noël, à Pâques et de fin juillet à fin août<sup>5</sup>.</p>
+
+<h2><span class="n">1.2</span>Les moments clés du parcours</h2>
+<table>
+<thead><tr><th style="width:12%"></th><th style="width:44%">Bachelor</th><th>MAIA</th></tr></thead>
+<tbody>
+<tr><td class="k">Ateliers</td><td>Un atelier de projet par semestre de S1 à S5 (par exemple Intérieur vivant, Nested Spaces, Food Futures). En S5, un stage approuvé avant le semestre par le responsable de filière peut valoir les 9 ECTS de l'atelier<sup>1,6</sup></td><td>Studios de conception confiés à des enseignants et à des agences invitées (automne 2026 : Studio Ossidiana ; Simon Husslein et Aida Navarro Redón)<sup>7</sup></td></tr>
+<tr><td class="k">Projets</td><td>Mandats réels avec des entreprises, des institutions culturelles et des associations<sup>1</sup></td><td>Projets professionnels avec des institutions et des industriels ; contribution aux recherches Scènes de Nuit, Forced Reuse et The Future of Humanitarian Design<sup>3</sup></td></tr>
+<tr><td class="k">Workshops</td><td>Semaine inaugurale en automne (14-18.09.2026), Semaine de tous les possibles ou autre workshop au printemps (22-26.02.2027)<sup>2,5</sup></td><td>Workshop HEAD-Camondo en S1 et S3, Semaine de tous les possibles et workshop commun avec le MA Design Installation en S2<sup>4,7</sup></td></tr>
+<tr><td class="k">Évaluations</td><td colspan="2">Continue et/ou finale selon le syllabus ; module acquis à 4.0, crédits attribués en bloc ; remédiation à 3.5 seulement si le descriptif la prévoit, jamais pour les ateliers, la Bachelor Thesis et le volet pratique de la Master Thesis ; en workshop, la présence est évaluée et plus de 20 % d'absence vaut 1.0 ; bulletins publiés dans IS-Academia<sup>6,8,10</sup></td></tr>
+<tr><td class="k">Jurys</td><td>Bachelor Thesis : jury de 5 personnes (2 internes, 3 externes) validé par la direction, soutenance d'environ 45 minutes ; le travail théorique, évalué avant par deux enseignants, compte pour un tiers<sup>10</sup></td><td>Master Thesis pratique : au moins 2 jurés de la filière et 3 jurés extérieurs, composition validée par le responsable ; soutenance ouverte seulement après validation de S1 à S3<sup>11</sup></td></tr>
+<tr><td class="k">Mobilité</td><td colspan="2">Un ou deux semestres d'échange (SEMP, Erasmus+, accords bilatéraux) après une année validée, sur <i>learning agreement</i> ; vœux pour l'automne 2027 du 15 au 30 novembre 2026 ; une cinquantaine d'étudiants accueillis chaque année par l'école<sup>12,13</sup>. Pour le MAIA s'ajoutent les échanges structurels avec le JMA et l'École Camondo<sup>3</sup></td></tr>
+<tr><td class="k">Diplôme et dispositifs</td><td>Bachelor Thesis (mémoire d'environ 20 000 signes et projet), fête des diplômes le 7 juillet 2027 ; concours d'entrée en deux tours (dossier du 9 au 15 mars, entretiens du 12 au 16 avril 2027)<sup>5,6,14</sup></td><td>En 2026 : exposition des thèses le 19 février, Milan Design Week du 20 au 26 avril, exposition des diplômes du 5 au 8 juin ; inscription possible au REG A ; concours en deux tours (dossier du 30 mars au 7 avril, entretiens du 28 avril au 7 mai 2027)<sup>3,5,7,14</sup></td></tr>
+</tbody></table>
+
+<h2><span class="n">1.3</span>Les enjeux organisationnels et administratifs</h2>
+<ul>
+<li><span class="lead">Les pics de charge se superposent.</span> De janvier à mai s'enchaînent jurys, remédiations, portes ouvertes (23.01), concours Bachelor puis Master, Milan Design Week et préparation des diplômes, portés par la même équipe pour les deux formations<sup>5</sup>. Chaque jury de thèse mobilise au moins trois externes à inviter, engager et défrayer, avec salles, ordre de passage, synthèses écrites et notes saisies avant le 23 juin à 17h<sup>10,11</sup>.</li>
+<li><span class="lead">Les engagements sont nombreux et fragmentés.</span> Plus de trente enseignants, intervenants et studios invités distincts sont publiés pour les deux formations, auxquels s'ajoutent les jurés<sup>1,3</sup>. Le contrat doit être signé avant le premier cours, et chaque arrivée, départ et évaluation suit le circuit RH.</li>
+<li><span class="lead">Les parcours individuels demandent un suivi dossier par dossier, surtout au Bachelor.</span> Stage de S5 à approuver avant le semestre, mobilité à préparer huit à dix mois avant le départ, équivalences à déposer dans les trois semaines, répétitions dont l'échec entraîne l'exclusion, absences en workshop<sup>6,10,12</sup>.</li>
+<li><span class="lead">Le MAIA dépend d'autres institutions.</span> Ses étudiants suivent un ou deux séminaires JMA par semestre (seules les options à 3 ECTS sont validées), la formation à la recherche du Master HES-SO et les workshops avec Camondo<sup>4</sup>. Son calendrier se négocie avec des partenaires qui ont le leur. Au Bachelor, la contrainte équivalente vient des modules transversaux, dont l'inscription est définitive<sup>10</sup>.</li>
+<li><span class="lead">Le rayonnement est une production à part entière.</span> Milan, expositions, conférences internationales et mandats réels impliquent conventions, budgets, transport, assurances et documentation<sup>3,7</sup>.</li>
+<li><span class="lead">L'information circule sur plusieurs supports et en deux langues.</span> Les pages de la HEAD, le site head-maia.ch et Instagram coexistent, avec des rythmes de mise à jour différents ; le Bachelor enseigne en français, le MAIA en anglais avec quelques cours en français<sup>1,7</sup>.</li>
+</ul>
+
+<h2><span class="n">1.4</span>Trois actions concrètes</h2>
+<table>
+<thead><tr><th style="width:21%">Action</th><th>Contenu</th><th style="width:25%">Effet attendu</th></tr></thead>
+<tbody>
+<tr><td class="k2">A. Un calendrier de pilotage unique</td><td>Toutes les échéances des deux formations dans un seul référentiel : calendrier de l'école, jurys et jurés, concours, mobilité, JMA, Camondo, Milan, engagements. Chaque échéance porte un responsable et une date de déclenchement (par exemple, invitation des jurés externes huit semaines avant). Des vues sont extraites pour les enseignants et pour les étudiants, et le tout est revu une fois par mois avec le responsable.</td><td>Moins d'oublis et de demandes en urgence ; la charge devient visible et se répartit avant les pics.</td></tr>
+<tr><td class="k2">B. Un parcours lisible pour chaque volée</td><td>Une page par année et par formation (modules, workshops, jurys, mobilité, stage, échéances), remise à la rentrée ; un point de contact identifié pour les questions administratives ; un tableau de suivi des situations individuelles (stage, mobilité, équivalence, répétition, absence) partagé avec le secrétariat et le bureau des études.</td><td>Des étudiants qui anticipent leurs démarches ; aucun dossier qui reste sans réponse.</td></tr>
+<tr><td class="k2">C. Une mémoire du département</td><td>Une base structurée des projets, jurys, partenaires, intervenants et images, alimentée à chaque fin de semestre. Les pages publiques de la HEAD et de head-maia.ch rassemblent déjà plus de 600 fiches de projets de la filière depuis 2011 ; elles deviennent une matière exploitable pour la communication, les admissions, les rapports et la recherche.</td><td>La continuité du département assurée d'une année à l'autre ; des documents produits plus vite.</td></tr>
+</tbody></table>
+<div class="box keep">
+<p><span class="lead">Priorité à ressources limitées : l'action A.</span> Elle se met en place avec les outils de l'école, sans budget ni recrutement, et repose sur une discipline de mise à jour. Elle agit sur les deux formations à la fois, alors que la même équipe les porte. Elle réduit les incidents les plus coûteux pour les étudiants : un juré manquant, un contrat non signé au premier cours, une note remise hors délai. Elle conditionne aussi les deux autres actions, puisque le guide des volées s'en extrait et que la mémoire s'alimente aux mêmes échéances. Une première version peut être en place avant les jurys du 18 janvier 2027.</p>
+</div>
+
+<h1 class="pb"><span class="n">QUESTION 2</span>Cas pratique : un workshop international de deux semaines</h1>
+<p>Hypothèses de travail : le workshop est crédité dans les modules Workshops du Bachelor (3 ECTS) ; S0 désigne la première semaine du workshop et l'exposition publique ouvre à la fin de la seconde. Les dates se choisissent hors des jurys, des concours d'admission et des fermetures de bâtiments du calendrier académique<sup>5</sup>.</p>
+
+<h2><span class="n">2.1</span>Planification</h2>
+<table>
+<thead><tr><th style="width:11%">Semaines</th><th style="width:15%">Étape</th><th>Livrables et décisions</th></tr></thead>
+<tbody>
+<tr><td class="k">S-13 à S-11</td><td class="k2">Cadrage</td><td>Note de cadrage validée par le responsable : objectifs pédagogiques, rattachement ECTS, dates vérifiées sur les calendriers de la HEAD et des deux écoles, effectifs, plafond budgétaire, lieu d'exposition. Accord de principe des écoles partenaires.</td></tr>
+<tr><td class="k">S-11 à S-8</td><td class="k2">Engagements</td><td>Conventions avec les écoles (sélection des 15 étudiants, encadrants, prise en charge des frais, assurances, reconnaissance des crédits). Dossiers d'engagement des intervenants transmis aux RH. Réservation des salles, des ateliers techniques et du lieu d'exposition. Hébergement des étudiants invités. Budget détaillé validé.</td></tr>
+<tr><td class="k">S-8 à S-4</td><td class="k2">Conception</td><td>Programme jour par jour, groupes mixtes constitués, critères d'évaluation écrits. Commandes de matériel. Plan de communication : annonce à S-6, visuel, agenda, invitations. Besoins techniques de l'exposition arrêtés.</td></tr>
+<tr><td class="k">S-4 à S-1</td><td class="k2">Préparation</td><td>Kit d'accueil bilingue, planning des ateliers, plan de montage et de sécurité de l'exposition, relances presse, point budgétaire, revue finale de la check-list.</td></tr>
+<tr><td class="k">S0 et S+1</td><td class="k2">Déroulement</td><td>Accueil le premier jour, point quotidien de 15 minutes avec l'équipe, montage en seconde semaine, vernissage, captation.</td></tr>
+<tr><td class="k">S+2 et S+3</td><td class="k2">Clôture</td><td>Démontage, notes saisies dans le délai, paiements et défraiements, bilan auprès des étudiants, des enseignants et des partenaires, archivage de la documentation.</td></tr>
+</tbody></table>
+
+<h2><span class="n">2.2</span>Coordination</h2>
+<table>
+<thead><tr><th style="width:21%">Acteur</th><th>Rôle</th></tr></thead>
+<tbody>
+<tr><td class="k2">Responsable de département</td><td>Fixe les objectifs et l'enveloppe, valide programme, équipe et arbitrages budgétaires, représente le département auprès des écoles partenaires et de la direction.</td></tr>
+<tr><td class="k2">Adjoint</td><td>Tient le calendrier et le tableau de suivi, sert de point d'entrée unique pour les services et les partenaires, prépare conventions et engagements, suit le budget, anime le point hebdomadaire, rédige le bilan.</td></tr>
+<tr><td class="k2">Équipe pédagogique (8)</td><td>Conçoit le programme et les sujets, encadre un groupe chacun, applique les critères d'évaluation et transmet les notes, exprime ses besoins matériels avant S-6.</td></tr>
+<tr><td class="k2">Étudiants (60 + 15)</td><td>Travaillent en groupes mixtes, produisent et montent l'exposition ; deux délégués relaient les besoins. Les invités accomplissent leurs formalités d'accueil.</td></tr>
+<tr><td class="k2">Partenaires académiques</td><td>Sélectionnent leurs étudiants, désignent un encadrant accompagnant, signent la convention, transmettent les listes avant S-8, reconnaissent les crédits.</td></tr>
+<tr><td class="k2">Service communication</td><td>Visuel, agenda du site, réseaux, relations presse, invitations au vernissage, captation et documentation.</td></tr>
+<tr><td class="k2">Service financier</td><td>Ouvre la ligne budgétaire, valide les engagements de dépenses, traite commandes, paiements et défraiements, refacture ce que prévoient les conventions.</td></tr>
+<tr><td class="k2">Service RH</td><td>Établit les contrats des intervenants externes, réunit les pièces administratives, traite les cas particuliers des intervenants résidant à l'étranger.</td></tr>
+<tr><td class="k2">Autres</td><td>Bureau des relations internationales (conseil sur l'accueil des étudiants invités), bureau des études (inscriptions, saisie des notes), ateliers et pôles techniques (créneaux, encadrement, sécurité machines), services techniques et bâtiments (salles, lieu d'exposition, sécurité), prestataires (transport, hébergement, matériaux, vernissage).</td></tr>
+</tbody></table>
+
+<h2><span class="n">2.3</span>Gestion des risques</h2>
+<table>
+<thead><tr><th style="width:30%">Risque</th><th>Mesure d'anticipation ou de réduction</th></tr></thead>
+<tbody>
+<tr><td>Collision avec les jurys, les concours ou le calendrier d'une école partenaire</td><td>Dates vérifiées à S-13 sur les trois calendriers, gelées dès la validation.</td></tr>
+<tr><td>Intervenant non contractualisé au premier jour</td><td>Dossiers RH lancés dès S-11, liste des pièces envoyée à chaque intervenant ; personne ne commence sans contrat signé.</td></tr>
+<tr><td>Hébergement des 15 étudiants invités</td><td>L'école ne propose pas de logement sur le campus et le marché genevois est tendu<sup>12</sup> : option de réservation groupée dès S-10, prise en charge fixée dans la convention.</td></tr>
+<tr><td>Désistement d'un enseignant ou d'un intervenant</td><td>Encadrement en binôme, remplaçant identifié, programme documenté jour par jour.</td></tr>
+<tr><td>Dépassement budgétaire</td><td>Budget par poste avec une réserve, engagements validés par une seule personne, suivi hebdomadaire de l'engagé et du payé.</td></tr>
+<tr><td>Exposition non prête ou non conforme pour l'accueil du public</td><td>Plan d'exposition arrêté à S-4, contrôle de sécurité avec les services techniques, contenus gelés deux jours avant l'ouverture.</td></tr>
+<tr><td>Groupes hétérogènes (langue, niveau, culture d'école)</td><td>Langue de travail inscrite dans la convention, groupes mixtes constitués à l'avance, critères communiqués le premier jour.</td></tr>
+<tr><td>Évaluation contestée</td><td>Présence relevée chaque jour (plus de 20 % d'absence vaut 1.0)<sup>8</sup>, critères écrits, notes saisies avant le délai.</td></tr>
+</tbody></table>
+
+<h2><span class="n">2.4</span>Outil de pilotage</h2>
+<p>Un tableau partagé, une ligne par tâche, un seul responsable par ligne, revu en 30 minutes chaque semaine avec le responsable de département. Une ligne passe en alerte quand son échéance tombe dans les sept jours sans qu'elle ait démarré. Un second onglet suit le budget poste par poste (prévu, engagé, payé). Extrait à S-8 :</p>
+<table class="keep">
+<thead><tr><th>Lot</th><th>Tâche</th><th>Responsable</th><th>Échéance</th><th>Dépend de</th><th>Statut</th></tr></thead>
+<tbody>
+<tr><td>Cadrage</td><td>Note de cadrage validée</td><td>Responsable dpt</td><td class="mono">S-11</td><td>·</td><td><span class="st ok">fait</span></td></tr>
+<tr><td>Partenaires</td><td>Conventions signées par les deux écoles</td><td>Adjoint</td><td class="mono">S-8</td><td>Cadrage</td><td><span class="st wa">alerte</span></td></tr>
+<tr><td>RH</td><td>Contrats des 5 intervenants externes</td><td>Adjoint + RH</td><td class="mono">S-6</td><td>Programme</td><td><span class="st go">en cours</span></td></tr>
+<tr><td>Logistique</td><td>Hébergement des 15 invités confirmé</td><td>Adjoint</td><td class="mono">S-6</td><td>Conventions</td><td><span class="st go">en cours</span></td></tr>
+<tr><td>Pédagogie</td><td>Programme jour par jour et critères</td><td>Équipe pédagogique</td><td class="mono">S-5</td><td>Cadrage</td><td><span class="st go">en cours</span></td></tr>
+<tr><td>Communication</td><td>Annonce publique et visuel</td><td>Service communication</td><td class="mono">S-6</td><td>Programme</td><td><span class="st ko">non démarré</span></td></tr>
+<tr><td>Exposition</td><td>Plan d'exposition et sécurité</td><td>Services techniques</td><td class="mono">S-4</td><td>Lieu réservé</td><td><span class="st ko">non démarré</span></td></tr>
+</tbody></table>
+
+<h2><span class="n">2.5</span>Arbitrage budgétaire</h2>
+<p>Les demandes sont chiffrées puis examinées dans cet ordre :</p>
+<ul>
+<li><span class="lead">Les obligations passent avant tout.</span> Sécurité, assurances, accessibilité de l'exposition et engagements déjà signés ne s'arbitrent pas.</li>
+<li><span class="lead">Le lien avec les apprentissages évalués.</span> Une dépense qui sert directement les objectifs du module l'emporte sur une dépense de confort ou d'image.</li>
+<li><span class="lead">Le nombre d'étudiants concernés.</span> À coût égal, la demande qui profite au plus grand nombre est retenue.</li>
+<li><span class="lead">La réciprocité due aux écoles partenaires.</span> L'accueil offert doit être comparable à celui qu'elles réservent à nos étudiants.</li>
+<li><span class="lead">La durée de vie de la dépense.</span> Matériel réutilisable et documentation qui servira au département sont préférés.</li>
+<li><span class="lead">L'existence d'une alternative.</span> Ateliers internes, prêt, matériaux de réemploi ou cofinancement d'un partenaire avant tout achat.</li>
+</ul>
+<p>La proposition d'arbitrage est soumise au responsable de département, qui décide. Chaque demandeur reçoit une réponse motivée, et une réserve reste disponible jusqu'à S-2 pour les imprévus.</p>
+
+<div class="refs pb">
+<h1><span class="n">ANNEXE</span>Références</h1>
+<ol>
+<li>HEAD – Genève, page « Bachelor Architecture d'intérieur ». <span class="url">hesge.ch/head/formations/bachelors/bachelor-architecture-dinterieur</span></li>
+<li>Plan d'études de la filière Bachelor en Architecture d'intérieur 2026-2027. <span class="url">hesge.ch/sites/head/files/2026-09/PE-BAAI_2026-2027.pdf</span></li>
+<li>HEAD – Genève, page « Master Architecture d'intérieur ». <span class="url">hesge.ch/head/formations/masters/master-architecture-dinterieur</span></li>
+<li>Plan d'études du Master of Arts HES-SO en Architecture d'intérieur 2026-2027. <span class="url">hesge.ch/sites/head/files/2026-09/PE_MAIA_2026-2027.pdf</span></li>
+<li>Calendrier académique 2026-2027 de la HEAD – Genève. <span class="url">hesge.ch/sites/head/files/2026-10/CalendrierAcademique_2026-2027_Sept26.pdf</span></li>
+<li>Descriptifs de modules Bachelor 2026-2027, notamment 15AP Atelier projet 5 et 16BT Bachelor Thesis. <span class="url">hesge.ch/sites/head/files/2026-10/Bachelor_en_Architecture_dinterieur_descriptifs_modules.zip</span></li>
+<li>head-maia.ch, pages About, Modules et Agenda. <span class="url">head-maia.ch</span></li>
+<li>Descriptifs des modules Workshops 1 à 6 du Bachelor et des workshops du MAIA 2026-2027. <span class="url">archives de descriptifs, références 6 et 9</span></li>
+<li>Descriptifs de modules MAIA 2026-2027. <span class="url">hesge.ch/sites/head/files/2026-10/Master_en_Architecture_dinterieur_descriptifs_modules.zip</span></li>
+<li>Règlement d'études des filières Bachelor du domaine Design et Arts visuels de la HEAD – Genève, 28 juillet 2021, art. 10, 11, 27, 35, 36 et 38 à 41.</li>
+<li>Règlement de filière du Master of Arts HES-SO en Architecture d'intérieur, 2 juin 2020, art. 4, 11 et 13.</li>
+<li>HEAD – Genève, pages « Partir en échange à l'étranger » et « Venir en échange à la HEAD ». <span class="url">hesge.ch/head/ecole/international/mobilite</span></li>
+<li>Règlement relatif à la formation de base (Bachelor et Master) à la HES-SO, 2 juin 2020, art. 16.</li>
+<li>HEAD – Genève, admissions Bachelor et Master : calendrier et processus de sélection. <span class="url">hesge.ch/head/admissions</span></li>
+</ol>
+<p style="margin-top:8pt">Toutes les pages ont été consultées le 13 novembre 2026. Le décompte de 600 fiches de projets (action C) provient d'un relevé des pages publiques de la HEAD et de head-maia.ch effectué le 12 novembre 2026.</p>
+<h1><span class="n">VERSION OUTILLÉE</span>Le même travail, en données</h1>
+<p>Les analyses de ce document sont reprises et approfondies dans une plateforme de pilotage construite à partir des mêmes sources publiques : parcours des deux formations, charge de l'année, mémoire visuelle de la filière, pilotage et arbitrage du workshop. <a class="url" href="https://guillaumehelleu.com/adjoint-ai/">guillaumehelleu.com/adjoint-ai</a></p>
+</div>
+
+</body>
+</html>
