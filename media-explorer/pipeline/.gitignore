@@ -1,0 +1,9 @@
+*.env
+.env*
+head-ai/data/img/
+head-ai/data/clip/
+head-ai/data/pages/
+head-ai/data/pages_ne/
+head-ai/data/maia/
+head-ai/data/raw/
+__pycache__/
