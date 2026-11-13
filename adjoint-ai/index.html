@@ -4,130 +4,88 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Architecture d'intérieur, HEAD – Genève · Plateforme de pilotage</title>
+<title>Architecture d'intérieur · HEAD – Genève · le département en données</title>
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
-<header class="top">
-  <a class="brand" href="#top"><b>Architecture d'intérieur</b><span>HEAD – Genève · plateforme de pilotage</span></a>
+<header class="topbar dark" id="bar">
+  <a href="#top" class="mark">Architecture d'intérieur<br><span>HEAD – Genève</span></a>
   <nav id="nav">
-    <a href="#parcours"><i>01</i>Parcours</a>
-    <a href="#annee"><i>02</i>Année</a>
-    <a href="#personnes"><i>03</i>Personnes</a>
-    <a href="#memoire"><i>04</i>Mémoire</a>
-    <a href="#rayonnement"><i>05</i>Rayonnement</a>
-    <a href="#workshop"><i>06</i>Workshop</a>
-    <a href="#arbitrage"><i>07</i>Arbitrage</a>
-    <a href="#methode"><i>08</i>Sources</a>
+    <a href="#parcours">01</a><a href="#annee">02</a><a href="#personnes">03</a><a href="#memoire">04</a><a href="#rayonnement">05</a><a href="#workshop">06</a><a href="#arbitrage">07</a><a href="#sources">08</a>
   </nav>
-  <a class="pdf" href="dossier.pdf" target="_blank" rel="noopener">Dossier PDF</a>
+  <a href="dossier.pdf" target="_blank" rel="noopener" class="doc">Dossier PDF ↗</a>
 </header>
 
-<section id="top" class="hero">
-  <div class="mosaic" id="mosaic" aria-hidden="true"></div>
-  <div class="hero-in">
-    <p class="kicker">Candidature réf. 566 · version outillée de l'exercice de la 2e étape · Guillaume Helleu</p>
-    <h1>Le département Architecture d'intérieur, lu à partir de tout ce qu'il publie.</h1>
-    <p class="lede">Plans d'études, descriptifs de modules, calendrier, règlements, fiches de projets, agenda du MAIA : chaque document public a été collecté, structuré et relié. Chaque chiffre de cette page renvoie à sa source. Le dossier PDF répond à l'exercice ; cette plateforme montre le même travail avec les outils qui permettent de le tenir à jour.</p>
-    <div class="kpis" id="kpis"></div>
+<section id="top" class="cover">
+  <div class="cover-head">
+    <p class="lab">Candidature réf. 566 · exercice de la 2e étape · Guillaume Helleu · 16.11.2026</p>
+    <h1>Architecture d'intérieur<br><span>le département en données</span></h1>
   </div>
+  <div class="field-wrap"><canvas id="field"></canvas><div id="fieldYears" class="years"></div></div>
+  <p class="cap" id="fieldCap"></p>
+  <ol class="index" id="index"></ol>
 </section>
 
-<main>
-<section id="parcours" class="sec">
-  <div class="sh"><i>01</i><div><h2>Parcours</h2><p>Les deux formations, module par module, telles que les décrivent les plans d'études et les descriptifs 2026-2027. La hauteur d'un bloc suit ses crédits ECTS. Un clic ouvre le module.</p></div></div>
-  <div class="toolbar" id="ptools">
-    <span class="lbl">Mettre en évidence</span>
-    <button data-h="none" class="on">Aucun</button>
-    <button data-h="ai">IA citée dans le descriptif</button>
-    <button data-h="rem">Remédiation possible</button>
-    <button data-h="part">Présence évaluée</button>
-  </div>
-  <div class="programs">
-    <div class="prog"><h3>Bachelor of Arts HES-SO <span>6 semestres · 180 ECTS · français</span></h3><div class="grid" id="gBA"></div></div>
-    <div class="prog"><h3>Master of Arts HES-SO, MAIA <span>4 semestres · 120 ECTS · anglais</span></h3><div class="grid" id="gMA"></div></div>
-  </div>
-  <div class="legend" id="leg"></div>
-  <div class="callouts" id="pcall"></div>
-  <h3 class="sub">Les moments clés du parcours</h3>
-  <div class="keys" id="keys"></div>
+<section id="parcours" class="ch">
+  <div class="op"><span class="num">01</span><h2>Parcours<br><span>62 modules en 10 semestres</span></h2><p>Les plans d'études 2026-2027 du Bachelor et du MAIA, module par module. La hauteur suit les crédits. Un clic ouvre le module.</p></div>
+  <div class="filters" id="pf"></div>
+  <div class="plans"><div><h3 class="lab">Bachelor of Arts HES-SO · 180 ECTS · français</h3><div class="plan" id="gBA"></div></div><div><h3 class="lab">Master of Arts HES-SO, MAIA · 120 ECTS · anglais</h3><div class="plan" id="gMA"></div></div></div>
+  <div class="facts" id="facts"></div>
+  <h3 class="lab rule">Les moments clés du parcours</h3>
+  <div class="tbl" id="keys"></div>
 </section>
 
-<section id="annee" class="sec">
-  <div class="sh"><i>02</i><div><h2>L'année 2026-2027</h2><p>Les 52 semaines du calendrier académique officiel, avec les échéances des concours, de la mobilité et de l'école. La dernière ligne additionne les échéances de chaque semaine : elle montre où la charge administrative se concentre.</p></div></div>
-  <div class="yr-wrap"><div id="year"></div></div>
-  <div class="ylegend" id="ylegend"></div>
-  <div class="yreps" id="yreps"></div>
+<section id="annee" class="ch">
+  <div class="op"><span class="num">02</span><h2>Année<br><span>52 semaines, deux pics de charge</span></h2><p>Le calendrier académique 2026-2027, les concours, la mobilité et les délais de l'école. La dernière ligne additionne les échéances de chaque semaine.</p></div>
+  <div class="scroll"><div id="year"></div></div>
+  <p class="note" id="ynote"></p>
 </section>
 
-<section id="personnes" class="sec">
-  <div class="sh"><i>03</i><div><h2>Les personnes</h2><p>Qui enseigne, qui intervient, qui encadre quels projets. Les équipes publiées sur les pages des deux formations, l'encadrement cité dans les 633 fiches de projets, les studios et modules du MAIA depuis 2020.</p></div></div>
-  <div class="two">
-    <div><h3 class="sub">Équipes publiées</h3><div id="team"></div></div>
-    <div><h3 class="sub">Encadrement cité dans les fiches de projets <small>(clic : projets)</small></h3><div id="tea"></div></div>
-  </div>
-  <h3 class="sub">Studios, modules et séminaires du MAIA, 2020-2026</h3>
-  <div class="toolbar" id="mtools"></div>
-  <div id="mods" class="mods"></div>
+<section id="personnes" class="ch">
+  <div class="op"><span class="num">03</span><h2>Personnes<br><span>une équipe pour deux formations</span></h2><p>Les équipes publiées, l'encadrement cité dans les fiches de projets, les studios et séminaires du MAIA depuis 2020.</p></div>
+  <div class="tbl team" id="team"></div>
+  <div class="cols2"><div><h3 class="lab rule">Encadrement cité dans les fiches de projets</h3><ol class="rank" id="tea"></ol></div>
+  <div><h3 class="lab rule">Lecture</h3><div class="prose" id="teaNote"></div></div></div>
+  <h3 class="lab rule">Studios, modules et séminaires du MAIA, 2020-2026</h3>
+  <div class="filters" id="mf"></div>
+  <div class="mods" id="mods"></div>
 </section>
 
-<section id="memoire" class="sec">
-  <div class="sh"><i>04</i><div><h2>La mémoire du département</h2><p>Les 633 fiches publiées par la HEAD et head-maia.ch depuis 2011, avec leurs 5 734 images. C'est la matière de l'action C du dossier : elle existe déjà, elle est dispersée. Filtrer, chercher une personne, ouvrir une fiche.</p></div></div>
-  <div class="mem-top">
-    <div class="chart" id="byyear"></div>
-    <div class="side">
-      <div id="prizes"></div>
-      <div id="partners"></div>
-    </div>
-  </div>
-  <div class="toolbar" id="mfilt">
-    <input id="q" type="search" placeholder="Personne, projet, partenaire…">
-    <select id="fl"><option value="">Bachelor et Master</option><option value="BA">Bachelor</option><option value="MA">Master</option></select>
-    <select id="ft"></select>
-    <select id="fy"></select>
-    <span id="mcount" class="lbl"></span>
-  </div>
+<section id="memoire" class="ch">
+  <div class="op"><span class="num">04</span><h2>Mémoire<br><span>633 fiches depuis 2011</span></h2><p>Ce que la HEAD et head-maia.ch publient sur la filière. La matière de l'action C du dossier : elle existe, elle est dispersée.</p></div>
+  <div class="search"><input id="q" type="search" placeholder="Chercher une personne, un projet, un partenaire"><div class="sel"><select id="fl"><option value="">Bachelor et Master</option><option value="BA">Bachelor</option><option value="MA">Master</option></select><select id="ft"></select><select id="fy"></select><span id="mcount"></span></div></div>
   <div class="wall" id="wall"></div>
-  <p class="more"><button id="moreb">Afficher plus</button> <a href="../media-explorer/head-ai/" target="_blank" rel="noopener">Explorer les 5 734 images par ressemblance dans Media Explorer</a></p>
+  <p class="more"><button id="moreb">Afficher plus</button><a href="../media-explorer/head-ai/" target="_blank" rel="noopener">Les 5 734 images par ressemblance, dans Media Explorer ↗</a></p>
+  <div class="cols2"><div><h3 class="lab rule">Prix cités</h3><ul class="list" id="prizes"></ul></div><div><h3 class="lab rule">Partenaires cités</h3><ul class="list cols" id="partners"></ul></div></div>
 </section>
 
-<section id="rayonnement" class="sec">
-  <div class="sh"><i>05</i><div><h2>Rayonnement</h2><p>Les événements publiés dans l'agenda du MAIA : expositions, conférences internationales, cycles de conférences. Chaque point ouvre la page de l'événement.</p></div></div>
-  <div id="evchart" class="chart"></div>
-  <div id="evlist" class="evlist"></div>
+<section id="rayonnement" class="ch">
+  <div class="op"><span class="num">05</span><h2>Rayonnement<br><span>104 événements du MAIA</span></h2><p>Expositions, conférences et cycles publiés dans l'agenda de head-maia.ch. Chaque point ouvre sa page.</p></div>
+  <div id="ev"></div>
+  <div class="tbl evl" id="evl"></div>
 </section>
 
-<section id="workshop" class="sec">
-  <div class="sh"><i>06</i><div><h2>Pilotage du workshop</h2><p>Le cas pratique de la question 2 : 60 étudiants du Bachelor, 15 étudiants de deux écoles partenaires, 8 enseignants et intervenants, une exposition publique, trois mois de préparation. Le curseur fait avancer le temps ; les statuts se modifient ; les alertes se calculent.</p></div></div>
-  <div class="toolbar"><span class="lbl">Semaine courante</span><input type="range" id="wk" min="-13" max="3" value="-8"><b id="wkl"></b><button id="wreset">Réinitialiser les statuts</button></div>
-  <div class="kpis small" id="wkpi"></div>
-  <div id="gantt" class="gantt"></div>
-  <div class="two">
-    <div><h3 class="sub">Matrice des rôles <small>R réalise · A approuve · C consulté · I informé</small></h3><div id="raci"></div></div>
-    <div><h3 class="sub">Registre des risques <small>probabilité et impact, estimation de travail</small></h3><div id="risk"></div><div id="riskd" class="riskd"></div></div>
-  </div>
+<section id="workshop" class="ch">
+  <div class="op"><span class="num">06</span><h2>Workshop<br><span>trois mois pour deux semaines</span></h2><p>Le cas pratique de la question 2 : 60 étudiants du Bachelor, 15 étudiants de deux écoles partenaires, 8 enseignants et intervenants, une exposition publique. Le curseur fait avancer le temps, un clic sur un statut le change.</p></div>
+  <div class="clock"><label class="lab" for="wk">Semaine</label><input type="range" id="wk" min="-13" max="3" value="-8"><b id="wkl"></b><p id="wsum"></p><button id="wreset" class="tl">Réinitialiser</button></div>
+  <div class="scroll"><div id="gantt"></div></div>
+  <div class="cols2"><div><h3 class="lab rule">Rôles · R réalise · A approuve · C consulté · I informé</h3><div class="scroll"><div id="raci"></div></div></div>
+  <div><h3 class="lab rule">Risques · probabilité et impact, estimation de travail</h3><div id="risk"></div><div id="riskd" class="prose"></div></div></div>
 </section>
 
-<section id="arbitrage" class="sec">
-  <div class="sh"><i>07</i><div><h2>Arbitrage budgétaire</h2><p>La question 2.5 en fonctionnement. Les obligations passent d'abord, les autres demandes sont classées par les critères du dossier, pondérés ici à la main. Les montants et les demandes sont un jeu d'exemple, construit pour la démonstration.</p></div></div>
-  <div class="arb">
-    <div class="weights" id="weights"></div>
-    <div><div id="arbres"></div><div id="arbbar" class="arbbar"></div></div>
-  </div>
+<section id="arbitrage" class="ch">
+  <div class="op"><span class="num">07</span><h2>Arbitrage<br><span>classer, puis motiver chaque décision</span></h2><p>La question 2.5 en fonctionnement. Les obligations passent d'abord, les autres demandes sont classées par les critères du dossier. Demandes et montants forment un jeu d'exemple.</p></div>
+  <div class="arb"><div id="weights"></div><div><div id="arbbar" class="arbbar"></div><div class="tbl" id="arbres"></div><p class="note" id="arbsum"></p></div></div>
 </section>
 
-<section id="methode" class="sec">
-  <div class="sh"><i>08</i><div><h2>Méthode et sources</h2><p>Comment cette page est construite, ce qu'elle ne sait pas, et la liste complète des documents utilisés.</p></div></div>
-  <div class="two">
-    <div class="prose" id="method"></div>
-    <div><h3 class="sub">Sources</h3><ol class="srcs" id="srcs"></ol></div>
-  </div>
+<section id="sources" class="ch">
+  <div class="op"><span class="num">08</span><h2>Sources<br><span>26 documents publics</span></h2><p>Collectés le 13 novembre 2026. Chaque chiffre de la page renvoie à l'un d'eux.</p></div>
+  <div class="cols2"><div class="prose" id="method"></div><ol class="srcs" id="srcs"></ol></div>
 </section>
-</main>
 
-<aside id="drawer" class="drawer" aria-hidden="true"><button class="x" id="dx" aria-label="Fermer">Fermer</button><div id="dbody"></div></aside>
+<footer class="foot"><span>Guillaume Helleu · candidature réf. 566 · données publiques collectées le 13.11.2026</span><a href="dossier.pdf">Dossier PDF</a></footer>
+<aside id="drawer" class="drawer" aria-hidden="true"><button id="dx" class="tl">Fermer</button><div id="dbody"></div></aside>
 <div id="tip" class="tip"></div>
-<footer class="foot">Guillaume Helleu · données publiques collectées le <span id="gen"></span> · <a href="dossier.pdf">dossier PDF</a> · <a href="https://guillaumehelleu.com">guillaumehelleu.com</a></footer>
 <script src="data.js"></script>
 <script src="app.js"></script>
 </body>
