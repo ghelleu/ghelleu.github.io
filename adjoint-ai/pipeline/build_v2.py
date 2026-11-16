@@ -45,7 +45,7 @@ for e in D['EV']:
 def year_svg():
     cw, lx, H, bh = 9.4, 0, 120, 52
     Wd = W * cw
-    F = {'pre': '#e6e3dc', 'inau': 'url(#h)', 'hc': 'url(#h)', 'sdtlp': 'url(#h)', 'cours': '#fff', 'jury': '#121212', 'rem': '#8b887f', 'sans': '#d8d5ce', 'ferm': '#b9b6ad'}
+    F = {'inau': 'url(#h)', 'hc': 'url(#h)', 'sdtlp': 'url(#h)', 'cours': '#fff', 'jury': '#121212', 'rem': '#9a978e'}
     s = [f'<svg viewBox="0 0 {Wd+2} {H}" width="100%" font-family="Archivo" font-size="6.2"><defs><pattern id="h" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="3" height="3" fill="#fff"/><line x1="0" y1="0" x2="0" y2="3" stroke="#121212" stroke-width=".9"/></pattern></defs>']
     MO = ['JANV', 'FÉVR', 'MARS', 'AVR', 'MAI', 'JUIN', 'JUIL', 'AOÛT', 'SEPT', 'OCT', 'NOV', 'DÉC']
     pm = -1; mx = max(load)
@@ -54,14 +54,16 @@ def year_svg():
         if dt.month - 1 != pm:
             pm = dt.month - 1
             s.append(f'<text x="{x+1}" y="7" font-weight="600" letter-spacing=".4">{MO[pm]}</text><line x1="{x}" x2="{x}" y1="0" y2="{H-14}" stroke="#121212" stroke-opacity=".15" stroke-width=".5"/>')
-        s.append(f'<rect x="{x+.6}" y="11" width="{cw-1.2}" height="8" fill="{F[c[3]]}" stroke="#121212" stroke-opacity=".35" stroke-width=".3"/>')
+        if c[3] in F: s.append(f'<rect x="{x+.6}" y="11" width="{cw-1.2}" height="8" fill="{F[c[3]]}" stroke="#121212" stroke-opacity=".45" stroke-width=".3"/>')
+        else: s.append(f'<line x1="{x+.6}" x2="{x+cw-.6}" y1="15" y2="15" stroke="#121212" stroke-opacity=".25" stroke-width=".4"/>')
         h = load[i] / mx * bh
-        if h: s.append(f'<rect x="{x+1.4}" y="{24+bh-h}" width="{cw-2.8}" height="{h}" fill="{"#e6483a" if load[i]>=6 else "#121212"}"/>')
+        if h: s.append(f'<rect x="{x+1.4}" y="{24+bh-h}" width="{cw-2.8}" height="{h}" fill="{"#e6483a" if load[i]>=7 else "#121212"}"/>')
     s.append(f'<line x1="0" x2="{Wd}" y1="{24+bh}" y2="{24+bh}" stroke="#121212" stroke-width=".6"/>')
-    peaks = [('2027-01-18', 'Jurys, résultats, portes ouvertes'), ('2027-04-12', 'Entretiens BA'), ('2027-04-26', 'Entretiens MA'), ('2027-06-14', 'Jurys de juin')]
-    for k, (d, lb) in enumerate(peaks):
+    for d, lb in (('2027-01-18', 'Jurys, résultats, portes ouvertes'), ('2027-06-21', 'Jurys et résultats de juin')):
         x = wi(d) * cw + cw / 2
-        s.append(f'<line x1="{x}" x2="{x}" y1="{24+bh+2}" y2="{24+bh+10+(k%2)*8}" stroke="#e6483a" stroke-width=".6"/><text x="{x+2}" y="{24+bh+12+(k%2)*8}" fill="#e6483a" font-weight="600">{lb}</text>')
+        s.append(f'<line x1="{x}" x2="{x}" y1="{24+bh+2}" y2="{24+bh+10}" stroke="#e6483a" stroke-width=".6"/><text x="{x+2}" y="{24+bh+12}" fill="#e6483a" font-weight="600">{lb}</text>')
+    xa, xb = wi('2027-03-08') * cw + 1, (wi('2027-05-10') + 1) * cw - 1
+    s.append(f'<path d="M{xa} {24+bh+16}v4H{xb}v-4" fill="none" stroke="#121212" stroke-width=".6"/><text x="{xa}" y="{24+bh+28}" font-weight="600">Concours Bachelor et Master, deux tours</text>')
     s.append('</svg>')
     return ''.join(s)
 
@@ -126,9 +128,9 @@ A(refs(tbl(['', 'Bachelor', 'Master MAIA'], [
 
 A('<h3><b>1.3</b> Les enjeux organisationnels et administratifs</h3>')
 A('<p>Lus depuis le poste d\'adjoint, ces parcours posent des questions d\'organisation plus que de contenu. Elles tiennent à quelques semaines très denses, au nombre de personnes à coordonner et aux partenaires dont dépend le Master. Le graphique additionne, semaine par semaine, les échéances publiées de l\'année 2026-2027.</p>')
-A(f'<figure class="fig">{year_svg()}<figcaption>Calendrier 2026-2027 : cases blanches, cours ; hachures, semaines de workshop et « hors cadre » ; noir, jurys ; gris, remédiations, semaines sans cours et fermetures. Barres : indice de charge, pondéré par échéance (jurys 4, tours de concours et délais de résultats 3, autres 1 ou 2). En rouge, les semaines les plus chargées.' + R('cal', 'adm', 'mob') + '</figcaption></figure>')
+A(f'<figure class="fig">{year_svg()}<figcaption>Calendrier 2026-2027 : cases blanches, cours ; hachures, semaines de workshop et « hors cadre » ; noir, jurys ; gris, remédiations ; trait, semaines sans cours et fermetures des bâtiments. Barres : indice de charge, pondéré par échéance (jurys 4, tours de concours et délais de résultats 3, autres 1 ou 2). En rouge, les deux semaines les plus chargées.' + R('cal', 'adm', 'mob') + '</figcaption></figure>')
 A(refs('''<ul class="pts">
-<li><b>Quatre semaines concentrent la charge.</b> Les jurys de janvier (18-22.01), suivis du délai des résultats et des portes ouvertes du 23 ; la mi-avril, avec les entretiens du concours Bachelor et les résultats du premier tour Master ; la fin avril et le début mai, avec les entretiens Master ; les jurys de juin (14-23.06) et le délai des résultats du semestre. La même équipe les porte pour les deux formations, et chaque jury de thèse mobilise au moins trois externes à inviter, engager et défrayer.[[cal,adm,regba,regma]]</li>
+<li><b>Les jurys concentrent la charge.</b> Les deux semaines les plus chargées de l'année sont celles des jurys de janvier (18-22.01), close par le délai des résultats et les portes ouvertes du 23, et de la fin des jurys de juin (21-23.06), avec le délai des résultats du semestre. Entre les deux, les deux tours des concours Bachelor et Master occupent la plupart des semaines de mars à mai. La même équipe porte ces échéances pour les deux formations, et chaque jury de thèse mobilise au moins trois externes à inviter, engager et défrayer.[[cal,adm,regba,regma]]</li>
 <li><b>Les intervenants sont nombreux.</b> Les pages des deux formations publient douze enseignants et quinze intervenants pour le Bachelor, cinq enseignants, huit intervenants et un studio pour le Master : plus de trente personnes distinctes, auxquelles s'ajoutent chaque année les jurés externes et les studios invités du MAIA.[[ba,ma,maia]]</li>
 <li><b>Les parcours individuels se suivent dossier par dossier, surtout au Bachelor.</b> Un stage en S5 s'approuve avant le semestre ; un départ en mobilité se prépare huit à dix mois à l'avance ; une équivalence se demande dans les trois semaines qui suivent l'entrée. Un étudiant qui échoue deux fois au même module obligatoire est exclu de la filière : les situations fragiles doivent être repérées tôt.[[dba,mob,regba]]</li>
 <li><b>Le MAIA dépend d'autres institutions.</b> Séminaires du JMA, formation à la recherche du Master HES-SO, workshops avec l'École Camondo : son calendrier se construit avec des partenaires qui ont le leur.[[pema]]</li>
@@ -184,7 +186,7 @@ A(refs(tbl(['Risque', 'Mesure d\'anticipation ou de réduction'], [
  ['Groupes hétérogènes : langue, niveau, culture d\'école', 'Langue de travail inscrite dans la convention, groupes mixtes constitués à l\'avance, critères communiqués le premier jour.'],
 ], 'r2')))
 
-A('<h3><b>2.4</b> Outil de pilotage</h3>')
+A('<h3 style="page-break-before:always;margin-top:0"><b>2.4</b> Outil de pilotage</h3>')
 A(f'<p>Un tableau partagé, une ligne par tâche et un responsable par ligne, revu chaque semaine en trente minutes avec le responsable de département. Une ligne passe en alerte quand son échéance tombe dans les sept jours sans qu\'elle soit terminée. Un second onglet suit le budget poste par poste : prévu, engagé, payé. L\'extrait ci-dessous montre l\'état à S-8 ; la version en ligne le fait fonctionner, avec un curseur qui fait avancer le temps et recalcule les alertes.</p>')
 st = lambda c, t: f'<span class="st {c}">{t}</span>'
 A(tbl(['Lot', 'Tâche', 'Responsable', 'Échéance', 'Dépend de', 'Statut'], [
@@ -215,6 +217,9 @@ for k in order:
     ann += f'<li>{t}. <a href="https://{u}">{u}</a></li>'
 ann += '</ol><p class="note">Pages et documents consultés le 13 novembre 2026. Le relevé Media Explorer réunit les fiches de projets publiées pour le Bachelor et le Master en architecture d\'intérieur sur hesge.ch, et les projets et actualités de head-maia.ch.</p></section>'
 
+band = body.pop(0)
 html = open('/home/claude/dossier/v2_shell.html').read().replace('{{BODY}}', '\n'.join(body) + ann)
 open('/home/claude/dossier/dossier_v2.html', 'w').write(html)
+cov = open('/home/claude/dossier/cover_shell.html').read().replace('{{BAND}}', band)
+open('/home/claude/dossier/cover_v2.html', 'w').write(cov)
 print('ok', len(order), 'refs')
