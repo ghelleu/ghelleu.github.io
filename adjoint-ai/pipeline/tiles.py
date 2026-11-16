@@ -38,7 +38,7 @@ def tile(z,tx,ty,size=512,ss=2):
         if vis(b):d.polygon([P(q) for q in p],fill=C['bld'])
     for p,b in HB:
         if vis(b):d.polygon([P(q) for q in p],fill=C['bg'])
-    return im.resize((size,size),Image.LANCZOS)
+    return im.resize((size,size),Image.BOX)
 def rng(z):
     x0,y0=merc(BB[0],BB[3],z);x1,y1=merc(BB[2],BB[1],z);return range(int(x0),int(x1)+1),range(int(y0),int(y1)+1)
 if __name__=='__main__':
