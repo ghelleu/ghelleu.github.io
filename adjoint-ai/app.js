@@ -50,7 +50,7 @@ $('#index').innerHTML=[['parcours','Parcours','Les deux formations, module par m
 
 /* ---------- 01 parcours ---------- */
 const FAM={atel:'Atelier ou studio',ws:'Workshop',theo:'Théorie',tech:'Technique et professionnel',repr:'Représentation',trans:'Transversal',thesis:'Thèse',pro:'Pratique professionnelle',rech:'Formation à la recherche',jma:'Joint Master of Architecture'};
-function plan(el,prog,lab){el.innerHTML=Object.entries(prog).map(([s,ms])=>`<div class="sem"><header>${lab}${s}<span>${ms.reduce((a,m)=>a+m.e,0)}</span></header>${ms.map(m=>`<div class="m k-${m.k}${m.e>=6?' big':''}" data-c="${m.c}" title="${esc(m.t)}" style="height:${Math.max(36,m.e*12.5)}px"><b>${m.c.startsWith('TRANS')?'PRAT / THEO':m.c} · ${m.e}</b><span class="t">${esc(m.t)}</span></div>`).join('')}</div>`).join('')}
+function plan(el,prog,lab){el.innerHTML=Object.entries(prog).map(([s,ms])=>`<div class="sem"><header>${lab}${s}<span>${ms.reduce((a,m)=>a+m.e,0)}</span></header>${ms.map(m=>`<div class="m k-${m.k}${m.e>=6?' big':''}" data-c="${m.c}" title="${esc(m.t)}" style="height:${m.e*13-4}px"><b>${m.c.startsWith('TRANS')?'PRAT / THEO':m.c} · ${m.e}</b><span class="t">${esc(m.t)}</span></div>`).join('')}</div>`).join('')}
 plan($('#gBA'),D.BA,'S');plan($('#gMA'),D.MA,'MAIA ');
 $('.plans').insertAdjacentHTML('afterend',`<p class="plegend">Trait épais : ateliers et studios. Hachures : thèses. Chiffre : crédits ECTS. ${SS('peba','pema','dba','dma')}</p>`);
 const PF=[['none','Tout'],['ai','IA citée dans le descriptif'],['rem','Remédiation possible'],['part','Présence évaluée'],['stage','Stage possible']];
