@@ -101,7 +101,7 @@ nav a.on,nav a:hover{opacity:1}
 .mods{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:36px 28px}
 .ms header{font:600 11px var(--f);letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-bottom:6px;margin-bottom:10px;display:flex;justify-content:space-between}
 .ms header span{color:var(--g)}
-.mi{margin-bottom:12px;font-size:13.5px;line-height:1.3}
+.mi{margin-bottom:12px;font-size:12.5px;line-height:1.3;text-transform:uppercase;letter-spacing:.02em}
 .mi i{display:block;font:normal 600 9.5px var(--f);letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:2px}
 .mi span{display:block;color:var(--g);font-size:12px;margin-top:2px}
 
@@ -263,3 +263,5 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:0;border-radiu
 .vplace.big{font:500 22px/1 var(--f);letter-spacing:.32em;color:#b9b6ad}
 #map.leaflet-container{background:#f2f0eb!important}
 .vfond{image-rendering:auto}
+
+#evl .row a{text-transform:uppercase;font-size:.88em;letter-spacing:.02em}

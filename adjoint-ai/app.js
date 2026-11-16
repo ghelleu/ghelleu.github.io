@@ -3,7 +3,7 @@
 const D=window.D,$=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt=n=>Number(n).toLocaleString('fr-CH').replace(/[ ,’']/g,' ');
-const sc=t=>t===t.toUpperCase()?t.charAt(0)+t.slice(1).toLowerCase():t;
+const sc=t=>t;
 const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 const SK=Object.keys(D.S);
 const S=k=>D.S[k]?`<a class="s" href="${D.S[k][1]}" target="_blank" rel="noopener" title="${esc(D.S[k][0])}">${SK.indexOf(k)+1}</a>`:'';
@@ -45,7 +45,7 @@ const MAset=new Set(Object.values(D.MA).flat());
  cv.onmouseleave=hideTip;cv.onclick=e=>{const r=hit(e);if(r)proj(r[0])};
  layout();draw();atl.forEach(im=>im.onload=draw);let t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(()=>{layout();draw()},150)});
 })();
-$('#index').innerHTML=[['parcours','Parcours','Les deux formations, module par module'],['annee','Année','Le calendrier 2026-2027 et sa charge'],['personnes','Personnes','Équipes, encadrement, studios du MAIA'],['memoire','Mémoire','633 fiches de projets à interroger'],['rayonnement','Rayonnement','Expositions et conférences depuis 2018'],['workshop','Workshop','Le cas pratique, piloté semaine par semaine'],['arbitrage','Arbitrage','Les critères budgétaires en fonctionnement'],['sources','Sources','Méthode, limites et documents']]
+$('#index').innerHTML=[['parcours','Parcours','Les deux formations, module par module'],['annee','Année','Le calendrier 2026-2027 et sa charge'],['personnes','Personnes','Équipes, encadrement, studios du MAIA'],['memoire','Mémoire','633 fiches de projets à interroger'],['rayonnement','Rayonnement','Expositions et conférences depuis 2019'],['workshop','Workshop','Le cas pratique, piloté semaine par semaine'],['arbitrage','Arbitrage','Les critères budgétaires en fonctionnement'],['sources','Sources','Méthode, limites et documents']]
  .map((c,i)=>`<li><a href="#${c[0]}"><i>0${i+1}</i><b>${c[1]}</b><span>${c[2]}</span><span>↓</span></a></li>`).join('');
 
 /* ---------- 01 parcours ---------- */
@@ -70,8 +70,8 @@ $$('.m').forEach(el=>el.onclick=()=>{const m=allMods.find(x=>x.c===el.dataset.c)
 const nAI=allMods.filter(m=>m.ai&&m.k!=='trans').length,nWS=allMods.filter(m=>m.k==='ws'&&m.part).length;
 $('#facts').innerHTML=[
  [nAI,`descriptifs citent déjà l'intelligence artificielle : les cinq ateliers de projet du Bachelor, la représentation 1, le BIM 1 à 3 et le module numérique du MAIA.`,SS('dba','dma')],
- [59,`descriptifs demandent à chaque étudiant d'indiquer les logiciels utilisés pour son travail.`,SS('dba','dma')],
- [63,`crédits de projet au Bachelor comme au MAIA : cinq ateliers et la Bachelor Thesis, soit 35 % des 180 crédits ; trois ateliers et les deux thèses, soit 52 % des 120 crédits.`,SS('peba','pema')],
+ [60,`descriptifs de modules sur 62 demandent à chaque étudiant d'indiquer les applicatifs ou logiciels utilisés pour son travail.`,SS('dba','dma')],
+ [63,`crédits de projet au Bachelor comme au MAIA : cinq ateliers et la Bachelor Thesis, soit 35 % des 180 crédits ; trois ateliers et les deux thèses, soit 52,5 % des 120 crédits.`,SS('peba','pema')],
  ['25 %',`des crédits du MAIA sont des modules partagés : 21 avec le Joint Master of Architecture (séminaires et options), 9 dans la formation à la recherche du Master HES-SO en Design.`,SS('pema','dma')],
 ].map((f,i)=>`<div><p class="lab">${['Intelligence artificielle','Logiciels','Projet','Partenaires'][i]}</p><b>${f[0]}</b><p>${f[1]}${f[2]}</p></div>`).join('');
 const KEYS=[
@@ -156,7 +156,7 @@ function proj(i){const p=D.PR[i];openD(`<p class="lab">${p.y||''} · ${p.lv==='M
 
 /* ---------- 05 rayonnement ---------- */
 (function(){const G=e=>/Exhibition/i.test(e.ty)?'Expositions':/Conference|Symposium/i.test(e.ty)?'Conférences':/Lecture|MIDIS/i.test(e.ty)?'Conférences invitées':'Autres';
- const rows=['Expositions','Conférences','Conférences invitées','Autres'],y0=2018,y1=2027,W=1200,l=170,H=34+rows.length*56;
+ const rows=['Expositions','Conférences','Conférences invitées','Autres'],y0=2019,y1=2027,W=1200,l=170,H=34+rows.length*56;
  const sx=d=>{const t=new Date(d+'T00:00:00');return l+((t.getFullYear()+(t.getMonth()+t.getDate()/31)/12)-y0)/(y1-y0)*(W-l-10)};
  let s=`<svg viewBox="0 0 ${W} ${H+40}" font-family="Archivo" font-size="11">`;
  for(let y=y0;y<=y1;y++){const x=sx(y+'-01-01');s+=`<line x1="${x}" x2="${x}" y1="10" y2="${H}" stroke="rgba(18,18,18,.12)"/><text x="${x+4}" y="${H+16}" fill="#121212" font-weight="600">${y}</text>`}
@@ -228,8 +228,8 @@ $$('#weights input[data-k]').forEach(x=>x.oninput=()=>{WG[x.dataset.k]=+x.value;
 $('#bud').oninput=e=>{BUD=+e.target.value;arb()};$('#amode').onchange=e=>{MODE=e.target.value;arb()};arb();
 
 /* ---------- 08 sources ---------- */
-$('#method').innerHTML=`<p>Le 13 novembre 2026, les pages publiques de la filière ont été collectées : formations, admissions, calendrier académique, règlements, mobilité, site head-maia.ch. Les plans d'études (${allMods.length} modules) et les 59 descriptifs de modules 2026-2027 ont été extraits des PDF officiels et convertis en données, règle par règle.</p>
-<p>Les ${D.PR.length} fiches de projets et leurs ${fmt(D.NIMG_ALL)} images proviennent du relevé <a href="../head-ai-media-explorer/" target="_blank" rel="noopener">Media Explorer</a> du 12 novembre 2026 : projets du site de la HEAD pour le Bachelor et le Master en architecture d'intérieur, actualités et expositions de la filière, projets de head-maia.ch.</p>
+$('#method').innerHTML=`<p>Le 13 novembre 2026, les pages publiques de la filière ont été collectées : formations, admissions, calendrier académique, règlements, mobilité, site head-maia.ch. Les plans d'études (${allMods.length} modules) et les 62 descriptifs de modules 2026-2027 ont été extraits des PDF officiels et convertis en données, règle par règle.</p>
+<p>Les ${D.PR.length} fiches de projets et leurs ${fmt(D.NIMG)} images distinctes (${fmt(D.NIMG_ALL)} avec les doublons) proviennent du relevé <a href="../head-ai-media-explorer/" target="_blank" rel="noopener">Media Explorer</a> du 12 novembre 2026 : projets du site de la HEAD pour le Bachelor et le Master en architecture d'intérieur, actualités et expositions de la filière, projets de head-maia.ch.</p>
 <h4>Ce que la page ne sait pas</h4><ul><li>Effectifs par volée, budgets du département, nombre de jurés externes engagés : source manquante, ces données ne sont pas publiques.</li><li>Dates 2027 des expositions du MAIA et de Milan : non publiées au 13 novembre 2026.</li><li>Publications Instagram de @head_baai et @head_maia : non collectées.</li></ul>
 <h4>Ce qui est construit pour la démonstration</h4><ul><li>L'indice de charge de l'année.</li><li>Le planning, les statuts, les rôles et le registre des risques du workshop, repris du dossier.</li><li>Le jeu de demandes budgétaires et ses montants.</li></ul>
 <h4>Mise à jour</h4><p>Collecte et compilation sont scriptées : un nouveau plan d'études, un nouveau calendrier ou un nouveau semestre de projets se reconstruisent en relançant les scripts.</p>`;

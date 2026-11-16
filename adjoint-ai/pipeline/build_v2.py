@@ -10,12 +10,12 @@ REFS = {
  'dba': ("Descriptifs de modules Bachelor 2026-2027, dont 15AP Atelier et projets 5", 'hesge.ch/sites/head/files/2026-10/Bachelor_en_Architecture_dinterieur_descriptifs_modules.zip'),
  'dma': ("Descriptifs de modules MAIA 2026-2027", 'hesge.ch/sites/head/files/2026-10/Master_en_Architecture_dinterieur_descriptifs_modules.zip'),
  'maia': ("head-maia.ch, pages About, Modules et Agenda", 'head-maia.ch'),
- 'regba': ("Règlement d'études des filières Bachelor Design et Arts visuels de la HEAD – Genève, 28.07.2021, art. 11, 27, 35 et 36", 'hesge.ch/head/vie-etudiante/informations-pratiques/reglements-et-directives'),
- 'regma': ("Règlement de filière du Master of Arts HES-SO en Architecture d'intérieur, 02.06.2020, art. 4, 11 et 13", 'hesge.ch/head/vie-etudiante/informations-pratiques/reglements-et-directives'),
+ 'regba': ("Règlement d'études des filières Bachelor Design et Arts visuels de la HEAD – Genève, 28.07.2021, art. 11 et 40", 'hesge.ch/head/vie-etudiante/informations-pratiques/reglements-et-directives'),
+ 'regma': ("Règlement de filière du Master of Arts HES-SO en Architecture d'intérieur, 02.06.2020, art. 11", 'hesge.ch/head/vie-etudiante/informations-pratiques/reglements-et-directives'),
  'mob': ("HEAD – Genève, pages « Partir en échange à l'étranger » et « Venir en échange à la HEAD »", 'hesge.ch/head/ecole/international/mobilite'),
- 'reghes': ("Règlement relatif à la formation de base Bachelor et Master HES-SO, 02.06.2020, art. 16", 'hesge.ch/head/vie-etudiante/informations-pratiques/reglements-et-directives'),
+ 'reghes': ("Règlement relatif à la formation de base Bachelor et Master HES-SO, 02.06.2020, art. 16 et 30 à 32", 'hesge.ch/head/vie-etudiante/informations-pratiques/reglements-et-directives'),
  'adm': ("HEAD – Genève, admissions Bachelor et Master : calendriers et processus de sélection", 'hesge.ch/head/admissions'),
- 'mx': ("Media Explorer HEAD, relevé des pages publiques de hesge.ch et head-maia.ch du 12.11.2026", 'guillaumehelleu.com/head-ai-media-explorer'),
+ 'mx': ("Media Explorer HEAD, relevé des pages publiques de hesge.ch et head-maia.ch du 12.11.2026", 'guillaumehelleu.com/media-explorer/head-ai'),
 }
 order = []
 def R(*keys):
@@ -85,7 +85,7 @@ def gantt_svg():
 # ---------- contenu ----------
 URL = 'guillaumehelleu.com/adjoint-ai'
 TOOLS = [('Version détaillée et interactive', URL, 'Chaque analyse avec ses données, ses sources et ses filtres.'),
-         ('Outil 1 · Media Explorer', 'guillaumehelleu.com/head-ai-media-explorer', 'Les 5 734 images publiées par la filière depuis 2011, interrogeables par année, par projet et par ressemblance.'),
+         ('Outil 1 · Media Explorer', 'guillaumehelleu.com/media-explorer/head-ai', 'Les 5 157 images distinctes publiées par la filière depuis 2011, interrogeables par année, par projet et par ressemblance.'),
          ('Outil 2 · Tableau de bord de pilotage', URL + '/pilotage', 'L\'interface proposée en action A, en fonctionnement, alimentée par des données fictives.')]
 
 def tbl(head, rows, cls=''):
@@ -115,26 +115,26 @@ A(refs(tbl(['', 'Bachelor', 'Master MAIA'], [
 ], 'k3')))
 
 A('<h3><b>1.2</b> Les moments clés du parcours</h3>')
-A('<p>Le parcours se lit dans ses temps forts plus que dans ses modules. Pour l\'équipe, chacun de ces moments est aussi un temps de coordination : un jury à composer ou une exposition à produire.</p>')
+A('<p>Le parcours se lit dans ses temps forts. Pour l\'équipe, chacun de ces moments est aussi un temps de coordination : un jury à composer ou une exposition à produire.</p>')
 A(refs(tbl(['', 'Bachelor', 'Master MAIA'], [
  ['Ateliers', 'Un atelier de projet par semestre, de S1 à S5 (par exemple Intérieur vivant, Nested Spaces, Food Futures). En S5, un stage approuvé avant le semestre par le responsable de filière peut remplacer l\'atelier.[[ba,dba]]', 'Des studios confiés à des enseignants et à des agences invitées (automne 2026 : Studio Ossidiana ; Simon Husslein et Aida Navarro Redón).[[maia]]'],
  ['Projets', 'Mandats réels avec des entreprises, des institutions culturelles et des associations.[[ba]]', 'Projets avec des institutions et des industriels ; recherches Scènes de Nuit, Forced Reuse et The Future of Humanitarian Design.[[ma]]'],
  ['Workshops', 'Semaine inaugurale chaque automne (14-18.09.2026), Semaine de tous les possibles ou autre workshop chaque printemps (22-26.02.2027).[[peba,cal]]', 'Workshop HEAD – Camondo en MAIA 1 et 3 ; Semaine de tous les possibles et workshop avec le MA Design Installation en MAIA 2.[[pema,maia]]'],
- ['Jurys', 'Deux semaines de jurys par an (18-22.01 et 14-23.06.2027). La Bachelor Thesis se soutient devant cinq jurés, dont trois externes, validés par la direction.[[cal,regba]]', 'Mêmes semaines de jurys. La Master Thesis se soutient devant au moins deux jurés de la filière et trois jurés extérieurs, après validation des trois premiers semestres.[[regma]]'],
+ ['Jurys', 'Deux sessions de jurys par an (18-22.01 et 14-23.06.2027). La Bachelor Thesis se soutient devant cinq jurés, dont trois externes, validés par la direction.[[cal,regba]]', 'Mêmes sessions de jurys. La Master Thesis se soutient devant au moins deux jurés de la filière et trois jurés extérieurs, après validation des trois premiers semestres.[[regma]]'],
  ['Mobilité', '§Un ou deux semestres d\'échange après une année validée, sur <i>learning agreement</i> ; vœux pour l\'automne 2027 du 15 au 30 novembre 2026. L\'école accueille une cinquantaine d\'étudiants en échange chaque année.[[mob,reghes]] Le MAIA y ajoute ses échanges réguliers avec le JMA et l\'École Camondo.[[ma]]'],
  ['Diplôme et visibilité', 'Fête des diplômes le 7 juillet 2027.[[cal]]', 'En 2026 : exposition des thèses le 19 février, Milan Design Week du 20 au 26 avril, exposition des diplômes du 5 au 8 juin.[[maia]]'],
  ['Admission', 'Concours en deux tours : dossiers du 9 au 15 mars, entretiens du 12 au 16 avril 2027.[[cal,adm]]', 'Concours en deux tours : dossiers du 30 mars au 7 avril, entretiens du 28 avril au 7 mai 2027.[[cal,adm]]'],
 ], 'k3')))
 
 A('<h3><b>1.3</b> Les enjeux organisationnels et administratifs</h3>')
-A('<p>Lus depuis le poste d\'adjoint, ces parcours posent des questions d\'organisation plus que de contenu. Elles tiennent à quelques semaines très denses, au nombre de personnes à coordonner et aux partenaires dont dépend le Master. Le graphique additionne, semaine par semaine, les échéances publiées de l\'année 2026-2027.</p>')
+A('<p>Lus depuis le poste d\'adjoint, ces parcours posent des questions d\'organisation. Elles tiennent à quelques semaines très denses, au nombre de personnes à coordonner et aux partenaires dont dépend le Master. Le graphique additionne, semaine par semaine, les échéances publiées de l\'année 2026-2027.</p>')
 A(f'<figure class="fig">{year_svg()}<figcaption>Calendrier 2026-2027 : cases blanches, cours ; hachures, semaines de workshop et « hors cadre » ; noir, jurys ; gris, remédiations ; trait, semaines sans cours et fermetures des bâtiments. Barres : indice de charge, pondéré par échéance (jurys 4, tours de concours et délais de résultats 3, autres 1 ou 2). En rouge, les deux semaines les plus chargées.' + R('cal', 'adm', 'mob') + '</figcaption></figure>')
 A(refs('''<ul class="pts">
 <li><b>Les jurys concentrent la charge.</b> Les deux semaines les plus chargées de l'année sont celles des jurys de janvier (18-22.01), close par le délai des résultats et les portes ouvertes du 23, et de la fin des jurys de juin (21-23.06), avec le délai des résultats du semestre. Entre les deux, les deux tours des concours Bachelor et Master occupent la plupart des semaines de mars à mai. La même équipe porte ces échéances pour les deux formations, et chaque jury de thèse mobilise au moins trois externes à inviter, engager et défrayer.[[cal,adm,regba,regma]]</li>
 <li><b>Les intervenants sont nombreux.</b> Les pages des deux formations publient douze enseignants et quinze intervenants pour le Bachelor, cinq enseignants, huit intervenants et un studio pour le Master : plus de trente personnes distinctes, auxquelles s'ajoutent chaque année les jurés externes et les studios invités du MAIA.[[ba,ma,maia]]</li>
-<li><b>Les parcours individuels se suivent dossier par dossier, surtout au Bachelor.</b> Un stage en S5 s'approuve avant le semestre ; un départ en mobilité se prépare huit à dix mois à l'avance ; une équivalence se demande dans les trois semaines qui suivent l'entrée. Un étudiant qui échoue deux fois au même module obligatoire est exclu de la filière : les situations fragiles doivent être repérées tôt.[[dba,mob,regba]]</li>
+<li><b>Les parcours individuels se suivent dossier par dossier, surtout au Bachelor.</b> Un stage en S5 s'approuve avant le semestre ; un départ en mobilité se prépare huit à dix mois à l'avance ; une équivalence se demande dans les trois semaines qui suivent l'entrée. Un étudiant qui échoue deux fois au même module obligatoire est exclu de la filière : les situations fragiles doivent être repérées tôt.[[dba,mob,regba,reghes]]</li>
 <li><b>Le MAIA dépend d'autres institutions.</b> Séminaires du JMA, formation à la recherche du Master HES-SO, workshops avec l'École Camondo : son calendrier se construit avec des partenaires qui ont le leur.[[pema]]</li>
-<li><b>Le rayonnement se produit.</b> L'agenda du MAIA publie plus de cent événements depuis 2018, de Genève à Milan, Lisbonne ou New York. Expositions, conférences et mandats réels impliquent conventions, budgets, transport, assurances et documentation.[[maia]]</li>
+<li><b>Le rayonnement se produit.</b> L'agenda du MAIA publie plus de cent événements depuis 2019, de Genève à Milan, Lisbonne ou New York. Expositions, conférences et mandats réels impliquent conventions, budgets, transport, assurances et documentation.[[maia]]</li>
 </ul>'''))
 
 A('<h3><b>1.4</b> Trois actions concrètes</h3>')
@@ -142,12 +142,12 @@ A('<p>Les actions proposées se construisent l\'une sur l\'autre. La première p
 A(refs(tbl(['Action', 'Contenu', 'Effet attendu'], [
  ['<b>A</b> Une interface de pilotage commune', 'Une interface numérique unique, qui centralise toutes les échéances des deux formations : calendrier de l\'école, jurys et jurés, concours, mobilité, JMA, Camondo, expositions, engagements. Chaque échéance porte un responsable et une date de déclenchement (l\'invitation des jurés externes, par exemple, huit semaines avant). L\'interface s\'adapte à son public : l\'équipe y pilote, les enseignants y trouvent leurs jurys et leurs délais, les étudiants leurs démarches, les services ce qui les concerne. Le suivi des dossiers individuels (stage, mobilité, équivalence, échec) y devient une vue réservée à l\'équipe. Il ne s\'agit pas d\'un calendrier papier ou d\'un agenda Outlook partagé.', 'La charge devient visible avant les semaines denses et se répartit ; chacun trouve ses échéances sans avoir à les demander.'],
  ['<b>B</b> Un circuit standardisé des jurys et des intervenants externes', 'Une base des jurés et des intervenants (coordonnées, expertise, participations passées) et un circuit unique, de l\'invitation au paiement : invitation, contrat, accès, grille d\'évaluation, défraiement. Les modèles sont prêts avant chaque session et chaque étape se suit dans l\'interface A.', 'Des jurys complets, des contrats signés à temps, des intervenants payés sans relance ; un réseau de jurés qui s\'enrichit d\'une année à l\'autre.'],
- ['<b>C</b> Une mémoire du département', 'Les projets, jurys, partenaires, intervenants et images de la filière, réunis dans une base alimentée à chaque fin de semestre. L\'enjeu est double : structurer la matière première pour la rendre pilotable et exploitable, puis l\'analyser. Media Explorer en donne l\'exemple avec les 5 734 images publiées par la filière depuis 2011.[[mx]]', 'Une matière disponible pour la communication, les admissions, les rapports et la recherche ; une lecture fine de l\'évolution de la production.'],
+ ['<b>C</b> Une mémoire du département', 'Les projets, jurys, partenaires, intervenants et images de la filière, réunis dans une base alimentée à chaque fin de semestre. L\'enjeu est double : structurer la matière première pour la rendre pilotable et exploitable, puis l\'analyser. Media Explorer en donne l\'exemple avec les 5 157 images distinctes publiées par la filière depuis 2011.[[mx]]', 'Une matière disponible pour la communication, les admissions, les rapports et la recherche ; une lecture fine de l\'évolution de la production.'],
 ], 'act')))
-A('''<div class="prio"><p class="lab">Priorité à ressources limitées</p><p><b>L'action A.</b> Elle se met en place sans recrutement et repose sur une discipline de mise à jour. Elle agit sur les deux formations à la fois, alors que la même équipe les porte. Elle réduit les incidents les plus coûteux pour les étudiants : un juré qui manque, une note remise hors délai. Les actions B et C s'y branchent. Une première version peut fonctionner avant les jurys du 18 janvier 2027 ; le tableau de bord en ligne en montre le principe avec des données fictives.</p></div></section>''')
+A('''<div class="prio"><p class="lab">Priorité à ressources limitées</p><p><b>L'action A.</b> Elle se met en place sans recrutement et repose sur une discipline de mise à jour. Elle agit sur les deux formations à la fois, puisque la même équipe les porte. Elle réduit les incidents les plus coûteux pour les étudiants : un juré qui manque, une note remise hors délai. Les actions B et C s'y branchent. Une première version peut fonctionner avant les jurys du 18 janvier 2027 ; le tableau de bord en ligne en montre le principe avec des données fictives.</p></div></section>''')
 
 A('''<section class="q"><div class="qh"><span>2</span><h2>Cas pratique<br><em>un workshop international de deux semaines</em></h2></div>
-<p class="intro">Le cas se lit comme un projet de trois mois dont la partie visible ne dure que deux semaines. L'essentiel du travail précède le workshop : réunir deux écoles partenaires, huit enseignants et intervenants et soixante-quinze étudiants autour d'un programme commun, puis d'une exposition ouverte au public. Dans ce dispositif, l'adjoint tient le calendrier et sert de point d'entrée unique ; le responsable de département garde les décisions. Pour la lecture, S0 désigne la première semaine du workshop ; l'exposition ouvre à la fin de la deuxième semaine (S+1).</p>''')
+<p class="intro">Le cas se lit comme un projet de quatre mois dont la partie visible ne dure que deux semaines. L'essentiel du travail précède le workshop : réunir deux écoles partenaires, huit enseignants et intervenants et soixante-quinze étudiants autour d'un programme commun, puis d'une exposition ouverte au public. Dans ce dispositif, l'adjoint tient le calendrier et sert de point d'entrée unique ; le responsable de département garde les décisions. Pour la lecture, S0 désigne la première semaine du workshop ; l'exposition ouvre à la fin de la deuxième semaine (S+1).</p>''')
 A('<h3><b>2.1</b> Planification</h3>')
 A(refs('<p>Quatre phases préparent le workshop, chacune fermée par des livrables précis. Les dates se choisissent hors des jurys, des concours d\'admission et des fermetures de bâtiments du calendrier académique.[[cal]]</p>'))
 A(f'<figure class="fig g">{gantt_svg()}</figure>')
@@ -192,10 +192,10 @@ st = lambda c, t: f'<span class="st {c}">{t}</span>'
 A(tbl(['Lot', 'Tâche', 'Responsable', 'Échéance', 'Dépend de', 'Statut'], [
  ['Cadrage', 'Note de cadrage validée', 'Responsable', 'S-11', '·', st('ok', 'Fait')],
  ['Partenaires', 'Conventions signées par les deux écoles', 'Adjoint', 'S-8', 'Cadrage', st('al', 'Alerte')],
- ['RH', 'Contrats des 5 intervenants externes', 'Adjoint et RH', 'S-6', 'Programme', st('go', 'En cours')],
+ ['RH', 'Contrats des 5 intervenants externes', 'Adjoint et RH', 'S-6', 'Cadrage', st('go', 'En cours')],
  ['Logistique', 'Hébergement des 15 invités confirmé', 'Adjoint', 'S-6', 'Conventions', st('go', 'En cours')],
  ['Pédagogie', 'Programme jour par jour et critères', 'Équipe', 'S-5', 'Cadrage', st('go', 'En cours')],
- ['Communication', 'Annonce publique et visuel', 'Communication', 'S-6', 'Programme', st('no', 'Non démarré')],
+ ['Communication', 'Annonce publique et visuel', 'Communication', 'S-6', 'Cadrage', st('no', 'Non démarré')],
  ['Exposition', 'Plan d\'exposition et sécurité', 'Services techniques', 'S-4', 'Lieu réservé', st('no', 'Non démarré')],
 ], 'trk'))
 
