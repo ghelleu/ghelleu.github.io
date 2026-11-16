@@ -262,4 +262,4 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:0;border-radiu
 .vplace{font:600 9.5px/1 var(--f);letter-spacing:.22em;color:#8b887f;white-space:nowrap;transform:translate(-50%,-50%);pointer-events:none}
 .vplace.big{font:500 22px/1 var(--f);letter-spacing:.32em;color:#b9b6ad}
 #map.leaflet-container{background:#f2f0eb!important}
-#map .leaflet-tile-container img.leaflet-tile{width:257px!important;height:257px!important}
+.vfond{image-rendering:auto}

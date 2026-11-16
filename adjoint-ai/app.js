@@ -300,7 +300,7 @@ const G=window.GEO;if(!G||!window.L)return;
 const KIND={ecole:['École','#121212'],realise:['Réalisé ou installé','#e6483a'],expose:['Exposé, présenté','#121212'],etude:["Site d'étude",'#121212']};
 const vis={ecole:1,realise:1,expose:1,etude:1};
 const map=L.map('map',{zoomControl:true,scrollWheelZoom:false,attributionControl:true,minZoom:12,maxZoom:18}).setView([46.1995,6.1385],$('#map').clientHeight>600?14:13);
-L.tileLayer('tiles/{z}/{x}/{y}.png?v=2',{attribution:'Bâti : cadastre de Genève (SITG) · eau : © contributeurs OpenStreetMap · lieux : fiches hesge.ch et head-maia.ch',minZoom:12,maxZoom:18,maxNativeZoom:16,bounds:[[46.150,6.080],[46.240,6.190]]}).addTo(map);
+L.imageOverlay('fond.webp?v=1',[[46.14939437647686,6.075439453125],[46.24065195500169,6.1907958984375]],{attribution:'Bâti : cadastre de Genève (SITG) · eau : © contributeurs OpenStreetMap · lieux : fiches hesge.ch et head-maia.ch',className:'vfond'}).addTo(map);
 map.setMaxBounds([[46.140,6.060],[46.250,6.210]]);
 [['LAC LÉMAN',46.2150,6.1620,'big'],['RHÔNE',46.2020,6.1215,''],['ARVE',46.1925,6.1500,''],['PÂQUIS',46.2125,6.1475,''],['JONCTION',46.2005,6.1300,''],['PLAINPALAIS',46.1965,6.1405,''],['EAUX-VIVES',46.2030,6.1620,''],['CAROUGE',46.1830,6.1395,''],['PAV',46.1880,6.1300,''],['CHARMILLES',46.2110,6.1220,''],['SERVETTE',46.2145,6.1320,''],['VIEILLE-VILLE',46.2010,6.1480,'']].forEach(([t,a,b,c])=>L.marker([a,b],{interactive:false,keyboard:false,icon:L.divIcon({className:'vplace '+c,html:t,iconSize:null})}).addTo(map));
 map.on('focus',()=>map.scrollWheelZoom.enable());map.on('blur',()=>map.scrollWheelZoom.disable());
