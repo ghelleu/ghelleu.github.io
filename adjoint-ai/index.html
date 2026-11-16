@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Architecture d'intérieur · HEAD – Genève · le département en données</title>
+<link rel="stylesheet" href="vendor/leaflet.css">
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
 <header class="topbar dark" id="bar">
   <a href="#top" class="mark">Architecture d'intérieur<br><span>HEAD – Genève</span></a>
   <nav id="nav">
-    <a href="#parcours">01</a><a href="#annee">02</a><a href="#personnes">03</a><a href="#memoire">04</a><a href="#rayonnement">05</a><a href="#workshop">06</a><a href="#arbitrage">07</a><a href="#sources">08</a>
+    <a href="#parcours">01</a><a href="#annee">02</a><a href="#personnes">03</a><a href="#memoire">04</a><a href="#ville">05</a><a href="#rayonnement">06</a><a href="#workshop">07</a><a href="#arbitrage">08</a><a href="#sources">09</a>
   </nav>
   <a href="pilotage/" class="doc" style="margin-left:auto">Tableau de bord ↗</a><a href="dossier.pdf" target="_blank" rel="noopener" class="doc">Dossier PDF ↗</a>
 </header>
@@ -31,6 +32,8 @@
   <div class="filters" id="pf"></div>
   <div class="plans"><div><h3 class="lab">Bachelor of Arts HES-SO · 180 ECTS · français</h3><div class="plan" id="gBA"></div></div><div><h3 class="lab">Master of Arts HES-SO, MAIA · 120 ECTS · anglais</h3><div class="plan" id="gMA"></div></div></div>
   <div class="facts" id="facts"></div>
+  <h3 class="lab rule">Un parcours, ses embranchements</h3>
+  <div class="jr"><div class="jbtn" id="jbtn"></div><div class="jsvg" id="jsvg"></div><div class="jcap" id="jcap"></div></div>
   <h3 class="lab rule">Les moments clés du parcours</h3>
   <div class="tbl" id="keys"></div>
 </section>
@@ -60,14 +63,23 @@
   <div class="cols2"><div><h3 class="lab rule">Prix cités</h3><ul class="list" id="prizes"></ul></div><div><h3 class="lab rule">Partenaires cités</h3><ul class="list cols" id="partners"></ul></div></div>
 </section>
 
+<section id="ville" class="ch">
+  <div class="op"><span class="num">05</span><h2>Ville<br><span id="vsub">la filière dans Genève</span></h2><p>Les lieux genevois nommés dans les fiches de projets et l'agenda du MAIA : où la filière construit, expose et prend ses sites d'étude. Le curseur fait défiler les années ; un clic ouvre le lieu et ses projets.</p></div>
+  <div class="vmap"><div id="map"></div>
+    <div class="vctl"><button id="vplay" class="tl">Lecture</button><input type="range" id="vy" min="2012" max="2026" value="2026"><b id="vyl">2026</b></div>
+    <div class="vleg" id="vleg"></div>
+  </div>
+  <div class="vfoot"><div><h3 class="lab rule">Les lieux les plus fréquentés</h3><div class="tbl" id="vtop"></div></div><div><h3 class="lab rule">Méthode</h3><div id="vnote" class="note"></div></div></div>
+</section>
+
 <section id="rayonnement" class="ch">
-  <div class="op"><span class="num">05</span><h2>Rayonnement<br><span>104 événements du MAIA</span></h2><p>Expositions, conférences et cycles publiés dans l'agenda de head-maia.ch. Chaque point ouvre sa page.</p></div>
+  <div class="op"><span class="num">06</span><h2>Rayonnement<br><span>104 événements du MAIA</span></h2><p>Expositions, conférences et cycles publiés dans l'agenda de head-maia.ch. Chaque point ouvre sa page.</p></div>
   <div id="ev"></div>
   <div class="tbl evl" id="evl"></div>
 </section>
 
 <section id="workshop" class="ch">
-  <div class="op"><span class="num">06</span><h2>Workshop<br><span>trois mois pour deux semaines</span></h2><p>Le cas pratique de la question 2 : 60 étudiants du Bachelor, 15 étudiants de deux écoles partenaires, 8 enseignants et intervenants, une exposition publique. Le curseur fait avancer le temps, un clic sur un statut le change.</p></div>
+  <div class="op"><span class="num">07</span><h2>Workshop<br><span>trois mois pour deux semaines</span></h2><p>Le cas pratique de la question 2 : 60 étudiants du Bachelor, 15 étudiants de deux écoles partenaires, 8 enseignants et intervenants, une exposition publique. Le curseur fait avancer le temps, un clic sur un statut le change.</p></div>
   <div class="clock"><label class="lab" for="wk">Semaine</label><input type="range" id="wk" min="-13" max="3" value="-8"><b id="wkl"></b><p id="wsum"></p><button id="wreset" class="tl">Réinitialiser</button></div>
   <div class="scroll"><div id="gantt"></div></div>
   <div class="cols2"><div><h3 class="lab rule">Rôles · R réalise · A approuve · C consulté · I informé</h3><div class="scroll"><div id="raci"></div></div></div>
@@ -75,12 +87,12 @@
 </section>
 
 <section id="arbitrage" class="ch">
-  <div class="op"><span class="num">07</span><h2>Arbitrage<br><span>classer, puis motiver chaque décision</span></h2><p>La question 2.5 en fonctionnement. Les obligations passent d'abord, les autres demandes sont classées par les critères du dossier. Demandes et montants forment un jeu d'exemple.</p></div>
+  <div class="op"><span class="num">08</span><h2>Arbitrage<br><span>classer, puis motiver chaque décision</span></h2><p>La question 2.5 en fonctionnement. Les obligations passent d'abord, les autres demandes sont classées par les critères du dossier. Demandes et montants forment un jeu d'exemple.</p></div>
   <div class="arb"><div id="weights"></div><div><div id="arbbar" class="arbbar"></div><div class="tbl" id="arbres"></div><p class="note" id="arbsum"></p></div></div>
 </section>
 
 <section id="sources" class="ch">
-  <div class="op"><span class="num">08</span><h2>Sources<br><span>26 documents publics</span></h2><p>Collectés le 13 novembre 2026. Chaque chiffre de la page renvoie à l'un d'eux.</p></div>
+  <div class="op"><span class="num">09</span><h2>Sources<br><span>26 documents publics</span></h2><p>Collectés le 13 novembre 2026. Chaque chiffre de la page renvoie à l'un d'eux.</p></div>
   <div class="cols2"><div class="prose" id="method"></div><ol class="srcs" id="srcs"></ol></div>
 </section>
 
@@ -88,6 +100,8 @@
 <aside id="drawer" class="drawer" aria-hidden="true"><button id="dx" class="tl">Fermer</button><div id="dbody"></div></aside>
 <div id="tip" class="tip"></div>
 <script src="data.js"></script>
+<script src="geo.js"></script>
+<script src="vendor/leaflet.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

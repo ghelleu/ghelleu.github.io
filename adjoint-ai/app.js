@@ -71,9 +71,9 @@ const nAI=allMods.filter(m=>m.ai&&m.k!=='trans').length,nWS=allMods.filter(m=>m.
 $('#facts').innerHTML=[
  [nAI,`descriptifs citent déjà l'intelligence artificielle : les cinq ateliers de projet du Bachelor, la représentation 1, le BIM 1 à 3 et le module numérique du MAIA.`,SS('dba','dma')],
  [59,`descriptifs demandent à chaque étudiant d'indiquer les logiciels utilisés pour son travail.`,SS('dba','dma')],
- [5,`jurés au minimum pour chaque thèse, dont trois externes, au Bachelor comme au MAIA.`,SS('regba','regma')],
- [nWS,`modules workshop où la présence est évaluée : au-delà de 20 % d'absence, la note est 1.0.`,SS('dba','dma')],
-].map((f,i)=>`<div><p class="lab">${['Intelligence artificielle','Logiciels','Jurys de thèse','Présence'][i]}</p><b>${f[0]}</b><p>${f[1]}${f[2]}</p></div>`).join('');
+ [63,`crédits de projet au Bachelor comme au MAIA : cinq ateliers et la Bachelor Thesis, soit 35 % des 180 crédits ; trois ateliers et les deux thèses, soit 52 % des 120 crédits.`,SS('peba','pema')],
+ ['25 %',`des crédits du MAIA sont des modules partagés : 21 avec le Joint Master of Architecture (séminaires et options), 9 dans la formation à la recherche du Master HES-SO en Design.`,SS('pema','dma')],
+].map((f,i)=>`<div><p class="lab">${['Intelligence artificielle','Logiciels','Projet','Partenaires'][i]}</p><b>${f[0]}</b><p>${f[1]}${f[2]}</p></div>`).join('');
 const KEYS=[
  ['Ateliers',`Un atelier de projet par semestre de S1 à S5, 9 ECTS. En S5, un stage approuvé avant le semestre peut valoir l'atelier.${SS('peba','dba')}`,`Un atelier de conception de S1 à S3, 9, 12 puis 12 ECTS, confié à des enseignants et à des agences invitées.${SS('pema','mmod')}`],
  ['Projets',`Mandats réels avec des entreprises, des institutions culturelles et des associations.${S('ba')}`,`Projets avec institutions et industriels ; recherches Scènes de Nuit, Forced Reuse, The Future of Humanitarian Design.${S('ma')}`],
@@ -235,6 +235,99 @@ $('#method').innerHTML=`<p>Le 13 novembre 2026, les pages publiques de la filiè
 <h4>Mise à jour</h4><p>Collecte et compilation sont scriptées : un nouveau plan d'études, un nouveau calendrier ou un nouveau semestre de projets se reconstruisent en relançant les scripts.</p>`;
 $('#srcs').innerHTML=Object.values(D.S).map(s=>`<li><a href="${s[1]}" target="_blank" rel="noopener">${esc(s[0])}</a><small>${esc(s[1])}</small></li>`).join('');
 
+
+/* ---------- parcours animé : un étudiant, ses embranchements ---------- */
+(function(){
+const COL=['Concours','S1','S2','S3','S4','S5','S6','Diplôme','Concours','MAIA 1','MAIA 2','MAIA 3','MAIA 4','Diplôme'];
+const W=1180,X0=40,DX=(W-80)/13,LY={'-1':70,'0':150,'1':230,'2':300},x=c=>X0+c*DX,y=l=>LY[l];
+const SC=[
+ {k:'type',n:'Parcours type',pts:[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[12,0],[13,0]],
+  st:{0:['Admission',`Concours en deux tours : examen des dossiers, puis entretien.${SS('selba','cal')}`],1:['Ateliers',`Un atelier de projet par semestre de S1 à S5, 9 crédits chacun.${S('peba')}`],
+      6:['Bachelor Thesis',`18 crédits, jury de cinq membres dont trois externes. Pas de remédiation pour la thèse.${SS('dba','regba')}`],8:['Admission MAIA',`Nouveau concours en deux tours, entretiens en anglais.${S('selma')}`],
+      9:['MAIA',`Ateliers de conception, séminaires avec le JMA, workshops avec l'École Camondo.${SS('pema','mmod')}`],12:['Master Thesis',`Après validation de S1 à S3 ; jury d'au moins deux membres de la filière et trois extérieurs.${S('regma')}`],
+      13:['Durée',`120 crédits en quatre semestres ; huit semestres au plus.${S('regma')}`]}},
+ {k:'equiv',n:'Équivalence',pts:[[0,0],[1,-1],[1,0],[2,0],[3,0]],
+  st:{0:['Admission',`Entrée en première année après le concours.${S('selba')}`],1:['Demande',`Demande écrite au secrétariat de la filière, au plus tard trois semaines après le début du premier semestre. La direction statue.${S('regba')}`],2:['Effet',`L'équivalence accordée attribue d'office les crédits du module ou de l'unité.${S('regba')}`]}},
+ {k:'mob',n:'Mobilité',pts:[[1,0],[2,0],[3,0],[4,-1],[5,0],[6,0]],
+  st:{2:['Condition',`Une année validée avant le départ.${S('out')}`],3:['Échange',`Un semestre en principe, sur learning agreement. Vœux du 15 au 30.11.2026 pour un départ à l'automne 2027.${SS('reghes','out')}`]}},
+ {k:'stage',n:'Stage en S5',pts:[[3,0],[4,0],[5,-1],[6,0]],
+  st:{1:['Avant le semestre',`Le stage est approuvé par le responsable de filière avant le début du semestre.${S('dba')}`],2:['Stage',`Il peut valoir les 9 crédits de l'atelier de projet 5.${S('dba')}`],3:['Retour',`Bachelor Thesis en S6.${S('peba')}`]}},
+ {k:'rem',n:'Remédiation',pts:[[1,0],[2,0],[2,1],[3,0],[4,0]],
+  st:{1:['Évaluation',`Note minimale 4.0 ; un module à 3.5 n'est pas acquis.${S('regba')}`],2:['Remédiation',`Examen complémentaire ou travail additionnel, seulement si le descriptif la prévoit. Réussie, elle donne 4.0. Jamais pour les ateliers ni pour la thèse.${SS('regba','reghes')}`],3:['Calendrier',`Deux périodes en 2026-2027 : du 25.01 au 05.02 et du 28.06 au 09.07.${S('cal')}`]}},
+ {k:'rep',n:'Répétition, exclusion',pts:[[2,0],[3,0],[3,1],[5,1],[5,2]],
+  st:{1:['Échec',`Le module n'est pas acquis, remédiation comprise.${S('reghes')}`],2:['Répétition',`Il est répété dès que possible, une seule fois.${S('reghes')}`],4:['Exclusion',`Échec après répétition dans un module obligatoire : échec définitif et exclusion de la filière. Le règlement HES-SO plafonne aussi la durée d'un Bachelor à douze semestres.${S('reghes')}`]}},
+];
+const seg=(a,b)=>{const ax=x(a[0]),ay=y(a[1]),bx=x(b[0]),by=y(b[1]);if(ay===by)return `L${bx} ${by}`;const mx=(ax+bx)/2;return ax===bx?`L${bx} ${by}`:`C${mx} ${ay} ${mx} ${by} ${bx} ${by}`};
+const pathD=pts=>`M${x(pts[0][0])} ${y(pts[0][1])}`+pts.slice(1).map((p,i)=>seg(pts[i],p)).join('');
+const LBL={'-1':'hors de l\'école','1':'remédiation, répétition','2':'sortie'};
+let h=`<svg viewBox="0 0 ${W} 340" font-family="Archivo">`;
+h+=`<text x="${x(1)}" y="16" font-size="10.5" font-weight="600" letter-spacing="1.4" fill="#8b887f">BACHELOR · 180 ECTS</text><line x1="${x(1)-6}" x2="${x(6)+6}" y1="24" y2="24" stroke="#121212"/>`;
+h+=`<text x="${x(9)}" y="16" font-size="10.5" font-weight="600" letter-spacing="1.4" fill="#8b887f">MAIA · 120 ECTS</text><line x1="${x(9)-6}" x2="${x(12)+6}" y1="24" y2="24" stroke="#121212"/>`;
+COL.forEach((c,i)=>{h+=`<text x="${x(i)}" y="46" text-anchor="middle" font-size="12" font-weight="${/^S|MAIA/.test(c)?600:400}" fill="${/^S|MAIA/.test(c)?'#121212':'#8b887f'}">${c}</text><line x1="${x(i)}" x2="${x(i)}" y1="54" y2="318" stroke="#121212" stroke-opacity=".07"/>`});
+Object.entries(LBL).forEach(([l,t])=>{h+=`<text x="${W}" y="${y(l)-8}" text-anchor="end" font-size="10" fill="#b9b6ad" letter-spacing=".6">${t.toUpperCase()}</text>`});
+SC.forEach(s=>{h+=`<path d="${pathD(s.pts)}" fill="none" stroke="#121212" stroke-opacity=".13" stroke-width="1.2"/>`});
+h+=`<path id="jact" d="" fill="none" stroke="#121212" stroke-width="2.2"/>`;
+const nodes=new Map();SC.forEach(s=>s.pts.forEach(p=>nodes.set(p.join(','),p)));
+nodes.forEach((p,k)=>{h+=`<circle class="nd" data-k="${k}" cx="${x(p[0])}" cy="${y(p[1])}" r="${p[1]==0?5:6}" fill="${p[1]==2?'#e6483a':'#f2f0eb'}" stroke="${p[1]==2?'#e6483a':'#121212'}" stroke-width="1.2"/>`});
+h+=`<circle id="jdot" r="8" fill="#e6483a" cx="${x(0)}" cy="${y(0)}"/></svg>`;
+$('#jsvg').innerHTML=h;
+$('#jbtn').innerHTML=SC.map((s,i)=>`<button data-i="${i}"><b style="font-weight:inherit">${s.n}</b><span>${String(i+1).padStart(2,'0')}</span></button>`).join('');
+const act=$('#jact'),dot=$('#jdot');let raf=0,timer=0;
+function play(i){cancelAnimationFrame(raf);clearTimeout(timer);const s=SC[i];$$('#jbtn button').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+ const keys=Object.keys(s.st).map(Number);$('#jcap').innerHTML=keys.map(k=>`<div class="off" data-k="${k}"><b>${s.st[k][0]}</b>${s.st[k][1]}</div>`).join('');
+ const d=pathD(s.pts);act.setAttribute('d',d);const L=act.getTotalLength();act.style.strokeDasharray=L;act.style.strokeDashoffset=L;
+ // longueur cumulée à chaque sommet
+ const tmp=document.createElementNS('http://www.w3.org/2000/svg','path');act.parentNode.appendChild(tmp);
+ const at=s.pts.map((p,j)=>{if(!j)return 0;tmp.setAttribute('d',pathD(s.pts.slice(0,j+1)));return tmp.getTotalLength()});tmp.remove();
+ $$('#jsvg .nd').forEach(c=>{const on=s.pts.some(p=>p.join(',')===c.dataset.k);c.style.opacity=on?1:.25});
+ let j=0;const speed=.32;
+ function stepTo(){if(j>=s.pts.length){timer=setTimeout(()=>play((i+1)%SC.length),3200);return}
+  const a=at[Math.max(0,j-1)],b=at[j],t0=performance.now(),dur=Math.max(1,(b-a)/speed);
+  (function fr(t){const f=Math.min(1,(t-t0)/dur),l=a+(b-a)*(f<.5?2*f*f:1-Math.pow(-2*f+2,2)/2),pt=act.getPointAtLength(l);dot.setAttribute('cx',pt.x);dot.setAttribute('cy',pt.y);act.style.strokeDashoffset=L-l;
+   if(f<1){raf=requestAnimationFrame(fr);return}
+   const c=$(`#jcap div[data-k="${j}"]`);$$('#jcap div').forEach(d=>d.classList.remove('on'));if(c){c.classList.remove('off');c.classList.add('on')}
+   const node=$(`#jsvg .nd[data-k="${s.pts[j].join(',')}"]`);if(node){node.style.fill=s.pts[j][1]==2?'#e6483a':'#121212'}
+   j++;timer=setTimeout(stepTo,c?1500:120)})(t0)}
+ $$('#jsvg .nd').forEach(c=>c.style.fill=c.dataset.k.endsWith(',2')?'#e6483a':'#f2f0eb');
+ stepTo()}
+$$('#jbtn button').forEach(b=>b.onclick=()=>play(+b.dataset.i));
+let started=false;new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&!started){started=true;play(0)}}),{threshold:.4}).observe($('#jsvg'));
+})();
+
+/* ---------- ville : la filière dans Genève ---------- */
+(function(){
+const G=window.GEO;if(!G||!window.L)return;
+const KIND={ecole:['École','#121212'],realise:['Réalisé ou installé','#e6483a'],expose:['Exposé, présenté','#121212'],etude:["Site d'étude",'#121212']};
+const vis={ecole:1,realise:1,expose:1,etude:1};
+const map=L.map('map',{zoomControl:true,scrollWheelZoom:false,attributionControl:true,minZoom:11,maxZoom:18}).setView([46.2005,6.137],13);
+L.tileLayer('https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-grau/default/current/3857/{z}/{x}/{y}.jpeg',{attribution:'Fond © swisstopo · lieux : fiches hesge.ch et head-maia.ch',maxZoom:18}).addTo(map);
+map.on('focus',()=>map.scrollWheelZoom.enable());map.on('blur',()=>map.scrollWheelZoom.disable());
+const first=s=>Math.min(...s.it.map(x=>x.y||9999));
+const lay=G.s.map(s=>{const m=L.circleMarker(s.ll,{radius:5,weight:1.4,color:s.kind==='etude'?'#121212':KIND[s.kind][1],fillColor:s.kind==='etude'?'#f2f0eb':KIND[s.kind][1],fillOpacity:1});
+ if(s.kind==='ecole'){m.setStyle({weight:2.5})}
+ m.on('click',()=>open(s));m.bindTooltip(()=>`<b>${esc(s.n)}</b><br>${cnt(s)} entrée${cnt(s)>1?'s':''} jusqu'en ${Y}`,{direction:'top',offset:[0,-6]});return {s,m}});
+let Y=2026;const cnt=s=>s.it.filter(x=>(x.y||0)<=Y).length;
+function draw(){let tot=0,by={ecole:0,realise:0,expose:0,etude:0},ns=0;
+ lay.forEach(({s,m})=>{const n=cnt(s);if(n&&vis[s.kind]){m.addTo(map);m.setRadius(4+Math.sqrt(n)*3.2);tot+=n;by[s.kind]+=n;ns++}else m.remove()});
+ $('#vyl').textContent=Y;$('#vy').value=Y;
+ $('#vleg').innerHTML=Object.entries(KIND).map(([k,v])=>`<p data-k="${k}" class="${vis[k]?'':'off'}"><i class="k-${k}"></i>${v[0]}<b>${by[k]}</b></p>`).join('')+`<p class="tot">${ns} lieux, ${tot} projets et événements, de 2012 à ${Y}</p>`;
+ $$('#vleg p[data-k]').forEach(p=>p.onclick=()=>{vis[p.dataset.k]=!vis[p.dataset.k];draw()});}
+function open(s){const its=s.it.slice().sort((a,b)=>(b.y||0)-(a.y||0));
+ openD(`<p class="lab">${KIND[s.kind][0]} · ${its.length} entrée${its.length>1?'s':''}</p><h3>${esc(s.n)}</h3><p class="note" style="margin:0 0 14px">${esc(s.a)}${s.prec==='adresse'?'':' · position '+(s.prec==='lieu'?'du lieu nommé':'approchée')}</p>
+ <ul class="vit">${its.map(x=>`<li><span>${x.y||''}</span><span>${x.i!=null?`<button data-i="${x.i}">${esc(x.t)}</button>`:`<a href="${x.u}" target="_blank" rel="noopener">${esc(x.t)}</a>`}<em>${esc(x.n)} · ${x.lv==='MA'?'Master':'Bachelor'}</em></span></li>`).join('')}</ul>`);
+ $$('#dbody .vit button').forEach(b=>b.onclick=()=>proj(+b.dataset.i))}
+let playing=0;
+$('#vy').oninput=e=>{Y=+e.target.value;draw()};
+$('#vplay').onclick=()=>{if(playing){clearInterval(playing);playing=0;$('#vplay').textContent='Lecture';return}
+ Y=2011;$('#vplay').textContent='Pause';playing=setInterval(()=>{Y++;draw();if(Y>=2026){clearInterval(playing);playing=0;$('#vplay').textContent='Lecture'}},850)};
+draw();
+const top=G.s.slice().sort((a,b)=>b.it.length-a.it.length).slice(0,12);
+$('#vtop').innerHTML=top.map((s,i)=>`<div class="row" data-k="${s.k}"><span>${String(i+1).padStart(2,'0')}</span><span>${esc(s.n)}<small>${KIND[s.kind][0]} · ${first(s)} à ${Math.max(...s.it.map(x=>x.y||0))}</small></span><b>${s.it.length}</b></div>`).join('');
+$$('#vtop .row').forEach(r=>r.onclick=()=>{const s=G.s.find(z=>z.k===r.dataset.k);map.flyTo(s.ll,16,{duration:.8});open(s)});
+const nAll=G.s.reduce((a,s)=>a+s.it.length,0);
+$('#vsub').textContent=`${G.s.length} lieux à Genève`;
+$('#vnote').innerHTML=`<p>Chaque point est un lieu nommé dans une fiche de projet de la filière ou dans l'agenda du MAIA, de 2012 à 2026 : ${G.s.length} lieux, ${nAll} entrées.${SS('proj','mev','mx')} Les adresses sont celles des fiches ; leur position vient du géocodage officiel de la Confédération (geo.admin.ch). Une position « approchée » signale un quartier, une rue sans numéro ou un bâtiment voisin.</p><p>Un projet d'atelier sur un site genevois compte comme site d'étude ; une installation, une vitrine ou un aménagement réalisés comme réalisés ; une exposition, une conférence ou un événement public comme présentés. Restent hors carte, faute de lieu publié : ${G.nop.map(x=>esc(x.n)).join(' ; ')}.</p>`;
+})();
 new IntersectionObserver(es=>es.forEach(e=>$('#bar').classList.toggle('dark',e.isIntersecting)),{rootMargin:'0px 0px -95% 0px'}).observe($('#top'));
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)$$('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});$$('.ch').forEach(s=>obs.observe(s));
 window.__ok=true;
