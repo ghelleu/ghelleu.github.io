@@ -15,7 +15,7 @@ REFS = {
  'mob': ("HEAD – Genève, pages « Partir en échange à l'étranger » et « Venir en échange à la HEAD »", 'hesge.ch/head/ecole/international/mobilite'),
  'reghes': ("Règlement relatif à la formation de base Bachelor et Master HES-SO, 02.06.2020, art. 16", 'hesge.ch/head/vie-etudiante/informations-pratiques/reglements-et-directives'),
  'adm': ("HEAD – Genève, admissions Bachelor et Master : calendriers et processus de sélection", 'hesge.ch/head/admissions'),
- 'mx': ("Media Explorer HEAD, relevé des pages publiques de hesge.ch et head-maia.ch du 12.11.2026", 'guillaumehelleu.com/media-explorer/head-ai'),
+ 'mx': ("Media Explorer HEAD, relevé des pages publiques de hesge.ch et head-maia.ch du 12.11.2026", 'guillaumehelleu.com/head-ai-media-explorer'),
 }
 order = []
 def R(*keys):
@@ -85,7 +85,7 @@ def gantt_svg():
 # ---------- contenu ----------
 URL = 'guillaumehelleu.com/adjoint-ai'
 TOOLS = [('Version détaillée et interactive', URL, 'Chaque analyse avec ses données, ses sources et ses filtres.'),
-         ('Outil 1 · Media Explorer', 'guillaumehelleu.com/media-explorer/head-ai', 'Les 5 734 images publiées par la filière depuis 2011, interrogeables par année, par projet et par ressemblance.'),
+         ('Outil 1 · Media Explorer', 'guillaumehelleu.com/head-ai-media-explorer', 'Les 5 734 images publiées par la filière depuis 2011, interrogeables par année, par projet et par ressemblance.'),
          ('Outil 2 · Tableau de bord de pilotage', URL + '/pilotage', 'L\'interface proposée en action A, en fonctionnement, alimentée par des données fictives.')]
 
 def tbl(head, rows, cls=''):

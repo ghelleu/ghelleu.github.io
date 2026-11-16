@@ -20,8 +20,7 @@ html=f'''<!doctype html>
   <canvas id="cv"></canvas>
   <div class="gridv" id="grid" hidden></div>
   <div class="top">
-    <div class="brand glass"><h1>Media <i>Explorer</i></h1><span class="sl"><b id="status"></b></span>
-      <nav class="spaces" aria-label="Espaces"><a href="../">Mariage</a><a href="./" aria-current="page">HEAD · Architecture d'intérieur</a></nav></div>
+    <div class="brand glass"><h1>Media <i>Explorer</i></h1><span class="sl"><b id="status"></b> · HEAD Architecture d'intérieur</span></div>
     <div class="seg glass" id="gLay" role="group" aria-label="Organisation"></div>
     <div class="spacer"></div>
     <div class="tools glass"><button type="button" id="bF" aria-pressed="false">Filtres <b id="nf"></b></button><button type="button" id="bA" aria-pressed="false">Analyse</button></div>
@@ -58,4 +57,4 @@ html=f'''<!doctype html>
 </body>
 </html>
 '''
-open(f'{SITE}/media-explorer/head-ai/index.html','w').write(html);print(len(html))
+open(f'{SITE}/head-ai-media-explorer/index.html','w').write(html);print(len(html))

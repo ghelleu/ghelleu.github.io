@@ -8,9 +8,9 @@ Media Explorer est la plateforme d'exploration d'images de Guillaume Helleu, en 
 |---|---|
 | Pages publiées | dépôt `ghelleu/ghelleu.github.io` (public, GitHub Pages, branche `main`), dossier `media-explorer/` |
 | Espace Mariage | `media-explorer/index.html` (application complète, un seul fichier) et `media-explorer/data.json` |
-| Espace HEAD architecture d'intérieur | `media-explorer/head-ai/` : `index.html` (généré), `data.json`, `atlas_0.webp` à `atlas_5.webp` |
+| Espace HEAD architecture d'intérieur | `head-ai-media-explorer/` (https://guillaumehelleu.com/head-ai-media-explorer/) : `index.html` (généré), `data.json`, `atlas_0.webp` à `atlas_5.webp`. Depuis le 16 novembre 2026, page séparée de l'espace Mariage, sans lien de l'une vers l'autre (demande de Guillaume, pour l'envoyer à ses collègues de la HEAD). L'ancienne adresse `media-explorer/head-ai/` redirige vers la nouvelle. |
 | Ancienne page asset-mariage | `asset-mariage/index.html`, simple redirection vers `media-explorer/#series` |
-| Scripts et données intermédiaires | `media-explorer/pipeline/head-ai/` et `media-explorer/pipeline/mariage/` |
+| Scripts et données intermédiaires | `head-ai-media-explorer/pipeline/` (HEAD) et `media-explorer/pipeline/mariage/` (Mariage) |
 | Images Dadaland (espace Mariage) | `https://assets.hint3rland.com/...`, redimensionnées à la volée par `/cdn-cgi/image/width=W,quality=Q,format=auto/` |
 | Images hors Dadaland (espace HEAD) | Cloudflare R2, bucket `media-explorer`, servi sur `https://media.hint3rland.com/` |
 | Mémoire partagée avec Hermes | dépôt `ghelleu/hermes-vault`, lignes datées dans `inbox/claude/2026-11-12.md` et `2026-11-13.md` |
@@ -88,7 +88,7 @@ Demande de Guillaume (12 novembre 2026) : cartographier toute la production visu
 - Instagram (@head_baai, @head_maia) : non collecté. L'appel aux services internes d'Instagram a été bloqué par les garde-fous de Claude (contournement de protection anti-robot). Voie prévue : export officiel des comptes (Paramètres, Télécharger vos informations) par la personne qui les gère.
 - Avant 2011 : rien en ligne.
 
-### Pipeline (dossier `head-ai/`, à lancer depuis `head-ai/data/`)
+### Pipeline (dossier `head-ai-media-explorer/pipeline/`, à lancer depuis `head-ai-media-explorer/pipeline/data/`)
 
 1. `python3 ../crawl_list.py` : liste des projets → `head_list.json`.
 2. `python3 ../crawl_projects.py` : fiches (métadonnées, figures, crédits) → `head_projects.json` (cache HTML dans `pages/`).
@@ -96,8 +96,8 @@ Demande de Guillaume (12 novembre 2026) : cartographier toute la production visu
 4. `python3 ../normalize.py` → `projects_norm.json` (personnes, types, années). Il relit les caches HTML de MAIA et des événements : relancer les crawls avant.
 5. `python3 ../ingest.py items_all.json` (variables R2 requises) : télécharge, déduplique par SHA-1, envoie dans R2 sous `head-ai/img/<sha1>/o.<ext>` et `160.webp`, `480.webp`, `1000.webp`, `2000.webp`. Reprise possible : `manifest.jsonl` garde ce qui est fait. Quatre fils au maximum (avec huit, le processus a été tué faute de mémoire).
 6. `python3 ../analyze.py` : caractéristiques de couleur, empreintes CLIP ViT-B/16 (modèle ONNX `Xenova/clip-vit-base-patch16`, fichiers `vision_model.onnx`, `text_model.onnx`, `tokenizer.json` à placer dans `data/clip/`), classement zéro-shot en 13 types d'image et 5 cadrages, cartes UMAP (`umap-learn`), voisins, doublons visuels (cosinus > 0,985) → `analysis.json`. Les empreintes sont en cache dans `emb.npz`. Les copies 480 px locales (`data/img/`) se retéléchargent depuis R2 si elles manquent.
-7. `python3 ../build_space.py` (variable `SITE_DIR`, chemin du clone de `ghelleu.github.io`, par défaut `~/ghelleu.github.io`) : écrit `media-explorer/head-ai/data.json` et les atlas de vignettes 64 px.
-8. `python3 front/assemble.py` : assemble `base.css` (feuille de l'espace Mariage), `app_extra.css` et `app.js` en `media-explorer/head-ai/index.html`. On modifie l'interface dans `head-ai/front/`, jamais directement dans le `index.html` publié.
+7. `python3 ../build_space.py` (variable `SITE_DIR`, chemin du clone de `ghelleu.github.io`, par défaut `~/ghelleu.github.io`) : écrit `head-ai-media-explorer/data.json` et les atlas de vignettes 64 px.
+8. `python3 front/assemble.py` : assemble `base.css` (feuille de l'espace Mariage), `app_extra.css` et `app.js` en `head-ai-media-explorer/index.html`. On modifie l'interface dans `head-ai-media-explorer/pipeline/front/`, jamais directement dans le `index.html` publié.
 
 Dépendances : `pip install boto3 pillow numpy onnxruntime tokenizers umap-learn`.
 
@@ -116,7 +116,7 @@ Dépendances : `pip install boto3 pillow numpy onnxruntime tokenizers umap-learn
 
 ## Tests
 
-Test sans navigateur visible avec Playwright (Chromium) : servir le clone du site en local (`python3 -m http.server`), ouvrir `media-explorer/head-ai/`, attendre `window.__mx`, passer les vues avec `__mx.setLay(k)`, faire des captures en 1440×900 et 390×844. Bloquer `fonts.googleapis.com` si le réseau le refuse.
+Test sans navigateur visible avec Playwright (Chromium) : servir le clone du site en local (`python3 -m http.server`), ouvrir `head-ai-media-explorer/` ou `media-explorer/`, attendre `window.__mx`, passer les vues avec `__mx.setLay(k)`, faire des captures en 1440×900 et 390×844. Bloquer `fonts.googleapis.com` si le réseau le refuse.
 
 ## Règles de Guillaume (non négociables)
 

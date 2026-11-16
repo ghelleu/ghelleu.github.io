@@ -2,7 +2,7 @@ import json,re,unicodedata,collections,io,os,math
 from PIL import Image
 HERE=os.path.dirname(os.path.abspath(__file__))
 D=os.environ.get('HEADAI_WORK',os.path.join(HERE,'data'))
-OUT=os.path.join(os.environ.get('SITE_DIR',os.path.expanduser('~/ghelleu.github.io')),'media-explorer/head-ai')
+OUT=os.path.join(os.environ.get('SITE_DIR',os.path.expanduser('~/ghelleu.github.io')),'head-ai-media-explorer')
 os.makedirs(OUT,exist_ok=True)
 P=json.load(open(f'{D}/projects_norm.json'));A=json.load(open(f'{D}/analysis.json'))
 items=A['items']

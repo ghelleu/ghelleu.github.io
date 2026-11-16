@@ -6,7 +6,7 @@ import json, re, collections, sys
 from bs4 import BeautifulSoup
 
 SRC = '/home/claude/src'
-ME = '/home/claude/ghelleu.github.io/media-explorer'
+ME = '/home/claude/ghelleu.github.io/head-ai-media-explorer'
 OUT = sys.argv[1]
 
 H = 'https://www.hesge.ch'
@@ -36,7 +36,7 @@ S = {  # registre des sources
  'mev': ('head-maia.ch, Agenda', 'https://head-maia.ch/events/'),
  'minfo': ('head-maia.ch, Info', 'https://head-maia.ch/info/'),
  'proj': ('HEAD – Genève, projets de la filière (fiches publiques)', 'https://head.hesge.ch/projets'),
- 'mx': ('Media Explorer HEAD, relevé des pages publiques du 12.11.2026', 'https://guillaumehelleu.com/media-explorer/head-ai/'),
+ 'mx': ('Media Explorer HEAD, relevé des pages publiques du 12.11.2026', 'https://guillaumehelleu.com/head-ai-media-explorer/'),
 }
 
 # ---------- 1. Plans d'études ----------
@@ -250,8 +250,8 @@ for e in ev:
 EVM.sort(key=lambda x: x['d0'], reverse=True)
 
 # ---------- 6. Projets (Media Explorer HEAD) ----------
-D = json.load(open(ME+'/head-ai/data.json'))
-norm = {r['url']: r for r in json.load(open(ME+'/pipeline/head-ai/data/projects_norm.json'))}
+D = json.load(open(ME+'/data.json'))
+norm = {r['url']: r for r in json.load(open(ME+'/pipeline/data/projects_norm.json'))}
 people = D['people']; P = D['proj']; it = D['it']
 first = collections.defaultdict(list); nimg = collections.Counter()
 for i, p in enumerate(it['p']):

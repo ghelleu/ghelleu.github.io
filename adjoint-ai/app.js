@@ -27,7 +27,7 @@ const MAset=new Set(Object.values(D.MA).flat());
  const grp=r=>r[7]<.12?(r[8]<.55?0:2):1;by.forEach(a=>a.sort((p,q)=>grp(p)-grp(q)||(grp(p)===1?p[6]-q[6]:p[8]-q[8])));
  const tot=by.reduce((a,b)=>a+b.length,0);
  $('#fieldCap').innerHTML=`${fmt(tot)} images publiées par la filière sur les sites de la HEAD et de head-maia.ch, de ${Y0} à ${Y1}, rangées par année puis par couleur. Chaque point est une image : le survol la montre, le clic ouvre son projet. ${SS('proj','mx')}`;
- const atl=[...Array(6)].map((_,i)=>{const im=new Image();im.src=`../media-explorer/head-ai/atlas_${i}.webp`;return im});
+ const atl=[...Array(6)].map((_,i)=>{const im=new Image();im.src=`../head-ai-media-explorer/atlas_${i}.webp`;return im});
  let L=null;
  function layout(){const W=cv.parentElement.clientWidth,gap=Math.max(8,W/120),cw=W/NY,inner=cw-gap,mx=Math.max(...by.map(a=>a.length));
   let s=14;for(;s>3;s--){const per=Math.floor(inner/s);if(Math.ceil(mx/per)*s<=Math.min(480,innerHeight*.55))break}
@@ -229,7 +229,7 @@ $('#bud').oninput=e=>{BUD=+e.target.value;arb()};$('#amode').onchange=e=>{MODE=e
 
 /* ---------- 08 sources ---------- */
 $('#method').innerHTML=`<p>Le 13 novembre 2026, les pages publiques de la filière ont été collectées : formations, admissions, calendrier académique, règlements, mobilité, site head-maia.ch. Les plans d'études (${allMods.length} modules) et les 59 descriptifs de modules 2026-2027 ont été extraits des PDF officiels et convertis en données, règle par règle.</p>
-<p>Les ${D.PR.length} fiches de projets et leurs ${fmt(D.NIMG_ALL)} images proviennent du relevé <a href="../media-explorer/head-ai/" target="_blank" rel="noopener">Media Explorer</a> du 12 novembre 2026 : projets du site de la HEAD pour le Bachelor et le Master en architecture d'intérieur, actualités et expositions de la filière, projets de head-maia.ch.</p>
+<p>Les ${D.PR.length} fiches de projets et leurs ${fmt(D.NIMG_ALL)} images proviennent du relevé <a href="../head-ai-media-explorer/" target="_blank" rel="noopener">Media Explorer</a> du 12 novembre 2026 : projets du site de la HEAD pour le Bachelor et le Master en architecture d'intérieur, actualités et expositions de la filière, projets de head-maia.ch.</p>
 <h4>Ce que la page ne sait pas</h4><ul><li>Effectifs par volée, budgets du département, nombre de jurés externes engagés : source manquante, ces données ne sont pas publiques.</li><li>Dates 2027 des expositions du MAIA et de Milan : non publiées au 13 novembre 2026.</li><li>Publications Instagram de @head_baai et @head_maia : non collectées.</li></ul>
 <h4>Ce qui est construit pour la démonstration</h4><ul><li>L'indice de charge de l'année.</li><li>Le planning, les statuts, les rôles et le registre des risques du workshop, repris du dossier.</li><li>Le jeu de demandes budgétaires et ses montants.</li></ul>
 <h4>Mise à jour</h4><p>Collecte et compilation sont scriptées : un nouveau plan d'études, un nouveau calendrier ou un nouveau semestre de projets se reconstruisent en relançant les scripts.</p>`;
