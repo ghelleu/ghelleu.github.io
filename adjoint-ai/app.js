@@ -45,7 +45,7 @@ const MAset=new Set(Object.values(D.MA).flat());
  cv.onmouseleave=hideTip;cv.onclick=e=>{const r=hit(e);if(r)proj(r[0])};
  layout();draw();atl.forEach(im=>im.onload=draw);let t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(()=>{layout();draw()},150)});
 })();
-$('#index').innerHTML=[['parcours','Parcours','Les deux formations, module par module'],['annee','Année','Le calendrier 2026-2027 et sa charge'],['personnes','Personnes','Équipes, encadrement, studios du MAIA'],['memoire','Mémoire','633 fiches de projets à interroger'],['rayonnement','Rayonnement','Expositions et conférences depuis 2019'],['workshop','Workshop','Le cas pratique, piloté semaine par semaine'],['arbitrage','Arbitrage','Les critères budgétaires en fonctionnement'],['sources','Sources','Méthode, limites et documents']]
+$('#index').innerHTML=[['parcours','Parcours','Les deux formations, module par module'],['annee','Année','Le calendrier 2026-2027 et sa charge'],['personnes','Personnes','Équipes, encadrement, studios du MAIA'],['memoire','Mémoire','633 fiches de projets à interroger'],['ville','Ville','58 lieux genevois, de 2012 à 2026'],['rayonnement','Rayonnement','Expositions et conférences depuis 2019'],['workshop','Workshop','Le cas pratique, piloté semaine par semaine'],['arbitrage','Arbitrage','Les critères budgétaires en fonctionnement'],['sources','Sources','Méthode, limites et documents']]
  .map((c,i)=>`<li><a href="#${c[0]}"><i>0${i+1}</i><b>${c[1]}</b><span>${c[2]}</span><span>↓</span></a></li>`).join('');
 
 /* ---------- 01 parcours ---------- */
