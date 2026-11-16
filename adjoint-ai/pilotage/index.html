@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Tableau de bord de pilotage · Architecture d'intérieur · démonstrateur</title>
+<link rel="stylesheet" href="pilotage.css">
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="../">Architecture d'intérieur<br><span>HEAD – Genève</span></a>
+  <div class="title"><b>Tableau de bord de pilotage</b><span class="demo">Démonstrateur · données fictives</span></div>
+  <div class="today"><label class="lab" for="day">Aujourd'hui</label><input type="range" id="day" min="0" max="300" value="0"><b id="dayl"></b></div>
+  <a class="back" href="../">Version détaillée ↗</a>
+</header>
+
+<div class="app">
+  <aside class="side">
+    <p class="lab">Vue</p>
+    <nav id="views"></nav>
+    <div id="who"></div>
+    <div class="legend">
+      <p class="lab">Statuts</p>
+      <p><i class="dot late"></i>En retard</p>
+      <p><i class="dot trig"></i>À déclencher</p>
+      <p><i class="dot open"></i>En cours</p>
+      <p><i class="dot done"></i>Fait</p>
+      <p><i class="dot soon"></i>À venir</p>
+      <p class="note">Les dates marquées <b>officiel</b> viennent du calendrier académique 2026-2027 et des pages d'admission et de mobilité de la HEAD. Tâches, responsables, personnes et dossiers sont fictifs.</p>
+    </div>
+  </aside>
+
+  <main id="main"></main>
+</div>
+<aside id="drawer" class="drawer"><button id="dx" class="tl">Fermer</button><div id="dbody"></div></aside>
+<div id="tip" class="tip"></div>
+<script src="pilotage.js"></script>
+</body>
+</html>
