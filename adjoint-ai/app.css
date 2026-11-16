@@ -229,7 +229,7 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:0;border-radiu
 /* carte */
 .vmap{position:relative;height:min(78vh,820px);border:1px solid var(--ink);background:#e9e6df}
 #map{position:absolute;inset:0;background:#e9e6df;font-family:var(--f)}
-#map .leaflet-tile-pane{filter:grayscale(1) contrast(.86) brightness(1.06);opacity:.72}
+#map .leaflet-tile-pane{filter:grayscale(1) contrast(.8) brightness(1.1);opacity:.5}
 .leaflet-container a.leaflet-control-zoom-in,.leaflet-container a.leaflet-control-zoom-out{border-radius:0;color:var(--ink);font-weight:400}
 .leaflet-bar{border-radius:0!important;border:1px solid var(--ink)!important;box-shadow:none!important}
 .leaflet-control-attribution{background:rgba(242,240,235,.85)!important;font:10px var(--f)!important}

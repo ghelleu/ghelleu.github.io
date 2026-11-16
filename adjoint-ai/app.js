@@ -300,12 +300,13 @@ const G=window.GEO;if(!G||!window.L)return;
 const KIND={ecole:['École','#121212'],realise:['Réalisé ou installé','#e6483a'],expose:['Exposé, présenté','#121212'],etude:["Site d'étude",'#121212']};
 const vis={ecole:1,realise:1,expose:1,etude:1};
 const map=L.map('map',{zoomControl:true,scrollWheelZoom:false,attributionControl:true,minZoom:11,maxZoom:18}).setView([46.2005,6.137],13);
-L.tileLayer('https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-grau/default/current/3857/{z}/{x}/{y}.jpeg',{attribution:'Fond © swisstopo · lieux : fiches hesge.ch et head-maia.ch',maxZoom:18}).addTo(map);
+L.tileLayer('https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.swisstlm3d-karte-grau/default/current/3857/{z}/{x}/{y}.png',{attribution:'Fond © swisstopo · lieux : fiches hesge.ch et head-maia.ch',maxZoom:18}).addTo(map);
 map.on('focus',()=>map.scrollWheelZoom.enable());map.on('blur',()=>map.scrollWheelZoom.disable());
 const first=s=>Math.min(...s.it.map(x=>x.y||9999));
 const lay=G.s.map(s=>{const m=L.circleMarker(s.ll,{radius:5,weight:1.4,color:s.kind==='etude'?'#121212':KIND[s.kind][1],fillColor:s.kind==='etude'?'#f2f0eb':KIND[s.kind][1],fillOpacity:1});
  if(s.kind==='ecole'){m.setStyle({weight:2.5})}
- m.on('click',()=>open(s));m.bindTooltip(()=>`<b>${esc(s.n)}</b><br>${cnt(s)} entrée${cnt(s)>1?'s':''} jusqu'en ${Y}`,{direction:'top',offset:[0,-6]});return {s,m}});
+ if(s.it.length>=4)m.bindTooltip(s.n.split(',')[0],{permanent:true,direction:'right',offset:[8,0],className:'vlbl'});
+ m.on('click',()=>open(s));m.on('mouseover',e=>showTip(e.originalEvent,`<b>${esc(s.n)}</b><i>${cnt(s)} entrée${cnt(s)>1?'s':''} jusqu'en ${Y}</i>`));m.on('mouseout',hideTip);return {s,m}});
 let Y=2026;const cnt=s=>s.it.filter(x=>(x.y||0)<=Y).length;
 function draw(){let tot=0,by={ecole:0,realise:0,expose:0,etude:0},ns=0;
  lay.forEach(({s,m})=>{const n=cnt(s);if(n&&vis[s.kind]){m.addTo(map);m.setRadius(4+Math.sqrt(n)*3.2);tot+=n;by[s.kind]+=n;ns++}else m.remove()});
