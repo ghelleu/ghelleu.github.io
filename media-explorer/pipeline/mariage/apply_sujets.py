@@ -27,7 +27,7 @@ for it in d['items']:
     t = table.get(it['url'])
     if t:
         it['perso'], it['tag'] = t['perso'], t['crea']; hit += 1
-    elif it['s'].startswith('P') and not it.get('perso'):
+    elif it['s'].startswith('U1') and not it.get('perso'):
         # même vocabulaire que la table : « Femme-biche » ou « Homme-bélier » deviennent « Biche » et « Bélier »
         m = re.match(r'^(?:Femme|Homme)-(.+)$', it.get('tag') or '')
         if m: it['tag'] = m.group(1)[:1].upper() + m.group(1)[1:]

@@ -38,12 +38,41 @@ Dans un environnement Claude, les domaines suivants doivent être autorisés (Gu
 
 ## Espace Mariage
 
-- Collections « Menus mariage » (séries V1 à V10) et « Panneaux mariage » (P01 à P33), 698 images générées dans Dadaland. Données dans `media-explorer/data.json` : `{items, series, sections}` ; items `s` (série), `url`, `n`, `num`, `file`, `ext`, `tag` (sujet), `p` (extrait de prompt).
-- Les prompts viennent du connecteur Dadaland (`list_generations`), qui ne renvoie qu'environ 240 caractères. Les sujets (`tag`) combinent mots-clés de prompts, noms d'images et une lecture visuelle partielle ; 186 images restent « Non identifié ». Scripts : `mariage/tagger.py` et `mariage/build_data.py`, données sources dans `mariage/data/`. `tagger.py` lisait l'ancienne page asset-mariage, devenue une redirection : il est conservé comme trace et ne se relance pas tel quel.
-- Sujets des panneaux (13 novembre 2026, demande de Guillaume) : chaque panneau porte un personnage (`perso`, par exemple Troubadour, Chevalier, Héraut, Châtelaine) et la créature qui l'incarne dans cette image (`tag`, par exemple Faune, Bélier, Centaure, Humain, Coq). Les 706 panneaux ont été lus un par un et contrôlés contre leur nom. La table est dans `mariage/data/sujets_panneaux.json`, appliquée par `mariage/apply_sujets.py` (à relancer après tout ajout : une image absente de la table prend son personnage dans son nom, et garde son `tag`). Les menus n'ont pas de personnage. La vue Sujet regroupe par personnage, puis par créature à l'intérieur (étiquettes « Troubadour · Bélier »).
-- Les caractéristiques visuelles (couleur, lumière, densité) et la carte UMAP sont calculées dans le navigateur (`umap-js.min.js` local), avec cache `localStorage` (`mx-emb-v2`).
-- Ordre d'affichage (vue Séries et navigation du panneau) : `data.json` est tenu en ordre d'arrivée, et l'interface l'affiche à l'envers. La série la plus récente vient en tête de sa section, et dans chaque série l'image la plus récente vient en tête. Toute nouvelle série s'ajoute donc à la fin de `series`, toute nouvelle image à la fin de `items`. Une série marquée `"pin":"end"` reste en bas de sa section (P33 et P37, mises en situation dans l'orangerie, choix de Guillaume du 13 novembre 2026). L'ordre des sections ne change pas. Le texte d'introduction des Panneaux a été retiré à la demande de Guillaume le même jour.
-- `mariage/dadaland-menus/` : les scripts qui ont construit les workflows Dadaland des menus. Règle de Guillaume : toute génération d'image Dadaland passe par un workflow (canvas nodal), jamais par une génération isolée.
+### Nomenclature Univers · Série · Génération (16 novembre 2026, demande de Guillaume)
+
+Chaque image porte un code `U<univers>S<série>G<génération>`, par exemple `U1S7G14` : univers 1, série 7, génération 14. La numérotation repart à 1 dans chaque branche (séries dans un univers, générations dans une série). Les anciens codes `Pnn` et `Vnn` restent consultables dans le champ `old` de chaque image et de chaque série (« ancien code » dans l'interface).
+
+| Univers | Contenu | Anciennes séries |
+|---|---|---|
+| U1 | Panneaux mariage, 137 séries, 880 images | P01 à P79 sauf P33 et P37 |
+| U2 | Menus mariage, 10 séries, 104 images | V1 à V10 |
+| U3 | Mises en situation dans l'orangerie, 2 séries, 20 images | P33, P37 |
+
+Règle de découpage : une série regroupe une seule direction graphique produite dans une même passe. Les anciennes séries qui mélangeaient plusieurs directions ont été découpées : P24 et P25 (14 directions, un même prompt passé dans Nano Banana Pro puis GPT Image 2.5 Flare : une série de 6 images par direction), P26 (14 directions), P27, P28, P29 (10 directions chacune), P02, P04, P05, P06, P13, P14, P15, P16 (passes distinctes : peinture seule puis titre, passe A puis passe B, humains puis créatures). Les essais d'un seul style par image sont regroupés dans une série « Essais de styles isolés ». La correspondance complète ancien code vers nouveau code est dans `mariage/data/correspondance_codes.json`.
+
+Ordre : les séries d'un univers suivent l'ordre chronologique de production ; l'interface affiche la plus récente en tête. Toute nouvelle série prend le numéro suivant de son univers (U1 : `U1S138`, puis `U1S139`…) et s'ajoute à la fin de `series` ; ses images s'ajoutent à la fin de `items` avec `g` = 1, 2, 3…
+
+### Données
+
+`media-explorer/data.json` : `{items, series, sections, workflows}`.
+- `sections` : un univers par entrée (`code` U1, U2, U3, `title`, `ratio`).
+- `series` : `code` (U1S7), `u`, `n`, `title`, `sub`, `sec` (code de l'univers), `old` (anciens codes et numéros), `count`, éventuellement `pin`.
+- `items` : `s` (code série), `g` (numéro de génération), `code` (U1S7G14), `url`, `n` (nom), `file` (code puis nom en snake_case, nom du fichier téléchargé), `ext`, `tag` (créature), `perso` (personnage, panneaux), `old` (ancien code, ex. `P25_04`), `model` (modèle Dadaland), `date` (jour de génération quand Dadaland le donne), `wf` (identifiant du workflow Dadaland), `p` (prompt), `pk` (nature du prompt : `full` complet, `extrait` les 240 premiers caractères conservés par l'historique Dadaland, `resume` consigne résumée au moment de la génération), `sch` (entrées du schéma simplifié du workflow : image source, références, toile vierge…).
+- `workflows` : identifiant de workflow Dadaland vers son nom.
+
+État des prompts au 16 novembre 2026 : 247 complets (menus V1 à V10 en grande partie, batch final et suites, workflows lus dans Dadaland), 586 extraits de 240 caractères (séries de P01 à P33), 167 consignes résumées (séries de P34 à P52 et une partie de P67), 4 sans prompt. Le connecteur Dadaland ne rend le prompt complet qu'en lisant le workflow (`get_workflow`), nœud par nœud ; `list_generations` n'en donne que le début.
+
+Scripts de la restructuration (trace, chemins de la session du 16 novembre) : `mariage/restructure/spec.py` (découpage des séries), `mariage/restructure/build.py` (reconstruction de `data.json`), données d'appui dans `mariage/restructure/`.
+
+### Interface
+
+- Un clic sur une image ouvre la visionneuse plein écran : grande image à gauche, flèches et touches ← → pour passer d'une image à l'autre, Échap pour fermer. À droite : code, série, modèle, date, ancien code, schéma simplifié du workflow (entrées, prompt, modèle, image), nom et identifiant du workflow Dadaland, prompt avec sa nature (complet, extrait ou résumé), caractéristiques visuelles, images les plus proches.
+- Sujets des panneaux (13 novembre 2026, demande de Guillaume) : chaque panneau porte un personnage (`perso`, par exemple Troubadour, Chevalier, Héraut, Châtelaine) et la créature qui l'incarne dans cette image (`tag`, par exemple Faune, Bélier, Centaure, Humain, Coq). La table est dans `mariage/data/sujets_panneaux.json` (indexée par URL), appliquée par `mariage/apply_sujets.py` (à relancer après tout ajout : une image de l'univers U1 absente de la table prend son personnage dans son nom, et garde son `tag`). Les menus n'ont pas de personnage. La vue Sujet regroupe par personnage, puis par créature.
+- Les caractéristiques visuelles (couleur, lumière, densité) et la carte UMAP sont calculées dans le navigateur (`umap-js.min.js` local), avec cache `localStorage`.
+- Une série marquée `"pin":"end"` reste en bas de son univers. Le texte d'introduction des Panneaux a été retiré à la demande de Guillaume le 13 novembre 2026.
+- `mariage/dadaland-menus/` : les scripts qui ont construit les workflows Dadaland des menus et de la série « Style menu, blanc sur bleu ciel ». Règle de Guillaume : toute génération d'image Dadaland passe par un workflow (canvas nodal), jamais par une génération isolée.
+- Règles de Guillaume pour les générations (15 novembre 2026) : ne rien pousser dans Figma sans sa demande expresse ; toute génération monte systématiquement sur Media Explorer.
+- Historique : les sujets (`tag`) des premières séries viennent de `mariage/tagger.py` et `mariage/build_data.py` (données sources dans `mariage/data/`), conservés comme trace.
 
 ## Espace HEAD architecture d'intérieur
 

@@ -1,0 +1,22 @@
+import json
+F = '/home/claude/restruct/dadaland_prompts.json'
+D = json.load(open(F))
+G = 'https://assets.hint3rland.com/generations/638af66a-23de-4b87-8737-a55178622c69/'
+def put(ids, text, ins):
+    for i in ids: D[G + i + '/output.png'] = {'p': text, 'in': ins}
+put(['cdd78fd4-48ee-496c-8665-b1174f382e49'],
+"Image 1 is a blank sheet of oxblood red #560002 paper: paint the new illustration directly on it and keep its exact proportions. Images 2, 3 and 4 are the STYLE REFERENCES: copy exactly their technique and look: contemporary flat gouache illustration, smooth sculpted shapes, broad flowing fabric folds painted in clean bands of colour, soft brushed gouache texture, very fine discreet outlines, elegant stylized figure, the subject alone on a plain ground. Never copy their subjects. Image 5 is the COMPOSITION REFERENCE: copy only its pose and the placement of the figure on the sheet: the centaur rearing up on his hind legs in three-quarter view, front legs folded high in the air, torso upright, one arm raised high holding a long lance diagonally across the body, the pennant streaming across the top of the sheet, long hair flowing to the side, the long tail sweeping down on the right. Do not copy anything else from image 5: not its style, not its colours, not its face, not its halo, stars, sun disc or ground band. No decorative extras: no ribbons, no bells, no stars, no flowers, no discs, no ornaments.\n\nSUBJECT — \"Le Chevalier\": a single chimera, a knight as a centaur: the head and torso of a young man with long wavy hair, in light plate armour over a tunic, on the body of a horse with a long flowing tail. He carries a long lance with a long pennant. He rears up proudly, as in image 5, lance raised, pennant snapping in the wind.\n\nPALETTE: only oxblood red #560002, dark olive #3B3302, sky blue #A6C8FF and cream #F2E9D7. The figure is painted in cream, sky blue and olive on the oxblood red #560002 background.\n\nLAYOUT: the whole sheet is a plain oxblood red #560002 ground with a subtle paper texture, no frame and no border. The figure is large and fills the sheet, its extremities close to the edges, but the whole figure stays entirely inside the sheet, nothing cropped. No text, no letters, no numbers, no signature.",
+['Toile vierge 5:6', '3 références de style', 'Référence de composition'])
+FACES = ["a young woman with a round face, full cheeks, a small upturned nose, freckles and wide bright eyes; thick curly hair painted dark olive",
+         "a mature woman with a long face, an aquiline nose, high cheekbones, fine lines at the corners of her eyes and a calm, amused look; pale cream hair",
+         "a woman with a broad, strong face, wide-set almond eyes under heavy lids, a broad nose and full lips; very dark olive hair worked into thick braids",
+         "a woman with a narrow, angular face, a pointed chin, a long straight nose, thin arched eyebrows and a slight ironic smile; straight oxblood red hair with a blunt fringe"]
+def face(name, f, hair):
+    return (f"Image 1 is a finished flat gouache illustration of \"{name}\". Keep absolutely everything identical to image 1: the composition, the pose, the body, the costume, the scene elements, every colour, the brushwork, the paper texture, the framing and the proportions of the sheet. Do not add, remove or move anything.\n\n"
+            f"CHANGE ONLY HER FACE AND HAIR: she becomes {f}. Her features must be clearly different from the face in image 1. {hair} Paint the new face and hair in the same flat gouache technique, very fine discreet outlines and the same palette as image 1 (oxblood red #560002, dark olive #3B3302, sky blue #A6C8FF, cream #F2E9D7), no other colours. No text, no letters, no signature.")
+IV = ['51dd211d-52f6-48f8-9b44-bdcbe2441e47', '6718c18a-71fd-40dd-b79b-8935c80809e4', 'db76d1c4-343c-4035-83dc-b54252758ec8', 'd9043215-bdc6-4a72-8a66-c61922e29c51']
+V = ['6ec554f3-fa28-4d75-a211-9c0e621f7fea', '750fc919-9448-459a-9278-0c889d2f70f2', 'b54adc87-eb7e-4110-9c86-5d815fb3b942', '32a8fc1a-5d85-44f7-a9ac-b90714c3a9fd']
+for k in range(4):
+    put([IV[k]], face('La Conteuse', FACES[k], 'Her hair stays pinned up or gathered, as fits her storyteller figure.'), ['Image source'])
+    put([V[k]], face('La Dame du Lac', FACES[k], "Her hair stays long and flowing like a mermaid's, and she keeps her small crown."), ['Image source'])
+json.dump(D, open(F, 'w'), ensure_ascii=False); print(len(D))
