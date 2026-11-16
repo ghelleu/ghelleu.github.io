@@ -299,13 +299,15 @@ let started=false;new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersectin
 const G=window.GEO;if(!G||!window.L)return;
 const KIND={ecole:['École','#121212'],realise:['Réalisé ou installé','#e6483a'],expose:['Exposé, présenté','#121212'],etude:["Site d'étude",'#121212']};
 const vis={ecole:1,realise:1,expose:1,etude:1};
-const map=L.map('map',{zoomControl:true,scrollWheelZoom:false,attributionControl:true,minZoom:11,maxZoom:18}).setView([46.2005,6.137],13);
-L.tileLayer('https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.swisstlm3d-karte-grau/default/current/3857/{z}/{x}/{y}.png',{attribution:'Fond © swisstopo · lieux : fiches hesge.ch et head-maia.ch',maxZoom:18}).addTo(map);
+const map=L.map('map',{zoomControl:true,scrollWheelZoom:false,attributionControl:true,minZoom:12,maxZoom:18}).setView([46.1995,6.1385],$('#map').clientHeight>600?14:13);
+L.tileLayer('tiles/{z}/{x}/{y}.png',{attribution:'Bâti : cadastre de Genève (SITG) · eau : © contributeurs OpenStreetMap · lieux : fiches hesge.ch et head-maia.ch',minZoom:12,maxZoom:18,maxNativeZoom:16,bounds:[[46.150,6.080],[46.240,6.190]]}).addTo(map);
+map.setMaxBounds([[46.140,6.060],[46.250,6.210]]);
+[['LAC LÉMAN',46.2150,6.1620,'big'],['RHÔNE',46.2020,6.1215,''],['ARVE',46.1925,6.1500,''],['PÂQUIS',46.2125,6.1475,''],['JONCTION',46.2005,6.1300,''],['PLAINPALAIS',46.1965,6.1405,''],['EAUX-VIVES',46.2030,6.1620,''],['CAROUGE',46.1830,6.1395,''],['PAV',46.1880,6.1300,''],['CHARMILLES',46.2110,6.1220,''],['SERVETTE',46.2145,6.1320,''],['VIEILLE-VILLE',46.2010,6.1480,'']].forEach(([t,a,b,c])=>L.marker([a,b],{interactive:false,keyboard:false,icon:L.divIcon({className:'vplace '+c,html:t,iconSize:null})}).addTo(map));
 map.on('focus',()=>map.scrollWheelZoom.enable());map.on('blur',()=>map.scrollWheelZoom.disable());
 const first=s=>Math.min(...s.it.map(x=>x.y||9999));
 const lay=G.s.map(s=>{const m=L.circleMarker(s.ll,{radius:5,weight:1.4,color:s.kind==='etude'?'#121212':KIND[s.kind][1],fillColor:s.kind==='etude'?'#f2f0eb':KIND[s.kind][1],fillOpacity:1});
  if(s.kind==='ecole'){m.setStyle({weight:2.5})}
- if(s.it.length>=4)m.bindTooltip(s.n.split(',')[0],{permanent:true,direction:'right',offset:[8,0],className:'vlbl'});
+ if(s.it.length>=5)m.bindTooltip(s.n.split(',')[0],{permanent:true,direction:'right',offset:[8,0],className:'vlbl'});
  m.on('click',()=>open(s));m.on('mouseover',e=>showTip(e.originalEvent,`<b>${esc(s.n)}</b><i>${cnt(s)} entrée${cnt(s)>1?'s':''} jusqu'en ${Y}</i>`));m.on('mouseout',hideTip);return {s,m}});
 let Y=2026;const cnt=s=>s.it.filter(x=>(x.y||0)<=Y).length;
 function draw(){let tot=0,by={ecole:0,realise:0,expose:0,etude:0},ns=0;
@@ -327,7 +329,7 @@ $('#vtop').innerHTML=top.map((s,i)=>`<div class="row" data-k="${s.k}"><span>${St
 $$('#vtop .row').forEach(r=>r.onclick=()=>{const s=G.s.find(z=>z.k===r.dataset.k);map.flyTo(s.ll,16,{duration:.8});open(s)});
 const nAll=G.s.reduce((a,s)=>a+s.it.length,0);
 $('#vsub').textContent=`${G.s.length} lieux à Genève`;
-$('#vnote').innerHTML=`<p>Chaque point est un lieu nommé dans une fiche de projet de la filière ou dans l'agenda du MAIA, de 2012 à 2026 : ${G.s.length} lieux, ${nAll} entrées.${SS('proj','mev','mx')} Les adresses sont celles des fiches ; leur position vient du géocodage officiel de la Confédération (geo.admin.ch). Une position « approchée » signale un quartier, une rue sans numéro ou un bâtiment voisin.</p><p>Un projet d'atelier sur un site genevois compte comme site d'étude ; une installation, une vitrine ou un aménagement réalisés comme réalisés ; une exposition, une conférence ou un événement public comme présentés. Restent hors carte, faute de lieu publié : ${G.nop.map(x=>esc(x.n)).join(' ; ')}.</p>`;
+$('#vnote').innerHTML=`<p>Chaque point est un lieu nommé dans une fiche de projet de la filière ou dans l'agenda du MAIA, de 2012 à 2026 : ${G.s.length} lieux, ${nAll} entrées.${SS('proj','mev','mx')} Les adresses sont celles des fiches ; leur position vient du géocodage officiel de la Confédération (geo.admin.ch). Une position « approchée » signale un quartier, une rue sans numéro ou un bâtiment voisin. Le fond de carte est dessiné pour cette page à partir des 35 857 bâtiments hors sol du cadastre genevois (SITG) et des surfaces d'eau d'OpenStreetMap.</p><p>Un projet d'atelier sur un site genevois compte comme site d'étude ; une installation, une vitrine ou un aménagement réalisés comme réalisés ; une exposition, une conférence ou un événement public comme présentés. Restent hors carte, faute de lieu publié : ${G.nop.map(x=>esc(x.n)).join(' ; ')}.</p>`;
 })();
 new IntersectionObserver(es=>es.forEach(e=>$('#bar').classList.toggle('dark',e.isIntersecting)),{rootMargin:'0px 0px -95% 0px'}).observe($('#top'));
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)$$('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});$$('.ch').forEach(s=>obs.observe(s));
