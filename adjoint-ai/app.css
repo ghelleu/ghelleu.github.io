@@ -265,3 +265,7 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:0;border-radiu
 .vfond{image-rendering:auto}
 
 #evl .row a{text-transform:uppercase;font-size:.88em;letter-spacing:.02em}
+
+.arbleg{border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:22px;font-size:12.5px;line-height:1.45}.arbleg b{display:block;font:600 11px var(--f);letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}.arbleg p{margin:0 0 8px;color:var(--g)}
+#arbres .row[data-k]{cursor:pointer}#arbres .row[data-k]:hover{background:rgba(0,0,0,.03)}
+.arbd{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 10px}.arbd th,.arbd td{text-align:left;padding:6px 4px;border-bottom:1px solid var(--line)}.arbd th{font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--g)}.arbd td:not(:first-child),.arbd th:not(:first-child){text-align:right}.arbd tr:last-child td{font-weight:600;border-bottom:0}
