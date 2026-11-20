@@ -17,8 +17,12 @@
   body { background: #ffffff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
   a { color: inherit; text-decoration: none; }
   a:hover { color: inherit; }
+  @media (max-width: 900px) { .hdr-right { display: none !important; } }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @media (max-width: 760px) {
+    header { flex-wrap: wrap !important; gap: 10px 18px !important; }
+    header > div { flex-wrap: wrap !important; min-width: 0 !important; }
+    header nav { flex-wrap: wrap !important; gap: 6px 16px !important; }
     h1 { font-size: clamp(44px, 12vw, 64px) !important; }
     .prat-row { grid-template-columns: 1fr !important; gap: 0 !important; padding: 10px 0 !important; }
     .prat-row > span:first-child { font-size: 20px !important; }
@@ -34,67 +38,68 @@
 </style>
 </helmet>
 <div style="{{ rootStyle }}">
+  <div style="width: 100%; max-width: 1880px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
 
-  <header style="display: flex; justify-content: space-between; align-items: baseline; padding: 28px 20px 0; flex-wrap: wrap; gap: 16px 40px;">
-    <div style="display: flex; align-items: baseline; gap: 40px; flex-wrap: wrap;">
-      <a href="Home.dc.html" style="font-size: 18px; font-weight: 400; letter-spacing: -0.015em">Guillaume Helleu</a>
-      <nav style="display: flex; gap: 26px; font-size: 18px; letter-spacing: -0.01em; flex-wrap: wrap;">
-        <sc-for list="{{ navItems }}" as="nav" hint-placeholder-count="6">
-          <a href="{{ nav.href }}" style="font-weight: 400" style-hover="{{ inkHover }}">{{ nav.label }}</a>
-        </sc-for>
-      </nav>
-    </div>
-    <div style="display: flex; align-items: baseline; gap: 22px; font-size: 16px;">
-      <button onClick="{{ toggleLang }}" style="{{ ctrlStyle }}">{{ langLabel }}</button>
-      <button onClick="{{ toggleTheme }}" style="{{ ctrlStyle }}">{{ themeLabel }}</button>
-      <span style="color: var(--muted, #8f8d86); font-weight: 400">CC0 2016 — 2026</span>
-    </div>
-  </header>
+    <header style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: nowrap;">
+      <div style="display: flex; flex-direction: row; align-items: center; gap: 40px; flex-wrap: nowrap; min-width: 0; flex: 1;">
+        <a href="Home.dc.html" style="font-size: clamp(13px, 1.25vw, 24px); font-weight: 400; line-height: 1.4; white-space: nowrap; color: var(--ink, #000);">Guillaume Helleu</a>
+        <nav style="display: flex; flex-direction: row; align-items: center; gap: 28px; flex-wrap: nowrap; min-width: 0;">
+          <sc-for list="{{ navItems }}" as="nav" hint-placeholder-count="6">
+            <a href="{{ nav.href }}" style="{{ nav.style }}" style-hover="{{ inkHover }}">{{ nav.label }}</a>
+          </sc-for>
+        </nav>
+      </div>
+      <div class="hdr-right" style="display: flex; flex-direction: row; align-items: center; gap: 28px; flex-wrap: nowrap;">
+        <button onClick="{{ toggleLang }}" style="{{ ctrlStyle }}" style-hover="{{ inkHover }}">{{ langLabel }}</button>
+        <button onClick="{{ toggleTheme }}" style="{{ ctrlStyle }}" style-hover="{{ inkHover }}">{{ themeLabel }}</button>
+        <span style="font-size: clamp(13px, 1.25vw, 24px); font-weight: 400; line-height: 1.4; white-space: nowrap; color: var(--muted, #787878);">CC0 2016 — 2026</span>
+      </div>
+    </header>
 
-  <section style="padding: 52px 20px 40px;">
+  <section>
     
 
     <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
-      <div style="padding: 30px 0; font-size: 15px; color: var(--muted, #8f8d86);">{{ loadingLabel }}</div>
+      <div style="padding: 30px 0; font-size: 15px; color: var(--muted, #787878);">{{ loadingLabel }}</div>
     </sc-if>
 
     <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; align-items: start;">
       
     <div style="grid-column: span 4; width: 100%; height: auto;">
-        <h1 style="margin: 0 0 22px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: clamp(64px, 9.375vw, 180px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink, #141310)">{{ heading }}</h1>
-        <p style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 400; font-size: clamp(28px, 3.125vw, 60px); line-height: 1.2; color: var(--ink, #141310); text-wrap: pretty; width: 100%">{{ lede }}</p>
+        <h1 style="margin: 0 0 22px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: clamp(64px, 9.375vw, 180px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink, #000)">{{ heading }}</h1>
+        <p style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 400; font-size: clamp(28px, 3.125vw, 60px); line-height: 1.2; color: var(--ink, #000); text-wrap: pretty; width: 100%">{{ lede }}</p>
       </div></div><div style="margin-top: 40px;">
       <sc-for list="{{ groups }}" as="grp" hint-placeholder-count="6">
         <div style="margin-bottom: 46px;">
-          <div style="display: flex; align-items: baseline; gap: 10px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink, #141310); font-weight: 400; margin-bottom: 6px">{{ grp.domain }} <span style="color: var(--muted, #8f8d86); font-weight: 400; letter-spacing: 0;">{{ grp.count }}</span></div>
+          <div style="display: flex; align-items: baseline; gap: 10px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink, #000); font-weight: 400; margin-bottom: 6px">{{ grp.domain }} <span style="color: var(--muted, #787878); font-weight: 400; letter-spacing: 0;">{{ grp.count }}</span></div>
           <sc-for list="{{ grp.rows }}" as="row" hint-placeholder-count="4">
             <div>
               <div class="prat-row" onClick="{{ row.onToggle }}" style="{{ row.style }}" style-hover="{{ row.hoverStyle }}">
                 <span style="font-weight: 400">{{ row.title }}</span>
-                <span style="color: var(--muted, #8f8d86); white-space: nowrap; font-weight: 400">{{ row.place }}</span>
-                <span style="color: var(--muted, #8f8d86); white-space: nowrap; text-align: right; font-weight: 400">{{ row.date }}</span>
+                <span style="color: var(--muted, #787878); white-space: nowrap; font-weight: 400">{{ row.place }}</span>
+                <span style="color: var(--muted, #787878); white-space: nowrap; text-align: right; font-weight: 400">{{ row.date }}</span>
               </div>
               <sc-if value="{{ row.open }}" hint-placeholder-val="{{ false }}">
                 <div class="prat-exp" style="padding: 8px 0 32px 40px; animation: fadeIn 0.35s ease both;">
                   <div class="exp-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
                     <div style="grid-column: span 3;">
                       <sc-if value="{{ row.hasDesc }}" hint-placeholder-val="{{ false }}">
-                        <p style="margin: 0 0 18px; font-size: 24px; font-weight: 400; line-height: 1.5; color: var(--ink, #141310); text-wrap: pretty;">{{ row.desc }}</p>
+                        <p style="margin: 0 0 18px; font-size: 24px; font-weight: 400; line-height: 1.5; color: var(--ink, #000); text-wrap: pretty;">{{ row.desc }}</p>
                       </sc-if>
                       <div style="display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 14px; margin-bottom: 22px;">
                         <sc-for list="{{ row.meta }}" as="mm" hint-placeholder-count="2">
-                          <span style="display: inline-flex; gap: 8px;"><span style="text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted, #8f8d86);">{{ mm.k }}</span><span style="color: var(--ink, #141310);">{{ mm.v }}</span></span>
+                          <span style="display: inline-flex; gap: 8px;"><span style="text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted, #787878);">{{ mm.k }}</span><span style="color: var(--ink, #000);">{{ mm.v }}</span></span>
                         </sc-for>
                       </div>
                       <div class="prat-gallery" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
                         <sc-for list="{{ row.gallery }}" as="g" hint-placeholder-count="3">
-                          <div style="width: 100%; aspect-ratio: 4 / 3; background: var(--preview, #f0efec); overflow: hidden;">
+                          <div style="width: 100%; aspect-ratio: 4 / 3; background: var(--preview, #e6e5e2); overflow: hidden;">
                             <image-slot id="{{ g.id }}" shape="rect" placeholder=" "></image-slot>
                           </div>
                         </sc-for>
                       </div>
                       <sc-if value="{{ row.link }}" hint-placeholder-val="{{ false }}">
-                        <div style="margin-top: 16px; font-size: 15px;"><a href="{{ row.link }}" target="_blank" style="border-bottom: 1px solid var(--ink, #141310);">{{ readMore }}</a></div>
+                        <div style="margin-top: 16px; font-size: 15px;"><a href="{{ row.link }}" target="_blank" style="border-bottom: 1px solid var(--ink, #000);">{{ readMore }}</a></div>
                       </sc-if>
                     </div>
                   </div>
@@ -107,17 +112,18 @@
     </div>
   </section>
 
-  <footer style="padding: 20px; display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap;">
+  <footer style="padding: 40px 0 0; display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap;">
     <div style="display: flex; flex-direction: column; align-items: flex-start;">
-      <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #141310);">Guillaume Helleu</span>
-      <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #141310); opacity: 0.5;">Digital Research, Technological Pedagogy and Creative Practice.</span>
+      <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #000);">Guillaume Helleu</span>
+      <span style="font-size: 20px; font-weight: 400; line-height: 1.4; color: var(--ink, #000); opacity: 0.5;">Digital Research, Technological Pedagogy and Creative Practice.</span>
     </div>
     <div style="width: 323px; max-width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
-      <a href="mailto:guillaumehelleu.pro@gmail.com" style="width: 100%; font-size: 16px; line-height: 1.4; text-align: right; color: var(--ink, #141310); text-decoration: underline;">guillaumehelleu.pro@gmail.com</a>
-      <span style="width: 100%; font-size: 16px; line-height: 1.4; text-align: right; color: var(--ink, #141310);">+41 78 308 59 56</span>
+      <a href="mailto:guillaumehelleu.pro@gmail.com" style="width: 100%; font-size: 16px; line-height: 1.4; text-align: right; color: var(--ink, #000); text-decoration: underline;">guillaumehelleu.pro@gmail.com</a>
+      <span style="width: 100%; font-size: 16px; line-height: 1.4; text-align: right; color: var(--ink, #000);">+41 78 308 59 56</span>
     </div>
   </footer>
 
+  </div>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
@@ -145,8 +151,8 @@ class Component extends DCLogic {
 
   get pal() {
     return this.state.theme === 'dark'
-      ? { bg: '#131210', ink: '#f0ede4', muted: '#84827a', preview: '#22211b', stripe: 'rgba(255,255,255,0.05)' }
-      : { bg: '#ffffff', ink: '#141310', muted: '#8f8d86', preview: '#f0efec', stripe: 'rgba(0,0,0,0.03)' };
+      ? { bg: '#0e0e10', ink: '#f2f0ea', muted: '#7d7b75', preview: '#1c1c1f', stripe: 'rgba(255,255,255,0.05)' }
+      : { bg: '#ffffff', ink: '#000000', muted: '#787878', preview: '#e6e5e2', stripe: 'rgba(0,0,0,0.03)' };
   }
 
   buildNav() {
@@ -156,7 +162,7 @@ class Component extends DCLogic {
       : [['Index', 'Index.dc.html'], ['Research', 'Recherche.dc.html'], ['Pedagogy', 'Pedagogie.dc.html'], ['Practice', 'Pratique.dc.html'], ['About', 'About.dc.html']];
     return items.map(([label, href], i) => ({
       label, href,
-      style: { color: p.ink, textDecoration: i === 3 ? 'underline' : 'none', textUnderlineOffset: '4px' }
+      style: { fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, whiteSpace: 'nowrap', color: p.ink, textDecoration: i === 3 ? 'underline' : 'none', textUnderlineOffset: '4px' }
     }));
   }
 
@@ -181,7 +187,7 @@ class Component extends DCLogic {
         gallery: [1, 2, 3].map(n => ({ id: 'prat-' + i + '-' + n })),
         open,
         mark: open ? '–' : '+',
-        markStyle: { color: 'var(--muted, #8f8d86)', fontWeight: 400, transition: 'color 0.15s' },
+        markStyle: { color: 'var(--muted, #787878)', fontWeight: 400, transition: 'color 0.15s' },
         style: { ...rowBase },
         hoverStyle: { textDecoration: 'underline', textUnderlineOffset: '3px' },
         onToggle: () => this.setState(s => ({ open: s.open === i ? null : i }))
@@ -195,12 +201,12 @@ class Component extends DCLogic {
     return {
       rootStyle: {
         minHeight: '100vh', background: p.bg, color: p.ink, fontFamily: "'Inter', sans-serif",
-        transition: 'background 0.35s ease, color 0.35s ease',
+        padding: '20px', transition: 'background 0.35s ease, color 0.35s ease',
         '--ink': p.ink, '--muted': p.muted, '--bg': p.bg, '--preview': p.preview, '--stripe': p.stripe
       },
       navItems: this.buildNav(),
       inkHover: { color: p.muted },
-      ctrlStyle: { fontFamily: "'Inter', sans-serif", fontSize: '16px', background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', color: p.ink, letterSpacing: '-0.005em' },
+      ctrlStyle: { fontFamily: "'Inter', sans-serif", fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', color: p.ink, whiteSpace: 'nowrap' },
       toggleLang: () => this.setLang(this.isFr ? 'en' : 'fr'),
       toggleTheme: () => this.setTheme(this.state.theme === 'light' ? 'dark' : 'light'),
       langLabel: this.isFr ? 'English' : 'Français',
