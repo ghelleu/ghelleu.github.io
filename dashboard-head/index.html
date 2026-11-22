@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Pilotage de la filière AI</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="#accueil">Architecture d'intérieur<span>HEAD – Genève</span></a>
+  <div class="ttl"><b>Plateforme de pilotage</b><span class="demo">Démonstrateur · données fictives</span></div>
+  <div class="today"><label for="day">Aujourd'hui</label><input type="range" id="day" aria-label="Date simulée"><b id="dayl"></b><button id="reset" title="Revenir au 7 décembre 2026">Réinitialiser</button></div>
+  <button class="ask" id="askb"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg><span>Demander à l'assistant</span><kbd>Ctrl K</kbd></button>
+</header>
+<div class="app">
+  <aside class="side">
+    <nav class="nav" id="nav" aria-label="Modules"></nav>
+    <div class="legendk"><span><i class="dot d-late"></i>En retard</span><span><i class="dot d-trig"></i>Cette semaine</span><span><i class="dot d-open"></i>En cours</span><span><i class="dot d-soon"></i>À venir</span><span><i class="dot d-done"></i>Fait</span></div>
+    <p class="note">Démonstrateur. Les jalons marqués <b>officiel</b> viennent du calendrier académique 2026-2027 ; les tâches, règles et échéances marquées <b>guide</b> viennent du guide de passation de novembre 2026. Personnes, effectifs, montants et statuts sont fictifs.</p>
+  </aside>
+  <main id="main"></main>
+</div>
+<div class="veil" id="veil"></div>
+<aside id="drawer" class="drawer" aria-live="polite"><button class="x" id="dx">Fermer</button><div id="dbody"></div></aside>
+<div id="tip" class="tip"></div>
+<div id="toast" class="toast" role="status"></div>
+<script src="js/data.js"></script>
+<script src="js/cat.js"></script>
+<script src="js/core.js"></script>
+<script src="js/act.js"></script>
+<script src="js/v1.js"></script>
+<script src="js/v2.js"></script>
+<script src="js/v3.js"></script>
+<script src="js/v4.js"></script>
+<script src="js/srvdata.js"></script>
+<script src="js/srv.js"></script>
+<script src="js/v0.js"></script>
+</body>
+</html>
