@@ -140,8 +140,8 @@ class Component extends DCLogic {
   buildNav() {
     const p = this.pal;
     const items = this.state.lang === 'fr'
-      ? [['Index', 'Index.dc.html'], ['Recherche', 'Recherche.dc.html'], ['Pédagogie', 'Pedagogie.dc.html'], ['Pratique', 'Pratique.dc.html'], ['À propos', 'About.dc.html']]
-      : [['Index', 'Index.dc.html'], ['Research', 'Recherche.dc.html'], ['Pedagogy', 'Pedagogie.dc.html'], ['Practice', 'Pratique.dc.html'], ['About', 'About.dc.html']];
+      ? [['À propos', 'About.dc.html'], ['Recherche', 'Recherche.dc.html'], ['Pédagogie', 'Pedagogie.dc.html'], ['Pratique', 'Pratique.dc.html'], ['Index', 'Index.dc.html']]
+      : [['About', 'About.dc.html'], ['Research', 'Recherche.dc.html'], ['Pedagogy', 'Pedagogie.dc.html'], ['Practice', 'Pratique.dc.html'], ['Index', 'Index.dc.html']];
     return items.map(([label, href]) => ({
       label, href,
       style: { fontSize: 'clamp(13px, 1.25vw, 24px)', fontWeight: 400, lineHeight: 1.4, whiteSpace: 'nowrap', color: p.ink }
